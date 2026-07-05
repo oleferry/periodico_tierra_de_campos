@@ -1,0 +1,11 @@
+<svg width="240" height="240" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="palomarIconTitle">
+  <title id="palomarIconTitle">El Palomar — icono</title>
+  <rect x="48" y="212" width="144" height="12" rx="2" fill="#3A3530"/>
+  <polygon points="56,224 184,224 168,88 72,88" fill="#9C5B33"/>
+  <polygon points="72,88 168,88 120,36" fill="#6B3B22"/>
+  <rect x="104" y="176" width="32" height="48" rx="16" fill="#D9C7A7"/>
+  <circle cx="96" cy="132" r="7" fill="#D9C7A7"/>
+  <circle cx="120" cy="128" r="7" fill="#D9C7A7"/>
+  <circle cx="144" cy="132" r="7" fill="#D9C7A7"/>
+  <path d="M168 58 C176 44 196 42 208 50 C198 48 190 52 186 60 C196 58 206 62 212 70 C200 66 188 64 180 70 C180 62 174 60 168 58 Z" fill="#7FA8C9"/>
+</svg>
