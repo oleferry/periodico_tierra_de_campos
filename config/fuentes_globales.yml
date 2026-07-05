@@ -1,0 +1,81 @@
+fuentes_globales:
+  - name: AEMET OpenData
+    slug: aemet-opendata
+    vertical: tiempo
+    method: api
+    url: https://opendata.aemet.es/dist/index.html
+    frequency: twice_daily
+    requires_key: true
+    reliability: high
+
+  - name: AEMET predicción municipios
+    slug: aemet-prediccion-municipios
+    vertical: tiempo
+    method: api
+    url: https://opendata.aemet.es/centrodedescargas/productosAEMET
+    frequency: twice_daily
+    reliability: high
+
+  - name: InfoRiego
+    slug: inforiego
+    vertical: campo_riego
+    method: api_csv_web
+    url: https://www.inforiego.org/opencms/opencms/info_meteo/index.html
+    frequency: daily
+    reliability: high
+
+  - name: BOCYL Datos Abiertos
+    slug: bocyl-datos-abiertos
+    vertical: ayudas_boletines
+    method: api
+    url: https://analisis.datosabiertos.jcyl.es/explore/dataset/bocyl/api/
+    frequency: daily
+    reliability: high
+
+  - name: BOP Valladolid RSS
+    slug: bop-valladolid-rss
+    vertical: bop
+    method: rss
+    url: https://bop.sede.diputaciondevalladolid.es/rss-bop
+    frequency: daily
+    reliability: high
+
+  - name: BOP Palencia
+    slug: bop-palencia
+    vertical: bop
+    method: html_pdf
+    url: https://www.diputaciondepalencia.es/servicios/boletin-oficial-provincia
+    frequency: daily
+    reliability: high
+
+  - name: BOP León
+    slug: bop-leon
+    vertical: bop
+    method: html_pdf
+    url: https://bop.dipuleon.es/publica/buscador-anuncios/
+    frequency: daily
+    reliability: medium_high
+
+  - name: BOP Zamora
+    slug: bop-zamora
+    vertical: bop
+    method: html_pdf
+    url: https://www.diputaciondezamora.es/opencms/servicios/BOP/busqueda-en-el-bop/
+    frequency: daily
+    reliability: high
+
+  - name: RFCYLF resultados
+    slug: rfcylf-resultados
+    vertical: deportes
+    method: html_dynamic
+    url: https://www.rfcylf.es/pnfg/NPcd/NFG_CmpJornada?cod_primaria=1000120
+    frequency: weekend_monday
+    reliability: medium_high
+
+  - name: FBCYL competiciones
+    slug: fbcyl-competiciones
+    vertical: deportes
+    method: html
+    url: https://www.fbcyl.es/buscar_competicion
+    frequency: weekly
+    reliability: medium

@@ -1,0 +1,60 @@
+municipios:
+  - name: Mayorga
+    slug: mayorga
+    province: Valladolid
+    priority: 1
+    web: https://mayorga.ayuntamientosdevalladolid.es/
+    plenary_url: https://mayorga.ayuntamientosdevalladolid.es/el-ayuntamiento/organizacion-municipal/plenos-municipales
+    sede: https://mayorga.sedelectronica.es/
+    bop: Valladolid
+    status: piloto
+
+  - name: Villalón de Campos
+    slug: villalon-de-campos
+    province: Valladolid
+    priority: 1
+    web: https://villalondecampos.ayuntamientosdevalladolid.es/
+    plenary_url: https://villalondecampos.ayuntamientosdevalladolid.es/el-ayuntamiento/organizacion-municipal/plenos-municipales
+    sede: https://villalondecampos.sedelectronica.es/
+    bop: Valladolid
+    status: piloto
+
+  - name: Villada
+    slug: villada
+    province: Palencia
+    priority: 1
+    web: https://villada.es/
+    plenary_url: https://villada.es/categoria/ayuntamiento/actas-de-pleno/
+    sede: https://villada.sedelectronica.es/
+    bop: Palencia
+    status: piloto
+
+  - name: Medina de Rioseco
+    slug: medina-de-rioseco
+    province: Valladolid
+    priority: 1
+    web: https://medinaderioseco.org/
+    plenary_url: https://medinaderioseco.org/organizacion-municipal/plenos-municipales/
+    sede: https://medinaderioseco.sedelectronica.es/
+    bop: Valladolid
+    status: piloto
+
+  - name: Sahagún
+    slug: sahagun
+    province: León
+    priority: 1
+    web: https://www.aytosahagun.es/
+    plenary_url: https://www.aytosahagun.es/ayuntamiento/normativa-municipal/
+    sede: https://sahagun.sedelectronica.es/
+    bop: León
+    status: piloto
+
+  - name: Valderas
+    slug: valderas
+    province: León
+    priority: 1
+    web: https://www.aytovalderas.es/
+    plenary_url: https://www.aytovalderas.es/ayuntamiento/normativa-municipal/
+    sede: https://aytovalderas.sedelectronica.es/
+    bop: León
+    status: piloto
