@@ -1,4 +1,4 @@
--- Tierra de Campos al Día — esquema MVP PostgreSQL/Supabase
+-- El Terracampino — esquema MVP PostgreSQL/Supabase
 -- Ejecutar en Supabase SQL editor o PostgreSQL compatible.
 
 create extension if not exists "uuid-ossp";

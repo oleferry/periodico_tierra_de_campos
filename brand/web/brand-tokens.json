@@ -1,0 +1,31 @@
+{
+  "brand": "El Terracampino",
+  "domain": "elterracampino.es",
+  "colors": {
+    "tinta_tierra": "#251F1A",
+    "papel_crudo": "#F4EBDD",
+    "terron": "#A65F2A",
+    "trigo_seco": "#D8B15A",
+    "verde_regadio": "#5F7C52",
+    "cielo_bajo": "#B8C8C2",
+    "azul_bop": "#2F556D",
+    "rojo_aviso": "#A93A32"
+  },
+  "typography": {
+    "headline": [
+      "Fraunces",
+      "Libre Baskerville",
+      "Georgia"
+    ],
+    "body": [
+      "Atkinson Hyperlegible",
+      "IBM Plex Sans",
+      "Inter",
+      "Arial"
+    ],
+    "data": [
+      "IBM Plex Mono",
+      "Courier New"
+    ]
+  }
+}

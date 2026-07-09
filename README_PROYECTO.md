@@ -1,4 +1,4 @@
-# Tierra de Campos al Día — README de proyecto MVP
+# El Terracampino — README de proyecto MVP
 
 ## 0. Decisión de producto
 
@@ -417,7 +417,7 @@ La diaria solo cuando haya contenido suficiente.
 
 Canal inicial:
 
-- Tierra de Campos al Día.
+- El Terracampino.
 
 Canales posteriores:
 

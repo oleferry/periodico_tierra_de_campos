@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-label="Plantilla story 9x16 El Terracampino">
+  <rect width="1080" height="1920" fill="#F4EBDD"/>
+  <g opacity="0.14" stroke="#251F1A" stroke-width="2">
+    <line x1="72" y1="120" x2="1008" y2="120"/><line x1="72" y1="150" x2="1008" y2="150"/><line x1="72" y1="180" x2="1008" y2="180"/><line x1="72" y1="210" x2="1008" y2="210"/><line x1="72" y1="240" x2="1008" y2="240"/><line x1="72" y1="270" x2="1008" y2="270"/><line x1="72" y1="300" x2="1008" y2="300"/><line x1="72" y1="330" x2="1008" y2="330"/><line x1="72" y1="360" x2="1008" y2="360"/><line x1="72" y1="390" x2="1008" y2="390"/><line x1="72" y1="420" x2="1008" y2="420"/><line x1="72" y1="450" x2="1008" y2="450"/><line x1="72" y1="480" x2="1008" y2="480"/><line x1="72" y1="510" x2="1008" y2="510"/><line x1="72" y1="540" x2="1008" y2="540"/><line x1="72" y1="570" x2="1008" y2="570"/><line x1="72" y1="600" x2="1008" y2="600"/><line x1="72" y1="630" x2="1008" y2="630"/><line x1="72" y1="660" x2="1008" y2="660"/><line x1="72" y1="690" x2="1008" y2="690"/><line x1="72" y1="720" x2="1008" y2="720"/><line x1="72" y1="750" x2="1008" y2="750"/><line x1="72" y1="780" x2="1008" y2="780"/><line x1="72" y1="810" x2="1008" y2="810"/><line x1="72" y1="840" x2="1008" y2="840"/><line x1="72" y1="870" x2="1008" y2="870"/><line x1="72" y1="900" x2="1008" y2="900"/><line x1="72" y1="930" x2="1008" y2="930"/><line x1="72" y1="960" x2="1008" y2="960"/><line x1="72" y1="990" x2="1008" y2="990"/><line x1="72" y1="1020" x2="1008" y2="1020"/><line x1="72" y1="1050" x2="1008" y2="1050"/><line x1="72" y1="1080" x2="1008" y2="1080"/><line x1="72" y1="1110" x2="1008" y2="1110"/><line x1="72" y1="1140" x2="1008" y2="1140"/><line x1="72" y1="1170" x2="1008" y2="1170"/><line x1="72" y1="1200" x2="1008" y2="1200"/><line x1="72" y1="1230" x2="1008" y2="1230"/><line x1="72" y1="1260" x2="1008" y2="1260"/><line x1="72" y1="1290" x2="1008" y2="1290"/><line x1="72" y1="1320" x2="1008" y2="1320"/><line x1="72" y1="1350" x2="1008" y2="1350"/><line x1="72" y1="1380" x2="1008" y2="1380"/><line x1="72" y1="1410" x2="1008" y2="1410"/><line x1="72" y1="1440" x2="1008" y2="1440"/><line x1="72" y1="1470" x2="1008" y2="1470"/><line x1="72" y1="1500" x2="1008" y2="1500"/><line x1="72" y1="1530" x2="1008" y2="1530"/><line x1="72" y1="1560" x2="1008" y2="1560"/><line x1="72" y1="1590" x2="1008" y2="1590"/><line x1="72" y1="1620" x2="1008" y2="1620"/><line x1="72" y1="1650" x2="1008" y2="1650"/><line x1="72" y1="1680" x2="1008" y2="1680"/><line x1="72" y1="1710" x2="1008" y2="1710"/><line x1="72" y1="1740" x2="1008" y2="1740"/><line x1="72" y1="1770" x2="1008" y2="1770"/>
+  </g>
+  <rect x="72" y="72" width="936" height="1776" fill="none" stroke="#251F1A" stroke-width="3"/>
+  <text x="94" y="160" font-family="Courier New, monospace" font-size="34" letter-spacing="4" fill="#2F556D">EL AVISO</text>
+  <text x="94" y="590" font-family="Georgia, serif" font-size="112" font-weight="700" fill="#251F1A">
+    <tspan x="94" dy="0">Un dato.</tspan>
+    <tspan x="94" dy="130">Bien</tspan>
+    <tspan x="94" dy="130">contado.</tspan>
+  </text>
+  <rect x="94" y="1020" width="360" height="8" fill="#A65F2A"/>
+  <text x="94" y="1130" font-family="Arial, sans-serif" font-size="44" fill="#251F1A">
+    <tspan x="94" dy="0">Municipio, hora, fuente</tspan>
+    <tspan x="94" dy="64">y enlace en la web.</tspan>
+  </text>
+  <text x="94" y="1730" font-family="Georgia, serif" font-size="42" font-weight="700" fill="#251F1A">El Terracampino</text>
+  <text x="94" y="1790" font-family="Arial, sans-serif" font-size="26" letter-spacing="2" fill="#2F556D">elterracampino.es</text>
+</svg>

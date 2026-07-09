@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="420" viewBox="0 0 1200 420" role="img" aria-label="Cabecera newsletter El Terracampino">
+  <rect width="1200" height="420" fill="#F4EBDD"/>
+  <g opacity="0.14" stroke="#251F1A" stroke-width="2">
+    <line x1="60" y1="46" x2="1140" y2="46"/><line x1="60" y1="64" x2="1140" y2="64"/><line x1="60" y1="82" x2="1140" y2="82"/><line x1="60" y1="100" x2="1140" y2="100"/><line x1="60" y1="118" x2="1140" y2="118"/><line x1="60" y1="136" x2="1140" y2="136"/><line x1="60" y1="154" x2="1140" y2="154"/><line x1="60" y1="172" x2="1140" y2="172"/><line x1="60" y1="190" x2="1140" y2="190"/><line x1="60" y1="208" x2="1140" y2="208"/><line x1="60" y1="226" x2="1140" y2="226"/><line x1="60" y1="244" x2="1140" y2="244"/><line x1="60" y1="262" x2="1140" y2="262"/><line x1="60" y1="280" x2="1140" y2="280"/><line x1="60" y1="298" x2="1140" y2="298"/><line x1="60" y1="316" x2="1140" y2="316"/><line x1="60" y1="334" x2="1140" y2="334"/><line x1="60" y1="352" x2="1140" y2="352"/><line x1="60" y1="370" x2="1140" y2="370"/><line x1="60" y1="388" x2="1140" y2="388"/>
+  </g>
+  <text x="60" y="142" font-family="Georgia, serif" font-size="86" font-weight="700" fill="#251F1A">El Terracampino</text>
+  <rect x="60" y="178" width="760" height="6" fill="#A65F2A"/>
+  <text x="60" y="240" font-family="Arial, sans-serif" font-size="32" letter-spacing="3" fill="#2F556D">LA SEMANA TERRACAMPINA</text>
+  <text x="60" y="310" font-family="Arial, sans-serif" font-size="28" fill="#251F1A">Lo que pasa cerca, contado claro.</text>
+</svg>
