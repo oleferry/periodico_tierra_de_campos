@@ -1,26 +1,23 @@
--- Tierra de Campos al Día — seed de municipios piloto y fuentes
--- Ejecutar DESPUÉS de schema.sql en el mismo proyecto Supabase/Postgres.
--- Generado a partir de config/municipios_piloto.yml y config/fuentes_globales.yml.
+-- El Terracampino — seed de FUENTES de los municipios piloto + fuentes globales.
+-- Ejecutar DESPUÉS de schema.sql Y de seed_comarca.sql (que carga los municipios).
+-- Orden completo:  schema.sql  →  seed_comarca.sql  →  seed_piloto.sql
+--
+-- Los municipios (los 191, con los 12 pilotos enriquecidos) los inserta seed_comarca.sql.
+-- Aquí solo se insertan las fuentes (sources), referenciando cada municipio por slug.
 --
 -- Nota de normalización (decisión 2026-07-05):
--- El enum source_method solo admite ('api','rss','html','pdf','csv','manual') y
--- reliability_level solo admite ('high','medium','low'), pero los YAML de origen
--- usan valores compuestos ('api_csv_web', 'html_pdf', 'html_dynamic', 'medium_high').
--- Se normalizan al valor más cercano del enum y se conserva el valor original del
--- YAML en sources.config->>'method_detail' para no perder el matiz.
+-- source_method solo admite ('api','rss','html','pdf','csv','manual') y
+-- reliability_level solo ('high','medium','low'), pero los YAML de origen usan valores
+-- compuestos ('api_csv_web','html_pdf','html_dynamic','medium_high'). Se normaliza al
+-- valor de enum más cercano y se guarda el original en sources.config->>'method_detail'.
+--
+-- Nota de verificación (estudio 2026-07-11): la sede electrónica y los plenos/actas no
+-- se verificaron para ningún piloto. Los 6 primeros conservan las rutas del pack original;
+-- los 6 añadidos (Carrión, Paredes de Nava, Villalpando, Becerril, Fuentes de Nava,
+-- Villarramiel) solo llevan la web municipal verificada. Su sede/plenos quedan en cola de
+-- verificación manual (verify_pending en config/municipios_piloto.yml); no se inventan URLs.
 
--- 1. Municipios piloto (prioridad 1)
-
-insert into municipalities (name, slug, province, comarca, priority, active, notes) values
-  ('Mayorga', 'mayorga', 'Valladolid', 'Tierra de Campos', 1, true, 'Municipio piloto'),
-  ('Villalón de Campos', 'villalon-de-campos', 'Valladolid', 'Tierra de Campos', 1, true, 'Municipio piloto'),
-  ('Villada', 'villada', 'Palencia', 'Tierra de Campos', 1, true, 'Municipio piloto'),
-  ('Medina de Rioseco', 'medina-de-rioseco', 'Valladolid', 'Tierra de Campos', 1, true, 'Municipio piloto'),
-  ('Sahagún', 'sahagun', 'León', 'Tierra de Campos', 1, true, 'Municipio piloto'),
-  ('Valderas', 'valderas', 'León', 'Tierra de Campos', 1, true, 'Municipio piloto')
-on conflict (slug) do nothing;
-
--- 2. Fuentes municipales (web, sede electrónica, plenos) por municipio piloto
+-- 1. Fuentes municipales de los 6 pilotos originales (web + plenos + sede)
 
 insert into sources (municipality_id, name, slug, type, method, url, frequency, reliability, requires_review_default, active, legal_notes) values
   ((select id from municipalities where slug = 'mayorga'), 'Mayorga - Web municipal', 'mayorga-web', 'municipal_news', 'html', 'https://mayorga.ayuntamientosdevalladolid.es/', 'daily', 'high', true, true, null),
@@ -45,7 +42,17 @@ insert into sources (municipality_id, name, slug, type, method, url, frequency, 
 
   ((select id from municipalities where slug = 'valderas'), 'Valderas - Web municipal', 'valderas-web', 'municipal_news', 'html', 'https://www.aytovalderas.es/', 'daily', 'high', true, true, null),
   ((select id from municipalities where slug = 'valderas'), 'Valderas - Normativa municipal', 'valderas-normativa', 'municipal_plenary', 'html', 'https://www.aytovalderas.es/ayuntamiento/normativa-municipal/', 'daily', 'high', true, true, null),
-  ((select id from municipalities where slug = 'valderas'), 'Valderas - Sede electrónica', 'valderas-sede', 'electronic_office', 'html', 'https://aytovalderas.sedelectronica.es/', 'daily', 'high', true, true, null)
+  ((select id from municipalities where slug = 'valderas'), 'Valderas - Sede electrónica', 'valderas-sede', 'electronic_office', 'html', 'https://aytovalderas.sedelectronica.es/', 'daily', 'high', true, true, null),
+
+-- 2. Fuentes de los 6 pilotos añadidos (2026-07-11): solo web municipal verificada.
+--    Sede y plenos pendientes de verificación manual (no se insertan URLs inventadas).
+
+  ((select id from municipalities where slug = 'carrion-de-los-condes'), 'Carrión de los Condes - Web municipal', 'carrion-de-los-condes-web', 'municipal_news', 'html', 'https://carriondeloscondes.org/', 'daily', 'high', true, true, 'Sede y plenos pendientes de verificación manual'),
+  ((select id from municipalities where slug = 'paredes-de-nava'), 'Paredes de Nava - Web municipal', 'paredes-de-nava-web', 'municipal_news', 'html', 'https://paredesdenava.es/', 'daily', 'high', true, true, 'Sede y plenos pendientes de verificación manual'),
+  ((select id from municipalities where slug = 'villalpando'), 'Villalpando - Web municipal', 'villalpando-web', 'municipal_news', 'html', 'https://villalpando.es/', 'daily', 'high', true, true, 'Sede y plenos pendientes de verificación manual'),
+  ((select id from municipalities where slug = 'becerril-de-campos'), 'Becerril de Campos - Web municipal', 'becerril-de-campos-web', 'municipal_news', 'html', 'https://becerrildecampos.es/', 'daily', 'high', true, true, 'Sede y plenos pendientes de verificación manual'),
+  ((select id from municipalities where slug = 'fuentes-de-nava'), 'Fuentes de Nava - Web municipal', 'fuentes-de-nava-web', 'municipal_news', 'html', 'https://fuentesdenava.es/', 'daily', 'high', true, true, 'Sede y plenos pendientes de verificación manual'),
+  ((select id from municipalities where slug = 'villarramiel'), 'Villarramiel - Web municipal', 'villarramiel-web', 'municipal_news', 'html', 'https://villarramiel.es/', 'daily', 'high', true, true, 'Sede y plenos pendientes de verificación manual')
 on conflict (slug) do nothing;
 
 -- 3. Fuentes globales (no ligadas a un municipio concreto)

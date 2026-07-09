@@ -1,7 +1,18 @@
+# 12 municipios piloto de El Terracampino (Tierra de Campos al día).
+# Población 2025 y coordenadas: docs/estudio-fuentes-y-viabilidad.md.
+# La comarca completa (191 municipios) está en data/municipios_tierra_de_campos.csv.
+#
+# Nota de verificación (estudio 2026-07-11): para NINGÚN municipio se verificó de
+# forma fiable la sede electrónica ni el repositorio de plenos/actas. Los primeros 6
+# conservan las rutas del pack original (sede/plenos); los 6 añadidos el 2026-07-11
+# solo llevan web municipal verificada y quedan con sede/plenos en cola de
+# verificación manual (verify_pending). No se inventan URLs profundas.
+
 municipios:
   - name: Mayorga
     slug: mayorga
     province: Valladolid
+    population: 1354
     priority: 1
     web: https://mayorga.ayuntamientosdevalladolid.es/
     plenary_url: https://mayorga.ayuntamientosdevalladolid.es/el-ayuntamiento/organizacion-municipal/plenos-municipales
@@ -12,6 +23,7 @@ municipios:
   - name: Villalón de Campos
     slug: villalon-de-campos
     province: Valladolid
+    population: 1473
     priority: 1
     web: https://villalondecampos.ayuntamientosdevalladolid.es/
     plenary_url: https://villalondecampos.ayuntamientosdevalladolid.es/el-ayuntamiento/organizacion-municipal/plenos-municipales
@@ -22,6 +34,7 @@ municipios:
   - name: Villada
     slug: villada
     province: Palencia
+    population: 863
     priority: 1
     web: https://villada.es/
     plenary_url: https://villada.es/categoria/ayuntamiento/actas-de-pleno/
@@ -32,6 +45,7 @@ municipios:
   - name: Medina de Rioseco
     slug: medina-de-rioseco
     province: Valladolid
+    population: 4617
     priority: 1
     web: https://medinaderioseco.org/
     plenary_url: https://medinaderioseco.org/organizacion-municipal/plenos-municipales/
@@ -42,6 +56,7 @@ municipios:
   - name: Sahagún
     slug: sahagun
     province: León
+    population: 2380
     priority: 1
     web: https://www.aytosahagun.es/
     plenary_url: https://www.aytosahagun.es/ayuntamiento/normativa-municipal/
@@ -52,9 +67,70 @@ municipios:
   - name: Valderas
     slug: valderas
     province: León
+    population: 1479
     priority: 1
     web: https://www.aytovalderas.es/
     plenary_url: https://www.aytovalderas.es/ayuntamiento/normativa-municipal/
     sede: https://aytovalderas.sedelectronica.es/
     bop: León
     status: piloto
+
+  - name: Carrión de los Condes
+    slug: carrion-de-los-condes
+    province: Palencia
+    population: 1997
+    priority: 1
+    web: https://carriondeloscondes.org/
+    bop: Palencia
+    status: piloto
+    verify_pending: [sede, plenos]
+
+  - name: Paredes de Nava
+    slug: paredes-de-nava
+    province: Palencia
+    population: 1927
+    priority: 1
+    web: https://paredesdenava.es/
+    bop: Palencia
+    status: piloto
+    verify_pending: [sede, plenos]
+
+  - name: Villalpando
+    slug: villalpando
+    province: Zamora
+    population: 1433
+    priority: 1
+    web: https://villalpando.es/
+    bop: Zamora
+    status: piloto
+    verify_pending: [sede, plenos]
+
+  - name: Becerril de Campos
+    slug: becerril-de-campos
+    province: Palencia
+    population: 737
+    priority: 1
+    web: https://becerrildecampos.es/
+    bop: Palencia
+    status: piloto
+    verify_pending: [sede, plenos]
+
+  - name: Fuentes de Nava
+    slug: fuentes-de-nava
+    province: Palencia
+    population: 581
+    priority: 1
+    web: https://fuentesdenava.es/
+    bop: Palencia
+    status: piloto
+    verify_pending: [sede, plenos]
+
+  - name: Villarramiel
+    slug: villarramiel
+    province: Palencia
+    population: 782
+    priority: 1
+    web: https://villarramiel.es/
+    bop: Palencia
+    status: piloto
+    verify_pending: [sede, plenos]
