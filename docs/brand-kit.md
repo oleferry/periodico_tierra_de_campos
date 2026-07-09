@@ -1,16 +1,18 @@
-# El Palomar — Kit de marca
+# El Terracampino — Kit de marca
 
 ## 1. Identidad
 
-**Nombre de marca:** El Palomar
+**Nombre de marca:** El Terracampino
 
-**Subtítulo / claim (usar siempre junto al nombre, no solo el nombre solo):**
+**Dominio oficial:** [elterracampino.es](https://elterracampino.es)
 
-> El Palomar — Tierra de Campos al día
+**Subtítulo / claim (usar siempre junto al nombre la primera vez en cada pieza/canal):**
 
-El subtítulo no es decorativo: "Tierra de Campos" es el término que la gente busca en Google y el que da contexto inmediato a quien no conoce la marca. En SEO, redes y cabecera de la web, el nombre "El Palomar" debe aparecer casi siempre acompañado de "Tierra de Campos" (title tag, bio de redes, encabezado de newsletter, etc.). Solo "El Palomar" a secas vale para elementos ya contextualizados (icono de app, favicon, membrete interno).
+> El Terracampino — Tierra de Campos al día
 
-**Por qué el palomar:** el palomar de adobe es el icono arquitectónico más reconocible de la comarca, y la paloma mensajera es la metáfora natural de un medio que recoge información dispersa por los pueblos y la hace volar hasta el lector. Encaja con el principio fundacional del proyecto: no es opinión, es vigilancia informativa estructurada — el palomar recoge, no inventa.
+"Terracampino/a" es el gentilicio real de quien vive en Tierra de Campos. El nombre funciona en dos capas a la vez: suena a persona (el vecino que te cuenta lo que pasa en la comarca, no un medio anónimo) y ya lleva "Tierra de Campos" incorporado, así que ayuda solo al SEO y al reconocimiento, sin depender tanto del subtítulo como pasaría con un nombre más abstracto. Aun así, la primera mención en cada página/canal debe ir acompañada del subtítulo para quien no conozca el gentilicio.
+
+**Símbolo — el palomar:** se mantiene como icono de marca, con el mismo razonamiento que dio origen a la primera propuesta ("El Palomar"): el palomar de adobe es el icono arquitectónico más reconocible de la comarca, y la paloma mensajera es la metáfora natural de un medio que recoge información dispersa por los pueblos y la hace volar hasta el lector. El nombre cambió, el símbolo no — el terracampino es quien vive allí, el palomar es lo que representa su tierra.
 
 **Claims secundarios** (usar según canal, no todos a la vez):
 - "La comarca, contada de cerca."
@@ -20,14 +22,14 @@ El subtítulo no es decorativo: "Tierra de Campos" es el término que la gente b
 ## 2. Logo
 
 Archivos en `brand/logo/`:
-- `palomar-icon.svg` — icono solo (favicon, avatar de Telegram, app icon, redes sociales).
-- `palomar-logo.svg` — lockup horizontal (icono + nombre + subtítulo), para cabecera web y newsletter.
+- `palomar-icon.svg` — icono solo (favicon, avatar de Telegram, app icon, redes sociales). El nombre de archivo describe el dibujo (un palomar), no la marca — se mantiene así aunque el nombre de marca sea El Terracampino.
+- `terracampino-logo.svg` — lockup horizontal (icono + nombre + subtítulo), para cabecera web y newsletter.
 
 Ambos son una v1 vectorial hecha a mano con formas planas y la paleta oficial. Sirven para arrancar el MVP; si el proyecto avanza, conviene encargar una revisión a un diseñador para afinar el trazo del ave y las proporciones del palomar.
 
 **Reglas de uso:**
 - No deformar ni recolorear el icono. No añadir sombras, degradados ni efectos de brillo.
-- Tamaño mínimo: icono 24px de alto; lockup horizontal 120px de ancho. Por debajo, usar solo el icono.
+- Tamaño mínimo: icono 24px de alto; lockup horizontal 140px de ancho (el nombre es más largo que "El Palomar", necesita algo más de espacio). Por debajo, usar solo el icono.
 - Espacio de respeto: dejar alrededor del logo un margen mínimo igual a la altura de una de las circunferencias del palomar (el hueco de la paloma).
 - Fondos: usar sobre Papel (#FAF6EE) o Adobe claro (#D9C7A7). Sobre foto, usar siempre sobre una franja sólida de Papel o Tierra, nunca directamente sobre imagen sin contraste garantizado.
 
@@ -68,6 +70,7 @@ Hereda directamente de `editorial/politica_editorial.md` y `docs/guia-estilo-gi.
 - Factual y sobrio, nunca editorializado. Sin alarmismo, sin urgencia artificial, sin firma de opinión disfrazada de noticia.
 - Intensidad de estilo alta en tiempo/huerta/boletín, media en deportes/agenda, baja en plenos/ayudas, muy baja en avisos urgentes.
 - El aviso editorial fijo (ver README_PROYECTO.md §19) debe aparecer siempre en web y newsletter.
+- El nombre "El Terracampino" personifica el medio, pero no le da voz propia de opinión — sigue siendo un observador factual, no un columnista. No usar el gentilicio como excusa para tono jocoso o cercanía forzada; la cercanía viene del criterio editorial, no de la personificación.
 
 ## 6. Imaginería y fotografía
 
@@ -77,7 +80,7 @@ Hereda directamente de `editorial/politica_editorial.md` y `docs/guia-estilo-gi.
 
 ## 7. Aplicación por canal
 
-- **Web:** cabecera con `palomar-logo.svg`; favicon = `palomar-icon.svg`.
+- **Web:** dominio `elterracampino.es`; cabecera con `terracampino-logo.svg`; favicon = `palomar-icon.svg`.
 - **Telegram:** avatar de canal = icono solo sobre fondo Papel.
 - **Newsletter:** cabecera con lockup horizontal; pie con aviso editorial fijo en Source Sans 3, 13px.
 - **Redes sociales:** foto de perfil = icono solo; portada/banner = lockup horizontal sobre Papel o Adobe claro.
