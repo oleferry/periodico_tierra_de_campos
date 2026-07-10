@@ -62,7 +62,10 @@ insert into sources (municipality_id, name, slug, type, method, url, frequency, 
   (null, 'AEMET predicción municipios', 'aemet-prediccion-municipios', 'weather', 'api', 'https://opendata.aemet.es/centrodedescargas/productosAEMET', 'twice_daily', 'high', false, true, '{}'::jsonb),
   (null, 'InfoRiego', 'inforiego', 'agriculture', 'api', 'https://www.inforiego.org/opencms/opencms/info_meteo/index.html', 'daily', 'high', false, true, '{"method_detail": "api_csv_web"}'::jsonb),
   (null, 'BOCYL Datos Abiertos', 'bocyl-datos-abiertos', 'bocyl', 'api', 'https://analisis.datosabiertos.jcyl.es/explore/dataset/bocyl/api/', 'daily', 'high', true, true, '{}'::jsonb),
-  (null, 'BOP Valladolid RSS', 'bop-valladolid-rss', 'bop', 'rss', 'https://bop.sede.diputaciondevalladolid.es/rss-bop', 'daily', 'high', true, true, '{}'::jsonb),
+  -- Ojo: el BOP de Valladolid NO tiene RSS operativo. La página /rss-bop es ayuda, y el
+  -- feed que ella misma documenta (/rss/) devuelve 404 (verificado 2026-07-10). Se scrapea
+  -- el sumario HTML de /ultimobop, permitido por robots.txt.
+  (null, 'BOP Valladolid — Último BOP', 'bop-valladolid', 'bop', 'html', 'https://bop.sede.diputaciondevalladolid.es/ultimobop', 'daily', 'high', true, true, '{"rss_descartado": "https://bop.sede.diputaciondevalladolid.es/rss/ devuelve 404 (verificado 2026-07-10)"}'::jsonb),
   (null, 'BOP Palencia', 'bop-palencia', 'bop', 'pdf', 'https://www.diputaciondepalencia.es/servicios/boletin-oficial-provincia', 'daily', 'high', true, true, '{"method_detail": "html_pdf"}'::jsonb),
   (null, 'BOP León', 'bop-leon', 'bop', 'pdf', 'https://bop.dipuleon.es/publica/buscador-anuncios/', 'daily', 'medium', true, true, '{"method_detail": "html_pdf", "reliability_detail": "medium_high"}'::jsonb),
   (null, 'BOP Zamora', 'bop-zamora', 'bop', 'pdf', 'https://www.diputaciondezamora.es/opencms/servicios/BOP/busqueda-en-el-bop/', 'daily', 'high', true, true, '{"method_detail": "html_pdf"}'::jsonb),
