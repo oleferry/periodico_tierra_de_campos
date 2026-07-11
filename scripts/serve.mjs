@@ -23,8 +23,14 @@ const MIME = {
 
 createServer(async (req, res) => {
   try {
-    let pathname = decodeURIComponent(new URL(req.url, `http://localhost:${port}`).pathname);
-    if (pathname === '/') pathname = '/web/index.html';
+    const pathname = decodeURIComponent(new URL(req.url, `http://localhost:${port}`).pathname);
+    if (pathname === '/') {
+      // Redirect (no reescribir internamente): así el navegador actualiza la URL
+      // y las rutas relativas del HTML (assets/..., ../brand/...) resuelven bien.
+      res.writeHead(302, { Location: '/web/index.html' });
+      res.end();
+      return;
+    }
     const filePath = normalize(join(root, pathname));
     if (!filePath.startsWith(root)) {
       res.writeHead(403).end('Forbidden');

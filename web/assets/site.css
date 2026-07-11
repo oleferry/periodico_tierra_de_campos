@@ -1,0 +1,307 @@
+/* El Terracampino — layout de la maqueta web.
+   Solo compone con los tokens de brand/web/brand-tokens.css — no redefine colores. */
+
+* { box-sizing: border-box; }
+
+.tc-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--tc-space-3);
+}
+
+/* Cabecera */
+
+.tc-header {
+  border-bottom: 1px solid rgba(37, 31, 26, .22);
+  padding: var(--tc-space-3) 0;
+}
+
+.tc-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tc-space-3);
+}
+
+.tc-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--tc-tinta-tierra);
+}
+
+.tc-logo svg { display: block; }
+
+.tc-logo-text {
+  font-family: var(--tc-font-headline);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.tc-logo-desc {
+  font-family: var(--tc-font-data);
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--tc-azul-bop);
+}
+
+.tc-nav {
+  display: flex;
+  gap: var(--tc-space-3);
+  flex-wrap: wrap;
+}
+
+.tc-nav a {
+  font-size: .92rem;
+  color: var(--tc-tinta-tierra);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+}
+
+.tc-nav a:hover { border-bottom-color: var(--tc-terron); }
+
+/* Selector de municipio */
+
+.tc-muni-select {
+  font-family: var(--tc-font-body);
+  font-size: .85rem;
+  border: 1px solid rgba(37, 31, 26, .35);
+  border-radius: var(--tc-radius-card);
+  background: var(--tc-papel-crudo);
+  color: var(--tc-tinta-tierra);
+  padding: 6px 10px;
+}
+
+/* Franja "Hoy" */
+
+.tc-hoy {
+  padding: var(--tc-space-4) 0;
+  border-bottom: 1px solid rgba(37, 31, 26, .14);
+}
+
+.tc-hoy-fecha {
+  font-family: var(--tc-font-data);
+  font-size: .8rem;
+  color: var(--tc-azul-bop);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.tc-hoy h1 {
+  font-size: 2rem;
+  margin: 8px 0 0;
+  max-width: 26ch;
+}
+
+/* Grid de piezas principales */
+
+.tc-piezas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--tc-space-3);
+  padding: var(--tc-space-4) 0;
+}
+
+@media (max-width: 800px) {
+  .tc-piezas { grid-template-columns: 1fr; }
+}
+
+.tc-pieza-titulo {
+  font-family: var(--tc-font-headline);
+  font-size: 1.15rem;
+  line-height: 1.2;
+  margin: 10px 0 8px;
+}
+
+.tc-pieza-cuerpo {
+  font-size: .92rem;
+  color: rgba(37, 31, 26, .82);
+}
+
+.tc-muni-tag {
+  font-family: var(--tc-font-data);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  color: var(--tc-terron);
+  text-transform: uppercase;
+}
+
+/* Columnas por sección (home) */
+
+.tc-secciones {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--tc-space-4);
+  padding: var(--tc-space-4) 0;
+}
+
+@media (max-width: 800px) {
+  .tc-secciones { grid-template-columns: 1fr; }
+}
+
+.tc-seccion-col h2 {
+  font-size: 1.1rem;
+  border-bottom: 2px solid currentColor;
+  display: inline-block;
+  padding-bottom: 4px;
+  margin-bottom: var(--tc-space-2);
+}
+
+.tc-item {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(37, 31, 26, .12);
+}
+
+.tc-item:last-child { border-bottom: none; }
+
+.tc-item-titulo {
+  font-size: .95rem;
+  font-weight: 700;
+  color: var(--tc-tinta-tierra);
+  text-decoration: none;
+  display: block;
+}
+
+.tc-item-meta {
+  font-family: var(--tc-font-data);
+  font-size: .75rem;
+  color: rgba(37, 31, 26, .6);
+  margin-top: 2px;
+}
+
+/* Newsletter */
+
+.tc-newsletter {
+  background: rgba(166, 95, 42, .07);
+  border-top: 1px solid rgba(37, 31, 26, .14);
+  border-bottom: 1px solid rgba(37, 31, 26, .14);
+  padding: var(--tc-space-4) 0;
+}
+
+.tc-newsletter-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tc-space-3);
+  flex-wrap: wrap;
+}
+
+.tc-newsletter h2 { font-size: 1.2rem; margin: 0 0 4px; }
+.tc-newsletter p { margin: 0; font-size: .9rem; color: rgba(37, 31, 26, .75); }
+
+.tc-form {
+  display: flex;
+  gap: 8px;
+}
+
+.tc-input {
+  font-family: var(--tc-font-body);
+  padding: 9px 12px;
+  border: 1px solid rgba(37, 31, 26, .35);
+  border-radius: var(--tc-radius-card);
+  background: var(--tc-papel-crudo);
+  min-width: 220px;
+}
+
+/* Pie */
+
+.tc-footer {
+  padding: var(--tc-space-4) 0 var(--tc-space-5);
+  font-size: .82rem;
+  color: rgba(37, 31, 26, .7);
+}
+
+.tc-footer .tc-aviso {
+  max-width: 68ch;
+  margin-bottom: var(--tc-space-3);
+}
+
+.tc-footer-links {
+  display: flex;
+  gap: var(--tc-space-3);
+  flex-wrap: wrap;
+}
+
+.tc-footer-links a { color: var(--tc-azul-bop); }
+
+/* Etiqueta de sello */
+
+.tc-sello {
+  display: inline-block;
+  font-family: var(--tc-font-data);
+  font-size: .68rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border: 1px solid currentColor;
+  border-radius: var(--tc-radius-label);
+  padding: 2px 6px;
+}
+
+.tc-sello--auto { color: var(--tc-verde-regadio); }
+.tc-sello--revisado { color: var(--tc-azul-bop); }
+.tc-sello--pendiente { color: var(--tc-rojo-aviso); }
+
+/* --- Página de municipio --- */
+
+.tc-muni-hero {
+  padding: var(--tc-space-4) 0;
+  border-bottom: 1px solid rgba(37, 31, 26, .14);
+}
+
+.tc-muni-hero .tc-section-label { margin-bottom: 6px; }
+
+.tc-muni-hero h1 {
+  font-size: 2.4rem;
+  margin: 4px 0 8px;
+}
+
+.tc-muni-meta {
+  display: flex;
+  gap: var(--tc-space-3);
+  flex-wrap: wrap;
+  font-family: var(--tc-font-data);
+  font-size: .82rem;
+  color: rgba(37, 31, 26, .7);
+}
+
+.tc-muni-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--tc-space-4);
+  padding: var(--tc-space-4) 0;
+}
+
+@media (max-width: 800px) {
+  .tc-muni-grid { grid-template-columns: 1fr; }
+}
+
+.tc-muni-main .tc-card, .tc-muni-main .tc-source-box {
+  margin-bottom: var(--tc-space-3);
+}
+
+.tc-card h3 {
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+
+.tc-side-block {
+  margin-bottom: var(--tc-space-3);
+}
+
+.tc-side-block h3 {
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--tc-azul-bop);
+  font-family: var(--tc-font-data);
+  margin: 0 0 8px;
+}
+
+.tc-links-list { list-style: none; padding: 0; margin: 0; }
+.tc-links-list li { padding: 5px 0; border-bottom: 1px solid rgba(37, 31, 26, .1); font-size: .88rem; }
+.tc-links-list a { color: var(--tc-azul-bop); text-decoration: none; }
+.tc-links-list a:hover { text-decoration: underline; }
