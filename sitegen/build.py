@@ -1,10 +1,15 @@
 """Generador del sitio estático de El Terracampino.
 
-Construye una web REAL con datos reales:
+Modelo tipo Patch: la portada es un directorio — eliges tu pueblo y lees su página.
+Cada pueblo tiene su artículo del tiempo (estilo eltiempodejavimo) y sus noticias.
+
+Datos REALES:
   · Tiempo por municipio vía Open-Meteo (scrapers/weather_openmeteo.py), en modo artículo.
   · Anuncios del BOP de Valladolid del día (scrapers/bop_valladolid.py).
 
-Salida en web/ (index.html + web/municipio/<slug>.html). Reejecutable:
+web/ es AUTOCONTENIDO (los assets de marca se copian a web/assets/), para poder
+desplegar en Vercel con Root Directory = web sin rutas que escapen del directorio.
+
     python -m sitegen.build
 
 `depth` = niveles por debajo de web/ (home=0, ficha de municipio=1).
@@ -14,6 +19,7 @@ from __future__ import annotations
 
 import csv
 import html
+import shutil
 import sys
 from datetime import date
 from pathlib import Path
@@ -24,12 +30,12 @@ from scrapers.weather_openmeteo import geocode, weather_for
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
+BRAND = ROOT / "brand"
 
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
 
-# Enlaces oficiales de los pilotos (fuente: config/municipios_piloto.yml).
 MUNI_LINKS = {
     "mayorga": {"Web municipal": "https://mayorga.ayuntamientosdevalladolid.es/",
                 "Plenos": "https://mayorga.ayuntamientosdevalladolid.es/el-ayuntamiento/organizacion-municipal/plenos-municipales",
@@ -77,23 +83,33 @@ def load_municipios() -> dict[str, dict]:
     return out
 
 
+def copy_assets() -> None:
+    """Copia los assets de marca a web/assets/ para que web/ sea autocontenido."""
+    dst = WEB / "assets"
+    dst.mkdir(parents=True, exist_ok=True)
+    shutil.copy(BRAND / "web" / "brand-tokens.css", dst / "brand-tokens.css")
+    shutil.copy(BRAND / "logos" / "favicon.svg", dst / "favicon.svg")
+    shutil.copy(BRAND / "logos" / "el-terracampino-ilustrado.png", dst / "logo.png")
+
+
 # --------------------------------------------------------------- plantilla
 
-def shell(title: str, body: str, depth: int) -> str:
-    css_site = "../" * depth + "assets/site.css"
-    to_brand = "../" * (depth + 1) + "brand"
+def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
+    up = "../" * depth  # dentro de web/
+    meta_desc = f'<meta name="description" content="{E(desc)}">' if desc else ""
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{E(title)}</title>
-<link rel="icon" href="{to_brand}/logos/favicon.svg" type="image/svg+xml">
+{meta_desc}
+<link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{to_brand}/web/brand-tokens.css">
-<link rel="stylesheet" href="{css_site}">
+<link rel="stylesheet" href="{up}assets/brand-tokens.css">
+<link rel="stylesheet" href="{up}assets/site.css">
 </head>
 <body class="tc-furrows">
 {header(depth)}
@@ -104,24 +120,15 @@ def shell(title: str, body: str, depth: int) -> str:
 """
 
 
-def logo_svg() -> str:
-    return """<svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true">
-    <rect x="32" y="32" width="448" height="448" fill="none" stroke="#251F1A" stroke-width="16"/>
-    <path d="M128 128 H384 V174 H282 V356 H230 V174 H128 Z" fill="#251F1A"/>
-    <g stroke="#A65F2A" stroke-width="10" stroke-linecap="square">
-      <line x1="112" y1="386" x2="400" y2="386"/><line x1="128" y1="416" x2="384" y2="416"/><line x1="148" y1="446" x2="364" y2="446"/>
-    </g></svg>"""
-
-
 def header(depth: int) -> str:
-    home = "../" * depth + "index.html"
+    up = "../" * depth
+    home = up + "index.html"
     return f"""<header class="tc-header"><div class="tc-wrap tc-header-inner">
-  <a href="{home}" class="tc-logo">{logo_svg()}
-    <span><span class="tc-logo-text" style="display:block;">El Terracampino</span>
-    <span class="tc-logo-desc">Tierra de Campos en limpio</span></span></a>
+  <a href="{home}" class="tc-logo"><img src="{up}assets/logo.png" alt="El Terracampino" height="52"></a>
   <nav class="tc-nav">
-    <a href="{home}#tiempo">A ras de tierra</a>
-    <a href="{home}#ayuntamiento">Ayuntamiento en limpio</a>
+    <a href="{home}">Portada</a>
+    <a href="{home}#pueblos">Elige tu pueblo</a>
+    <a href="{home}#comarca">La comarca</a>
   </nav>
 </div></header>"""
 
@@ -134,19 +141,20 @@ def footer(depth: int) -> str:
 </div></footer>"""
 
 
-# --------------------------------------------------------------- páginas
+def selector(built: list[dict], depth: int) -> str:
+    up = "../" * depth
+    opts = "".join(f'<option value="{up}municipio/{m["slug"]}.html">{E(m["name"])}</option>' for m in built)
+    return f"""<select class="tc-muni-select" aria-label="Elige tu pueblo" onchange="if(this.value)location.href=this.value;">
+    <option value="">Elige tu pueblo…</option>{opts}</select>"""
+
+
+# --------------------------------------------------------------- portada
 
 def render_home(built: list[dict], anuncios: list[dict], hoy: date) -> str:
-    cards = ""
-    for m in built:
-        w = m.get("weather")
-        if not w:
-            continue
-        cards += f"""<a class="tc-card tc-weather-card" href="municipio/{m['slug']}.html">
-      <p class="tc-muni-tag">{E(m['name'])}</p>
-      <p class="tc-weather-temp tc-data">{w['ahora']['temp']}°</p>
-      <p class="tc-pieza-cuerpo">{E(w['ahora']['desc'])} · máx {w['hoy']['max']}° / mín {w['hoy']['min']}°</p>
-    </a>"""
+    pueblos = "".join(f"""<a class="tc-pueblo" href="municipio/{m['slug']}.html">
+      <span class="tc-pueblo-nombre">{E(m['name'])}</span>
+      <span class="tc-pueblo-prov">{E(m['province'])}</span>
+    </a>""" for m in built)
 
     if anuncios:
         items = "".join(f"""<div class="tc-item">
@@ -156,24 +164,27 @@ def render_home(built: list[dict], anuncios: list[dict], hoy: date) -> str:
     else:
         items = '<div class="tc-item"><p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca en el último boletín.</p></div>'
 
-    n = len(anuncios)
-    con_tiempo = sum(1 for m in built if m.get("weather"))
-    titular = (f"{n} anuncios de la comarca en el BOP de hoy, y el tiempo de {con_tiempo} pueblos"
-               if n else f"El tiempo de {con_tiempo} pueblos de Tierra de Campos, al día")
-
-    body = f"""<section class="tc-hoy"><div class="tc-wrap">
-  <p class="tc-hoy-fecha">{fecha_larga(hoy)} — Hoy en Tierra de Campos</p>
-  <h1>{E(titular)}</h1>
+    body = f"""<section class="tc-masthead"><div class="tc-wrap">
+  <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
+  <h1>El tiempo y las noticias de tu pueblo, en limpio</h1>
+  <p class="tc-masthead-sub">Elige tu pueblo de Tierra de Campos y lee lo que pasa cerca. Cada semana, en tu correo o en tu canal.</p>
+  <div class="tc-masthead-pick">{selector(built, 0)}</div>
 </div></section>
 
-<section class="tc-wrap" id="tiempo">
-  <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">A ras de tierra — el tiempo, pueblo a pueblo</h2>
-  <div class="tc-weather-grid">{cards}</div>
+<section class="tc-wrap" id="pueblos">
+  <h2 class="tc-block-title" style="color: var(--tc-terron);">Elige tu pueblo</h2>
+  <div class="tc-pueblos-grid">{pueblos}</div>
 </section>
 
-<section class="tc-wrap tc-secciones">
-  <div class="tc-seccion-col" id="ayuntamiento">
-    <h2 style="color: var(--tc-azul-bop);">Ayuntamiento en limpio</h2>
+<section class="tc-channel"><div class="tc-wrap tc-channel-inner">
+  <div><h2>Recibe el tiempo de tu pueblo por WhatsApp o Telegram</h2>
+  <p>Un mensaje al día con la previsión de tu pueblo, y un aviso solo cuando de verdad importa: helada, ola de calor o tormenta.</p></div>
+  <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+</div></section>
+
+<section class="tc-wrap tc-secciones" id="comarca">
+  <div class="tc-seccion-col">
+    <h2 style="color: var(--tc-azul-bop);">Lo último de la comarca — Ayuntamiento en limpio</h2>
     {items}
   </div>
 </section>
@@ -182,28 +193,39 @@ def render_home(built: list[dict], anuncios: list[dict], hoy: date) -> str:
   <div><h2>La semana terracampina</h2><p>Un correo, una vez por semana. Lo que pasa cerca, contado claro.</p></div>
   <form class="tc-form" onsubmit="return false;"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo"><button class="tc-button" type="submit">Suscribirme</button></form>
 </div></section>"""
-    return shell("El Terracampino — Tierra de Campos en limpio", body, depth=0)
+    return shell("El Terracampino — el tiempo y las noticias de tu pueblo",
+                 body, depth=0,
+                 desc="El tiempo y las noticias de cada pueblo de Tierra de Campos, en limpio.")
+
+
+# --------------------------------------------------------------- municipio
+
+def weather_block(m: dict) -> str:
+    w = m.get("weather")
+    if not w:
+        return ""
+    dias = "".join(f"""<div class="tc-day">
+      <span class="tc-day-name">{E(d['dia'][:3])}</span>
+      <span class="tc-day-desc">{E(d['desc'])}</span>
+      <span class="tc-day-temp tc-data">{d['max']}° <span class="tc-day-min">{d['min']}°</span></span>
+    </div>""" for d in w["dias"])
+    return f"""<div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data">{w['ahora']['temp']}°</span>
+      <span class="tc-weather-desc">{E(w['ahora']['desc'])}</span>
+      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+    </div>
+    <p class="tc-weather-article">{E(w['articulo'])}</p>
+    <div class="tc-days">{dias}</div>
+  </div>"""
 
 
 def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
-    w = m.get("weather")
     meta = [f"Provincia de {E(m['province'])}"]
     if str(m.get("population", "")).isdigit():
         meta.append(f"{miles(m['population'])} habitantes")
-    if m.get("lat") and m.get("lon"):
-        meta.append(f"{m['lat']}, {m['lon']}")
     meta.append(f"Actualizado: {hoy.day}/{hoy.month:02d}/{hoy.year}")
     meta_html = "".join(f"<span>{s}</span>" for s in meta if s)
-
-    if w:
-        tiempo_html = f"""<div class="tc-card">
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
-      <h3>A ras de tierra</h3>
-      <p class="tc-weather-lead"><span class="tc-data" style="font-size:2rem;">{w['ahora']['temp']}°</span> {E(w['ahora']['desc'])}</p>
-      <p class="tc-pieza-cuerpo">{E(w['articulo'])}</p>
-    </div>"""
-    else:
-        tiempo_html = ""
 
     if anuncios:
         rows = "".join(f"""<div class="tc-item">
@@ -219,20 +241,35 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     if not links_html:
         links_html = "<li>Enlaces oficiales pendientes de verificar</li>"
 
+    w = m.get("weather")
+    tiempo_titular = (f"El tiempo hoy en {E(m['name'])}: {w['ahora']['temp']}° y {E(w['ahora']['desc'])}"
+                      if w else f"{E(m['name'])}")
+
     body = f"""<section class="tc-muni-hero"><div class="tc-wrap">
-  <span class="tc-section-label">Ficha de municipio</span>
+  <span class="tc-section-label">Tu pueblo</span>
   <h1>{E(m['name'])}</h1>
   <div class="tc-muni-meta">{meta_html}</div>
 </div></section>
 
 <div class="tc-wrap tc-muni-grid">
-  <main class="tc-muni-main">{tiempo_html}{ayto}</main>
+  <main class="tc-muni-main">
+    <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">A ras de tierra — {tiempo_titular}</h2>
+    {weather_block(m)}
+    <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
+      <div><h3 style="margin:0 0 4px;">Recibe el tiempo de {E(m['name'])} por canal</h3>
+      <p style="margin:0; font-size:.9rem;">La previsión de tu pueblo cada mañana, y aviso si hay helada o calor extremo.</p></div>
+      <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+    </div></div>
+    {ayto}
+  </main>
   <aside class="tc-muni-side">
     <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list">{links_html}</ul></div>
     <div class="tc-side-block"><h3>Agenda</h3><ul class="tc-links-list"><li>Sin eventos próximos verificados</li></ul></div>
+    <div class="tc-side-block"><h3>Campo y huerta</h3><p style="font-size:.88rem; color:rgba(37,31,26,.75);">Próximamente: calendario de huerta de la meseta, mes a mes.</p></div>
   </aside>
 </div>"""
-    return shell(f"{m['name']} — El Terracampino", body, depth=1)
+    desc = w["articulo"][:150] if w else f"Noticias y tiempo de {m['name']}, Tierra de Campos."
+    return shell(f"{m['name']} — El Terracampino", body, depth=1, desc=desc)
 
 
 # --------------------------------------------------------------- build
@@ -240,6 +277,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
 def main() -> int:
     hoy = date.today()
     municipios = load_municipios()
+    copy_assets()
 
     print("· BOP Valladolid…", flush=True)
     try:

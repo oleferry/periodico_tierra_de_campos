@@ -4,45 +4,65 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mayorga — El Terracampino</title>
-<link rel="icon" href="../../brand/logos/favicon.svg" type="image/svg+xml">
+<meta name="description" content="Ahora mismo en Mayorga, despejado y 28 grados. Hoy la máxima ronda los 31 y la mínima baja hasta 20. No se espera lluvia. Sopla viento flojo. Mañana, ">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../../brand/web/brand-tokens.css">
+<link rel="stylesheet" href="../assets/brand-tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
-  <a href="../index.html" class="tc-logo"><svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true">
-    <rect x="32" y="32" width="448" height="448" fill="none" stroke="#251F1A" stroke-width="16"/>
-    <path d="M128 128 H384 V174 H282 V356 H230 V174 H128 Z" fill="#251F1A"/>
-    <g stroke="#A65F2A" stroke-width="10" stroke-linecap="square">
-      <line x1="112" y1="386" x2="400" y2="386"/><line x1="128" y1="416" x2="384" y2="416"/><line x1="148" y1="446" x2="364" y2="446"/>
-    </g></svg>
-    <span><span class="tc-logo-text" style="display:block;">El Terracampino</span>
-    <span class="tc-logo-desc">Tierra de Campos en limpio</span></span></a>
+  <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
   <nav class="tc-nav">
-    <a href="../index.html#tiempo">A ras de tierra</a>
-    <a href="../index.html#ayuntamiento">Ayuntamiento en limpio</a>
+    <a href="../index.html">Portada</a>
+    <a href="../index.html#pueblos">Elige tu pueblo</a>
+    <a href="../index.html#comarca">La comarca</a>
   </nav>
 </div></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
-  <span class="tc-section-label">Ficha de municipio</span>
+  <span class="tc-section-label">Tu pueblo</span>
   <h1>Mayorga</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.354 habitantes</span><span>42.16663, -5.2627</span><span>Actualizado: 11/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.354 habitantes</span><span>Actualizado: 12/07/2026</span></div>
 </div></section>
 
 <div class="tc-wrap tc-muni-grid">
-  <main class="tc-muni-main"><div class="tc-card">
+  <main class="tc-muni-main">
+    <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Mayorga: 28° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data">28°</span>
+      <span class="tc-weather-desc">despejado</span>
       <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
-      <h3>A ras de tierra</h3>
-      <p class="tc-weather-lead"><span class="tc-data" style="font-size:2rem;">35°</span> despejado</p>
-      <p class="tc-pieza-cuerpo">Ahora mismo en Mayorga, despejado y 35 grados. Hoy la máxima ronda los 36 y la mínima baja hasta 17. No se espera lluvia. Sopla viento moderado. Con este calor, riega la huerta a primera hora o al anochecer, nunca al mediodía. Mañana, nublado y hasta 31 grados.</p>
-    </div><div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
-      <p style="margin:6px 0 0;">Sin anuncios ni plenos nuevos verificados en los últimos días.</p></div></main>
+    </div>
+    <p class="tc-weather-article">Ahora mismo en Mayorga, despejado y 28 grados. Hoy la máxima ronda los 31 y la mínima baja hasta 20. No se espera lluvia. Sopla viento flojo. Mañana, nublado y hasta 30 grados.</p>
+    <div class="tc-days"><div class="tc-day">
+      <span class="tc-day-name">dom</span>
+      <span class="tc-day-desc">despejado</span>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">20°</span></span>
+    </div><div class="tc-day">
+      <span class="tc-day-name">lun</span>
+      <span class="tc-day-desc">nublado</span>
+      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">15°</span></span>
+    </div><div class="tc-day">
+      <span class="tc-day-name">mar</span>
+      <span class="tc-day-desc">nublado</span>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">20°</span></span>
+    </div></div>
+  </div>
+    <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
+      <div><h3 style="margin:0 0 4px;">Recibe el tiempo de Mayorga por canal</h3>
+      <p style="margin:0; font-size:.9rem;">La previsión de tu pueblo cada mañana, y aviso si hay helada o calor extremo.</p></div>
+      <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+    </div></div>
+    <div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
+      <p style="margin:6px 0 0;">Sin anuncios ni plenos nuevos verificados en los últimos días.</p></div>
+  </main>
   <aside class="tc-muni-side">
     <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list"><li><a href="https://mayorga.ayuntamientosdevalladolid.es/" target="_blank" rel="noopener">Web municipal</a></li><li><a href="https://mayorga.ayuntamientosdevalladolid.es/el-ayuntamiento/organizacion-municipal/plenos-municipales" target="_blank" rel="noopener">Plenos</a></li><li><a href="https://mayorga.sedelectronica.es/" target="_blank" rel="noopener">Sede electrónica</a></li></ul></div>
     <div class="tc-side-block"><h3>Agenda</h3><ul class="tc-links-list"><li>Sin eventos próximos verificados</li></ul></div>
+    <div class="tc-side-block"><h3>Campo y huerta</h3><p style="font-size:.88rem; color:rgba(37,31,26,.75);">Próximamente: calendario de huerta de la meseta, mes a mes.</p></div>
   </aside>
 </div>
 <footer class="tc-footer"><div class="tc-wrap">

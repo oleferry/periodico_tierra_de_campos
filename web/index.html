@@ -3,90 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El Terracampino — Tierra de Campos en limpio</title>
-<link rel="icon" href="../brand/logos/favicon.svg" type="image/svg+xml">
+<title>El Terracampino — el tiempo y las noticias de tu pueblo</title>
+<meta name="description" content="El tiempo y las noticias de cada pueblo de Tierra de Campos, en limpio.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../brand/web/brand-tokens.css">
+<link rel="stylesheet" href="assets/brand-tokens.css">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
-  <a href="index.html" class="tc-logo"><svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true">
-    <rect x="32" y="32" width="448" height="448" fill="none" stroke="#251F1A" stroke-width="16"/>
-    <path d="M128 128 H384 V174 H282 V356 H230 V174 H128 Z" fill="#251F1A"/>
-    <g stroke="#A65F2A" stroke-width="10" stroke-linecap="square">
-      <line x1="112" y1="386" x2="400" y2="386"/><line x1="128" y1="416" x2="384" y2="416"/><line x1="148" y1="446" x2="364" y2="446"/>
-    </g></svg>
-    <span><span class="tc-logo-text" style="display:block;">El Terracampino</span>
-    <span class="tc-logo-desc">Tierra de Campos en limpio</span></span></a>
+  <a href="index.html" class="tc-logo"><img src="assets/logo.png" alt="El Terracampino" height="52"></a>
   <nav class="tc-nav">
-    <a href="index.html#tiempo">A ras de tierra</a>
-    <a href="index.html#ayuntamiento">Ayuntamiento en limpio</a>
+    <a href="index.html">Portada</a>
+    <a href="index.html#pueblos">Elige tu pueblo</a>
+    <a href="index.html#comarca">La comarca</a>
   </nav>
 </div></header>
-<section class="tc-hoy"><div class="tc-wrap">
-  <p class="tc-hoy-fecha">sábado, 11 de julio de 2026 — Hoy en Tierra de Campos</p>
-  <h1>4 anuncios de la comarca en el BOP de hoy, y el tiempo de 12 pueblos</h1>
+<section class="tc-masthead"><div class="tc-wrap">
+  <p class="tc-hoy-fecha">domingo, 12 de julio de 2026</p>
+  <h1>El tiempo y las noticias de tu pueblo, en limpio</h1>
+  <p class="tc-masthead-sub">Elige tu pueblo de Tierra de Campos y lee lo que pasa cerca. Cada semana, en tu correo o en tu canal.</p>
+  <div class="tc-masthead-pick"><select class="tc-muni-select" aria-label="Elige tu pueblo" onchange="if(this.value)location.href=this.value;">
+    <option value="">Elige tu pueblo…</option><option value="municipio/medina-de-rioseco.html">Medina de Rioseco</option><option value="municipio/sahagun.html">Sahagún</option><option value="municipio/carrion-de-los-condes.html">Carrión de los Condes</option><option value="municipio/paredes-de-nava.html">Paredes de Nava</option><option value="municipio/valderas.html">Valderas</option><option value="municipio/villalon-de-campos.html">Villalón de Campos</option><option value="municipio/villalpando.html">Villalpando</option><option value="municipio/mayorga.html">Mayorga</option><option value="municipio/villada.html">Villada</option><option value="municipio/villarramiel.html">Villarramiel</option><option value="municipio/becerril-de-campos.html">Becerril de Campos</option><option value="municipio/fuentes-de-nava.html">Fuentes de Nava</option><option value="municipio/ceinos-de-campos.html">Ceinos de Campos</option><option value="municipio/palazuelo-de-vedija.html">Palazuelo de Vedija</option><option value="municipio/valdunquillo.html">Valdunquillo</option></select></div>
 </div></section>
 
-<section class="tc-wrap" id="tiempo">
-  <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">A ras de tierra — el tiempo, pueblo a pueblo</h2>
-  <div class="tc-weather-grid"><a class="tc-card tc-weather-card" href="municipio/medina-de-rioseco.html">
-      <p class="tc-muni-tag">Medina de Rioseco</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">nublado · máx 36° / mín 18°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/sahagun.html">
-      <p class="tc-muni-tag">Sahagún</p>
-      <p class="tc-weather-temp tc-data">34°</p>
-      <p class="tc-pieza-cuerpo">casi despejado · máx 35° / mín 20°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/carrion-de-los-condes.html">
-      <p class="tc-muni-tag">Carrión de los Condes</p>
-      <p class="tc-weather-temp tc-data">34°</p>
-      <p class="tc-pieza-cuerpo">nubes y claros · máx 35° / mín 18°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/paredes-de-nava.html">
-      <p class="tc-muni-tag">Paredes de Nava</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">despejado · máx 36° / mín 19°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/valderas.html">
-      <p class="tc-muni-tag">Valderas</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">nubes y claros · máx 35° / mín 19°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/villalon-de-campos.html">
-      <p class="tc-muni-tag">Villalón de Campos</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">casi despejado · máx 35° / mín 19°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/villalpando.html">
-      <p class="tc-muni-tag">Villalpando</p>
-      <p class="tc-weather-temp tc-data">36°</p>
-      <p class="tc-pieza-cuerpo">nubes y claros · máx 36° / mín 19°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/mayorga.html">
-      <p class="tc-muni-tag">Mayorga</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">despejado · máx 36° / mín 17°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/villada.html">
-      <p class="tc-muni-tag">Villada</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">casi despejado · máx 35° / mín 19°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/villarramiel.html">
-      <p class="tc-muni-tag">Villarramiel</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">casi despejado · máx 35° / mín 18°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/becerril-de-campos.html">
-      <p class="tc-muni-tag">Becerril de Campos</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">despejado · máx 36° / mín 18°</p>
-    </a><a class="tc-card tc-weather-card" href="municipio/fuentes-de-nava.html">
-      <p class="tc-muni-tag">Fuentes de Nava</p>
-      <p class="tc-weather-temp tc-data">35°</p>
-      <p class="tc-pieza-cuerpo">casi despejado · máx 35° / mín 18°</p>
+<section class="tc-wrap" id="pueblos">
+  <h2 class="tc-block-title" style="color: var(--tc-terron);">Elige tu pueblo</h2>
+  <div class="tc-pueblos-grid"><a class="tc-pueblo" href="municipio/medina-de-rioseco.html">
+      <span class="tc-pueblo-nombre">Medina de Rioseco</span>
+      <span class="tc-pueblo-prov">Valladolid</span>
+    </a><a class="tc-pueblo" href="municipio/sahagun.html">
+      <span class="tc-pueblo-nombre">Sahagún</span>
+      <span class="tc-pueblo-prov">León</span>
+    </a><a class="tc-pueblo" href="municipio/carrion-de-los-condes.html">
+      <span class="tc-pueblo-nombre">Carrión de los Condes</span>
+      <span class="tc-pueblo-prov">Palencia</span>
+    </a><a class="tc-pueblo" href="municipio/paredes-de-nava.html">
+      <span class="tc-pueblo-nombre">Paredes de Nava</span>
+      <span class="tc-pueblo-prov">Palencia</span>
+    </a><a class="tc-pueblo" href="municipio/valderas.html">
+      <span class="tc-pueblo-nombre">Valderas</span>
+      <span class="tc-pueblo-prov">León</span>
+    </a><a class="tc-pueblo" href="municipio/villalon-de-campos.html">
+      <span class="tc-pueblo-nombre">Villalón de Campos</span>
+      <span class="tc-pueblo-prov">Valladolid</span>
+    </a><a class="tc-pueblo" href="municipio/villalpando.html">
+      <span class="tc-pueblo-nombre">Villalpando</span>
+      <span class="tc-pueblo-prov">Zamora</span>
+    </a><a class="tc-pueblo" href="municipio/mayorga.html">
+      <span class="tc-pueblo-nombre">Mayorga</span>
+      <span class="tc-pueblo-prov">Valladolid</span>
+    </a><a class="tc-pueblo" href="municipio/villada.html">
+      <span class="tc-pueblo-nombre">Villada</span>
+      <span class="tc-pueblo-prov">Palencia</span>
+    </a><a class="tc-pueblo" href="municipio/villarramiel.html">
+      <span class="tc-pueblo-nombre">Villarramiel</span>
+      <span class="tc-pueblo-prov">Palencia</span>
+    </a><a class="tc-pueblo" href="municipio/becerril-de-campos.html">
+      <span class="tc-pueblo-nombre">Becerril de Campos</span>
+      <span class="tc-pueblo-prov">Palencia</span>
+    </a><a class="tc-pueblo" href="municipio/fuentes-de-nava.html">
+      <span class="tc-pueblo-nombre">Fuentes de Nava</span>
+      <span class="tc-pueblo-prov">Palencia</span>
+    </a><a class="tc-pueblo" href="municipio/ceinos-de-campos.html">
+      <span class="tc-pueblo-nombre">Ceinos de Campos</span>
+      <span class="tc-pueblo-prov">Valladolid</span>
+    </a><a class="tc-pueblo" href="municipio/palazuelo-de-vedija.html">
+      <span class="tc-pueblo-nombre">Palazuelo de Vedija</span>
+      <span class="tc-pueblo-prov">Valladolid</span>
+    </a><a class="tc-pueblo" href="municipio/valdunquillo.html">
+      <span class="tc-pueblo-nombre">Valdunquillo</span>
+      <span class="tc-pueblo-prov">Valladolid</span>
     </a></div>
 </section>
 
-<section class="tc-wrap tc-secciones">
-  <div class="tc-seccion-col" id="ayuntamiento">
-    <h2 style="color: var(--tc-azul-bop);">Ayuntamiento en limpio</h2>
+<section class="tc-channel"><div class="tc-wrap tc-channel-inner">
+  <div><h2>Recibe el tiempo de tu pueblo por WhatsApp o Telegram</h2>
+  <p>Un mensaje al día con la previsión de tu pueblo, y un aviso solo cuando de verdad importa: helada, ola de calor o tormenta.</p></div>
+  <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+</div></section>
+
+<section class="tc-wrap tc-secciones" id="comarca">
+  <div class="tc-seccion-col">
+    <h2 style="color: var(--tc-azul-bop);">Lo último de la comarca — Ayuntamiento en limpio</h2>
     <div class="tc-item">
         <a class="tc-item-titulo" href="https://bop.sede.diputaciondevalladolid.es/boletines/2026/julio/10/BOPVA-A-2026-02066.pdf" target="_blank" rel="noopener">Aprobación del plan económico financiero. Año 2026.</a>
         <p class="tc-item-meta">Ceinos de Campos · BOP Valladolid · 2026-07-10 · <span class="tc-sello tc-sello--auto">Fuente oficial</span></p>

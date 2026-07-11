@@ -10,6 +10,8 @@ No es asesoramiento: es orientación, en la línea de prompts/05_tiempo_humano.m
 
 from __future__ import annotations
 
+from datetime import date
+
 import requests
 
 from scrapers.common import ERR_NETWORK, REQUEST_TIMEOUT, USER_AGENT, ScraperError
@@ -111,11 +113,23 @@ def build_article(municipio: str, fc: dict) -> dict:
     dcode = d["weather_code"][1]
     frases.append(f"Mañana, {WMO.get(dcode, 'tiempo variable')} y hasta {dmax} grados.")
 
+    dias = []
+    for i, iso in enumerate(d["time"]):
+        y, mo, dd = (int(x) for x in iso.split("-"))
+        dias.append({
+            "fecha": iso,
+            "dia": DIAS[date(y, mo, dd).weekday()],
+            "max": round(d["temperature_2m_max"][i]),
+            "min": round(d["temperature_2m_min"][i]),
+            "desc": WMO.get(d["weather_code"][i], "tiempo variable"),
+        })
+
     return {
         "municipio": municipio,
         "ahora": {"temp": t_now, "desc": desc, "code": code},
         "hoy": {"max": tmax, "min": tmin, "prob_lluvia": prob, "mm": mm, "viento_kmh": round(cur["wind_speed_10m"])},
         "manana": {"max": dmax, "desc": WMO.get(dcode, "tiempo variable")},
+        "dias": dias,
         "articulo": " ".join(frases),
         "fuente": "Open-Meteo",
     }
