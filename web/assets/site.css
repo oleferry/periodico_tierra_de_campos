@@ -245,6 +245,47 @@
 .tc-sello--revisado { color: var(--tc-azul-bop); }
 .tc-sello--pendiente { color: var(--tc-rojo-aviso); }
 
+/* Bloque de tiempo en portada */
+
+.tc-block-title {
+  font-size: 1.1rem;
+  border-bottom: 2px solid currentColor;
+  display: inline-block;
+  padding-bottom: 4px;
+  margin: var(--tc-space-4) 0 var(--tc-space-2);
+}
+
+.tc-weather-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--tc-space-2);
+  padding-bottom: var(--tc-space-3);
+}
+
+.tc-weather-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: border-color .15s;
+}
+
+.tc-weather-card:hover { border-color: var(--tc-azul-bop); }
+
+.tc-weather-temp {
+  font-size: 2.2rem;
+  line-height: 1;
+  margin: 6px 0 4px;
+  color: var(--tc-tinta-tierra);
+}
+
+.tc-weather-lead {
+  font-size: 1rem;
+  margin: 4px 0 12px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
 /* --- Página de municipio --- */
 
 .tc-muni-hero {
