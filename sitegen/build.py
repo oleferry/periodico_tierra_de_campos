@@ -24,6 +24,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
+from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch
 from scrapers.weather_openmeteo import geocode, weather_for
@@ -73,6 +74,18 @@ def fecha_larga(d: date) -> str:
 
 def miles(n) -> str:
     return f"{int(n):,}".replace(",", ".")
+
+
+def fuente_label(d: dict) -> str:
+    return "BOP Valladolid" if d.get("source_type") == "bop" else "BOCyL"
+
+
+def doc_row(d: dict, *, show_muni: bool) -> str:
+    muni = f"{E(d['municipality_name'])} · " if show_muni else ""
+    return f"""<div class="tc-item">
+      <a class="tc-item-titulo" href="{E(d['url_original'])}" target="_blank" rel="noopener">{E(d['title'])}</a>
+      <p class="tc-item-meta">{muni}{fuente_label(d)} · {d['published_at']} · <span class="tc-sello tc-sello--auto">Fuente oficial</span></p>
+    </div>"""
 
 
 def load_municipios() -> dict[str, dict]:
@@ -150,19 +163,16 @@ def selector(built: list[dict], depth: int) -> str:
 
 # --------------------------------------------------------------- portada
 
-def render_home(built: list[dict], anuncios: list[dict], hoy: date) -> str:
+def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
     pueblos = "".join(f"""<a class="tc-pueblo" href="municipio/{m['slug']}.html">
       <span class="tc-pueblo-nombre">{E(m['name'])}</span>
       <span class="tc-pueblo-prov">{E(m['province'])}</span>
     </a>""" for m in built)
 
-    if anuncios:
-        items = "".join(f"""<div class="tc-item">
-        <a class="tc-item-titulo" href="{E(a['url_original'])}" target="_blank" rel="noopener">{E(a['title'])}</a>
-        <p class="tc-item-meta">{E(a['municipality_name'])} · BOP Valladolid · {a['published_at']} · <span class="tc-sello tc-sello--auto">Fuente oficial</span></p>
-      </div>""" for a in anuncios)
+    if feed:
+        items = "".join(doc_row(d, show_muni=True) for d in feed)
     else:
-        items = '<div class="tc-item"><p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca en el último boletín.</p></div>'
+        items = '<div class="tc-item"><p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca.</p></div>'
 
     body = f"""<section class="tc-masthead"><div class="tc-wrap">
   <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
@@ -227,10 +237,10 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     meta.append(f"Actualizado: {hoy.day}/{hoy.month:02d}/{hoy.year}")
     meta_html = "".join(f"<span>{s}</span>" for s in meta if s)
 
-    if anuncios:
-        rows = "".join(f"""<div class="tc-item">
-        <a class="tc-item-titulo" href="{E(a['url_original'])}" target="_blank" rel="noopener">{E(a['title'])}</a>
-        <p class="tc-item-meta">BOP Valladolid · {a['published_at']} · Fuente oficial</p></div>""" for a in anuncios)
+    noticias = anuncios + m.get("_bocyl", [])
+    noticias.sort(key=lambda d: d.get("published_at") or "", reverse=True)
+    if noticias:
+        rows = "".join(doc_row(d, show_muni=False) for d in noticias)
         ayto = f"""<div class="tc-card"><h3>Ayuntamiento en limpio</h3>{rows}</div>"""
     else:
         ayto = """<div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
@@ -306,16 +316,29 @@ def main() -> int:
                     lat, lon = geo
             if lat and lon:
                 m["weather"] = weather_for(m["name"], float(lat), float(lon))
-                print(f"· {m['name']}: {m['weather']['ahora']['temp']}° {m['weather']['ahora']['desc']}")
+                print(f"· {m['name']}: {m['weather']['ahora']['temp']}° {m['weather']['ahora']['desc']}", flush=True)
         except ScraperError as exc:
             print(f"  aviso: sin tiempo para {m['name']} ({exc})", file=sys.stderr)
+        # BOCyL: expedientes regionales que citan el municipio (cubre las 4 provincias)
+        try:
+            m["_bocyl"] = bocyl_docs(m["name"], slug, m["province"], bocyl_buscar(m["name"], m["province"], limit=5))
+        except ScraperError as exc:
+            print(f"  aviso: sin BOCyL para {m['name']} ({exc})", file=sys.stderr)
+            m["_bocyl"] = []
         m["_anuncios"] = por_muni.get(slug, [])
         built.append(m)
 
     built.sort(key=lambda x: (-(int(x["population"]) if str(x.get("population", "")).isdigit() else 0), x["name"]))
 
+    # Feed de la comarca para la portada: BOP + BOCyL de todos, lo más reciente arriba.
+    feed = list(anuncios)
+    for m in built:
+        feed.extend(m.get("_bocyl", []))
+    feed.sort(key=lambda d: d.get("published_at") or "", reverse=True)
+    feed = feed[:14]
+
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
-    (WEB / "index.html").write_text(render_home(built, anuncios, hoy), encoding="utf-8")
+    (WEB / "index.html").write_text(render_home(built, feed, hoy), encoding="utf-8")
     for m in built:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
             render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
