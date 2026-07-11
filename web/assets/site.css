@@ -48,6 +48,13 @@
 .tc-pueblo-nombre { font-family: var(--tc-font-headline); font-size: 1.1rem; color: var(--tc-tinta-tierra); }
 .tc-pueblo-prov { font-family: var(--tc-font-data); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--tc-azul-bop); margin-top: 2px; }
 
+/* Resumen del tiempo de la comarca (portada) */
+.tc-weather-summary { display: flex; align-items: center; justify-content: space-between; gap: var(--tc-space-3); flex-wrap: wrap; border: 1px solid rgba(37,31,26,.2); border-radius: var(--tc-radius-card); background: rgba(184,200,194,.18); padding: var(--tc-space-3); margin: var(--tc-space-3) 0; }
+.tc-weather-summary-txt { flex: 1 1 320px; }
+.tc-weather-summary-txt p { font-size: 1.15rem; line-height: 1.5; margin: 6px 0 0; }
+.tc-weather-summary-txt strong { color: var(--tc-tinta-tierra); }
+.tc-weather-summary-pick .tc-muni-select { min-width: 220px; }
+
 /* CTA de canal */
 .tc-channel { background: var(--tc-tinta-tierra); color: var(--tc-papel-crudo); padding: var(--tc-space-4) 0; margin: var(--tc-space-4) 0; }
 .tc-channel-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--tc-space-3); flex-wrap: wrap; }

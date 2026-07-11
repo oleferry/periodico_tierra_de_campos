@@ -26,7 +26,7 @@ from pathlib import Path
 
 from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
-from scrapers.common import ScraperError, fetch
+from scrapers.common import ScraperError, fetch, strip_accents
 from scrapers.weather_openmeteo import geocode, weather_for
 from sitegen.contenido import huerta_del_mes, proximas_fiestas
 
@@ -162,29 +162,81 @@ def selector(built: list[dict], depth: int) -> str:
     <option value="">Elige tu pueblo…</option>{opts}</select>"""
 
 
+# Palabras que hacen una noticia más relevante que el trámite repetitivo.
+_JUGOSO = [
+    ("plan general", 5), ("presupuest", 4), ("modificacion presupuestaria", 4),
+    ("licitaci", 5), ("planta", 5), ("industrial", 4), ("poligono industrial", 5),
+    ("fotovoltaic", 5), ("eolic", 5), ("solar", 4), ("parque", 3), ("aceite", 4),
+    ("cereal", 3), ("legumbre", 3), ("centro", 2), ("empresa", 3), ("s.l.", 3), ("s.a.", 3),
+    ("pleno", 3), ("acuerdo", 2), ("subvenci", 4), ("ayuda", 3), ("expropiaci", 3),
+    ("electrica", 2), ("agua", 2), ("residuo", 3), ("empleo", 4), ("contrat", 3),
+]
+_PENALIZA = [("declaracion de ruina", -4), ("uso excepcional de suelo rustico", -2),
+             ("via pecuaria", -2), ("correccion de errores", -3)]
+
+
+def relevancia(d: dict) -> int:
+    t = strip_accents(d.get("title", "")).lower()
+    s = 0
+    for k, v in _JUGOSO:
+        if k in t:
+            s += v
+    for k, v in _PENALIZA:
+        if k in t:
+            s += v
+    return s
+
+
+def resumen_tiempo(built: list[dict]) -> dict | None:
+    ws = [(m["name"], m["weather"]) for m in built if m.get("weather")]
+    if not ws:
+        return None
+    temps = [(name, w["ahora"]["temp"]) for name, w in ws]
+    hot_name, hot_t = max(temps, key=lambda x: x[1])
+    from collections import Counter
+    desc = Counter(w["ahora"]["desc"] for _, w in ws).most_common(1)[0][0]
+    return {
+        "tmin": min(t for _, t in temps), "tmax": max(t for _, t in temps),
+        "hot_name": hot_name, "hot_t": hot_t, "desc": desc, "n": len(ws),
+    }
+
+
 # --------------------------------------------------------------- portada
 
 def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
-    pueblos = "".join(f"""<a class="tc-pueblo" href="municipio/{m['slug']}.html">
-      <span class="tc-pueblo-nombre">{E(m['name'])}</span>
-      <span class="tc-pueblo-prov">{E(m['province'])}</span>
-    </a>""" for m in built)
-
-    if feed:
-        items = "".join(doc_row(d, show_muni=True) for d in feed)
+    # Noticias relevantes: se prioriza lo jugoso sobre el trámite repetitivo.
+    noticias = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)[:7]
+    if noticias:
+        items = "".join(doc_row(d, show_muni=True) for d in noticias)
     else:
         items = '<div class="tc-item"><p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca.</p></div>'
+
+    # Resumen del tiempo de la comarca (una línea, no 12 tarjetas).
+    r = resumen_tiempo(built)
+    if r:
+        tiempo_html = f"""<div class="tc-weather-summary">
+      <div class="tc-weather-summary-txt">
+        <span class="tc-section-label" style="color:var(--tc-azul-bop);">El tiempo en la comarca</span>
+        <p>Hoy en Tierra de Campos, <strong>{E(r['desc'])}</strong> y entre <strong>{r['tmin']}°</strong> y <strong>{r['tmax']}°</strong>. El pueblo más caluroso ahora es {E(r['hot_name'])}, con {r['hot_t']}°.</p>
+      </div>
+      <div class="tc-weather-summary-pick">{selector(built, 0)}</div>
+    </div>"""
+    else:
+        tiempo_html = ""
 
     body = f"""<section class="tc-masthead"><div class="tc-wrap">
   <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
   <h1>El tiempo y las noticias de tu pueblo, en limpio</h1>
-  <p class="tc-masthead-sub">Elige tu pueblo de Tierra de Campos y lee lo que pasa cerca. Cada semana, en tu correo o en tu canal.</p>
-  <div class="tc-masthead-pick">{selector(built, 0)}</div>
+  <p class="tc-masthead-sub">Lo que pasa en los pueblos de Tierra de Campos, contado claro y con la fuente al lado.</p>
 </div></section>
 
-<section class="tc-wrap" id="pueblos">
-  <h2 class="tc-block-title" style="color: var(--tc-terron);">Elige tu pueblo</h2>
-  <div class="tc-pueblos-grid">{pueblos}</div>
+<section class="tc-wrap" id="tiempo">{tiempo_html}</section>
+
+<section class="tc-wrap tc-secciones" id="comarca">
+  <div class="tc-seccion-col">
+    <h2 style="color: var(--tc-azul-bop);">Noticias relevantes de la comarca</h2>
+    {items}
+  </div>
 </section>
 
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
@@ -192,13 +244,6 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
   <p>Un mensaje al día con la previsión de tu pueblo, y un aviso solo cuando de verdad importa: helada, ola de calor o tormenta.</p></div>
   <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
 </div></section>
-
-<section class="tc-wrap tc-secciones" id="comarca">
-  <div class="tc-seccion-col">
-    <h2 style="color: var(--tc-azul-bop);">Lo último de la comarca — Ayuntamiento en limpio</h2>
-    {items}
-  </div>
-</section>
 
 <section class="tc-newsletter"><div class="tc-wrap tc-newsletter-inner">
   <div><h2>La semana terracampina</h2><p>Un correo, una vez por semana. Lo que pasa cerca, contado claro.</p></div>
@@ -356,7 +401,7 @@ def main() -> int:
     for m in built:
         feed.extend(m.get("_bocyl", []))
     feed.sort(key=lambda d: d.get("published_at") or "", reverse=True)
-    feed = feed[:14]
+    feed = feed[:80]  # pool amplio; render_home elige las 7 más relevantes
 
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
     (WEB / "index.html").write_text(render_home(built, feed, hoy), encoding="utf-8")
