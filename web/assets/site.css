@@ -388,3 +388,4 @@
 .tc-links-list li { padding: 5px 0; border-bottom: 1px solid rgba(37, 31, 26, .1); font-size: .88rem; }
 .tc-links-list a { color: var(--tc-azul-bop); text-decoration: none; }
 .tc-links-list a:hover { text-decoration: underline; }
+.tc-agenda strong { color: var(--tc-terron); font-family: var(--tc-font-data); font-size: .82rem; }

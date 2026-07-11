@@ -28,6 +28,7 @@ from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch
 from scrapers.weather_openmeteo import geocode, weather_for
+from sitegen.contenido import huerta_del_mes, proximas_fiestas
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -251,6 +252,25 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     if not links_html:
         links_html = "<li>Enlaces oficiales pendientes de verificar</li>"
 
+    # Agenda: fiestas verificadas del pueblo (fichas municipales / estudio)
+    fiestas = proximas_fiestas(m["slug"], hoy)
+    if fiestas:
+        agenda_html = "".join(f'<li><strong>{E(f["cuando"])}</strong> — {E(f["nombre"])}</li>' for f in fiestas)
+    else:
+        agenda_html = '<li>Sin fiestas registradas todavía. ¿Falta alguna? Escríbenos.</li>'
+
+    # Campo y huerta: calendario evergreen de la meseta (orientativo)
+    huerta = huerta_del_mes(hoy)
+    huerta_html = f"""<div class="tc-card"><h3>Campo y huerta — {E(huerta['mes'])} en la meseta</h3>
+      <p class="tc-pieza-cuerpo">{E(huerta['texto'])}</p>
+      <p class="tc-item-meta">Orientación general para la comarca, no sustituye asesoramiento técnico.</p></div>"""
+
+    # Negocios y tablón: sección honesta. NO se inventan anuncios; los envían vecinos/comercios.
+    tablon_html = f"""<div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
+      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de {E(m['name'])}. Todavía no hay anuncios publicados.</p>
+      <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
+      <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>"""
+
     w = m.get("weather")
     tiempo_titular = (f"El tiempo hoy en {E(m['name'])}: {w['ahora']['temp']}° y {E(w['ahora']['desc'])}"
                       if w else f"{E(m['name'])}")
@@ -271,11 +291,12 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
       <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
     </div></div>
     {ayto}
+    {huerta_html}
+    {tablon_html}
   </main>
   <aside class="tc-muni-side">
     <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list">{links_html}</ul></div>
-    <div class="tc-side-block"><h3>Agenda</h3><ul class="tc-links-list"><li>Sin eventos próximos verificados</li></ul></div>
-    <div class="tc-side-block"><h3>Campo y huerta</h3><p style="font-size:.88rem; color:rgba(37,31,26,.75);">Próximamente: calendario de huerta de la meseta, mes a mes.</p></div>
+    <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda">{agenda_html}</ul></div>
   </aside>
 </div>"""
     desc = w["articulo"][:150] if w else f"Noticias y tiempo de {m['name']}, Tierra de Campos."
