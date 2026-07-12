@@ -69,6 +69,16 @@ def _licitacion_objeto(titulo: str) -> str | None:
     return None
 
 
+def _por_la_que(titulo: str) -> str | None:
+    """Extrae la acción real de una resolución/orden: '...por la que se <acción>'.
+    Es la cláusula que de verdad dice qué ha pasado; el resto es quién y cuándo firma."""
+    m = re.search(r"por (?:la|el) que se (.+?)(?:\.\s|\. ?$|$)", titulo, re.I)
+    if not m:
+        return None
+    accion = m.group(1).strip().rstrip(".")
+    return accion if 8 <= len(accion) <= 140 else None
+
+
 def redactar_reglas(doc: dict) -> dict:
     """Redactor determinista por reglas (respaldo cuando no hay IA)."""
     titulo = (doc.get("title") or "").strip()
@@ -85,6 +95,12 @@ def redactar_reglas(doc: dict) -> dict:
     if "fotovoltaic" in t or "planta solar" in t or "energia electrica de origen fotovoltaico" in t:
         nombre = f" «{empresa}»" if empresa else ""
         titular = h(f"Un parque solar fotovoltaico{nombre} avanza en {muni}")
+    elif "eolic" in t or "parque eolico" in t:
+        if empresa and "eolic" in strip_accents(empresa).lower():
+            titular = h(f"El «{empresa}» avanza cerca de {muni}")
+        else:
+            nombre = f" «{empresa}»" if empresa else ""
+            titular = h(f"Un parque eólico{nombre} avanza cerca de {muni}")
     elif "planta de aceite" in t or "aceites de semillas" in t or "embotellado de aceite" in t:
         titular = h(f"Una planta de aceite proyecta instalarse en {muni}")
     elif "plan general de ordenacion urbana" in t:
@@ -119,10 +135,18 @@ def redactar_reglas(doc: dict) -> dict:
     elif "acuerdo" in t and "pleno" in t:
         titular = h(f"Acuerdo del Pleno del Ayuntamiento de {muni}")
     else:
-        # Genérico: limpiar el arranque burocrático y usar como titular.
-        base = re.sub(r"^(INFORMACI[ÓO]N p[úu]blica relativa a la |INFORMACI[ÓO]N p[úu]blica relativa al |INFORMACI[ÓO]N p[úu]blica relativa a |ANUNCIO (?:de|del) |RESOLUCI[ÓO]N de |ORDEN |ACUERDO de )", "", titulo, flags=re.I)
-        base = _limpiar(base)
-        base = base[:1].upper() + base[1:]
-        titular = h(base if len(base) <= 90 else base[:88] + "…")
+        # Genérico: primero intenta la cláusula real ("...por la que se concede/aprueba/...");
+        # es lo que de verdad pasó. Solo si no la hay, se recorta el arranque burocrático
+        # (y eso puede dejar un titular empezando por una fecha, así que es el último recurso).
+        accion = _por_la_que(titulo)
+        if accion:
+            accion = accion[:1].upper() + accion[1:]
+            titular = h(f"{muni}: {accion}" if muni and muni.lower() not in accion.lower() else accion)
+        else:
+            base = re.sub(r"^(INFORMACI[ÓO]N p[úu]blica relativa a la |INFORMACI[ÓO]N p[úu]blica relativa al |INFORMACI[ÓO]N p[úu]blica relativa a |ANUNCIO (?:de|del) |RESOLUCI[ÓO]N de \d{1,2} de \w+ de \d{4}, |RESOLUCI[ÓO]N de |ORDEN |ACUERDO de )", "", titulo, flags=re.I)
+            base = _limpiar(base)
+            base = base[:1].upper() + base[1:]
+            titular = h(base if len(base) <= 90 else base[:88] + "…")
+        titular = titular[:1].upper() + titular[1:]
 
     return {"titular": titular, "entradilla": entradilla}
