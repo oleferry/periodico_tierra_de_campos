@@ -76,12 +76,13 @@
 .tc-weather-big { font-size: 3.4rem; line-height: 1; color: var(--tc-tinta-tierra); font-family: var(--tc-font-data); }
 .tc-weather-desc { font-size: 1.2rem; color: var(--tc-tinta-tierra); }
 .tc-weather-article { font-size: 1.05rem; line-height: 1.6; margin: 0 0 var(--tc-space-3); }
-.tc-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--tc-linea-suave); }
-.tc-day { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-right: 1px solid var(--tc-linea-suave); background: var(--tc-papel-crudo); }
+.tc-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 8px; border-top: 1px solid var(--tc-linea-suave); }
+.tc-day { display: flex; flex-direction: column; gap: 6px; padding: var(--tc-space-2); border-right: 1px solid var(--tc-linea-suave); background: var(--tc-papel-crudo); }
 .tc-day:last-child { border-right: none; }
 .tc-day-name { font-family: var(--tc-font-data); text-transform: uppercase; font-size: .72rem; letter-spacing: .06em; color: var(--tc-azul-bop); }
-.tc-day-desc { font-size: .82rem; color: var(--tc-texto-secundario); min-height: 2.4em; }
-.tc-day-temp { font-size: 1.3rem; color: var(--tc-tinta-tierra); font-family: var(--tc-font-data); }
+.tc-day-titular { font-family: var(--tc-font-headline); font-weight: 700; font-size: 1rem; line-height: 1.25; margin: 0; color: var(--tc-tinta-tierra); }
+.tc-day-texto { font-size: .86rem; color: var(--tc-texto-secundario); line-height: 1.45; margin: 0; flex: 1; }
+.tc-day-temp { font-size: 1.2rem; color: var(--tc-tinta-tierra); font-family: var(--tc-font-data); }
 .tc-day-min { color: var(--tc-texto-terciario); font-size: 1rem; }
 
 .tc-logo-text {
@@ -442,7 +443,9 @@
   .tc-comun { grid-template-columns: 1fr; gap: var(--tc-space-3); }
   .tc-muni-grid { grid-template-columns: 1fr; }
   .tc-channel-inner { flex-direction: column; align-items: flex-start; }
-  .tc-days { grid-template-columns: 1fr 1fr 1fr; }
+  .tc-days { grid-template-columns: 1fr; }
+  .tc-day { border-right: none; border-bottom: 1px solid var(--tc-linea-suave); }
+  .tc-day:last-child { border-bottom: none; }
   .tc-weather-big { font-size: 2.6rem; }
   .tc-newsletter-inner { flex-direction: column; align-items: stretch; }
   .tc-form { flex-direction: column; }

@@ -157,3 +157,65 @@ def tiempo(w: dict) -> str:
         messages=[{"role": "user", "content": datos}],
     )
     return next(b.text for b in resp.content if b.type == "text").strip().strip('"')
+
+
+PROMPT_VERSION_DIAS = "1"
+
+_SISTEMA_TIEMPO_DIAS = (
+    "Eres el vecino de Tierra de Campos que cuenta el tiempo de los próximos días, al estilo de "
+    "'El tiempo de Javimo': un titular corto y con gancho para cada día (tipo 'Finde en seco', "
+    "'Puente pasado por agua', 'Jueves con opciones de tormenta'), seguido de una o dos frases que "
+    "expliquen ese titular con los datos reales. Cercano pero serio: nada de cursiladas, emojis ni "
+    "exclamaciones, y sin exagerar lo que dicen los datos.\n\n"
+    "Reglas:\n"
+    "- Usa SOLO los datos que te doy, día por día. No inventes cifras ni fenómenos.\n"
+    "- El titular no lleva el nombre del pueblo, solo el día y el rasgo del tiempo. Sin punto final, "
+    "máximo unos 40 caracteres.\n"
+    "- El texto son una o dos frases con los datos reales (máxima, mínima, lluvia, viento si afecta), "
+    "sin sonar a lista de datos.\n"
+    "- Si la probabilidad de lluvia es menor del 50%, habla de posibilidad, no de certeza.\n"
+    "- Devuelve un objeto por cada día que te paso, en el mismo orden."
+)
+
+_ESQUEMA_TIEMPO_DIAS = {
+    "type": "object",
+    "properties": {
+        "dias": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "titular": {"type": "string"},
+                    "texto": {"type": "string"},
+                },
+                "required": ["titular", "texto"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["dias"],
+    "additionalProperties": False,
+}
+
+
+def tiempo_dias(municipio: str, dias: list[dict]) -> list[dict]:
+    """Devuelve [{'titular','texto'}], uno por cada día de `dias`, en el mismo orden. Lanza si falla."""
+    lineas = [
+        f"- {d['dia'].capitalize()}: {d['desc']}, máxima {d['max']}°, mínima {d['min']}°, "
+        f"viento {d.get('viento_kmh', 0)} km/h, probabilidad de lluvia {d.get('prob_lluvia', 0)}% "
+        f"({d.get('mm', 0)} mm)."
+        for d in dias
+    ]
+    user = f"Municipio: {municipio}\n" + "\n".join(lineas)
+    resp = _get_client().messages.create(
+        model=_model(),
+        max_tokens=600,
+        system=_SISTEMA_TIEMPO_DIAS,
+        messages=[{"role": "user", "content": user}],
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_TIEMPO_DIAS}},
+    )
+    text = next(b.text for b in resp.content if b.type == "text")
+    salida = json.loads(text)["dias"]
+    if len(salida) != len(dias):
+        raise ValueError("La IA no devolvió un día por cada día pedido")
+    return [{"titular": o["titular"].strip().rstrip("."), "texto": o["texto"].strip()} for o in salida]

@@ -234,6 +234,26 @@ def tiempo_ia(w: dict, hoy: date) -> None:
     except Exception as exc:  # noqa: BLE001
         print(f"  aviso: IA no disponible para el tiempo de {w['municipio']} ({exc})", file=sys.stderr)
 
+    # Artículo por día (estilo Javimo) para los días futuros; el de hoy ya está en w['articulo'].
+    dias_futuros = w["dias"][1:]
+    if not dias_futuros:
+        return
+    clave_dias = f"{ia.PROMPT_VERSION_DIAS}|{w['municipio']}|" + "|".join(
+        f"{d['fecha']}:{d['max']}:{d['min']}:{d['desc']}:{d['prob_lluvia']}" for d in dias_futuros
+    )
+    guardado_dias = cache.get("tiempo_dias", clave_dias)
+    if guardado_dias:
+        for d, g in zip(dias_futuros, guardado_dias):
+            d["titular"], d["texto"] = g["titular"], g["texto"]
+        return
+    try:
+        resultado = ia.tiempo_dias(w["municipio"], dias_futuros)
+        cache.set("tiempo_dias", clave_dias, resultado)
+        for d, r in zip(dias_futuros, resultado):
+            d["titular"], d["texto"] = r["titular"], r["texto"]
+    except Exception as exc:  # noqa: BLE001
+        print(f"  aviso: IA no disponible para los días de {w['municipio']} ({exc})", file=sys.stderr)
+
 
 # --------------------------------------------------------------- portada
 
@@ -321,11 +341,12 @@ def weather_block(m: dict) -> str:
     w = m.get("weather")
     if not w:
         return ""
-    dias = "".join(f"""<div class="tc-day">
-      <span class="tc-day-name">{E(d['dia'][:3])}</span>
-      <span class="tc-day-desc">{E(d['desc'])}</span>
+    dias = "".join(f"""<article class="tc-day">
+      <span class="tc-day-name">{E(d['dia'].capitalize())}</span>
+      <h4 class="tc-day-titular">{E(d['titular'])}</h4>
+      <p class="tc-day-texto">{E(d['texto'])}</p>
       <span class="tc-day-temp tc-data">{d['max']}° <span class="tc-day-min">{d['min']}°</span></span>
-    </div>""" for d in w["dias"])
+    </article>""" for d in w["dias"][1:])
     return f"""<div class="tc-weather-hero">
     <div class="tc-weather-now">
       <span class="tc-weather-big tc-data">{w['ahora']['temp']}°</span>
@@ -333,6 +354,7 @@ def weather_block(m: dict) -> str:
       <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
     </div>
     <p class="tc-weather-article">{E(w['articulo'])}</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days">{dias}</div>
   </div>"""
 

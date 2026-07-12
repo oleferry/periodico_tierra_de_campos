@@ -60,7 +60,7 @@ def fetch_forecast(lat: float, lon: float) -> dict:
         "current": "temperature_2m,weather_code,wind_speed_10m",
         "daily": "temperature_2m_max,temperature_2m_min,precipitation_sum,"
                  "precipitation_probability_max,wind_speed_10m_max,weather_code",
-        "timezone": "Europe/Madrid", "forecast_days": 3,
+        "timezone": "Europe/Madrid", "forecast_days": 4,
     })
     if "current" not in data or "daily" not in data:
         raise ScraperError(ERR_NETWORK, "Respuesta de Open-Meteo sin 'current'/'daily'")
@@ -75,6 +75,36 @@ def _viento(kmh: float) -> str:
     if kmh < 40:
         return "viento fuerte"
     return "viento muy fuerte"
+
+
+def _titular_dia(dia_nombre: str, d: dict, prev_max: int | None) -> str:
+    """Titular corto con gancho para un día, al estilo 'El tiempo de Javimo'
+    ('Finde en seco', 'Puente pasado por agua'): describe el rasgo del día, no el pueblo."""
+    nombre = dia_nombre.capitalize()
+    if d["prob_lluvia"] >= 50 and d["mm"] >= 1:
+        return f"{nombre} pasado por agua"
+    if d["prob_lluvia"] >= 40:
+        return f"{nombre} con opciones de lluvia"
+    if "tormenta" in d["desc"]:
+        return f"{nombre} con riesgo de tormenta"
+    if prev_max is not None and d["max"] - prev_max >= 4:
+        return f"{nombre}, sube el calor"
+    if prev_max is not None and prev_max - d["max"] >= 4:
+        return f"{nombre}, refresca"
+    if d["desc"] in ("despejado", "casi despejado"):
+        return f"{nombre} de sol"
+    return f"{nombre}, tiempo tranquilo"
+
+
+def _texto_dia(d: dict) -> str:
+    frases = [f"Máxima de {d['max']}° y mínima de {d['min']}°, con {d['desc']}."]
+    if d["mm"] and d["mm"] >= 1.0 and d["prob_lluvia"] >= 40:
+        frases.append(f"Puede llover (hasta {d['mm']} mm), con un {d['prob_lluvia']}% de probabilidad.")
+    elif d["prob_lluvia"] and d["prob_lluvia"] >= 40:
+        frases.append(f"Hay un {d['prob_lluvia']}% de probabilidad de lluvia, aunque poca cosa.")
+    if d["viento_kmh"] >= 25:
+        frases.append(f"Sopla {_viento(d['viento_kmh'])}.")
+    return " ".join(frases)
 
 
 def build_article(municipio: str, fc: dict) -> dict:
@@ -114,15 +144,24 @@ def build_article(municipio: str, fc: dict) -> dict:
     frases.append(f"Mañana, {WMO.get(dcode, 'tiempo variable')} y hasta {dmax} grados.")
 
     dias = []
+    prev_max = None
     for i, iso in enumerate(d["time"]):
         y, mo, dd = (int(x) for x in iso.split("-"))
-        dias.append({
+        dia_nombre = DIAS[date(y, mo, dd).weekday()]
+        item = {
             "fecha": iso,
-            "dia": DIAS[date(y, mo, dd).weekday()],
+            "dia": dia_nombre,
             "max": round(d["temperature_2m_max"][i]),
             "min": round(d["temperature_2m_min"][i]),
             "desc": WMO.get(d["weather_code"][i], "tiempo variable"),
-        })
+            "prob_lluvia": d["precipitation_probability_max"][i],
+            "mm": d["precipitation_sum"][i],
+            "viento_kmh": round(d["wind_speed_10m_max"][i]),
+        }
+        item["titular"] = _titular_dia(dia_nombre, item, prev_max)
+        item["texto"] = _texto_dia(item)
+        prev_max = item["max"]
+        dias.append(item)
 
     return {
         "municipio": municipio,
