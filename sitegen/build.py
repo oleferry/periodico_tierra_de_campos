@@ -28,6 +28,7 @@ from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
 from scrapers.weather_openmeteo import geocode, weather_for
+from sitegen import cache, ia
 from sitegen.contenido import PUEBLOS_INFO, eventos_comarca, huerta_del_mes, proximas_fiestas
 from sitegen.redactor import redactar
 
@@ -215,6 +216,23 @@ def resumen_tiempo(built: list[dict]) -> dict | None:
         "tmin": min(t for _, t in temps), "tmax": max(t for _, t in temps),
         "hot_name": hot_name, "hot_t": hot_t, "desc": desc, "n": len(ws),
     }
+
+
+def tiempo_ia(w: dict, hoy: date) -> None:
+    """Reescribe w['articulo'] con la IA (con caché) si hay clave. Si no, lo deja como está."""
+    if not w or not ia.disponible():
+        return
+    clave = f"{ia.PROMPT_VERSION}|{w['municipio']}|{hoy.isoformat()}|{w['ahora']['temp']}|{w['hoy']['max']}|{w['hoy']['min']}|{w['ahora']['desc']}"
+    guardado = cache.get("tiempo", clave)
+    if guardado:
+        w["articulo"] = guardado
+        return
+    try:
+        texto = ia.tiempo(w)
+        cache.set("tiempo", clave, texto)
+        w["articulo"] = texto
+    except Exception as exc:  # noqa: BLE001
+        print(f"  aviso: IA no disponible para el tiempo de {w['municipio']} ({exc})", file=sys.stderr)
 
 
 # --------------------------------------------------------------- portada
@@ -446,6 +464,7 @@ def main() -> int:
                     lat, lon = geo
             if lat and lon:
                 m["weather"] = weather_for(m["name"], float(lat), float(lon))
+                tiempo_ia(m["weather"], hoy)
                 print(f"· {m['name']}: {m['weather']['ahora']['temp']}° {m['weather']['ahora']['desc']}", flush=True)
         except ScraperError as exc:
             print(f"  aviso: sin tiempo para {m['name']} ({exc})", file=sys.stderr)
@@ -473,7 +492,9 @@ def main() -> int:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
             render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
 
-    print(f"\nGenerado: web/index.html + {len(built)} fichas de municipio.")
+    cache.flush()
+    modo = "IA (Claude)" if ia.disponible() else "reglas (sin ANTHROPIC_API_KEY)"
+    print(f"\nGenerado: web/index.html + {len(built)} fichas de municipio. Redacción: {modo}.")
     return 0
 
 

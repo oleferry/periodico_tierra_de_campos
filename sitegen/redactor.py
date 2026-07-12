@@ -12,9 +12,31 @@ Reglas de estilo (editorial/politica_editorial.md, docs/guia-estilo-gi.md):
 
 from __future__ import annotations
 
+import hashlib
 import re
+import sys
 
 from scrapers.common import strip_accents
+from sitegen import cache, ia
+
+
+def redactar(doc: dict) -> dict:
+    """Titular + entradilla. Usa la IA si hay clave (con caché por hash); si no,
+    o si la IA falla, cae al redactor por reglas (determinista)."""
+    clave = hashlib.sha256(
+        f"{ia.PROMPT_VERSION}|{doc.get('title','')}|{doc.get('municipality_name','')}".encode()
+    ).hexdigest()
+    guardado = cache.get("redactor", clave)
+    if guardado:
+        return guardado
+    if ia.disponible():
+        try:
+            r = ia.redactar(doc)
+            cache.set("redactor", clave, r)
+            return r
+        except Exception as exc:  # noqa: BLE001 (cualquier fallo → reglas)
+            print(f"  aviso: IA no disponible para un titular ({exc}); uso reglas", file=sys.stderr)
+    return redactar_reglas(doc)
 
 
 def _limpiar(titulo: str) -> str:
@@ -47,8 +69,8 @@ def _licitacion_objeto(titulo: str) -> str | None:
     return None
 
 
-def redactar(doc: dict) -> dict:
-    """Devuelve {'titular', 'entradilla'} a partir del documento scrapeado."""
+def redactar_reglas(doc: dict) -> dict:
+    """Redactor determinista por reglas (respaldo cuando no hay IA)."""
     titulo = (doc.get("title") or "").strip()
     muni = doc.get("municipality_name", "").strip()
     t = strip_accents(titulo).lower()
