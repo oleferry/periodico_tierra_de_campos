@@ -42,6 +42,27 @@ def huerta_del_mes(hoy: date) -> dict:
     return {"mes": MESES_NOMBRE[hoy.month].capitalize(), "texto": HUERTA[hoy.month]}
 
 
+# --------------------------------------------------------------- sobre el pueblo
+
+# Contexto evergreen verificado (docs/estudio-fuentes-y-viabilidad.md + patrimonio
+# de conocimiento común y comprobable). Es contexto, no noticia. "club" = club
+# deportivo de referencia identificado, o None si no se ha verificado ninguno.
+PUEBLOS_INFO = {
+    "mayorga": {"sobre": "Villa histórica del sur de Tierra de Campos, conocida por la fiesta del Vítor de San Toribio.", "club": None},
+    "villalon-de-campos": {"sobre": "Famosa por su Rollo gótico, uno de los mejores de Castilla, y por sus ferias de San Juan y San Pedro.", "club": None},
+    "villada": {"sobre": "Conocida por su Feria de la Matanza y su pasado ferroviario en el norte de la comarca.", "club": None},
+    "medina-de-rioseco": {"sobre": "La «Ciudad de los Almirantes», nodo patrimonial y turístico de la comarca, con una Semana Santa de Interés Turístico Internacional y el Canal de Castilla a su paso.", "club": None},
+    "sahagun": {"sobre": "Cruce del Camino de Santiago y capital del mudéjar leonés, con un rico patrimonio de ladrillo.", "club": None},
+    "valderas": {"sobre": "Conjunto histórico del sur de León, con notable patrimonio civil y religioso.", "club": None},
+    "carrion-de-los-condes": {"sobre": "Villa jacobea de gran peso patrimonial, con monasterios e iglesias en el Camino de Santiago.", "club": None},
+    "paredes-de-nava": {"sobre": "Cuna del escultor Alonso Berruguete y del poeta Jorge Manrique. Celebra las Jornadas Vacceas y la Carrera Vaccea.", "club": "C.D. Villa de Paredes"},
+    "becerril-de-campos": {"sobre": "Destaca por Santa María la Antigua, hoy espacio cultural y planetario («San Pedro Cultural»).", "club": "CD Becerril"},
+    "fuentes-de-nava": {"sobre": "A orillas de la Laguna de la Nava, uno de los grandes humedales de Castilla y referencia para la observación de aves.", "club": None},
+    "villalpando": {"sobre": "Capital histórica de la Tierra de Campos zamorana, conserva restos de sus murallas y un notable casco histórico.", "club": None},
+    "villarramiel": {"sobre": "Villa palentina de tradición peletera, en el corazón de Tierra de Campos.", "club": None},
+}
+
+
 # --------------------------------------------------------------- fiestas
 
 # Fiestas y ferias VERIFICADAS en las fichas municipales (docs/estudio-fuentes-y-viabilidad.md).

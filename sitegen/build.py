@@ -28,7 +28,7 @@ from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
 from scrapers.weather_openmeteo import geocode, weather_for
-from sitegen.contenido import eventos_comarca, huerta_del_mes, proximas_fiestas
+from sitegen.contenido import PUEBLOS_INFO, eventos_comarca, huerta_del_mes, proximas_fiestas
 from sitegen.redactor import redactar
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -179,6 +179,18 @@ _PENALIZA = [("declaracion de ruina", -4), ("uso excepcional de suelo rustico", 
              ("via pecuaria", -2), ("correccion de errores", -3)]
 
 
+def es_pleno(d: dict) -> bool:
+    """¿El anuncio es un pleno o acuerdo de gobierno municipal?"""
+    t = strip_accents(d.get("title", "")).lower()
+    org = strip_accents((d.get("metadata") or {}).get("organismo", "")).lower()
+    if "pleno" in t or "junta de gobierno" in t:
+        return True
+    gobierno = ("presupuest", "ordenanza", "plan general", "cuenta general",
+                "plan economico", "modificacion presupuestaria", "credito extraordinario",
+                "suplemento de credito", "ordenacion urbana")
+    return "ayuntamiento" in org and any(k in t for k in gobierno)
+
+
 def relevancia(d: dict) -> int:
     t = strip_accents(d.get("title", "")).lower()
     s = 0
@@ -316,11 +328,26 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
 
     noticias = anuncios + m.get("_bocyl", [])
     noticias.sort(key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
-    if noticias:
-        rows = "".join(doc_row(d, show_muni=False) for d in noticias)
-        ayto = f"""<h2 class="tc-block-title" style="color:var(--tc-azul-bop);">Lo que se mueve en {E(m['name'])}</h2>
+    # Descartar titulares repetidos (p. ej. una resolución y su corrección de errores)
+    _vistos, _dedup = set(), []
+    for d in noticias:
+        tit = redactar(d)["titular"]
+        if tit not in _vistos:
+            _vistos.add(tit)
+            _dedup.append(d)
+    noticias = _dedup
+    plenos = [d for d in noticias if es_pleno(d)]
+    otros = [d for d in noticias if not es_pleno(d)]
+    ayto = ""
+    if plenos:
+        rows = "".join(doc_row(d, show_muni=False) for d in plenos)
+        ayto += f"""<h2 class="tc-block-title" style="color:var(--tc-azul-bop);">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid">{rows}</div>"""
-    else:
+    if otros:
+        rows = "".join(doc_row(d, show_muni=False) for d in otros)
+        ayto += f"""<h2 class="tc-block-title" style="color:var(--tc-azul-bop);">Otros anuncios oficiales</h2>
+      <div class="tc-news-grid">{rows}</div>"""
+    if not noticias:
         ayto = """<div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
       <p style="margin:6px 0 0;">Sin anuncios ni plenos nuevos verificados en los últimos días.</p></div>"""
 
@@ -335,6 +362,17 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
         agenda_html = "".join(f'<li><strong>{E(f["cuando"])}</strong> — {E(f["nombre"])}</li>' for f in fiestas)
     else:
         agenda_html = '<li>Sin fiestas registradas todavía. ¿Falta alguna? Escríbenos.</li>'
+
+    # Sobre el pueblo: contexto evergreen verificado + deporte local
+    info = PUEBLOS_INFO.get(m["slug"])
+    if info:
+        deporte = (f'<p style="margin:8px 0 0; font-size:.88rem;"><strong>Deporte local:</strong> {E(info["club"])}. '
+                   f'Resultados y clasificación, próximamente.</p>' if info.get("club")
+                   else '<p style="margin:8px 0 0; font-size:.82rem; color:rgba(37,31,26,.6);">Sin club de referencia identificado todavía.</p>')
+        sobre_html = f"""<div class="tc-side-block tc-sobre"><h3>Sobre {E(m['name'])}</h3>
+      <p style="font-size:.9rem;">{E(info['sobre'])}</p>{deporte}</div>"""
+    else:
+        sobre_html = ""
 
     # Negocios y tablón: sección honesta. NO se inventan anuncios; los envían vecinos/comercios.
     tablon_html = f"""<div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
@@ -365,6 +403,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     {tablon_html}
   </main>
   <aside class="tc-muni-side">
+    {sobre_html}
     <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list">{links_html}</ul></div>
     <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda">{agenda_html}</ul></div>
   </aside>
