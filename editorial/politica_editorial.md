@@ -52,14 +52,18 @@ Puede automatizarse:
 - orientación de huerta;
 - recordatorios de plazo sin interpretación jurídica.
 
-## 5. Estilo
+## 5. Estilo y voz
 
-La guía completa está en:
+La voz editorial del proyecto está en:
 
-`docs/guia-estilo-gi.md`
+`docs/voz-editorial.md`
 
-Aplicar con intensidad alta en piezas de tiempo, huerta y boletín.
+Idea central: que el lector sienta que se lo cuenta un vecino que se entera de todo — cercano pero serio, nunca institucional, nunca campechano forzado, nunca folclórico.
 
-Aplicar con moderación en plenos, ayudas y BOP.
+Aplicar con intensidad alta en piezas de tiempo, huerta y newsletter.
+
+Aplicar con moderación en plenos, ayudas y BOP (ahí pesa más el dato exacto que el gancho narrativo).
 
 No sacrificar claridad por estilo.
+
+`docs/guia-estilo-gi.md` queda descartada para este proyecto — es una guía de voz de blog/opinión personal (tacos, coloquialismos), no encaja con un medio que resume información pública.
