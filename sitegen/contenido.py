@@ -58,6 +58,21 @@ FIESTAS = {
 }
 
 
+def eventos_comarca(nombre_por_slug: dict, hoy: date, n: int = 8) -> list[dict]:
+    """Agenda COMÚN de la comarca: próximas fiestas de todos los pueblos, agregadas."""
+    out = []
+    hoy_ref = (hoy.month, hoy.day)
+    for slug, fiestas in FIESTAS.items():
+        pueblo = nombre_por_slug.get(slug, slug)
+        for mes, dia, nombre in fiestas:
+            ref = (mes, dia or 1)
+            clave = (0 if ref >= hoy_ref else 1, mes, dia or 1)
+            etiqueta = f"{dia} de {MESES_NOMBRE[mes]}" if dia else MESES_NOMBRE[mes].capitalize()
+            out.append((clave, {"pueblo": pueblo, "slug": slug, "cuando": etiqueta, "nombre": nombre}))
+    out.sort(key=lambda x: x[0])
+    return [x[1] for x in out[:n]]
+
+
 def proximas_fiestas(slug: str, hoy: date, n: int = 3) -> list[dict]:
     """Devuelve las próximas fiestas del pueblo desde hoy (ciclo anual)."""
     fiestas = FIESTAS.get(slug)

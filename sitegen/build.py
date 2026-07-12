@@ -28,7 +28,8 @@ from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
 from scrapers.weather_openmeteo import geocode, weather_for
-from sitegen.contenido import huerta_del_mes, proximas_fiestas
+from sitegen.contenido import eventos_comarca, huerta_del_mes, proximas_fiestas
+from sitegen.redactor import redactar
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -82,11 +83,14 @@ def fuente_label(d: dict) -> str:
 
 
 def doc_row(d: dict, *, show_muni: bool) -> str:
+    r = redactar(d)
     muni = f"{E(d['municipality_name'])} · " if show_muni else ""
-    return f"""<div class="tc-item">
-      <a class="tc-item-titulo" href="{E(d['url_original'])}" target="_blank" rel="noopener">{E(d['title'])}</a>
-      <p class="tc-item-meta">{muni}{fuente_label(d)} · {d['published_at']} · <span class="tc-sello tc-sello--auto">Fuente oficial</span></p>
-    </div>"""
+    return f"""<a class="tc-news" href="{E(d['url_original'])}" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">{muni}{fuente_label(d)} · {d['published_at']}</span>
+      <span class="tc-news-titular">{E(r['titular'])}</span>
+      <span class="tc-news-entradilla">{E(r['entradilla'])}</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a>"""
 
 
 def load_municipios() -> dict[str, dict]:
@@ -204,12 +208,29 @@ def resumen_tiempo(built: list[dict]) -> dict | None:
 # --------------------------------------------------------------- portada
 
 def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
-    # Noticias relevantes: se prioriza lo jugoso sobre el trámite repetitivo.
-    noticias = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)[:7]
+    # Noticias relevantes: se prioriza lo jugoso; se descartan titulares repetidos.
+    ordenadas = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
+    noticias, vistos = [], set()
+    for d in ordenadas:
+        tit = redactar(d)["titular"]
+        if tit in vistos:
+            continue
+        vistos.add(tit)
+        noticias.append(d)
+        if len(noticias) >= 6:
+            break
     if noticias:
-        items = "".join(doc_row(d, show_muni=True) for d in noticias)
+        items = f'<div class="tc-news-grid">{"".join(doc_row(d, show_muni=True) for d in noticias)}</div>'
     else:
-        items = '<div class="tc-item"><p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca.</p></div>'
+        items = '<p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca.</p>'
+
+    # Contenido COMÚN de la comarca (no cambia de un pueblo a otro).
+    huerta = huerta_del_mes(hoy)
+    nombre_por_slug = {m["slug"]: m["name"] for m in built}
+    eventos = eventos_comarca(nombre_por_slug, hoy, n=6)
+    agenda_html = "".join(
+        f'<li><strong>{E(e["cuando"])}</strong> · {E(e["nombre"])} <span class="tc-agenda-pueblo">{E(e["pueblo"])}</span></li>'
+        for e in eventos) or "<li>Sin fiestas próximas registradas.</li>"
 
     # Resumen del tiempo de la comarca (una línea, no 12 tarjetas).
     r = resumen_tiempo(built)
@@ -232,10 +253,20 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
 
 <section class="tc-wrap" id="tiempo">{tiempo_html}</section>
 
-<section class="tc-wrap tc-secciones" id="comarca">
-  <div class="tc-seccion-col">
-    <h2 style="color: var(--tc-azul-bop);">Noticias relevantes de la comarca</h2>
-    {items}
+<section class="tc-wrap" id="comarca">
+  <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">Noticias relevantes de la comarca</h2>
+  {items}
+</section>
+
+<section class="tc-wrap tc-comun">
+  <div class="tc-comun-huerta">
+    <h2 class="tc-block-title" style="color: var(--tc-verde-regadio);">Campo y huerta — {E(huerta['mes'])} en la meseta</h2>
+    <p class="tc-pieza-cuerpo">{E(huerta['texto'])}</p>
+    <p class="tc-item-meta">Común para toda la comarca. Orientación general, no sustituye asesoramiento técnico.</p>
+  </div>
+  <div class="tc-comun-agenda">
+    <h2 class="tc-block-title" style="color: var(--tc-trigo-seco);">Agenda de la comarca</h2>
+    <ul class="tc-links-list tc-agenda">{agenda_html}</ul>
   </div>
 </section>
 
@@ -284,10 +315,11 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     meta_html = "".join(f"<span>{s}</span>" for s in meta if s)
 
     noticias = anuncios + m.get("_bocyl", [])
-    noticias.sort(key=lambda d: d.get("published_at") or "", reverse=True)
+    noticias.sort(key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
     if noticias:
         rows = "".join(doc_row(d, show_muni=False) for d in noticias)
-        ayto = f"""<div class="tc-card"><h3>Ayuntamiento en limpio</h3>{rows}</div>"""
+        ayto = f"""<h2 class="tc-block-title" style="color:var(--tc-azul-bop);">Lo que se mueve en {E(m['name'])}</h2>
+      <div class="tc-news-grid">{rows}</div>"""
     else:
         ayto = """<div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
       <p style="margin:6px 0 0;">Sin anuncios ni plenos nuevos verificados en los últimos días.</p></div>"""
@@ -303,12 +335,6 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
         agenda_html = "".join(f'<li><strong>{E(f["cuando"])}</strong> — {E(f["nombre"])}</li>' for f in fiestas)
     else:
         agenda_html = '<li>Sin fiestas registradas todavía. ¿Falta alguna? Escríbenos.</li>'
-
-    # Campo y huerta: calendario evergreen de la meseta (orientativo)
-    huerta = huerta_del_mes(hoy)
-    huerta_html = f"""<div class="tc-card"><h3>Campo y huerta — {E(huerta['mes'])} en la meseta</h3>
-      <p class="tc-pieza-cuerpo">{E(huerta['texto'])}</p>
-      <p class="tc-item-meta">Orientación general para la comarca, no sustituye asesoramiento técnico.</p></div>"""
 
     # Negocios y tablón: sección honesta. NO se inventan anuncios; los envían vecinos/comercios.
     tablon_html = f"""<div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
@@ -336,7 +362,6 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
       <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
     </div></div>
     {ayto}
-    {huerta_html}
     {tablon_html}
   </main>
   <aside class="tc-muni-side">
