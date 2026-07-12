@@ -1,4 +1,5 @@
 /* El Terracampino — layout de la maqueta web.
+   Periódico clásico: blanco, tinta negra, un único acento (azul institucional).
    Solo compone con los tokens de brand/web/brand-tokens.css — no redefine colores. */
 
 * { box-sizing: border-box; }
@@ -12,7 +13,7 @@
 /* Cabecera */
 
 .tc-header {
-  border-bottom: 1px solid rgba(37, 31, 26, .22);
+  border-bottom: 2px solid var(--tc-linea);
   padding: var(--tc-space-3) 0;
 }
 
@@ -35,21 +36,21 @@
 .tc-logo img { display: block; height: 52px; width: auto; }
 
 /* Masthead (portada) */
-.tc-masthead { padding: var(--tc-space-5) 0 var(--tc-space-4); text-align: center; border-bottom: 1px solid rgba(37,31,26,.14); }
+.tc-masthead { padding: var(--tc-space-5) 0 var(--tc-space-4); text-align: center; border-bottom: 1px solid var(--tc-linea-suave); }
 .tc-masthead h1 { font-size: 2.4rem; margin: 8px auto 12px; max-width: 20ch; }
-.tc-masthead-sub { font-size: 1.05rem; color: rgba(37,31,26,.75); max-width: 46ch; margin: 0 auto var(--tc-space-3); }
+.tc-masthead-sub { font-size: 1.05rem; color: var(--tc-texto-secundario); max-width: 46ch; margin: 0 auto var(--tc-space-3); }
 .tc-masthead-pick { display: flex; justify-content: center; }
 .tc-masthead-pick .tc-muni-select { font-size: 1rem; padding: 12px 18px; min-width: 280px; }
 
 /* Rejilla de pueblos (directorio tipo Patch) */
 .tc-pueblos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding-bottom: var(--tc-space-3); }
-.tc-pueblo { display: flex; flex-direction: column; padding: 14px 16px; border: 1px solid rgba(37,31,26,.2); border-radius: var(--tc-radius-card); background: rgba(244,235,221,.6); text-decoration: none; transition: border-color .15s, background .15s; }
-.tc-pueblo:hover { border-color: var(--tc-terron); background: rgba(166,95,42,.06); }
+.tc-pueblo { display: flex; flex-direction: column; padding: 14px 16px; border: 1px solid var(--tc-linea-suave); background: var(--tc-papel-crudo); text-decoration: none; transition: border-color .15s; }
+.tc-pueblo:hover { border-color: var(--tc-azul-bop); }
 .tc-pueblo-nombre { font-family: var(--tc-font-headline); font-size: 1.1rem; color: var(--tc-tinta-tierra); }
 .tc-pueblo-prov { font-family: var(--tc-font-data); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--tc-azul-bop); margin-top: 2px; }
 
 /* Resumen del tiempo de la comarca (portada) */
-.tc-weather-summary { display: flex; align-items: center; justify-content: space-between; gap: var(--tc-space-3); flex-wrap: wrap; border: 1px solid rgba(37,31,26,.2); border-radius: var(--tc-radius-card); background: rgba(184,200,194,.18); padding: var(--tc-space-3); margin: var(--tc-space-3) 0; }
+.tc-weather-summary { display: flex; align-items: center; justify-content: space-between; gap: var(--tc-space-3); flex-wrap: wrap; border-top: 1px solid var(--tc-linea); border-bottom: 1px solid var(--tc-linea); padding: var(--tc-space-3) 0; margin: var(--tc-space-3) 0; }
 .tc-weather-summary-txt { flex: 1 1 320px; }
 .tc-weather-summary-txt p { font-size: 1.15rem; line-height: 1.5; margin: 6px 0 0; }
 .tc-weather-summary-txt strong { color: var(--tc-tinta-tierra); }
@@ -59,28 +60,29 @@
 .tc-channel { background: var(--tc-tinta-tierra); color: var(--tc-papel-crudo); padding: var(--tc-space-4) 0; margin: var(--tc-space-4) 0; }
 .tc-channel-inner { display: flex; align-items: center; justify-content: space-between; gap: var(--tc-space-3); flex-wrap: wrap; }
 .tc-channel h2 { color: var(--tc-papel-crudo); font-size: 1.3rem; margin: 0 0 6px; }
-.tc-channel p { margin: 0; font-size: .92rem; color: rgba(244,235,221,.82); max-width: 52ch; }
+.tc-channel p { margin: 0; font-size: .92rem; color: rgba(255,255,255,.78); max-width: 52ch; }
 .tc-channel-btns { display: flex; gap: 10px; }
-.tc-channel .tc-button { background: var(--tc-terron); border-color: var(--tc-terron); color: var(--tc-papel-crudo); }
+.tc-channel .tc-button { background: var(--tc-papel-crudo); border-color: var(--tc-papel-crudo); color: var(--tc-tinta-tierra); }
 .tc-channel .tc-button--ghost { background: transparent; border-color: var(--tc-papel-crudo); color: var(--tc-papel-crudo); }
-.tc-channel--inline { background: rgba(37,31,26,.05); color: var(--tc-tinta-tierra); border: 1px solid rgba(37,31,26,.18); border-radius: var(--tc-radius-card); padding: var(--tc-space-2) var(--tc-space-3); margin: 0 0 var(--tc-space-3); }
+.tc-channel--inline { background: var(--tc-papel-crudo); color: var(--tc-tinta-tierra); border: 1px solid var(--tc-linea); padding: var(--tc-space-2) var(--tc-space-3); margin: 0 0 var(--tc-space-3); }
 .tc-channel--inline h3 { color: var(--tc-tinta-tierra); }
-.tc-channel--inline p { color: rgba(37,31,26,.75); }
-.tc-channel--inline .tc-button { background: var(--tc-verde-regadio); border-color: var(--tc-verde-regadio); }
+.tc-channel--inline p { color: var(--tc-texto-secundario); }
+.tc-channel--inline .tc-button { background: var(--tc-azul-bop); border-color: var(--tc-azul-bop); color: var(--tc-papel-crudo); }
 .tc-channel--inline .tc-button--ghost { background: transparent; border-color: var(--tc-tinta-tierra); color: var(--tc-tinta-tierra); }
 
 /* El tiempo protagonista (ficha de pueblo) */
-.tc-weather-hero { border: 1px solid rgba(37,31,26,.2); border-radius: var(--tc-radius-card); background: rgba(184,200,194,.16); padding: var(--tc-space-3); margin-bottom: var(--tc-space-3); }
+.tc-weather-hero { border: 1px solid var(--tc-linea); padding: var(--tc-space-3); margin-bottom: var(--tc-space-3); }
 .tc-weather-now { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
-.tc-weather-big { font-size: 3.4rem; line-height: 1; color: var(--tc-tinta-tierra); }
+.tc-weather-big { font-size: 3.4rem; line-height: 1; color: var(--tc-tinta-tierra); font-family: var(--tc-font-data); }
 .tc-weather-desc { font-size: 1.2rem; color: var(--tc-tinta-tierra); }
 .tc-weather-article { font-size: 1.05rem; line-height: 1.6; margin: 0 0 var(--tc-space-3); }
-.tc-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-.tc-day { display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid rgba(37,31,26,.14); border-radius: var(--tc-radius-card); background: var(--tc-papel-crudo); }
+.tc-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--tc-linea-suave); }
+.tc-day { display: flex; flex-direction: column; gap: 4px; padding: 12px; border-right: 1px solid var(--tc-linea-suave); background: var(--tc-papel-crudo); }
+.tc-day:last-child { border-right: none; }
 .tc-day-name { font-family: var(--tc-font-data); text-transform: uppercase; font-size: .72rem; letter-spacing: .06em; color: var(--tc-azul-bop); }
-.tc-day-desc { font-size: .82rem; color: rgba(37,31,26,.7); min-height: 2.4em; }
-.tc-day-temp { font-size: 1.3rem; color: var(--tc-tinta-tierra); }
-.tc-day-min { color: rgba(37,31,26,.5); font-size: 1rem; }
+.tc-day-desc { font-size: .82rem; color: var(--tc-texto-secundario); min-height: 2.4em; }
+.tc-day-temp { font-size: 1.3rem; color: var(--tc-tinta-tierra); font-family: var(--tc-font-data); }
+.tc-day-min { color: var(--tc-texto-terciario); font-size: 1rem; }
 
 .tc-logo-text {
   font-family: var(--tc-font-headline);
@@ -111,15 +113,14 @@
   padding-bottom: 2px;
 }
 
-.tc-nav a:hover { border-bottom-color: var(--tc-terron); }
+.tc-nav a:hover { border-bottom-color: var(--tc-azul-bop); }
 
 /* Selector de municipio */
 
 .tc-muni-select {
   font-family: var(--tc-font-body);
   font-size: .85rem;
-  border: 1px solid rgba(37, 31, 26, .35);
-  border-radius: var(--tc-radius-card);
+  border: 1px solid var(--tc-linea);
   background: var(--tc-papel-crudo);
   color: var(--tc-tinta-tierra);
   padding: 6px 10px;
@@ -129,7 +130,7 @@
 
 .tc-hoy {
   padding: var(--tc-space-4) 0;
-  border-bottom: 1px solid rgba(37, 31, 26, .14);
+  border-bottom: 1px solid var(--tc-linea-suave);
 }
 
 .tc-hoy-fecha {
@@ -168,14 +169,14 @@
 
 .tc-pieza-cuerpo {
   font-size: .92rem;
-  color: rgba(37, 31, 26, .82);
+  color: var(--tc-texto-secundario);
 }
 
 .tc-muni-tag {
   font-family: var(--tc-font-data);
   font-size: .72rem;
   letter-spacing: .06em;
-  color: var(--tc-terron);
+  color: var(--tc-azul-bop);
   text-transform: uppercase;
 }
 
@@ -194,15 +195,16 @@
 
 .tc-seccion-col h2 {
   font-size: 1.1rem;
-  border-bottom: 2px solid currentColor;
+  border-bottom: 2px solid var(--tc-linea);
   display: inline-block;
   padding-bottom: 4px;
   margin-bottom: var(--tc-space-2);
+  color: var(--tc-tinta-tierra) !important;
 }
 
 .tc-item {
   padding: 10px 0;
-  border-bottom: 1px solid rgba(37, 31, 26, .12);
+  border-bottom: 1px solid var(--tc-linea-suave);
 }
 
 .tc-item:last-child { border-bottom: none; }
@@ -218,16 +220,16 @@
 .tc-item-meta {
   font-family: var(--tc-font-data);
   font-size: .75rem;
-  color: rgba(37, 31, 26, .6);
+  color: var(--tc-texto-terciario);
   margin-top: 2px;
 }
 
 /* Newsletter */
 
 .tc-newsletter {
-  background: rgba(166, 95, 42, .07);
-  border-top: 1px solid rgba(37, 31, 26, .14);
-  border-bottom: 1px solid rgba(37, 31, 26, .14);
+  background: var(--tc-papel-crudo);
+  border-top: 1px solid var(--tc-linea);
+  border-bottom: 1px solid var(--tc-linea);
   padding: var(--tc-space-4) 0;
 }
 
@@ -240,7 +242,7 @@
 }
 
 .tc-newsletter h2 { font-size: 1.2rem; margin: 0 0 4px; }
-.tc-newsletter p { margin: 0; font-size: .9rem; color: rgba(37, 31, 26, .75); }
+.tc-newsletter p { margin: 0; font-size: .9rem; color: var(--tc-texto-secundario); }
 
 .tc-form {
   display: flex;
@@ -250,8 +252,7 @@
 .tc-input {
   font-family: var(--tc-font-body);
   padding: 9px 12px;
-  border: 1px solid rgba(37, 31, 26, .35);
-  border-radius: var(--tc-radius-card);
+  border: 1px solid var(--tc-linea);
   background: var(--tc-papel-crudo);
   min-width: 220px;
 }
@@ -261,7 +262,7 @@
 .tc-footer {
   padding: var(--tc-space-4) 0 var(--tc-space-5);
   font-size: .82rem;
-  color: rgba(37, 31, 26, .7);
+  color: var(--tc-texto-secundario);
 }
 
 .tc-footer .tc-aviso {
@@ -286,11 +287,10 @@
   text-transform: uppercase;
   letter-spacing: .06em;
   border: 1px solid currentColor;
-  border-radius: var(--tc-radius-label);
   padding: 2px 6px;
 }
 
-.tc-sello--auto { color: var(--tc-verde-regadio); }
+.tc-sello--auto { color: var(--tc-azul-bop); }
 .tc-sello--revisado { color: var(--tc-azul-bop); }
 .tc-sello--pendiente { color: var(--tc-rojo-aviso); }
 
@@ -298,16 +298,19 @@
 
 .tc-block-title {
   font-size: 1.1rem;
-  border-bottom: 2px solid currentColor;
+  border-bottom: 2px solid var(--tc-linea);
   display: inline-block;
   padding-bottom: 4px;
   margin: var(--tc-space-4) 0 var(--tc-space-2);
+  color: var(--tc-tinta-tierra) !important;
 }
 
 .tc-weather-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: var(--tc-space-2);
+  gap: 0;
+  border-top: 1px solid var(--tc-linea-suave);
+  border-left: 1px solid var(--tc-linea-suave);
   padding-bottom: var(--tc-space-3);
 }
 
@@ -315,16 +318,20 @@
   text-decoration: none;
   color: inherit;
   display: block;
-  transition: border-color .15s;
+  padding: var(--tc-space-2);
+  border-right: 1px solid var(--tc-linea-suave);
+  border-bottom: 1px solid var(--tc-linea-suave);
+  transition: background .15s;
 }
 
-.tc-weather-card:hover { border-color: var(--tc-azul-bop); }
+.tc-weather-card:hover { background: var(--tc-linea-suave); }
 
 .tc-weather-temp {
   font-size: 2.2rem;
   line-height: 1;
   margin: 6px 0 4px;
   color: var(--tc-tinta-tierra);
+  font-family: var(--tc-font-data);
 }
 
 .tc-weather-lead {
@@ -339,7 +346,7 @@
 
 .tc-muni-hero {
   padding: var(--tc-space-4) 0;
-  border-bottom: 1px solid rgba(37, 31, 26, .14);
+  border-bottom: 1px solid var(--tc-linea-suave);
 }
 
 .tc-muni-hero .tc-section-label { margin-bottom: 6px; }
@@ -355,7 +362,7 @@
   flex-wrap: wrap;
   font-family: var(--tc-font-data);
   font-size: .82rem;
-  color: rgba(37, 31, 26, .7);
+  color: var(--tc-texto-secundario);
 }
 
 .tc-muni-grid {
@@ -386,35 +393,35 @@
   font-size: .85rem;
   text-transform: uppercase;
   letter-spacing: .06em;
-  color: var(--tc-azul-bop);
+  color: var(--tc-azul-bop) !important;
   font-family: var(--tc-font-data);
   margin: 0 0 8px;
 }
 
 .tc-links-list { list-style: none; padding: 0; margin: 0; }
-.tc-links-list li { padding: 5px 0; border-bottom: 1px solid rgba(37, 31, 26, .1); font-size: .88rem; }
+.tc-links-list li { padding: 5px 0; border-bottom: 1px solid var(--tc-linea-suave); font-size: .88rem; }
 .tc-links-list a { color: var(--tc-azul-bop); text-decoration: none; }
 .tc-links-list a:hover { text-decoration: underline; }
-.tc-agenda strong { color: var(--tc-terron); font-family: var(--tc-font-data); font-size: .82rem; }
+.tc-agenda strong { color: var(--tc-azul-bop); font-family: var(--tc-font-data); font-size: .82rem; }
 
 /* ---- Noticias como tarjetas clicables ---- */
-.tc-news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.tc-news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0; border-top: 1px solid var(--tc-linea); border-left: 1px solid var(--tc-linea); }
 .tc-news {
   display: flex; flex-direction: column; gap: 6px;
-  border: 1px solid rgba(37,31,26,.2); border-radius: var(--tc-radius-card);
+  border-right: 1px solid var(--tc-linea); border-bottom: 1px solid var(--tc-linea);
   background: var(--tc-papel-crudo); padding: 16px 18px;
   text-decoration: none; color: var(--tc-tinta-tierra);
-  transition: border-color .15s, transform .05s;
+  transition: background .15s;
 }
-.tc-news:hover { border-color: var(--tc-terron); }
-.tc-news:active { transform: scale(.995); }
+.tc-news:hover { background: var(--tc-linea-suave); }
+.tc-news:active { opacity: .85; }
 .tc-news-kicker { font-family: var(--tc-font-data); font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; color: var(--tc-azul-bop); }
-.tc-news-titular { font-family: var(--tc-font-headline); font-weight: 700; font-size: 1.18rem; line-height: 1.2; color: var(--tc-tinta-tierra); }
+.tc-news-titular { font-family: var(--tc-font-headline); font-weight: 700; font-size: 1.18rem; line-height: 1.25; color: var(--tc-tinta-tierra); }
 .tc-news-entradilla {
-  font-size: .92rem; color: rgba(37,31,26,.75); line-height: 1.45;
+  font-size: .92rem; color: var(--tc-texto-secundario); line-height: 1.45;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.tc-news-more { font-family: var(--tc-font-data); font-size: .75rem; color: var(--tc-terron); margin-top: 2px; }
+.tc-news-more { font-family: var(--tc-font-data); font-size: .75rem; color: var(--tc-azul-bop); margin-top: 2px; }
 
 /* ---- Contenido común de la comarca ---- */
 .tc-comun { display: grid; grid-template-columns: 2fr 1fr; gap: var(--tc-space-4); padding-top: var(--tc-space-3); }

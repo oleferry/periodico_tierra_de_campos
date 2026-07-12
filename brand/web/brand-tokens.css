@@ -1,19 +1,24 @@
 :root {
-  --tc-tinta-tierra: #251F1A;
-  --tc-papel-crudo: #F4EBDD;
+  --tc-tinta-tierra: #131313;
+  --tc-papel-crudo: #FFFFFF;
   --tc-terron: #A65F2A;
   --tc-trigo-seco: #D8B15A;
   --tc-verde-regadio: #5F7C52;
   --tc-cielo-bajo: #B8C8C2;
-  --tc-azul-bop: #2F556D;
+  --tc-azul-bop: #1F3F5C;
   --tc-rojo-aviso: #A93A32;
 
-  --tc-font-headline: "Fraunces", "Libre Baskerville", Georgia, serif;
-  --tc-font-body: "Atkinson Hyperlegible", "IBM Plex Sans", Inter, Arial, sans-serif;
+  --tc-linea: #131313;
+  --tc-linea-suave: rgba(19, 19, 19, .16);
+  --tc-texto-secundario: rgba(19, 19, 19, .72);
+  --tc-texto-terciario: rgba(19, 19, 19, .55);
+
+  --tc-font-headline: "PT Serif", Georgia, "Times New Roman", serif;
+  --tc-font-body: "Atkinson Hyperlegible", "IBM Plex Sans", Arial, sans-serif;
   --tc-font-data: "IBM Plex Mono", "Courier New", monospace;
 
-  --tc-radius-card: 6px;
-  --tc-radius-label: 2px;
+  --tc-radius-card: 0px;
+  --tc-radius-label: 0px;
 
   --tc-space-1: 8px;
   --tc-space-2: 16px;
@@ -31,8 +36,9 @@ body {
 
 h1, h2, h3, .tc-headline {
   font-family: var(--tc-font-headline);
+  font-weight: 700;
   color: var(--tc-tinta-tierra);
-  line-height: 1.05;
+  line-height: 1.08;
 }
 
 .tc-section-label {
@@ -40,32 +46,26 @@ h1, h2, h3, .tc-headline {
   font-family: var(--tc-font-data);
   text-transform: uppercase;
   letter-spacing: .08em;
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--tc-azul-bop);
 }
 
 .tc-card {
-  border: 1px solid rgba(37, 31, 26, .22);
+  border: 1px solid var(--tc-linea);
   border-radius: var(--tc-radius-card);
-  background: rgba(244, 235, 221, .86);
+  background: var(--tc-papel-crudo);
   padding: var(--tc-space-3);
 }
 
 .tc-source-box {
-  border-left: 3px solid var(--tc-azul-bop);
+  border-left: 3px solid var(--tc-tinta-tierra);
   padding: var(--tc-space-2);
-  background: rgba(47, 85, 109, .08);
+  background: var(--tc-papel-crudo);
   font-size: .92rem;
 }
 
 .tc-furrows {
-  background-image: repeating-linear-gradient(
-    to bottom,
-    rgba(37, 31, 26, .10) 0px,
-    rgba(37, 31, 26, .10) 1px,
-    transparent 1px,
-    transparent 12px
-  );
+  background: var(--tc-papel-crudo);
 }
 
 .tc-button {
@@ -75,6 +75,7 @@ h1, h2, h3, .tc-headline {
   color: var(--tc-papel-crudo);
   padding: 10px 16px;
   font-family: var(--tc-font-body);
+  font-weight: 700;
 }
 
 .tc-alert {

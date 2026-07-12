@@ -126,7 +126,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 <link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{up}assets/brand-tokens.css">
 <link rel="stylesheet" href="{up}assets/site.css">
 </head>
@@ -284,18 +284,18 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
 <section class="tc-wrap" id="tiempo">{tiempo_html}</section>
 
 <section class="tc-wrap" id="comarca">
-  <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">Noticias relevantes de la comarca</h2>
+  <h2 class="tc-block-title">Noticias relevantes de la comarca</h2>
   {items}
 </section>
 
 <section class="tc-wrap tc-comun">
   <div class="tc-comun-huerta">
-    <h2 class="tc-block-title" style="color: var(--tc-verde-regadio);">Campo y huerta — {E(huerta['mes'])} en la meseta</h2>
+    <h2 class="tc-block-title">Campo y huerta — {E(huerta['mes'])} en la meseta</h2>
     <p class="tc-pieza-cuerpo">{E(huerta['texto'])}</p>
     <p class="tc-item-meta">Común para toda la comarca. Orientación general, no sustituye asesoramiento técnico.</p>
   </div>
   <div class="tc-comun-agenda">
-    <h2 class="tc-block-title" style="color: var(--tc-trigo-seco);">Agenda de la comarca</h2>
+    <h2 class="tc-block-title">Agenda de la comarca</h2>
     <ul class="tc-links-list tc-agenda">{agenda_html}</ul>
   </div>
 </section>
@@ -359,11 +359,11 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     ayto = ""
     if plenos:
         rows = "".join(doc_row(d, show_muni=False) for d in plenos)
-        ayto += f"""<h2 class="tc-block-title" style="color:var(--tc-azul-bop);">Plenos y acuerdos municipales</h2>
+        ayto += f"""<h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid">{rows}</div>"""
     if otros:
         rows = "".join(doc_row(d, show_muni=False) for d in otros)
-        ayto += f"""<h2 class="tc-block-title" style="color:var(--tc-azul-bop);">Otros anuncios oficiales</h2>
+        ayto += f"""<h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid">{rows}</div>"""
     if not noticias:
         ayto = """<div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
@@ -410,7 +410,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title" style="color: var(--tc-azul-bop);">A ras de tierra — {tiempo_titular}</h2>
+    <h2 class="tc-block-title">A ras de tierra — {tiempo_titular}</h2>
     {weather_block(m)}
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe el tiempo de {E(m['name'])} por canal</h3>
