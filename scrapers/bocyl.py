@@ -20,11 +20,14 @@ import sys
 import urllib.parse
 from datetime import datetime, timezone
 
+import re
+
 from scrapers.common import (
     ERR_NETWORK,
     ScraperError,
     fetch,
     load_municipios,
+    normalize_for_match,
     sha256,
 )
 
@@ -35,6 +38,25 @@ API = "https://analisis.datosabiertos.jcyl.es/api/explore/v2.1/catalog/datasets/
 PROV_HINT = {
     "Valladolid": "VALLADOLID", "Palencia": "PALENCIA", "León": "LEÓN", "Zamora": "ZAMORA",
 }
+
+_AYUNTAMIENTO_DE = re.compile(r"^AYUNTAMIENTO DE (.+?)(?:\s*\([^)]*\))?\s*$")
+
+
+def _es_otro_municipio(organismo: str, nombre: str) -> bool:
+    """True si el organismo es CLARAMENTE el ayuntamiento de un municipio
+    distinto al buscado, aunque el título contenga el nombre buscado.
+
+    'titulo like "%Mayorga%"' también trae anuncios de 'AYUNTAMIENTO DE
+    SAELICES DE MAYORGA' (nombre compuesto que contiene el nuestro) y de
+    ayuntamientos vecinos que solo citan Mayorga de pasada (p.ej. una vía
+    pecuaria compartida) — ninguno de los dos es una noticia de Mayorga.
+    Si el organismo no es un ayuntamiento con nombre propio (una consejería,
+    un servicio territorial...) no se puede decidir por aquí, así que no se
+    descarta: lo sigue filtrando el criterio de provincia de más arriba."""
+    m = _AYUNTAMIENTO_DE.match(organismo.strip().upper())
+    if not m:
+        return False
+    return normalize_for_match(m.group(1)) != normalize_for_match(nombre)
 
 
 def buscar(nombre: str, provincia: str, limit: int = 6) -> list[dict]:
@@ -65,6 +87,10 @@ def to_documents(nombre: str, slug: str, provincia: str, registros: list[dict]) 
             # el ayuntamiento emisor es de otra provincia → probable homónimo
             if any(p in organismo.upper() for p in PROV_HINT.values()):
                 continue
+        # Descartar otro municipio de la MISMA provincia que solo comparte
+        # parte del nombre o cita al nuestro de pasada (ver _es_otro_municipio).
+        if _es_otro_municipio(organismo, nombre):
+            continue
         url = r.get("enlace_fichero_html") or r.get("enlace_fichero_pdf") or ""
         out.append({
             "municipality_slug": slug,
