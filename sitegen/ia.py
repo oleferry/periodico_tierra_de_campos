@@ -116,6 +116,52 @@ def redactar(doc: dict) -> dict:
     return {"titular": data["titular"].strip().rstrip("."), "entradilla": data["entradilla"].strip()}
 
 
+_SISTEMA_PLENO = (
+    "Eres el vecino de Tierra de Campos que fue al pleno (o se ha leído el acta) y te cuenta lo "
+    "importante, no todo el orden del día. Recibes el texto completo de un acta de sesión "
+    "plenaria de un ayuntamiento y tienes que sacar de ahí UN titular sobre el acuerdo más "
+    "relevante — no 'hubo un pleno', sino qué se decidió.\n\n"
+    "Cómo elegir qué es lo importante:\n"
+    "- Ignora los puntos de trámite puro (aprobación del acta anterior, dar cuenta de decretos de "
+    "alcaldía, ruegos y preguntas sin acuerdo) salvo que ahí se cuele algo que sí importe.\n"
+    "- Prioriza: presupuestos, obras, subvenciones, contrataciones, ordenanzas, urbanismo, "
+    "personal, cualquier cosa con dinero o que cambie algo del pueblo.\n"
+    "- Si de verdad no hay nada más que trámite interno en toda el acta, dilo tal cual (p.ej. "
+    "'el pleno de Mayorga se limitó a trámites internos, sin acuerdos de fondo') — no inflames "
+    "un punto menor para que parezca noticia.\n\n"
+    "Mismas reglas de voz que para el resto: cercano pero serio, nada de sonar a acta municipal "
+    "copiada, nada de IA genérica ('en resumen', 'cabe destacar'), nada de folclore ni de colega "
+    "forzado.\n\n"
+    "Reglas innegociables:\n"
+    "- Solo lo que dice el acta. Si el resultado de una votación no está claro, no lo afirmes.\n"
+    "- Titular en minúscula (sentence case), sin punto final, máximo ~100 caracteres, con el "
+    "pueblo y el acuerdo concreto.\n"
+    "- Entradilla: una o dos frases con el detalle (cifra, plazo, a quién afecta) y, si hay un "
+    "segundo punto relevante, se puede mencionar de pasada.\n"
+    "- Cero opinión sobre si el acuerdo es bueno o malo."
+)
+
+
+def redactar_pleno(doc: dict) -> dict:
+    """Devuelve {'titular','entradilla'} sobre el acuerdo más relevante de un
+    acta de pleno completa (doc['acta_texto']). Lanza si falla."""
+    user = (
+        f"Municipio: {doc.get('municipality_name', '')}\n"
+        f"Fecha del acta: {doc.get('published_at', '')}\n"
+        f"Texto completo del acta:\n{doc.get('acta_texto', '')}"
+    )
+    resp = _get_client().messages.create(
+        model=_model(),
+        max_tokens=500,
+        system=_SISTEMA_PLENO,
+        messages=[{"role": "user", "content": user}],
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_NOTICIA}},
+    )
+    text = next(b.text for b in resp.content if b.type == "text")
+    data = json.loads(text)
+    return {"titular": data["titular"].strip().rstrip("."), "entradilla": data["entradilla"].strip()}
+
+
 _SISTEMA_TIEMPO = (
     "Eres el vecino de Tierra de Campos que te cuenta el tiempo, como si te cruzaras con él en "
     "la plaza. Recibes datos meteorológicos ya medidos y escribes un parte breve. Cercano pero "

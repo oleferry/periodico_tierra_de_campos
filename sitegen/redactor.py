@@ -23,20 +23,31 @@ from sitegen import cache, ia
 def redactar(doc: dict) -> dict:
     """Titular + entradilla. Usa la IA si hay clave (con caché por hash); si no,
     o si la IA falla, cae al redactor por reglas (determinista)."""
+    es_pleno_con_texto = doc.get("source_type") == "municipal_plenary" and doc.get("acta_texto")
     clave = hashlib.sha256(
-        f"{ia.PROMPT_VERSION}|{doc.get('title','')}|{doc.get('municipality_name','')}".encode()
+        f"{ia.PROMPT_VERSION}|{doc.get('title','')}|{doc.get('municipality_name','')}|"
+        f"{doc.get('acta_texto','')}".encode()
     ).hexdigest()
     guardado = cache.get("redactor", clave)
     if guardado:
-        return guardado
+        return _con_titular_capitalizado(guardado)
     if ia.disponible():
         try:
-            r = ia.redactar(doc)
+            r = ia.redactar_pleno(doc) if es_pleno_con_texto else ia.redactar(doc)
             cache.set("redactor", clave, r)
-            return r
+            return _con_titular_capitalizado(r)
         except Exception as exc:  # noqa: BLE001 (cualquier fallo → reglas)
             print(f"  aviso: IA no disponible para un titular ({exc}); uso reglas", file=sys.stderr)
     return redactar_reglas(doc)
+
+
+def _con_titular_capitalizado(r: dict) -> dict:
+    """La IA no siempre empieza el titular en mayúscula; se normaliza aquí
+    (una sola vez, aplica también a lo que ya estaba en caché)."""
+    t = r["titular"]
+    if t and t[0].islower():
+        r = {**r, "titular": t[0].upper() + t[1:]}
+    return r
 
 
 def _limpiar(titulo: str) -> str:

@@ -8,3 +8,4 @@ anthropic>=0.116
 # Tras `pip install -r requirements.txt` hace falta además, una sola vez:
 #   python -m playwright install chromium
 playwright>=1.61
+pypdf>=5.0

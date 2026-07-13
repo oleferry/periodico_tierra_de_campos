@@ -29,10 +29,11 @@ no el listado. Una vez tenemos el enlace final a cada documento
 (devuelve un iframe con un PDF tokenizado, se resuelve con una sola sesión
 de cookies, sin necesidad de navegador).
 
-Fase actual (v1): capturamos fecha, tipo de sesión y enlace al PDF de cada
-acta — no el contenido. Es un enlace real y verificable, como BOP/BOCyL.
-Extraer el texto del PDF para sacar los acuerdos concretos (fase 2, más
-jugosa para redactar titulares) queda pendiente.
+Además de fecha, tipo de sesión y enlace al PDF, se extrae el TEXTO del acta
+(son PDF nativos, no escaneados: pypdf lee el texto directamente, sin OCR) y
+se guarda en doc['acta_texto'] para que sitegen/ia.py:redactar_pleno() saque
+de ahí el titular real (qué se aprobó, qué se denegó) en vez de solo "hubo un
+pleno". Si el PDF no da texto legible, se deja tal cual — no se inventa.
 
 Uso:
     python -m scrapers.plenos_sedelectronica --dry-run
@@ -41,12 +42,16 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import io
 import re
 import sys
 from datetime import datetime, timezone
+from urllib.parse import urlsplit
 
 import requests
 from playwright.sync_api import sync_playwright
+from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 
 from scrapers.common import ERR_NETWORK, REQUEST_TIMEOUT, USER_AGENT, ScraperError, sha256
 
@@ -93,21 +98,40 @@ def _fecha_sesion_de_titulo(titulo: str) -> str | None:
     return None
 
 
-def _fecha_creacion(session: requests.Session, preview_url: str) -> str | None:
-    """'Fecha de creación' del documento en el portal (cuándo se hizo público),
-    formato dd-mmm-yyyy. Es la fecha fiable para ordenar/mostrar, a falta de
-    parsear el PDF para la fecha exacta de la sesión."""
+# Tope de texto extraído por acta que se manda a la IA: las actas de estos
+# plenos son de pocas páginas, esto es margen de sobra sin disparar el coste.
+MAX_TEXTO_ACTA = 12000
+
+
+def _documento(session: requests.Session, preview_url: str) -> dict:
+    """Una sola visita a preview-document: de ahí sale la fecha de creación Y
+    el enlace tokenizado al PDF real (visor embebido en un iframe)."""
     try:
         r = session.get(preview_url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
     except requests.RequestException as exc:
         raise ScraperError(ERR_NETWORK, f"{type(exc).__name__}: {exc}") from exc
-    m = re.search(r"Fecha de creaci[oó]n\D*(\d{2}-\w{3}-\d{4})", r.text, re.I)
-    if not m:
-        return None
-    try:
-        return datetime.strptime(m.group(1), "%d-%b-%Y").date().isoformat()
-    except ValueError:
-        return None
+
+    fecha = None
+    m_fecha = re.search(r"Fecha de creaci[oó]n\D*(\d{2}-\w{3}-\d{4})", r.text, re.I)
+    if m_fecha:
+        try:
+            fecha = datetime.strptime(m_fecha.group(1), "%d-%b-%Y").date().isoformat()
+        except ValueError:
+            pass
+
+    texto = None
+    m_pdf = re.search(r'/preview/pdf/[^"\']+\.pdf', r.text)
+    if m_pdf:
+        try:
+            base = f"{urlsplit(preview_url).scheme}://{urlsplit(preview_url).netloc}"
+            r_pdf = session.get(base + m_pdf.group(0),
+                                 headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
+            reader = PdfReader(io.BytesIO(r_pdf.content))
+            texto = "\n".join(p.extract_text() or "" for p in reader.pages)[:MAX_TEXTO_ACTA].strip() or None
+        except (requests.RequestException, PdfReadError):
+            texto = None  # sin texto no se inventa nada; se queda solo con fecha+tipo
+
+    return {"fecha": fecha, "texto": texto}
 
 
 def _listar_documentos(listado_url: str, anios: int) -> list[dict]:
@@ -150,8 +174,8 @@ def fetch_plenos(municipio_slug: str) -> list[dict]:
         if "plantilla" in titulo_original.lower():
             continue  # plantilla en blanco subida por error, no es un acta real
 
-        fecha = _fecha_creacion(session, d["href"])
-        if not fecha:
+        info = _documento(session, d["href"])
+        if not info["fecha"]:
             continue  # sin fecha fiable, no se publica (mejor omitir que inventar)
 
         fecha_sesion = _fecha_sesion_de_titulo(titulo_original)
@@ -167,7 +191,8 @@ def fetch_plenos(municipio_slug: str) -> list[dict]:
             "source_type": "municipal_plenary",
             "url_original": d["href"],
             "file_url": d["href"],
-            "published_at": fecha,
+            "published_at": info["fecha"],
+            "acta_texto": info["texto"],
             "detected_at": detected_at,
             "hash": sha256(d["href"]),
             "confidence": "high",
