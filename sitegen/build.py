@@ -99,15 +99,48 @@ def fuente_label(d: dict) -> str:
     return "BOCyL"
 
 
-def doc_row(d: dict, *, show_muni: bool) -> str:
+def articulo_path(d: dict) -> str:
+    return f"noticia/{d['hash'][:16]}.html"
+
+
+def doc_row(d: dict, *, show_muni: bool, depth: int) -> str:
     r = redactar(d)
     muni = f"{E(d['municipality_name'])} · " if show_muni else ""
-    return f"""<a class="tc-news" href="{E(d['url_original'])}" target="_blank" rel="noopener">
+    # Si hay artículo propio (cuerpo redactado de verdad, no solo titular+entradilla),
+    # la tarjeta lleva a NUESTRA página, no directa al PDF/HTML oficial — ver
+    # render_pleno_articulo(). Si no hay cuerpo (sin IA, o la IA falló), se cae
+    # al enlace externo de siempre: mejor eso que fingir un artículo que no existe.
+    if r.get("cuerpo"):
+        up = "../" * depth
+        href, target = f"{up}{articulo_path(d)}", "_self"
+        more = "Leer la noticia completa →"
+    else:
+        href, target = d["url_original"], "_blank"
+        more = "Leer en la fuente oficial →"
+    rel = ' rel="noopener"' if target == "_blank" else ""
+    return f"""<a class="tc-news" href="{E(href)}" target="{target}"{rel}>
       <span class="tc-news-kicker">{muni}{fuente_label(d)} · {d['published_at']}</span>
       <span class="tc-news-titular">{E(r['titular'])}</span>
       <span class="tc-news-entradilla">{E(r['entradilla'])}</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
+      <span class="tc-news-more">{more}</span>
     </a>"""
+
+
+def render_pleno_articulo(d: dict, r: dict) -> str:
+    cuerpo_html = "".join(f'<p class="tc-articulo-parrafo">{E(p)}</p>' for p in r["cuerpo"])
+    muni_link = f'../municipio/{d["municipality_slug"]}.html'
+    body = f"""<article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Acta de pleno · {E(d['municipality_name'])} · {d['published_at']}</span>
+  <h1>{E(r['titular'])}</h1>
+  <p class="tc-articulo-entradilla">{E(r['entradilla'])}</p>
+  {cuerpo_html}
+  <div class="tc-source-box">
+    <strong>Fuente oficial:</strong> acta de la sesión plenaria del Ayuntamiento de {E(d['municipality_name'])}.
+    <a href="{E(d['url_original'])}" target="_blank" rel="noopener">Ver el documento original (PDF) →</a>
+  </div>
+  <p class="tc-item-meta"><a href="{E(muni_link)}">← Volver a {E(d['municipality_name'])}</a></p>
+</div></article>"""
+    return shell(f"{r['titular']} — El Terracampino", body, depth=1, desc=r["entradilla"][:150])
 
 
 def load_municipios() -> dict[str, dict]:
@@ -286,7 +319,7 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
         if len(noticias) >= 6:
             break
     if noticias:
-        items = f'<div class="tc-news-grid">{"".join(doc_row(d, show_muni=True) for d in noticias)}</div>'
+        items = f'<div class="tc-news-grid">{"".join(doc_row(d, show_muni=True, depth=0) for d in noticias)}</div>'
     else:
         items = '<p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca.</p>'
 
@@ -398,11 +431,11 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     otros = [d for d in noticias if not es_pleno(d)]
     ayto = ""
     if plenos:
-        rows = "".join(doc_row(d, show_muni=False) for d in plenos)
+        rows = "".join(doc_row(d, show_muni=False, depth=1) for d in plenos)
         ayto += f"""<h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid">{rows}</div>"""
     if otros:
-        rows = "".join(doc_row(d, show_muni=False) for d in otros)
+        rows = "".join(doc_row(d, show_muni=False, depth=1) for d in otros)
         ayto += f"""<h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid">{rows}</div>"""
     if not noticias:
@@ -570,14 +603,27 @@ def main() -> int:
     feed = feed[:80]  # pool amplio; render_home elige las 7 más relevantes
 
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
+    (WEB / "noticia").mkdir(parents=True, exist_ok=True)
     (WEB / "index.html").write_text(render_home(built, feed, hoy), encoding="utf-8")
     for m in built:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
             render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
 
+    # Artículo propio para cada pleno con cuerpo redactado (ver doc_row: solo
+    # se enlaza aquí si de verdad hay un artículo, si no se cae al PDF oficial).
+    n_articulos = 0
+    for m in built:
+        for d in m.get("_plenos", []):
+            r = redactar(d)
+            if r.get("cuerpo"):
+                (WEB / "noticia" / f"{d['hash'][:16]}.html").write_text(
+                    render_pleno_articulo(d, r), encoding="utf-8")
+                n_articulos += 1
+
     cache.flush()
     modo = "IA (Claude)" if ia.disponible() else "reglas (sin ANTHROPIC_API_KEY)"
-    print(f"\nGenerado: web/index.html + {len(built)} fichas de municipio. Redacción: {modo}.")
+    print(f"\nGenerado: web/index.html + {len(built)} fichas de municipio + "
+          f"{n_articulos} artículos de pleno. Redacción: {modo}.")
     return 0
 
 

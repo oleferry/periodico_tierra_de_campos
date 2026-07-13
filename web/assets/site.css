@@ -182,6 +182,22 @@
   color: var(--tc-texto-secundario);
 }
 
+/* Artículo propio (p.ej. de un pleno): columna estrecha, como cuerpo de periódico */
+.tc-articulo { padding: var(--tc-space-4) 0 var(--tc-space-5); }
+.tc-articulo-ancho { max-width: 68ch; margin: 0 auto; }
+.tc-articulo h1 { font-size: 1.9rem; margin: 10px 0 var(--tc-space-2); }
+.tc-articulo-entradilla {
+  font-size: 1.15rem;
+  color: var(--tc-texto-secundario);
+  margin-bottom: var(--tc-space-3);
+}
+.tc-articulo-parrafo {
+  font-size: 1.02rem;
+  line-height: 1.6;
+  margin-bottom: 1em;
+}
+.tc-articulo .tc-source-box { margin: var(--tc-space-4) 0 var(--tc-space-2); }
+
 .tc-muni-tag {
   font-family: var(--tc-font-data);
   font-size: .72rem;

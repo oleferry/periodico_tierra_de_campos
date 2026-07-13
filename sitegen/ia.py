@@ -15,7 +15,7 @@ import json
 import os
 
 # Versión de los prompts: súbela para invalidar la caché si cambias las instrucciones.
-PROMPT_VERSION = "2"
+PROMPT_VERSION = "3"
 
 _client = None
 
@@ -117,18 +117,22 @@ def redactar(doc: dict) -> dict:
 
 
 _SISTEMA_PLENO = (
-    "Eres el vecino de Tierra de Campos que fue al pleno (o se ha leído el acta) y te cuenta lo "
-    "importante, no todo el orden del día. Recibes el texto completo de un acta de sesión "
-    "plenaria de un ayuntamiento y tienes que sacar de ahí UN titular sobre el acuerdo más "
-    "relevante — no 'hubo un pleno', sino qué se decidió.\n\n"
-    "Cómo elegir qué es lo importante:\n"
-    "- Ignora los puntos de trámite puro (aprobación del acta anterior, dar cuenta de decretos de "
-    "alcaldía, ruegos y preguntas sin acuerdo) salvo que ahí se cuele algo que sí importe.\n"
-    "- Prioriza: presupuestos, obras, subvenciones, contrataciones, ordenanzas, urbanismo, "
-    "personal, cualquier cosa con dinero o que cambie algo del pueblo.\n"
+    "Eres el vecino de Tierra de Campos que fue al pleno (o se ha leído el acta) y escribe la "
+    "noticia completa, no un enlace con dos frases. Recibes el texto completo de un acta de "
+    "sesión plenaria de un ayuntamiento y tienes que convertirla en un ARTÍCULO real: la gente "
+    "que lo lea no debería necesitar abrir el PDF del acta para enterarse de qué pasó.\n\n"
+    "Cómo elegir qué contar y en qué orden:\n"
+    "- Empieza por el acuerdo más relevante (dinero, obras, urbanismo, personal, subvenciones, "
+    "ordenanzas — lo que cambia algo del pueblo), no por el orden del día.\n"
+    "- Ignora del todo los puntos de puro trámite (aprobación del acta anterior, dar cuenta de "
+    "decretos de alcaldía) salvo que ahí se cuele algo que sí importe.\n"
+    "- Si hay más de un acuerdo con sustancia, cuéntalos todos en el cuerpo, no solo el primero — "
+    "para eso es un artículo y no un titular suelto.\n"
+    "- Si hubo debate o votación dividida (no por unanimidad), dilo: quién votó qué si el acta lo "
+    "recoge, aunque sea de pasada.\n"
     "- Si de verdad no hay nada más que trámite interno en toda el acta, dilo tal cual (p.ej. "
-    "'el pleno de Mayorga se limitó a trámites internos, sin acuerdos de fondo') — no inflames "
-    "un punto menor para que parezca noticia.\n\n"
+    "'el pleno de Mayorga se limitó a trámites internos, sin acuerdos de fondo') y no alargues el "
+    "cuerpo inventando sustancia donde no la hay — un párrafo corto y honesto basta.\n\n"
     "Mismas reglas de voz que para el resto: cercano pero serio, nada de sonar a acta municipal "
     "copiada, nada de IA genérica ('en resumen', 'cabe destacar'), nada de folclore ni de colega "
     "forzado.\n\n"
@@ -136,15 +140,30 @@ _SISTEMA_PLENO = (
     "- Solo lo que dice el acta. Si el resultado de una votación no está claro, no lo afirmes.\n"
     "- Titular en minúscula (sentence case), sin punto final, máximo ~100 caracteres, con el "
     "pueblo y el acuerdo concreto.\n"
-    "- Entradilla: una o dos frases con el detalle (cifra, plazo, a quién afecta) y, si hay un "
-    "segundo punto relevante, se puede mencionar de pasada.\n"
+    "- Entradilla: una o dos frases, el resumen que engancha — es lo que se ve en la tarjeta antes "
+    "de abrir el artículo.\n"
+    "- Cuerpo: entre 2 y 4 párrafos (una lista de strings, un párrafo por elemento), con el "
+    "desarrollo completo de todos los acuerdos con sustancia. Nada de repetir la entradilla tal "
+    "cual como primer párrafo — el cuerpo añade detalle, no repite.\n"
     "- Cero opinión sobre si el acuerdo es bueno o malo."
 )
 
+_ESQUEMA_PLENO = {
+    "type": "object",
+    "properties": {
+        "titular": {"type": "string"},
+        "entradilla": {"type": "string"},
+        "cuerpo": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["titular", "entradilla", "cuerpo"],
+    "additionalProperties": False,
+}
+
 
 def redactar_pleno(doc: dict) -> dict:
-    """Devuelve {'titular','entradilla'} sobre el acuerdo más relevante de un
-    acta de pleno completa (doc['acta_texto']). Lanza si falla."""
+    """Devuelve {'titular','entradilla','cuerpo'} — artículo completo sobre los
+    acuerdos de un acta de pleno (doc['acta_texto']), no solo el principal.
+    'cuerpo' es una lista de párrafos. Lanza si falla."""
     user = (
         f"Municipio: {doc.get('municipality_name', '')}\n"
         f"Fecha del acta: {doc.get('published_at', '')}\n"
@@ -152,14 +171,18 @@ def redactar_pleno(doc: dict) -> dict:
     )
     resp = _get_client().messages.create(
         model=_model(),
-        max_tokens=500,
+        max_tokens=1500,
         system=_SISTEMA_PLENO,
         messages=[{"role": "user", "content": user}],
-        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_NOTICIA}},
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_PLENO}},
     )
     text = next(b.text for b in resp.content if b.type == "text")
     data = json.loads(text)
-    return {"titular": data["titular"].strip().rstrip("."), "entradilla": data["entradilla"].strip()}
+    return {
+        "titular": data["titular"].strip().rstrip("."),
+        "entradilla": data["entradilla"].strip(),
+        "cuerpo": [p.strip() for p in data["cuerpo"] if p.strip()],
+    }
 
 
 _SISTEMA_TIEMPO = (
