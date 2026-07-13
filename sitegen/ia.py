@@ -90,7 +90,12 @@ _ESQUEMA_NOTICIA = {
 
 def redactar(doc: dict) -> dict:
     """Devuelve {'titular','entradilla'} con Claude. Lanza si falla."""
-    fuente = "BOP de Valladolid" if doc.get("source_type") == "bop" else "BOCyL (Castilla y León)"
+    if doc.get("source_type") == "bop":
+        fuente = "BOP de Valladolid"
+    elif doc.get("source_type") == "municipal_news":
+        fuente = f"web oficial del Ayuntamiento de {doc.get('municipality_name', '')}"
+    else:
+        fuente = "BOCyL (Castilla y León)"
     user = (
         f"Municipio: {doc.get('municipality_name','')}\n"
         f"Fuente: {fuente}\n"

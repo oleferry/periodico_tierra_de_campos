@@ -41,6 +41,15 @@
 .tc-masthead-sub { font-size: 1.05rem; color: var(--tc-texto-secundario); max-width: 46ch; margin: 0 auto var(--tc-space-3); }
 .tc-masthead-pick { display: flex; justify-content: center; }
 .tc-masthead-pick .tc-muni-select { font-size: 1rem; padding: 12px 18px; min-width: 280px; }
+.tc-almanaque {
+  font-family: var(--tc-font-headline);
+  font-style: italic;
+  font-size: .95rem;
+  color: var(--tc-texto-secundario);
+  margin: 0 auto;
+  max-width: 56ch;
+}
+.tc-almanaque-sep { font-style: normal; opacity: .5; margin: 0 .3em; }
 
 /* Rejilla de pueblos (directorio tipo Patch) */
 .tc-pueblos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; padding-bottom: var(--tc-space-3); }
@@ -388,6 +397,13 @@
 
 .tc-side-block {
   margin-bottom: var(--tc-space-3);
+}
+
+.tc-leyenda-titulo {
+  font-family: var(--tc-font-headline);
+  font-weight: 700;
+  font-size: 1rem;
+  margin: 4px 0 4px;
 }
 
 .tc-side-block h3 {

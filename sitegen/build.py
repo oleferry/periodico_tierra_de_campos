@@ -27,9 +27,18 @@ from pathlib import Path
 from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
+from scrapers.futbolme import marcador_for
+from scrapers.municipal_wp import fetch_noticias as municipal_noticias
 from scrapers.weather_openmeteo import geocode, weather_for
 from sitegen import cache, ia
-from sitegen.contenido import PUEBLOS_INFO, eventos_comarca, huerta_del_mes, proximas_fiestas
+from sitegen.contenido import (
+    PUEBLOS_INFO,
+    almanaque_del_dia,
+    eventos_comarca,
+    huerta_del_mes,
+    leyenda_de,
+    proximas_fiestas,
+)
 from sitegen.redactor import redactar
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -80,7 +89,11 @@ def miles(n) -> str:
 
 
 def fuente_label(d: dict) -> str:
-    return "BOP Valladolid" if d.get("source_type") == "bop" else "BOCyL"
+    if d.get("source_type") == "bop":
+        return "BOP Valladolid"
+    if d.get("source_type") == "municipal_news":
+        return "Web municipal"
+    return "BOCyL"
 
 
 def doc_row(d: dict, *, show_muni: bool) -> str:
@@ -295,10 +308,12 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
     else:
         tiempo_html = ""
 
+    alm = almanaque_del_dia(hoy)
     body = f"""<section class="tc-masthead"><div class="tc-wrap">
   <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
   <h1>El tiempo y las noticias de tu pueblo, en limpio</h1>
   <p class="tc-masthead-sub">Lo que pasa en los pueblos de Tierra de Campos, contado claro y con la fuente al lado.</p>
+  <p class="tc-almanaque">«{E(alm['refran'])}» <span class="tc-almanaque-sep">·</span> Hoy es {E(alm['santo'])} <span class="tc-almanaque-sep">·</span> {alm['luna']['emoji']} {E(alm['luna']['fase'])}</p>
 </div></section>
 
 <section class="tc-wrap" id="tiempo">{tiempo_html}</section>
@@ -366,7 +381,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     meta.append(f"Actualizado: {hoy.day}/{hoy.month:02d}/{hoy.year}")
     meta_html = "".join(f"<span>{s}</span>" for s in meta if s)
 
-    noticias = anuncios + m.get("_bocyl", [])
+    noticias = anuncios + m.get("_bocyl", []) + m.get("_municipal", [])
     noticias.sort(key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
     # Descartar titulares repetidos (p. ej. una resolución y su corrección de errores)
     _vistos, _dedup = set(), []
@@ -406,13 +421,35 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     # Sobre el pueblo: contexto evergreen verificado + deporte local
     info = PUEBLOS_INFO.get(m["slug"])
     if info:
-        deporte = (f'<p style="margin:8px 0 0; font-size:.88rem;"><strong>Deporte local:</strong> {E(info["club"])}. '
-                   f'Resultados y clasificación, próximamente.</p>' if info.get("club")
-                   else '<p style="margin:8px 0 0; font-size:.82rem; color:rgba(37,31,26,.6);">Sin club de referencia identificado todavía.</p>')
+        marcador = m.get("_marcador")
+        if marcador:
+            partes = [f'<strong>Deporte local:</strong> {E(marcador["club"])} ({E(marcador["competicion"])}).']
+            if marcador["ultimo"]:
+                partes.append(E(marcador["ultimo"]["texto"]))
+            if marcador["proximo"]:
+                partes.append(E(marcador["proximo"]["texto"]))
+            if not marcador["ultimo"] and not marcador["proximo"]:
+                partes.append("Sin partidos publicados por ahora (temporada sin empezar).")
+            deporte = f'<p style="margin:8px 0 0; font-size:.88rem;">{" ".join(partes)}</p>'
+        elif info.get("club"):
+            deporte = (f'<p style="margin:8px 0 0; font-size:.88rem;"><strong>Deporte local:</strong> {E(info["club"])}. '
+                       f'Resultados y clasificación, próximamente.</p>')
+        else:
+            deporte = '<p style="margin:8px 0 0; font-size:.82rem; color:rgba(37,31,26,.6);">Sin club de referencia identificado todavía.</p>'
         sobre_html = f"""<div class="tc-side-block tc-sobre"><h3>Sobre {E(m['name'])}</h3>
       <p style="font-size:.9rem;">{E(info['sobre'])}</p>{deporte}</div>"""
     else:
         sobre_html = ""
+
+    # Leyendas e historias populares: solo si está documentada (ver contenido.py LEYENDAS)
+    leyenda = leyenda_de(m["slug"])
+    if leyenda:
+        leyenda_html = f"""<div class="tc-side-block tc-leyenda"><h3>Leyendas e historias populares</h3>
+      <p class="tc-leyenda-titulo">{E(leyenda['titulo'])}</p>
+      <p style="font-size:.9rem;">{E(leyenda['texto'])}</p>
+      <p class="tc-item-meta">Fuente: {E(leyenda['fuente'])}</p></div>"""
+    else:
+        leyenda_html = ""
 
     # Negocios y tablón: sección honesta. NO se inventan anuncios; los envían vecinos/comercios.
     tablon_html = f"""<div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
@@ -444,6 +481,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
   </main>
   <aside class="tc-muni-side">
     {sobre_html}
+    {leyenda_html}
     <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list">{links_html}</ul></div>
     <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda">{agenda_html}</ul></div>
   </aside>
@@ -496,7 +534,19 @@ def main() -> int:
         except ScraperError as exc:
             print(f"  aviso: sin BOCyL para {m['name']} ({exc})", file=sys.stderr)
             m["_bocyl"] = []
+        # Noticias municipales propias (solo pueblos con web en WordPress cubierta, ver scrapers/municipal_wp.py)
+        try:
+            m["_municipal"] = municipal_noticias(slug)
+        except ScraperError as exc:
+            print(f"  aviso: sin noticias municipales para {m['name']} ({exc})", file=sys.stderr)
+            m["_municipal"] = []
         m["_anuncios"] = por_muni.get(slug, [])
+        # Marcador: último resultado y próximo partido del club local (si hay uno cubierto)
+        try:
+            m["_marcador"] = marcador_for(slug, hoy)
+        except ScraperError as exc:
+            print(f"  aviso: sin marcador para {m['name']} ({exc})", file=sys.stderr)
+            m["_marcador"] = None
         built.append(m)
 
     built.sort(key=lambda x: (-(int(x["population"]) if str(x.get("population", "")).isdigit() else 0), x["name"]))
@@ -505,6 +555,7 @@ def main() -> int:
     feed = list(anuncios)
     for m in built:
         feed.extend(m.get("_bocyl", []))
+        feed.extend(m.get("_municipal", []))
     feed.sort(key=lambda d: d.get("published_at") or "", reverse=True)
     feed = feed[:80]  # pool amplio; render_home elige las 7 más relevantes
 

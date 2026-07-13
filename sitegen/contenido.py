@@ -12,7 +12,11 @@ alquileres) la web muestra la sección con un "envía tu anuncio", no datos fals
 
 from __future__ import annotations
 
+import json
 from datetime import date
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
 
 # --------------------------------------------------------------- huerta
 
@@ -110,3 +114,190 @@ def proximas_fiestas(slug: str, hoy: date, n: int = 3) -> list[dict]:
         orden.append((clave, {"cuando": etiqueta, "nombre": nombre}))
     orden.sort(key=lambda x: x[0])
     return [x[1] for x in orden[:n]]
+
+
+# --------------------------------------------------------------- almanaque
+
+# NO es "El Calendario Zaragozano": ese es un almanaque comercial en venta
+# (editorial propia, ISBN, se sigue publicando cada año) y sus predicciones
+# son contenido de autor, no dato público — copiarlas sería plagio de un
+# competidor editorial real, no periodismo de datos. Esto es nuestra propia
+# versión del mismo GÉNERO (refrán + santo + luna), con fuentes libres:
+# refranero de tradición oral anónima (dominio público, sin autor ni editor),
+# santoral generado una vez desde Wikipedia/CC BY-SA (scripts/generate_santoral.py)
+# y fase lunar calculada por fórmula astronómica (matemática, no de nadie).
+
+# Dichos y refranes de tradición oral castellana/rural, ligados al campo, el
+# tiempo y la vida de pueblo — de dominio público, sin autor identificable.
+REFRANES = [
+    "Año de nieves, año de bienes.",
+    "Agua de mayo, pan para todo el año.",
+    "En abril, aguas mil.",
+    "Cielo aborregado, a las pocas horas mojado.",
+    "Cuando el gallo canta a deshora, agua fuera.",
+    "Marzo ventoso y abril lluvioso, sacan a mayo florido y hermoso.",
+    "Por San Blas, la cigüeña verás; y si no la vieres, año de nieves.",
+    "Hasta el cuarenta de mayo, no te quites el sayo.",
+    "Si truena en enero, buen añero.",
+    "Cuando el humo va al suelo, si no hay agua, hay hielo.",
+    "Año de bellotas, año de brotas.",
+    "Quien siembra vientos, recoge tempestades.",
+    "En martes, ni te cases ni te embarques.",
+    "A quien madruga, Dios le ayuda.",
+    "No dejes para mañana lo que puedas hacer hoy.",
+    "Más vale pájaro en mano que ciento volando.",
+    "Cría fama y échate a dormir.",
+    "El que a buen árbol se arrima, buena sombra le cobija.",
+    "No hay mal que por bien no venga.",
+    "A mal tiempo, buena cara.",
+    "Donde hay patrón, no manda marinero.",
+    "Al pan, pan, y al vino, vino.",
+    "Perro ladrador, poco mordedor.",
+    "Cada uno cuenta la feria según le va en ella.",
+    "En casa del herrero, cuchillo de palo.",
+    "No por mucho madrugar amanece más temprano.",
+    "El que quiera peces, que se moje el culo.",
+    "Nunca llueve a gusto de todos.",
+    "Año de heladas, año de hogazas.",
+    "Por San Isidro, la golondrina ha venido; y si no ha venido, poco ha de tardar.",
+    "Agosto, frío en rostro.",
+    "Por San Miguel, la oveja al hato y el pastor al brasero.",
+    "Cuando el olmo echa hoja, siembra tu rastrojo.",
+    "El que espera, desespera, pero el que siembra, cosecha.",
+    "Trigo temprano, trigo temprano; nunca falla, y siempre gana.",
+    "Año de muchas brevas, año de pocas piedras.",
+    "Verano seco, invierno cubierto.",
+    "Del dicho al hecho hay mucho trecho.",
+    "Zapatero, a tus zapatos.",
+    "El que no llora, no mama.",
+    "Más vale tarde que nunca.",
+    "En boca cerrada no entran moscas.",
+    "El que mucho abarca, poco aprieta.",
+    "A cada cerdo le llega su San Martín.",
+    "El que siembra en tierra ajena, ni coge ni deja.",
+    "Al que madruga, Dios le ayuda, pero al que no, también.",
+    "Vísteme despacio, que tengo prisa.",
+    "No hay atajo sin trabajo.",
+    "El buey suelto bien se lame.",
+    "Cuando las barbas de tu vecino veas pelar, echa las tuyas a remojar.",
+    "Quien fue a Sevilla, perdió su silla.",
+    "Genio y figura, hasta la sepultura.",
+    "Piedra movediza, nunca moho la cobija.",
+    "A grandes males, grandes remedios.",
+    "El que tiene tienda, que la atienda.",
+    "Nunca es tarde si la dicha es buena.",
+    "El movimiento se demuestra andando.",
+    "No hay peor sordo que el que no quiere oír.",
+    "Cuando el río suena, agua lleva.",
+    "El hábito no hace al monje, pero lo distingue de lejos.",
+    "A la tercera va la vencida.",
+    "Ojos que no ven, corazón que no siente.",
+    "Dime con quién andas y te diré quién eres.",
+    "El que a hierro mata, a hierro muere.",
+    "En el término medio está la virtud.",
+    "No todo el monte es orégano.",
+    "El que ríe último, ríe mejor.",
+    "Haz bien y no mires a quién.",
+    "Camarón que se duerme, se lo lleva la corriente.",
+    "Después de la tormenta, llega la calma.",
+    "Tanto va el cántaro a la fuente, que al final se rompe.",
+    "El que no arriesga, no gana.",
+    "A buen entendedor, pocas palabras bastan.",
+    "Cada oveja con su pareja.",
+    "El que espera lo mucho, espera lo poco.",
+    "Poderoso caballero es don Dinero.",
+    "Casa con dos puertas, mala es de guardar.",
+    "Muchos cocineros, mal guisan el potaje.",
+    "El saber no ocupa lugar.",
+    "Al hierro candente, batir de repente.",
+    "En abril, no te descubras ni un hilo; en mayo, no te descubras ni un cabello.",
+]
+
+
+def refran_del_dia(hoy: date) -> str:
+    """Rotación determinista, no aleatoria: mismo día → mismo refrán, en ciclo."""
+    return REFRANES[hoy.timetuple().tm_yday % len(REFRANES)]
+
+
+_SANTORAL: dict[str, str] | None = None
+
+
+def santo_del_dia(hoy: date) -> str:
+    global _SANTORAL
+    if _SANTORAL is None:
+        path = ROOT / "data" / "santoral.json"
+        _SANTORAL = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    clave = f"{hoy.month:02d}-{hoy.day:02d}"
+    return _SANTORAL.get(clave, "Sin santo fijo en el calendario romano (29 de febrero)")
+
+
+def fase_lunar(hoy: date) -> dict:
+    """Fase lunar aproximada por cálculo astronómico (ciclo sinódico ≈29.53 días),
+    sin depender de ninguna fuente de terceros. Precisión de +-1 día, suficiente
+    para una referencia de almanaque."""
+    ref = date(2000, 1, 6)  # luna nueva de referencia conocida
+    dias = (hoy - ref).days
+    ciclo = dias % 29.530588853
+    if ciclo < 1.84566:
+        return {"fase": "Luna nueva", "emoji": "🌑"}
+    if ciclo < 5.53699:
+        return {"fase": "Luna creciente", "emoji": "🌒"}
+    if ciclo < 9.22831:
+        return {"fase": "Cuarto creciente", "emoji": "🌓"}
+    if ciclo < 12.91963:
+        return {"fase": "Gibosa creciente", "emoji": "🌔"}
+    if ciclo < 16.61096:
+        return {"fase": "Luna llena", "emoji": "🌕"}
+    if ciclo < 20.30228:
+        return {"fase": "Gibosa menguante", "emoji": "🌖"}
+    if ciclo < 23.99361:
+        return {"fase": "Cuarto menguante", "emoji": "🌗"}
+    if ciclo < 27.68493:
+        return {"fase": "Luna menguante", "emoji": "🌘"}
+    return {"fase": "Luna nueva", "emoji": "🌑"}
+
+
+def almanaque_del_dia(hoy: date) -> dict:
+    return {"refran": refran_del_dia(hoy), "santo": santo_del_dia(hoy), "luna": fase_lunar(hoy)}
+
+
+# --------------------------------------------------------------- leyendas
+
+# Leyendas e historias populares por municipio. SOLO se incluyen las que están
+# documentadas (tradición recogida por fuentes verificables: turismo oficial,
+# Códice Calixtino, estudios locales) — igual que en el resto del proyecto,
+# si no se puede trazar a una fuente, no se publica. Faltan 7 de los 12
+# pilotos: pendiente de investigar con la misma exigencia antes de inventar
+# nada. "fuente" es orientativa (dónde se puede contrastar), no una URL fija
+# que pueda romperse.
+LEYENDAS = {
+    "mayorga": {
+        "titulo": "El fuego que recuerda a San Toribio",
+        "texto": "Cuenta la tradición que en 1752 llegó a Mayorga la reliquia de Santo Toribio de Mogrovejo, hijo del pueblo y arzobispo de Lima, defensor de los indígenas americanos. Desde entonces, cada año, la noche de El Vítor el pueblo apaga sus luces y recorre las calles solo con la luz de cientos de pieles de animal untadas en pez que arden en lo alto de varas, siguiendo un camino que se transmite de padres a hijos. Es Fiesta de Interés Turístico Nacional, y en Mayorga no hace falta explicarla: se hace.",
+        "fuente": "tradición oral local y crónicas de la Procesión Cívica del Vítor",
+    },
+    "villalon-de-campos": {
+        "titulo": "El rollo que entró en la copla",
+        "texto": "En la plaza de Villalón se levanta desde 1523 un rollo de justicia de piedra labrada, de diez metros, único en España por su altura y su filigrana. Marcaba que la villa tenía jurisdicción propia para impartir justicia, hasta la pena capital. Su fama corrió tanto que entró en una copla popular que aún se recita: «Campanas, las de Toledo; iglesia, la de León; reloj, el de Benavente; y rollo, el de Villalón». Que a un pueblo pequeño lo pongan al lado de Toledo o León, en una copla que nadie sabe quién escribió, ya dice algo.",
+        "fuente": "Bien de Interés Cultural (1929); copla de tradición oral castellana",
+    },
+    "medina-de-rioseco": {
+        "titulo": "El cocodrilo de Santa María",
+        "texto": "En la entrada de la iglesia de Santa María de Medina de Rioseco cuelga, desde hace siglos, la piel reseca de un caimán. La explicación seria es que algún indiano riosecano lo trajo de América como exvoto. Pero la leyenda que se cuenta en el pueblo es otra: que mientras se construía la iglesia, algo destrozaba cada noche el trabajo del día, hasta que se descubrió que era una bestia con forma de cocodrilo. Un preso se ofreció a acabar con ella a cambio de su libertad, y lo consiguió con maña. Desde entonces cuelga ahí, como advertencia y como trofeo.",
+        "fuente": "tradición oral riosecana recogida por el turismo local",
+    },
+    "sahagun": {
+        "titulo": "Las lanzas que se hicieron árboles",
+        "texto": "El Códice Calixtino, guía de peregrinos del siglo XII, cuenta que Carlomagno acampó donde hoy está Sahagún antes de una batalla, y que sus soldados clavaron las lanzas en el suelo la noche antes de combatir. Al día siguiente las lanzas habían echado raíces y hojas, y de ellas nacieron los bosques que rodeaban la villa. La historia de verdad es otra —Sahagún nace en torno a la tumba de los mártires Facundo y Primitivo—, pero la leyenda de las lanzas es la que quedó escrita, y la que se sigue contando a quien pasa por el Camino de Santiago.",
+        "fuente": "Códice Calixtino, libro V (siglo XII)",
+    },
+    "valderas": {
+        "titulo": "El túnel que unía dos castillos",
+        "texto": "De abuelos a nietos, junto al fuego en las noches de invierno, en Valderas se ha contado siempre que del castillo salía un pasadizo subterráneo tan largo que llegaba hasta el castillo de Benavente, y otro hasta el de Grajal de Campos. No hay ningún resto que lo confirme. Lo que sí es historia, y no leyenda, es que en el cerco de 1387, cuando un ejército angloportugués asedió la villa, mujeres, niños y ancianos escaparon por una salida secreta del castillo. Puede que la leyenda del túnel no sea más que el recuerdo, agrandado con los años, de aquella salida real.",
+        "fuente": "tradición oral local; cerco de Valderas de 1387",
+    },
+}
+
+
+def leyenda_de(slug: str) -> dict | None:
+    return LEYENDAS.get(slug)
