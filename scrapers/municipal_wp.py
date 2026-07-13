@@ -19,11 +19,16 @@ La API REST de WordPress (/wp-json/wp/v2/posts) es preferible a scrapear el
 HTML: da fecha, título y enlace ya estructurados, sin depender del tema/plugin
 de maquetación (aquí Elementor) que cambia con cada actualización de la web.
 
-Cobertura actual: solo Medina de Rioseco. Villada es WordPress pero tiene la
-API REST desactivada (401 "No REST API") — pendiente de valorar scraping HTML
-si de verdad se necesita. El resto de pilotos (Mayorga, Villalón, Sahagún,
-Valderas, Carrión, Paredes, Becerril, Fuentes de Nava, Villalpando,
-Villarramiel) no usan WordPress: pendiente de investigar caso a caso.
+Cobertura actual: Medina de Rioseco, Carrión de los Condes y Becerril de
+Campos. Investigado el resto de pilotos (2026-07-13):
+  · Villada, Paredes de Nava, Villarramiel: WordPress pero con la API REST
+    desactivada (401 "No REST API") — pendiente de valorar scraping HTML.
+  · Fuentes de Nava: no es WordPress, es Joomla — necesitaría un scraper
+    distinto (no compatible con este módulo).
+  · Villalpando: el dominio redirige a una pantalla de login (/login.php),
+    no sirve contenido público por esta vía — descartado por ahora.
+  · Mayorga, Villalón, Sahagún, Valderas: ver scrapers/plenos_sedelectronica.py
+    (Mayorga) y las notas de plenos muertos/vacíos de arriba; no son WordPress.
 
 Uso:
     python -m scrapers.municipal_wp --dry-run
@@ -44,6 +49,14 @@ SITIOS = {
         "url": "https://medinaderioseco.org",
         "nombre": "Ayuntamiento de Medina de Rioseco",
     },
+    "carrion-de-los-condes": {
+        "url": "https://carriondeloscondes.org",
+        "nombre": "Ayuntamiento de Carrión de los Condes",
+    },
+    "becerril-de-campos": {
+        "url": "https://becerrildecampos.es",
+        "nombre": "Ayuntamiento de Becerril de Campos",
+    },
 }
 
 _TAG_RE = re.compile(r"<[^>]+>")
@@ -60,7 +73,10 @@ def fetch_noticias(municipio_slug: str, *, per_page: int = 10) -> list[dict]:
     if not sitio:
         return []
 
-    url = f"{sitio['url']}/wp-json/wp/v2/posts?per_page={per_page}&_fields=id,date,link,title,excerpt"
+    # ?rest_route= en vez de /wp-json/wp/v2/ (path bonito): funciona en todos los
+    # sitios probados (con o sin permalinks bonitos activados), así que se usa
+    # siempre la misma forma en vez de adivinar cuál necesita cada web.
+    url = f"{sitio['url']}/?rest_route=/wp/v2/posts&per_page={per_page}&_fields=id,date,link,title,excerpt"
     body = fetch(url)
     try:
         import json
@@ -113,7 +129,10 @@ def main() -> int:
             continue
         print(f"\n== {slug} — {len(docs)} noticias ==")
         for d in docs:
-            print(f"  · {d['published_at']}  {d['title'][:80]}")
+            # Windows/cp1252 no sabe imprimir algunos emoji que meten los pueblos
+            # en sus titulares (📢, etc.); no es motivo para que el scraper falle.
+            linea = f"  · {d['published_at']}  {d['title'][:80]}"
+            print(linea.encode(sys.stdout.encoding or "utf-8", errors="replace").decode(sys.stdout.encoding or "utf-8"))
     return exit_code
 
 
