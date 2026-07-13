@@ -94,6 +94,8 @@ def redactar(doc: dict) -> dict:
         fuente = "BOP de Valladolid"
     elif doc.get("source_type") == "municipal_news":
         fuente = f"web oficial del Ayuntamiento de {doc.get('municipality_name', '')}"
+    elif doc.get("source_type") == "municipal_plenary":
+        fuente = f"acta de pleno del Ayuntamiento de {doc.get('municipality_name', '')}"
     else:
         fuente = "BOCyL (Castilla y León)"
     user = (

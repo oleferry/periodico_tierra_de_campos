@@ -29,6 +29,7 @@ from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
 from scrapers.futbolme import marcador_for
 from scrapers.municipal_wp import fetch_noticias as municipal_noticias
+from scrapers.plenos_sedelectronica import fetch_plenos
 from scrapers.weather_openmeteo import geocode, weather_for
 from sitegen import cache, ia
 from sitegen.contenido import (
@@ -93,6 +94,8 @@ def fuente_label(d: dict) -> str:
         return "BOP Valladolid"
     if d.get("source_type") == "municipal_news":
         return "Web municipal"
+    if d.get("source_type") == "municipal_plenary":
+        return "Acta de pleno"
     return "BOCyL"
 
 
@@ -381,7 +384,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     meta.append(f"Actualizado: {hoy.day}/{hoy.month:02d}/{hoy.year}")
     meta_html = "".join(f"<span>{s}</span>" for s in meta if s)
 
-    noticias = anuncios + m.get("_bocyl", []) + m.get("_municipal", [])
+    noticias = anuncios + m.get("_bocyl", []) + m.get("_municipal", []) + m.get("_plenos", [])
     noticias.sort(key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
     # Descartar titulares repetidos (p. ej. una resolución y su corrección de errores)
     _vistos, _dedup = set(), []
@@ -540,6 +543,12 @@ def main() -> int:
         except ScraperError as exc:
             print(f"  aviso: sin noticias municipales para {m['name']} ({exc})", file=sys.stderr)
             m["_municipal"] = []
+        # Actas de pleno reales (solo municipios autorizados explícitamente, ver scrapers/plenos_sedelectronica.py)
+        try:
+            m["_plenos"] = fetch_plenos(slug)
+        except ScraperError as exc:
+            print(f"  aviso: sin actas de pleno para {m['name']} ({exc})", file=sys.stderr)
+            m["_plenos"] = []
         m["_anuncios"] = por_muni.get(slug, [])
         # Marcador: último resultado y próximo partido del club local (si hay uno cubierto)
         try:
@@ -556,6 +565,7 @@ def main() -> int:
     for m in built:
         feed.extend(m.get("_bocyl", []))
         feed.extend(m.get("_municipal", []))
+        feed.extend(m.get("_plenos", []))
     feed.sort(key=lambda d: d.get("published_at") or "", reverse=True)
     feed = feed[:80]  # pool amplio; render_home elige las 7 más relevantes
 
