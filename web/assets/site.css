@@ -497,8 +497,17 @@
 /* ---- Responsive móvil ---- */
 @media (max-width: 720px) {
   .tc-wrap { padding: 0 var(--tc-space-2); }
-  .tc-header-inner { flex-wrap: wrap; gap: 10px; }
-  .tc-nav { gap: var(--tc-space-2); font-size: .9rem; }
+  .tc-header-inner { flex-wrap: nowrap; gap: 10px; }
+  .tc-nav {
+    gap: var(--tc-space-3);
+    font-size: .9rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tc-nav::-webkit-scrollbar { display: none; }
+  .tc-nav a { white-space: nowrap; }
   .tc-masthead { padding: var(--tc-space-4) 0 var(--tc-space-3); }
   .tc-masthead h1 { font-size: 1.7rem; }
   .tc-weather-summary { flex-direction: column; align-items: stretch; }
