@@ -294,6 +294,7 @@ def header(depth: int) -> str:
     <a href="{home}">Portada</a>
     <a href="{home}#pueblos">Elige tu pueblo</a>
     <a href="{home}#comarca">La comarca</a>
+    <a href="{home}#blog">Investigaciones</a>
   </nav>
 </div></header>"""
 
