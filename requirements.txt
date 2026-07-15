@@ -9,3 +9,8 @@ anthropic>=0.116
 #   python -m playwright install chromium
 playwright>=1.61
 pypdf>=5.0
+
+# Bot de Telegram (envío de fotos de vecinos, ver bot/telegram_bot.py) y
+# procesado de imágenes (sitegen/fotos.py: recorte + marco de marca).
+python-telegram-bot>=21.0
+Pillow>=10.0

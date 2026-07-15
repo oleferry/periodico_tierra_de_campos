@@ -19,6 +19,7 @@ from __future__ import annotations
 
 import csv
 import html
+import json
 import shutil
 import sys
 from datetime import date
@@ -29,6 +30,7 @@ from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
 from scrapers.futbolme import marcador_for
 from scrapers.municipal_wp import fetch_noticias as municipal_noticias
+from scrapers.bdns import fetch_ayudas
 from scrapers.plenos_sedelectronica import fetch_plenos
 from scrapers.weather_openmeteo import geocode, weather_for
 from sitegen import cache, ia
@@ -45,6 +47,7 @@ from sitegen.redactor import redactar
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 BRAND = ROOT / "brand"
+FOTOS_DIR = ROOT / "data" / "fotos"
 
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
@@ -96,6 +99,8 @@ def fuente_label(d: dict) -> str:
         return "Web municipal"
     if d.get("source_type") == "municipal_plenary":
         return "Acta de pleno"
+    if d.get("source_type") == "subvencion":
+        return "Ayudas y subvenciones"
     return "BOCyL"
 
 
@@ -126,21 +131,73 @@ def doc_row(d: dict, *, show_muni: bool, depth: int) -> str:
     </a>"""
 
 
-def render_pleno_articulo(d: dict, r: dict) -> str:
+def render_articulo(d: dict, r: dict) -> str:
     cuerpo_html = "".join(f'<p class="tc-articulo-parrafo">{E(p)}</p>' for p in r["cuerpo"])
-    muni_link = f'../municipio/{d["municipality_slug"]}.html'
+
+    if d.get("source_type") == "municipal_plenary":
+        kicker = f"Acta de pleno · {d['municipality_name']} · {d['published_at']}"
+        fuente_txt = f"acta de la sesión plenaria del Ayuntamiento de {d['municipality_name']}."
+        fuente_cta = "Ver el documento original (PDF) →"
+    elif d.get("source_type") == "subvencion":
+        kicker = f"Ayudas y subvenciones · {d['municipality_name']} · {d['published_at']}"
+        fuente_txt = f"convocatoria oficial de {d['municipality_name']}, registrada en la Base de Datos Nacional de Subvenciones (BDNS)."
+        fuente_cta = "Ver la convocatoria oficial →"
+    else:
+        kicker = f"{fuente_label(d)} · {d['published_at']}"
+        fuente_txt = "fuente oficial."
+        fuente_cta = "Ver la fuente oficial →"
+
+    if d.get("municipality_slug"):
+        volver_href = f'../municipio/{d["municipality_slug"]}.html'
+        volver_txt = f"Volver a {d['municipality_name']}"
+    else:
+        volver_href, volver_txt = "../index.html", "Volver a portada"
+
     body = f"""<article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Acta de pleno · {E(d['municipality_name'])} · {d['published_at']}</span>
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">{E(kicker)}</span>
   <h1>{E(r['titular'])}</h1>
   <p class="tc-articulo-entradilla">{E(r['entradilla'])}</p>
   {cuerpo_html}
   <div class="tc-source-box">
-    <strong>Fuente oficial:</strong> acta de la sesión plenaria del Ayuntamiento de {E(d['municipality_name'])}.
-    <a href="{E(d['url_original'])}" target="_blank" rel="noopener">Ver el documento original (PDF) →</a>
+    <strong>Fuente oficial:</strong> {E(fuente_txt)}
+    <a href="{E(d['url_original'])}" target="_blank" rel="noopener">{E(fuente_cta)}</a>
   </div>
-  <p class="tc-item-meta"><a href="{E(muni_link)}">← Volver a {E(d['municipality_name'])}</a></p>
+  <p class="tc-item-meta"><a href="{E(volver_href)}">← {E(volver_txt)}</a></p>
 </div></article>"""
     return shell(f"{r['titular']} — El Terracampino", body, depth=1, desc=r["entradilla"][:150])
+
+
+def blog_articulo_path(slug: str) -> str:
+    return f"blog/{slug}.html"
+
+
+def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool) -> str:
+    """Artículo largo de investigación (ver ia.py:redactar_investigacion).
+    `art['secciones']` ya viene emparejado subtítulo+párrafos — no hay que
+    adivinar dónde va cada uno."""
+    secciones_html = "".join(
+        f'<h2 class="tc-blog-subtitulo">{E(s["subtitulo"])}</h2>' +
+        "".join(f'<p class="tc-articulo-parrafo">{E(p)}</p>' for p in s["parrafos"])
+        for s in art["secciones"]
+    )
+    imagen_html = (
+        f'<img class="tc-blog-imagen" src="../assets/blog/{E(slug)}.jpg" alt="{E(art["titular"])}">'
+        if tiene_imagen else ""
+    )
+    fuentes_html = "".join(f"<li>{E(f)}</li>" for f in art.get("fuentes_usadas", []))
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Investigación · {E(tema)}</span>
+  <h1>{E(art['titular'])}</h1>
+  <p class="tc-articulo-entradilla">{E(art['entradilla'])}</p>
+  {imagen_html}
+  {secciones_html}
+  <div class="tc-source-box">
+    <strong>Fuentes:</strong>
+    <ul class="tc-links-list">{fuentes_html}</ul>
+  </div>
+  <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150])
 
 
 def load_municipios() -> dict[str, dict]:
@@ -156,8 +213,47 @@ def copy_assets() -> None:
     dst = WEB / "assets"
     dst.mkdir(parents=True, exist_ok=True)
     shutil.copy(BRAND / "web" / "brand-tokens.css", dst / "brand-tokens.css")
-    shutil.copy(BRAND / "logos" / "favicon.svg", dst / "favicon.svg")
-    shutil.copy(BRAND / "logos" / "el-terracampino-ilustrado.png", dst / "logo.png")
+    # favicon.svg quedó obsoleto: era el símbolo "T sobre surcos" descartado en
+    # 2026-07-12 a favor del logo ilustrado (pastor+oveja+espiga) — se sustituye
+    # aquí por el favicon PNG real del logo vigente (kit de marca v1.2).
+    shutil.copy(BRAND / "logos" / "favicon-32.png", dst / "favicon-32.png")
+    shutil.copy(BRAND / "logos" / "favicon-192.png", dst / "favicon-192.png")
+    shutil.copy(BRAND / "logos" / "el-terracampino-ilustrado-transparente.png", dst / "logo.png")
+
+    # Fotos de vecinos ya aprobadas (ver sitegen/fotos.py): se procesan una vez
+    # con el bot y quedan en data/fotos/procesadas/, aquí solo se copian.
+    procesadas = FOTOS_DIR / "procesadas"
+    if procesadas.exists():
+        dst_fotos = dst / "fotos"
+        dst_fotos.mkdir(parents=True, exist_ok=True)
+        for f in procesadas.glob("*.jpg"):
+            shutil.copy(f, dst_fotos / f.name)
+
+    # Imágenes de artículos de blog (ver scripts/generar_articulo_blog.py):
+    # se generan una vez con OpenAI y quedan en data/blog/imagenes/.
+    blog_imagenes = ROOT / "data" / "blog" / "imagenes"
+    if blog_imagenes.exists():
+        dst_blog = dst / "blog"
+        dst_blog.mkdir(parents=True, exist_ok=True)
+        for f in blog_imagenes.glob("*.jpg"):
+            shutil.copy(f, dst_blog / f.name)
+
+
+def cargar_fotos_aprobadas() -> dict[str, list[dict]]:
+    manifest = FOTOS_DIR / "aprobadas.json"
+    if not manifest.exists():
+        return {}
+    return json.loads(manifest.read_text(encoding="utf-8"))
+
+
+def cargar_blog_articulos() -> list[dict]:
+    """Artículos de blog/investigación ya publicados (ver scripts/generar_articulo_blog.py).
+    Es un índice ligero: el HTML de cada artículo ya está escrito en web/blog/,
+    esto solo sirve para listarlos en portada."""
+    manifest = ROOT / "data" / "blog" / "articulos.json"
+    if not manifest.exists():
+        return []
+    return json.loads(manifest.read_text(encoding="utf-8"))
 
 
 # --------------------------------------------------------------- plantilla
@@ -172,7 +268,8 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{E(title)}</title>
 {meta_desc}
-<link rel="icon" href="{up}assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="{up}assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="{up}assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -344,6 +441,22 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
     else:
         tiempo_html = ""
 
+    # Blog / investigaciones: piezas largas, generadas aparte (scripts/generar_articulo_blog.py),
+    # no en cada build. Se listan aquí si hay alguna publicada.
+    blog_articulos = cargar_blog_articulos()
+    if blog_articulos:
+        tarjetas_blog = "".join(f'''<a class="tc-blog-tarjeta" href="blog/{E(a["slug"])}.html">
+      {f'<img src="assets/blog/{E(a["slug"])}.jpg" alt="" loading="lazy">' if a.get("tiene_imagen") else ""}
+      <span class="tc-news-titular">{E(a["titular"])}</span>
+      <span class="tc-news-entradilla">{E(a["entradilla"])}</span>
+    </a>''' for a in blog_articulos[:3])
+        blog_html = f"""<section class="tc-wrap" id="blog">
+  <h2 class="tc-block-title">Investigaciones</h2>
+  <div class="tc-blog-grid">{tarjetas_blog}</div>
+</section>"""
+    else:
+        blog_html = ""
+
     alm = almanaque_del_dia(hoy)
     body = f"""<section class="tc-masthead"><div class="tc-wrap">
   <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
@@ -358,6 +471,8 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
   <h2 class="tc-block-title">Noticias relevantes de la comarca</h2>
   {items}
 </section>
+
+{blog_html}
 
 <section class="tc-wrap tc-comun">
   <div class="tc-comun-huerta">
@@ -442,6 +557,14 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
         ayto = """<div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
       <p style="margin:6px 0 0;">Sin anuncios ni plenos nuevos verificados en los últimos días.</p></div>"""
 
+    # Ayudas y subvenciones reales (BDNS): propias del ayuntamiento, ver scrapers/bdns.py
+    ayudas = m.get("_ayudas", [])
+    ayudas_html = ""
+    if ayudas:
+        rows = "".join(doc_row(d, show_muni=False, depth=1) for d in ayudas)
+        ayudas_html = f"""<h2 class="tc-block-title">Ayudas y subvenciones</h2>
+      <div class="tc-news-grid">{rows}</div>"""
+
     links = MUNI_LINKS.get(m["slug"], {})
     links_html = "".join(f'<li><a href="{E(u)}" target="_blank" rel="noopener">{E(k)}</a></li>' for k, u in links.items())
     if not links_html:
@@ -493,6 +616,23 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
       <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
       <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>"""
 
+    # Fotos de vecinos, estilo "Destino Tierra de Campos" pero con marco de marca
+    # propio: llegan por Telegram, pasan por revisión, se procesan (sitegen/fotos.py)
+    # y solo entonces aparecen aquí. Nunca automático.
+    fotos = m.get("_fotos", [])
+    if fotos:
+        tarjetas = "".join(f'''<figure class="tc-foto">
+      <img src="../assets/fotos/{E(f['archivo'])}" alt="{E(f['pie'])}" loading="lazy">
+      <figcaption>{E(f['pie'])}</figcaption>
+    </figure>''' for f in fotos)
+        galeria_html = f"""<h2 class="tc-block-title">Fotos de {E(m['name'])}</h2>
+    <div class="tc-foto-grid">{tarjetas}</div>"""
+    else:
+        galeria_html = f"""<div class="tc-card"><h3>Fotos de {E(m['name'])}</h3>
+      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de {E(m['name'])}.</p>
+      <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
+      <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>"""
+
     w = m.get("weather")
     tiempo_titular = (f"El tiempo hoy en {E(m['name'])}: {w['ahora']['temp']}° y {E(w['ahora']['desc'])}"
                       if w else f"{E(m['name'])}")
@@ -513,6 +653,8 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
       <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
     </div></div>
     {ayto}
+    {ayudas_html}
+    {galeria_html}
     {tablon_html}
   </main>
   <aside class="tc-muni-side">
@@ -532,6 +674,7 @@ def main() -> int:
     hoy = date.today()
     municipios = load_municipios()
     copy_assets()
+    fotos_por_slug = cargar_fotos_aprobadas()
 
     print("· BOP Valladolid…", flush=True)
     try:
@@ -546,6 +689,15 @@ def main() -> int:
         por_muni.setdefault(a["municipality_slug"], []).append(a)
 
     slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys())))
+
+    print("· Ayudas y subvenciones (BDNS)…", flush=True)
+    try:
+        pilotos_nombre_slug = [(municipios[s]["name"], s) for s in PILOTS if s in municipios]
+        ayudas_por_slug = fetch_ayudas(pilotos_nombre_slug)
+    except ScraperError as exc:
+        print(f"  aviso: BDNS no disponible ({exc}); se sigue sin ayudas", file=sys.stderr)
+        ayudas_por_slug = {}
+    print(f"  {sum(len(v) for v in ayudas_por_slug.values())} ayudas relevantes")
 
     built = []
     for slug in slugs:
@@ -582,6 +734,8 @@ def main() -> int:
         except ScraperError as exc:
             print(f"  aviso: sin actas de pleno para {m['name']} ({exc})", file=sys.stderr)
             m["_plenos"] = []
+        m["_ayudas"] = ayudas_por_slug.get(slug, [])
+        m["_fotos"] = fotos_por_slug.get(slug, [])
         m["_anuncios"] = por_muni.get(slug, [])
         # Marcador: último resultado y próximo partido del club local (si hay uno cubierto)
         try:
@@ -593,12 +747,15 @@ def main() -> int:
 
     built.sort(key=lambda x: (-(int(x["population"]) if str(x.get("population", "")).isdigit() else 0), x["name"]))
 
+    ayudas_comarca = ayudas_por_slug.get("comarca", [])
+
     # Feed de la comarca para la portada: BOP + BOCyL de todos, lo más reciente arriba.
-    feed = list(anuncios)
+    feed = list(anuncios) + list(ayudas_comarca)
     for m in built:
         feed.extend(m.get("_bocyl", []))
         feed.extend(m.get("_municipal", []))
         feed.extend(m.get("_plenos", []))
+        feed.extend(m.get("_ayudas", []))
     feed.sort(key=lambda d: d.get("published_at") or "", reverse=True)
     feed = feed[:80]  # pool amplio; render_home elige las 7 más relevantes
 
@@ -609,21 +766,25 @@ def main() -> int:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
             render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
 
-    # Artículo propio para cada pleno con cuerpo redactado (ver doc_row: solo
-    # se enlaza aquí si de verdad hay un artículo, si no se cae al PDF oficial).
+    # Artículo propio para cada pleno/ayuda con cuerpo redactado (ver doc_row:
+    # solo se enlaza aquí si de verdad hay un artículo, si no se cae a la fuente oficial).
     n_articulos = 0
-    for m in built:
-        for d in m.get("_plenos", []):
-            r = redactar(d)
-            if r.get("cuerpo"):
-                (WEB / "noticia" / f"{d['hash'][:16]}.html").write_text(
-                    render_pleno_articulo(d, r), encoding="utf-8")
-                n_articulos += 1
+    todos_los_docs = ayudas_comarca + [
+        d for m in built for d in (m.get("_plenos", []) + m.get("_ayudas", []))
+    ]
+    print(f"· Redactando {len(todos_los_docs)} artículos (plenos + ayudas)…", flush=True)
+    for i, d in enumerate(todos_los_docs, 1):
+        print(f"  [{i}/{len(todos_los_docs)}] {d.get('title', '')[:60]}", flush=True)
+        r = redactar(d)
+        if r.get("cuerpo"):
+            (WEB / "noticia" / f"{d['hash'][:16]}.html").write_text(
+                render_articulo(d, r), encoding="utf-8")
+            n_articulos += 1
 
     cache.flush()
     modo = "IA (Claude)" if ia.disponible() else "reglas (sin ANTHROPIC_API_KEY)"
     print(f"\nGenerado: web/index.html + {len(built)} fichas de municipio + "
-          f"{n_articulos} artículos de pleno. Redacción: {modo}.")
+          f"{n_articulos} artículos (plenos + ayudas). Redacción: {modo}.")
     return 0
 
 

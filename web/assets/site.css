@@ -198,6 +198,33 @@
 }
 .tc-articulo .tc-source-box { margin: var(--tc-space-4) 0 var(--tc-space-2); }
 
+/* Artículo de blog/investigación: más ancho, con subtítulos e imagen de portada */
+.tc-blog-articulo.tc-articulo-ancho { max-width: 74ch; }
+.tc-blog-imagen {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--tc-linea);
+  margin: var(--tc-space-3) 0;
+}
+.tc-blog-subtitulo {
+  font-size: 1.3rem;
+  margin: var(--tc-space-4) 0 var(--tc-space-2);
+}
+
+/* Tarjetas de blog en portada */
+.tc-blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--tc-space-3); }
+.tc-blog-tarjeta {
+  display: flex; flex-direction: column; gap: 8px;
+  text-decoration: none; color: var(--tc-tinta-tierra);
+  border: 1px solid var(--tc-linea);
+}
+.tc-blog-tarjeta img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.tc-blog-tarjeta .tc-news-titular, .tc-blog-tarjeta .tc-news-entradilla { padding: 0 14px; }
+.tc-blog-tarjeta .tc-news-entradilla { padding-bottom: 14px; }
+.tc-blog-tarjeta:hover { background: var(--tc-linea-suave); }
+
 .tc-muni-tag {
   font-family: var(--tc-font-data);
   font-size: .72rem;
@@ -455,6 +482,12 @@
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
 .tc-news-more { font-family: var(--tc-font-data); font-size: .75rem; color: var(--tc-azul-bop); margin-top: 2px; }
+
+/* ---- Fotos de vecinos ---- */
+.tc-foto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--tc-space-3); }
+.tc-foto { margin: 0; }
+.tc-foto img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border: 1px solid var(--tc-linea); }
+.tc-foto figcaption { font-size: .82rem; color: var(--tc-texto-secundario); margin-top: 6px; }
 
 /* ---- Contenido común de la comarca ---- */
 .tc-comun { display: grid; grid-template-columns: 2fr 1fr; gap: var(--tc-space-4); padding-top: var(--tc-space-3); }

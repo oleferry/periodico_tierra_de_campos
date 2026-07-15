@@ -24,16 +24,22 @@ def redactar(doc: dict) -> dict:
     """Titular + entradilla. Usa la IA si hay clave (con caché por hash); si no,
     o si la IA falla, cae al redactor por reglas (determinista)."""
     es_pleno_con_texto = doc.get("source_type") == "municipal_plenary" and doc.get("acta_texto")
+    es_ayuda_con_texto = doc.get("source_type") == "subvencion" and doc.get("ayuda_texto")
     clave = hashlib.sha256(
         f"{ia.PROMPT_VERSION}|{doc.get('title','')}|{doc.get('municipality_name','')}|"
-        f"{doc.get('acta_texto','')}".encode()
+        f"{doc.get('acta_texto','')}|{doc.get('ayuda_texto','')}".encode()
     ).hexdigest()
     guardado = cache.get("redactor", clave)
     if guardado:
         return _con_titular_capitalizado(guardado)
     if ia.disponible():
         try:
-            r = ia.redactar_pleno(doc) if es_pleno_con_texto else ia.redactar(doc)
+            if es_pleno_con_texto:
+                r = ia.redactar_pleno(doc)
+            elif es_ayuda_con_texto:
+                r = ia.redactar_ayuda(doc)
+            else:
+                r = ia.redactar(doc)
             cache.set("redactor", clave, r)
             return _con_titular_capitalizado(r)
         except Exception as exc:  # noqa: BLE001 (cualquier fallo → reglas)
