@@ -28,7 +28,8 @@ from pathlib import Path
 from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
 from scrapers.bop_valladolid import SUMARIO_URL, parse_sumario
 from scrapers.common import ScraperError, fetch, strip_accents
-from scrapers.futbolme import marcador_for
+from scrapers.futbolme import marcador_for as marcador_for_futbolme
+from scrapers.siguetuliga import marcador_for as marcador_for_siguetuliga
 from scrapers.municipal_wp import fetch_noticias as municipal_noticias
 from scrapers.bdns import fetch_ayudas
 from scrapers.plenos_sedelectronica import fetch_plenos
@@ -777,12 +778,20 @@ def main() -> int:
         m["_ayudas"] = ayudas_por_slug.get(slug, [])
         m["_fotos"] = fotos_por_slug.get(slug, [])
         m["_anuncios"] = por_muni.get(slug, [])
-        # Marcador: último resultado y próximo partido del club local (si hay uno cubierto)
+        # Marcador: último resultado y próximo partido del club local (si hay uno
+        # cubierto). Futbolme cubre categorías nacionales/regionales; para las
+        # ligas provinciales de aficionados se cae a siguetuliga.com — ver
+        # scrapers/siguetuliga.py sobre por qué la RFCYLF oficial queda descartada.
         try:
-            m["_marcador"] = marcador_for(slug, hoy)
+            m["_marcador"] = marcador_for_futbolme(slug, hoy)
         except ScraperError as exc:
-            print(f"  aviso: sin marcador para {m['name']} ({exc})", file=sys.stderr)
+            print(f"  aviso: sin marcador (Futbolme) para {m['name']} ({exc})", file=sys.stderr)
             m["_marcador"] = None
+        if not m["_marcador"]:
+            try:
+                m["_marcador"] = marcador_for_siguetuliga(slug, hoy)
+            except ScraperError as exc:
+                print(f"  aviso: sin marcador (siguetuliga) para {m['name']} ({exc})", file=sys.stderr)
         built.append(m)
 
     built.sort(key=lambda x: (-(int(x["population"]) if str(x.get("population", "")).isdigit() else 0), x["name"]))

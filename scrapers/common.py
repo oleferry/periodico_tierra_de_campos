@@ -95,7 +95,12 @@ def fetch(url: str, *, check_robots: bool = True) -> str:
         raise ScraperError(ERR_NETWORK, f"{type(exc).__name__}: {exc}") from exc
     if resp.status_code >= 400:
         raise ScraperError(ERR_NETWORK, f"HTTP {resp.status_code} en {url}")
-    resp.encoding = resp.encoding or "utf-8"
+    # 'ISO-8859-1' es el valor que requests asume por defecto cuando el
+    # servidor no declara charset en el Content-Type (caso de siguetuliga.com,
+    # que sí manda el HTML en UTF-8 real) — sin esto, las tildes se corrompen
+    # en mojibake ('Ã³' en vez de 'ó') de forma silenciosa.
+    if not resp.encoding or resp.encoding.lower() == "iso-8859-1":
+        resp.encoding = resp.apparent_encoding or "utf-8"
     time.sleep(REQUEST_PAUSE)
     if not resp.text.strip():
         raise ScraperError(ERR_EMPTY, f"respuesta vacía en {url}")
