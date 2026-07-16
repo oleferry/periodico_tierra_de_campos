@@ -124,6 +124,7 @@ def _a_documento(item: dict, detalle: dict, *, municipio_slug: str | None, entid
         "detected_at": datetime.now(timezone.utc).isoformat(),
         "ayuda_texto": _texto_ayuda(detalle),
         "ayuda_abierta": bool(detalle.get("abierto")),
+        "presupuesto_total": detalle.get("presupuestoTotal"),
         "hash": sha256(f"bdns-{item['id']}"),
         "confidence": "high",
         "requires_review": True,
