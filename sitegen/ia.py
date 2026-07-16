@@ -442,7 +442,14 @@ _SISTEMA_INVESTIGACION = (
     "no está claro, no lo afirmes como cierto — dilo como lo que es.\n\n"
     "El cierre no resume, abre: regresa a la imagen inicial y deja una pregunta o decisión abierta. "
     "Prohibido 'en conclusión', 'en definitiva', 'la clave está en', 'el futuro dirá', "
-    "'¿y tú qué opinas?', 'esperamos que este artículo haya servido'."
+    "'¿y tú qué opinas?', 'esperamos que este artículo haya servido'.\n\n"
+    "Para 'prompt_imagen' (la escena que ilustrará la portada, en inglés, para un generador de "
+    "imágenes): describe SOLO elementos visuales — nunca pidas que aparezca texto, letras, "
+    "carteles con palabras, rótulos, pintadas ni ningún tipo de escritura legible, ni siquiera en "
+    "español. Los generadores de imagen renderizan el texto mal o en el idioma equivocado y rompen "
+    "la credibilidad de la escena. Si la escena inicial del artículo incluye un cartel, un rótulo o "
+    "un letrero, descríbelo por su forma, color, desgaste o estado (p.ej. 'a weathered closed metal "
+    "shutter, faded paint, no legible signage') en vez de mencionar qué pone."
 )
 
 _ESQUEMA_INVESTIGACION = {

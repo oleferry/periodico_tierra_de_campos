@@ -54,7 +54,17 @@ def generar_imagen(prompt_escena: str) -> bytes:
     `prompt_escena` es la descripción concreta de la escena del artículo
     (la escribe la IA al redactarlo, ver ia.py:redactar_investigacion),
     combinada aquí con la dirección visual fija de la marca. Lanza si falla."""
-    prompt = f"{DIRECCION_VISUAL}\n\nScene for this specific article: {prompt_escena}"
+    # Se repite la prohibición de texto al final (no solo en DIRECCION_VISUAL):
+    # los modelos de difusión dan más peso a lo último del prompt, y una escena
+    # con "un cartel" (habitual en las piezas de despoblación) tiende a acabar
+    # con letras ilegibles o en el idioma equivocado si no se insiste aquí.
+    prompt = (
+        f"{DIRECCION_VISUAL}\n\n"
+        f"Scene for this specific article: {prompt_escena}\n\n"
+        "Reminder: absolutely no readable text, letters, words, signage, or writing anywhere "
+        "in the image, not even blurred, partial, or in the background. If the scene involves "
+        "a sign or shutter, show only its shape, color and wear — no legible words on it."
+    )
     resp = _get_client().images.generate(
         model="gpt-image-1",
         prompt=prompt,
