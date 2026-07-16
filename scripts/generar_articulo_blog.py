@@ -98,7 +98,66 @@ def dossier_despoblacion() -> tuple[str, str]:
     return tema, "\n".join(lineas)
 
 
-DOSSIERS = {"despoblacion": dossier_despoblacion}
+def dossier_ayudas() -> tuple[str, str]:
+    """Dossier del dinero real en ayudas y subvenciones que ha llegado a los 12
+    pilotos y a las 4 diputaciones, desde la BDNS (scrapers/bdns.py) — misma
+    fuente que ya alimenta las fichas de ayudas de cada pueblo, aquí agregada
+    para ver el conjunto en vez de convocatoria por convocatoria."""
+    from scrapers.bdns import fetch_ayudas
+    from scrapers.common import load_municipios
+    from sitegen.build import PILOTS
+
+    municipios = [(m.name, m.slug) for m in load_municipios() if m.slug in PILOTS]
+    por_slug = fetch_ayudas(municipios)
+
+    lineas = [
+        "Fuente: Base de Datos Nacional de Subvenciones (BDNS), API pública "
+        "(pap.hacienda.gob.es/bdnstrans/api). Registro obligatorio por ley "
+        "(Ley 38/2003 General de Subvenciones) de toda ayuda pública española.",
+        "Alcance: ayudas y convenios de los 12 ayuntamientos piloto, más las de "
+        "las 4 diputaciones (Valladolid, Palencia, León, Zamora) que citan "
+        "expresamente a uno de estos pueblos en el título.",
+        "",
+    ]
+    total_n = 0
+    total_importe = 0.0
+    sin_importe = 0
+    por_pueblo: dict[str, dict] = {}
+    mayores: list[tuple[float, str, str]] = []  # (importe, titulo, entidad)
+
+    for slug, docs in por_slug.items():
+        for d in docs:
+            total_n += 1
+            nombre = d["municipality_name"] if slug != "comarca" else "Diputación (comarca)"
+            reg = por_pueblo.setdefault(nombre, {"n": 0, "importe": 0.0})
+            reg["n"] += 1
+            importe = d.get("presupuesto_total")
+            if importe:
+                total_importe += importe
+                reg["importe"] += importe
+                mayores.append((importe, d["title"], nombre))
+            else:
+                sin_importe += 1
+
+    lineas.append(f"Total de convocatorias encontradas: {total_n}.")
+    lineas.append(
+        f"Importe total sumado (solo las que publican presupuesto): {total_importe:,.0f} €. "
+        f"{sin_importe} convocatorias no indican importe en la BDNS."
+    )
+    lineas.append("")
+    lineas.append("## Desglose por entidad")
+    for nombre, reg in sorted(por_pueblo.items(), key=lambda kv: -kv[1]["importe"]):
+        lineas.append(f"{nombre}: {reg['n']} convocatoria(s), {reg['importe']:,.0f} € sumados.")
+    lineas.append("")
+    lineas.append("## Las convocatorias de mayor importe")
+    for importe, titulo, nombre in sorted(mayores, key=lambda t: -t[0])[:10]:
+        lineas.append(f"{importe:,.0f} € — {titulo} ({nombre}).")
+
+    tema = "cuánto dinero público real llega a Tierra de Campos en ayudas y subvenciones"
+    return tema, "\n".join(lineas)
+
+
+DOSSIERS = {"despoblacion": dossier_despoblacion, "ayudas": dossier_ayudas}
 
 
 def publicar_telegram(titular: str, entradilla: str, url: str) -> None:
