@@ -49,6 +49,10 @@ WEB = ROOT / "web"
 BRAND = ROOT / "brand"
 FOTOS_DIR = ROOT / "data" / "fotos"
 
+# URL de acción del formulario de Brevo (Contactos → Formularios → HTML del
+# formulario). Vacío = el popup de suscripción no se renderiza todavía.
+NEWSLETTER_FORM_URL = ""
+
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
          "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
@@ -280,6 +284,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 {header(depth)}
 {body}
 {footer(depth)}
+{newsletter_popup()}
 </body>
 </html>
 """
@@ -297,6 +302,40 @@ def header(depth: int) -> str:
     <a href="{home}#blog">Investigaciones</a>
   </nav>
 </div></header>"""
+
+
+def newsletter_popup() -> str:
+    if not NEWSLETTER_FORM_URL:
+        return ""
+    return f"""<div class="tc-popup-overlay" id="tc-popup-overlay">
+  <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
+    <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
+    <h2>La semana terracampina</h2>
+    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <form class="tc-form" method="POST" action="{NEWSLETTER_FORM_URL}" id="tc-popup-form">
+      <!-- TODO: pegar aquí los campos ocultos del formulario de Brevo (locale, plantilla, etc.) -->
+      <input class="tc-input" type="email" name="EMAIL" placeholder="tu@correo.es" aria-label="Correo" required>
+      <button class="tc-button" type="submit">Suscribirme</button>
+    </form>
+  </div>
+</div>
+<script>
+(function() {{
+  var KEY = "tc_newsletter_popup_visto";
+  if (localStorage.getItem(KEY)) return;
+  var overlay = document.getElementById("tc-popup-overlay");
+  var close = document.getElementById("tc-popup-close");
+  var form = document.getElementById("tc-popup-form");
+  function ocultar() {{
+    overlay.classList.remove("tc-popup-overlay--visible");
+    localStorage.setItem(KEY, "1");
+  }}
+  setTimeout(function() {{ overlay.classList.add("tc-popup-overlay--visible"); }}, 15000);
+  close.addEventListener("click", ocultar);
+  overlay.addEventListener("click", function(e) {{ if (e.target === overlay) ocultar(); }});
+  form.addEventListener("submit", function() {{ localStorage.setItem(KEY, "1"); }});
+}})();
+</script>"""
 
 
 def footer(depth: int) -> str:
