@@ -240,6 +240,63 @@ def redactar_ayuda(doc: dict) -> dict:
     }
 
 
+# Desarrollo de una pista del radar (scrapers/radar_noticias.py) en pieza propia.
+# El material de partida es la noticia de OTRO medio local: se usa como fuente de
+# HECHOS, nunca como texto a reescribir. De ahí que este prompt sea más duro que
+# los demás: el riesgo aquí no es inventar, es plagiar.
+_SISTEMA_PISTA = (
+    "Eres redactor de El Terracampino, un medio hiperlocal de Tierra de Campos. Te llega el texto "
+    "de una noticia publicada por OTRO medio local de la zona.\n\n"
+    "Tu trabajo NO es reescribir esa noticia. Es leerla, quedarte con los HECHOS, y contarlos "
+    "desde cero con nuestra voz, dando crédito a quien lo publicó primero.\n\n"
+    "Reglas innegociables:\n"
+    "- PROHIBIDO copiar frases del original, y prohibido parafrasear frase por frase (cambiar "
+    "cuatro palabras y mantener la estructura ES plagio). Lee, entiende, cierra los ojos y "
+    "cuéntalo como se lo contarías a un vecino.\n"
+    "- CITA SIEMPRE al medio de origen dentro del cuerpo, con naturalidad y al menos una vez: "
+    "'según informa <medio>', 'lo adelantó <medio>'. Nunca presentes su trabajo como nuestro.\n"
+    "- No añadas NI UN hecho, cifra, nombre, causa o consecuencia que no esté en el material. "
+    "Si no sabes la causa de algo, no la insinúes.\n"
+    "- Si el material da para poco, escribe poco. Una pieza corta y honesta es mejor que una "
+    "rellena. No estires con contexto que no te han dado.\n"
+    "- Si el original atribuye algo a una fuente (la Junta, la Guardia Civil, el alcalde), "
+    "mantén esa atribución: no conviertas en hecho probado lo que es una versión.\n\n"
+    "Voz: humana, directa, local, clara, prudente. Sin alarmismo, sin adjetivos vacíos, sin "
+    "emojis, sin tono de nota de prensa, sin clichés de IA ('cabe destacar', 'en resumen').\n\n"
+    "Personas: no des nombres de particulares, ni detalles que permitan identificarlos, ni datos "
+    "de menores. Cargos públicos sí, por su cargo.\n\n"
+    "Formato: titular claro y sin sensacionalismo; entradilla de una o dos frases con lo "
+    "esencial; cuerpo de 2 a 5 párrafos cortos."
+)
+
+
+def redactar_pista(doc: dict) -> dict:
+    """Pieza propia a partir de una pista del radar. `doc['pista_texto']` es el
+    material de la noticia ajena (hechos), `doc['metadata']['fuente']` el medio
+    que la publicó. Devuelve {'titular','entradilla','cuerpo'}. Lanza si falla."""
+    meta = doc.get("metadata", {})
+    user = (
+        f"Pueblo: {doc.get('municipality_name', '')}\n"
+        f"Medio que lo publicó (cítalo): {meta.get('fuente', '')}\n"
+        f"Fecha: {doc.get('published_at', '')}\n\n"
+        f"Texto original del que extraer los hechos (NO lo reescribas):\n{doc.get('pista_texto', '')}"
+    )
+    resp = _get_client().messages.create(
+        model=_model(),
+        max_tokens=1500,
+        system=_SISTEMA_PISTA,
+        messages=[{"role": "user", "content": user}],
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_PLENO}},
+    )
+    text = next(b.text for b in resp.content if b.type == "text")
+    data = json.loads(text)
+    return {
+        "titular": data["titular"].strip().rstrip("."),
+        "entradilla": data["entradilla"].strip(),
+        "cuerpo": [p.strip() for p in data["cuerpo"] if p.strip()],
+    }
+
+
 _SISTEMA_TIEMPO = (
     "Eres el vecino de Tierra de Campos que te cuenta el tiempo, como si te cruzaras con él en "
     "la plaza. Recibes datos meteorológicos ya medidos y escribes un parte breve. Cercano pero "

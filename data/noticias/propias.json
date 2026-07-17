@@ -1,0 +1,29 @@
+[
+  {
+    "municipality_slug": "villada",
+    "municipality_name": "Villada",
+    "title": "Un incendio originado por un tren mantiene en alerta a Sahagún tras propagarse desde Codornillos hasta Villada",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17234/un-incendio-originado-por-un-tren-mantiene-en-alerta-a-sahagun-tras-propagarse-desde-codornillos-hasta-villada",
+    "published_at": "2026-07-17",
+    "detected_at": "2026-07-17T05:02:08.305455+00:00",
+    "hash": "4db00654e8d4dae1578c9eebb39c56f8e94959af9e2b6743997c46a19fda7d24",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Un incendio que arrancó en Codornillos ha llegado hasta Villada",
+      "entradilla": "El fuego se ha extendido desde la zona de Codornillos hasta Villada y mantiene en alerta a toda la comarca de Sahagún, con varios focos activos.",
+      "cuerpo": [
+        "Un incendio que, según informa Sahagún Digital, se habría originado por las chispas de un tren avanza desde la zona de Codornillos hasta Villada. El fuego ha generado varios focos que ahora mismo rodean Sahagún por distintos puntos.",
+        "El medio sahagunense apunta que la principal preocupación es que las llamas puedan afectar a naves ganaderas y a torretas de la red eléctrica, mientras siguen los trabajos para tratar de frenar el avance.",
+        "Sahagún Digital, que ha adelantado la noticia, indica que ampliará la información a medida que se conozca la evolución del fuego, los medios desplegados y las posibles afecciones."
+      ]
+    }
+  }
+]

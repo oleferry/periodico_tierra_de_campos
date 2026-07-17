@@ -23,8 +23,19 @@ from sitegen import cache, ia
 def redactar(doc: dict) -> dict:
     """Titular + entradilla. Usa la IA si hay clave (con caché por hash); si no,
     o si la IA falla, cae al redactor por reglas (determinista)."""
+    # Pieza ya redactada y aprobada que viaja dentro del propio doc (hoy: las
+    # desarrolladas desde el radar, ver scripts/desarrollar_pista.py). No se
+    # vuelve a pasar por la IA: su texto es el que un humano revisó. Además
+    # evita que un fallo de la IA caiga al redactor por reglas, que titula a
+    # partir de doc['title'] — y en una pista ese título es el del OTRO medio.
+    if doc.get("redaccion"):
+        return _con_titular_capitalizado(doc["redaccion"])
+
     es_pleno_con_texto = doc.get("source_type") == "municipal_plenary" and doc.get("acta_texto")
     es_ayuda_con_texto = doc.get("source_type") == "subvencion" and doc.get("ayuda_texto")
+    # Ojo: no metas aquí campos nuevos sin motivo — cualquier cambio en esta
+    # clave invalida la caché de TODOS los documentos y fuerza a rehacer cientos
+    # de llamadas a la IA en el siguiente build.
     clave = hashlib.sha256(
         f"{ia.PROMPT_VERSION}|{doc.get('title','')}|{doc.get('municipality_name','')}|"
         f"{doc.get('acta_texto','')}|{doc.get('ayuda_texto','')}".encode()

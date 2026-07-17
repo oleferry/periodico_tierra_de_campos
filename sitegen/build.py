@@ -251,6 +251,24 @@ def cargar_fotos_aprobadas() -> dict[str, list[dict]]:
     return json.loads(manifest.read_text(encoding="utf-8"))
 
 
+def cargar_noticias_propias() -> dict[str, list[dict]]:
+    """Piezas propias desarrolladas desde el radar (scripts/desarrollar_pista.py),
+    agrupadas por municipio. Solo las marcadas 'publicado': un borrador nunca
+    llega a la web.
+
+    Van SOLO a la ficha de su pueblo, nunca a la portada (ver main(): no se
+    añaden al `feed`) — a un vecino de Villada no le interesa mucho lo que pasa
+    en Sahagún, y la portada no debe volverse un cajón de sastre."""
+    manifest = ROOT / "data" / "noticias" / "propias.json"
+    if not manifest.exists():
+        return {}
+    por_slug: dict[str, list[dict]] = {}
+    for d in json.loads(manifest.read_text(encoding="utf-8")):
+        if d.get("estado") == "publicado":
+            por_slug.setdefault(d["municipality_slug"], []).append(d)
+    return por_slug
+
+
 def cargar_blog_articulos() -> list[dict]:
     """Artículos de blog/investigación ya publicados (ver scripts/generar_articulo_blog.py).
     Es un índice ligero: el HTML de cada artículo ya está escrito en web/blog/,
@@ -598,6 +616,17 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
         ayto = """<div class="tc-source-box"><span class="tc-section-label">Ayuntamiento en limpio</span>
       <p style="margin:6px 0 0;">Sin anuncios ni plenos nuevos verificados en los últimos días.</p></div>"""
 
+    # Piezas propias desarrolladas desde el radar (scripts/desarrollar_pista.py):
+    # bloque aparte porque no son anuncios oficiales, son noticias del pueblo
+    # contadas por nosotros. Solo aquí: no van a la portada.
+    propias = m.get("_propias", [])
+    propias_html = ""
+    if propias:
+        propias.sort(key=lambda d: d.get("published_at") or "", reverse=True)
+        rows = "".join(doc_row(d, show_muni=False, depth=1) for d in propias)
+        propias_html = f"""<h2 class="tc-block-title">Lo que pasa en {E(m['name'])}</h2>
+      <div class="tc-news-grid">{rows}</div>"""
+
     # Ayudas y subvenciones reales (BDNS): propias del ayuntamiento, ver scrapers/bdns.py
     ayudas = m.get("_ayudas", [])
     ayudas_html = ""
@@ -693,6 +722,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
       <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
     </div></div>
+    {propias_html}
     {ayto}
     {ayudas_html}
     {galeria_html}
@@ -716,6 +746,7 @@ def main() -> int:
     municipios = load_municipios()
     copy_assets()
     fotos_por_slug = cargar_fotos_aprobadas()
+    propias_por_slug = cargar_noticias_propias()
 
     print("· BOP Valladolid…", flush=True)
     try:
@@ -776,6 +807,7 @@ def main() -> int:
             print(f"  aviso: sin actas de pleno para {m['name']} ({exc})", file=sys.stderr)
             m["_plenos"] = []
         m["_ayudas"] = ayudas_por_slug.get(slug, [])
+        m["_propias"] = propias_por_slug.get(slug, [])
         m["_fotos"] = fotos_por_slug.get(slug, [])
         m["_anuncios"] = por_muni.get(slug, [])
         # Marcador: último resultado y próximo partido del club local (si hay uno
@@ -819,9 +851,10 @@ def main() -> int:
     # solo se enlaza aquí si de verdad hay un artículo, si no se cae a la fuente oficial).
     n_articulos = 0
     todos_los_docs = ayudas_comarca + [
-        d for m in built for d in (m.get("_plenos", []) + m.get("_ayudas", []))
+        d for m in built
+        for d in (m.get("_plenos", []) + m.get("_ayudas", []) + m.get("_propias", []))
     ]
-    print(f"· Redactando {len(todos_los_docs)} artículos (plenos + ayudas)…", flush=True)
+    print(f"· Redactando {len(todos_los_docs)} artículos (plenos + ayudas + propias)…", flush=True)
     for i, d in enumerate(todos_los_docs, 1):
         print(f"  [{i}/{len(todos_los_docs)}] {d.get('title', '')[:60]}", flush=True)
         r = redactar(d)
