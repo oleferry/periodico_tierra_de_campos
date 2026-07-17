@@ -70,17 +70,29 @@ _robots_cache: dict[str, RobotFileParser] = {}
 
 
 def robots_allows(url: str) -> bool:
-    """Comprueba robots.txt para el dominio. Si no se puede leer, se asume permitido."""
+    """Comprueba robots.txt para el dominio. Si no se puede leer, se asume permitido.
+
+    El robots.txt se pide con NUESTRO User-Agent (no con rp.read(), que usa el
+    de urllib): algunos servidores devuelven 403 al UA por defecto de Python
+    y RobotFileParser interpreta ese 403 como "todo prohibido", cuando el
+    robots.txt real sí nos permite (visto con palenciaenlared.es). Un 4xx en
+    el propio robots.txt significa "sin restricciones" según el RFC 9309."""
     parts = urlparse(url)
     base = f"{parts.scheme}://{parts.netloc}"
     rp = _robots_cache.get(base)
     if rp is None:
         rp = RobotFileParser()
-        rp.set_url(f"{base}/robots.txt")
         try:
-            rp.read()
-        except Exception:
+            resp = requests.get(f"{base}/robots.txt",
+                                headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
+        except requests.RequestException:
             return True
+        if resp.status_code >= 500:
+            return True  # transitorio: no se cachea, se reintenta la próxima vez
+        if resp.status_code >= 400:
+            rp.allow_all = True  # RFC 9309 §2.3.1.3: robots.txt "unavailable" = sin restricciones
+        else:
+            rp.parse(resp.text.splitlines())
         _robots_cache[base] = rp
     return rp.can_fetch(USER_AGENT, url)
 

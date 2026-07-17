@@ -8,3 +8,7 @@ node_modules/
 
 data/live/
 data/cache/
+# Cola de trabajo del radar (scrapers/radar_noticias.py): guarda titulares y
+# extractos de medios ajenos como PISTAS internas. El repo es público, así que
+# no se sube: publicarla sería republicar texto con derechos de otros.
+data/radar/
