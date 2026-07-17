@@ -30,9 +30,17 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import sys
 from datetime import datetime, timezone
+
+# La consola de Windows viene en cp1252 y revienta al imprimir el borrador
+# (tildes, guiones largos). El texto ya estaba guardado cuando petaba, pero el
+# script salía con error: se fuerza UTF-8 en la salida.
+if hasattr(sys.stdout, "buffer"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
@@ -60,13 +68,14 @@ def _guardar(path, datos: list[dict]) -> None:
     path.write_text(json.dumps(datos, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _pistas_pilotos() -> list[dict]:
-    """Pistas pendientes de pueblos con ficha. Las de pueblos vecinos se quedan
-    en la cola: no hay dónde publicarlas todavía."""
-    from sitegen.build import PILOTS
-
-    return [p for p in _cargar(PISTAS_PATH)
-            if p.get("estado") == "pendiente" and p["municipality_slug"] in PILOTS]
+def _pistas_pendientes(pueblo: str | None = None) -> list[dict]:
+    """Pistas pendientes de cualquier pueblo de la comarca, no solo de los 12
+    pilotos: al publicar una pieza de un pueblo vecino, este gana ficha propia
+    automáticamente (ver sitegen/build.py, construcción de `slugs`)."""
+    pistas = [p for p in _cargar(PISTAS_PATH) if p.get("estado") == "pendiente"]
+    if pueblo:
+        pistas = [p for p in pistas if p["municipality_slug"] == pueblo]
+    return pistas
 
 
 def extraer_texto(url: str) -> str:
@@ -131,17 +140,18 @@ def desarrollar(pista: dict) -> dict:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="SCR-016 — Desarrolla una pista en pieza propia")
-    ap.add_argument("--listar", action="store_true", help="pistas pendientes de pueblos con ficha")
+    ap.add_argument("--listar", action="store_true", help="pistas pendientes (todas o las de --pueblo)")
+    ap.add_argument("--pueblo", metavar="SLUG", help="limita --listar/--indice a un pueblo")
     ap.add_argument("--listar-borradores", action="store_true", help="piezas propias sin publicar")
     ap.add_argument("--indice", type=int, help="desarrolla la pista N de --listar")
     ap.add_argument("--publicar", metavar="HASH", help="marca una pieza como publicada")
     args = ap.parse_args()
 
     if args.listar:
-        pistas = _pistas_pilotos()
+        pistas = _pistas_pendientes(args.pueblo)
         for i, p in enumerate(pistas):
             print(f"[{i:2}] {p['municipality_name']:22} [{p['fuente']}] {p['titulo'][:70]}")
-        print(f"\n{len(pistas)} pistas pendientes de pueblos con ficha.")
+        print(f"\n{len(pistas)} pistas pendientes.")
         return 0
 
     if args.listar_borradores:
@@ -166,7 +176,7 @@ def main() -> int:
     if args.indice is None:
         ap.error("indica --listar, --indice N, --listar-borradores o --publicar HASH")
 
-    pistas = _pistas_pilotos()
+    pistas = _pistas_pendientes(args.pueblo)
     if not 0 <= args.indice < len(pistas):
         print(f"Índice fuera de rango (hay {len(pistas)} pistas)", file=sys.stderr)
         return 1

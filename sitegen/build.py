@@ -760,7 +760,11 @@ def main() -> int:
     for a in anuncios:
         por_muni.setdefault(a["municipality_slug"], []).append(a)
 
-    slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys())))
+    # Un pueblo tiene ficha si es piloto, si el BOP trae algo suyo, o si hemos
+    # publicado una pieza propia sobre él (radar → scripts/desarrollar_pista.py).
+    # Así la cobertura crece donde hay contenido, sin páginas vacías: el tiempo
+    # se resuelve solo (geocode más abajo) y el BOCyL funciona para cualquiera.
+    slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys()) + list(propias_por_slug.keys())))
 
     print("· Ayudas y subvenciones (BDNS)…", flush=True)
     try:
@@ -779,9 +783,12 @@ def main() -> int:
         lat, lon = m.get("lat"), m.get("lon")
         try:
             if not lat or not lon:
-                geo = geocode(f"{m['name']}, {m['province']}")
+                geo = geocode(m["name"], m["province"])
                 if geo:
                     lat, lon = geo
+                else:
+                    print(f"  aviso: sin coordenadas para {m['name']} ({m['province']}): "
+                          f"su ficha sale sin el tiempo", file=sys.stderr)
             if lat and lon:
                 m["weather"] = weather_for(m["name"], float(lat), float(lon))
                 tiempo_ia(m["weather"], hoy)

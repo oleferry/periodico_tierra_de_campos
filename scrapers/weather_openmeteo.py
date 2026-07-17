@@ -14,7 +14,7 @@ from datetime import date
 
 import requests
 
-from scrapers.common import ERR_NETWORK, REQUEST_TIMEOUT, USER_AGENT, ScraperError
+from scrapers.common import ERR_NETWORK, REQUEST_TIMEOUT, USER_AGENT, ScraperError, strip_accents
 
 FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 GEOCODE_URL = "https://geocoding-api.open-meteo.com/v1/search"
@@ -45,13 +45,29 @@ def _get(url: str, params: dict) -> dict:
     return r.json()
 
 
-def geocode(name: str) -> tuple[float, float] | None:
-    """Devuelve (lat, lon) del municipio, o None. Para municipios sin coords en el CSV."""
-    data = _get(GEOCODE_URL, {"name": name, "count": 5, "language": "es", "country": "ES"})
-    for res in data.get("results", []):
-        if res.get("country_code") == "ES":
-            return round(res["latitude"], 6), round(res["longitude"], 6)
-    return None
+def geocode(name: str, province: str | None = None) -> tuple[float, float] | None:
+    """(lat, lon) del municipio, o None si no se identifica SIN AMBIGÜEDAD.
+    Para municipios sin coordenadas en el CSV.
+
+    Pasa siempre `province`: hay homónimos en España y el primero de la lista no
+    tiene por qué ser el nuestro — 'Cea' devuelve antes el de Ourense que el de
+    León, a 300 km. Ante la duda devuelve None: mejor una ficha sin tiempo que
+    con el tiempo de otro pueblo.
+
+    Ojo: al buscador NO se le puede pasar 'Nombre, Provincia' (devuelve cero
+    resultados). Se busca por nombre y se filtra aquí.
+    """
+    data = _get(GEOCODE_URL, {"name": name, "count": 10, "language": "es", "country": "ES"})
+    objetivo = strip_accents(name).lower()
+    cands = [r for r in data.get("results", [])
+             if r.get("country_code") == "ES"
+             and strip_accents(r.get("name") or "").lower() == objetivo]  # 'Villada' != 'Villadangos'
+    if province:
+        prov = strip_accents(province).lower()
+        cands = [r for r in cands if prov in strip_accents(r.get("admin2") or "").lower()]
+    if not cands:
+        return None
+    return round(cands[0]["latitude"], 6), round(cands[0]["longitude"], 6)
 
 
 def fetch_forecast(lat: float, lon: float) -> dict:

@@ -1,5 +1,146 @@
 [
   {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Doblete para los vinos Pincerna de Grajal de Campos en los Premios Pisado",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17141/doblete-para-los-vinos-pincerna-de-grajal-de-campos-en-los-premios-pisado",
+    "published_at": "2026-07-17",
+    "detected_at": "2026-07-17T06:43:08.032971+00:00",
+    "hash": "9968234fa9d1dc4cea664d1e818e705827cbc9fab345a1872a00a53e36efe9aa",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La bodega Pincerna de Grajal de Campos hace doblete en los Premios Pisado de la Diputación",
+      "entradilla": "La bodega grajalense se lleva el primer premio de vino rosado y un accésit en tinto con crianza en la quinta edición del certamen que reconoce los mejores vinos de la provincia.",
+      "cuerpo": [
+        "La Diputación de León ha fallado esta semana los Premios Pisado, el certamen que premia los mejores vinos de la provincia amparados por sus Denominaciones de Origen. Según informa Sahagún Digital, es la quinta edición y el acto de entrega se celebrará el tres de julio en el Salón de Plenos del Palacio de los Guzmanes.",
+        "Entre los premiados destaca la bodega Pincerna, de Grajal de Campos, que se anota un doblete. Se lleva el primer premio en la categoría de vino rosado con su marca Pincerna y, además, un accésit en tinto con crianza con la etiqueta La Retorcida.",
+        "Otra firma, Encima Wines, también logró doblete: primer premio en blanco sin crianza con La Cigüeña Godello y accésit en blanco con crianza con Para Muestra un Botón. El resto del palmarés lo completan vinos de Emilio Moro, Prada a Tope y Dominio de Anza, entre otros.",
+        "La selección la hizo un jurado de sumilleres y representantes de la DO León y la DO Bierzo, que cataron las muestras a ciegas. El vicepresidente de la Diputación y diputado de Infraestructuras y Productos de León, Roberto Aller, subrayó en la lectura del fallo que los premios buscan poner en valor el trabajo diario de las bodegas leonesas."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "gordaliza-del-pino",
+    "municipality_name": "Gordaliza del Pino",
+    "title": "Gordaliza del Pino saca a licitación cinco casetas gastronómicas para las fiestas del Carmen",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17142/gordaliza-del-pino-saca-a-licitacion-cinco-casetas-gastronomicas-para-las-fiestas-del-carmen",
+    "published_at": "2026-07-17",
+    "detected_at": "2026-07-17T06:42:50.439910+00:00",
+    "hash": "ddddc4c7e9a1a77f82d32ada91961cef583f0f8b92750f71a282b407c865a891",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Gordaliza del Pino estrena zona de casetas en el Parque de la Alameda para las fiestas del Carmen",
+      "entradilla": "El Ayuntamiento saca a subasta cinco puestos de comida y bebida que estarán en marcha durante las fiestas de julio.",
+      "cuerpo": [
+        "El Parque de la Alameda de Gordaliza del Pino se convertirá este verano en el centro gastronómico de las fiestas del Carmen. Según informa Sahagún Digital, el Consistorio instalará cinco casetas de comida y bebida en ese espacio, que funcionarán del 15 al 18 de julio.",
+        "Para repartir los puestos, el Ayuntamiento ha convocado una subasta pública: cada lote irá a parar a la oferta más alta, partiendo de un precio de salida de 200 euros. Quienes quieran optar tienen que estar dados de alta en el sector de la hostelería y presentar sus propuestas antes del 9 de julio. Los pliegos de condiciones ya se pueden consultar en las dependencias municipales y en la Sede Electrónica.",
+        "Las bases fijan que las casetas deben abrir a partir de las seis de la tarde todos los días. El 16 de julio, además, se suma un turno de mediodía, de una a cuatro.",
+        "La idea es concentrar en la Alameda el ambiente de las tardes de fiesta, combinando el servicio de las casetas con música en directo y actividades para todos los públicos."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "el-burgo-ranero",
+    "municipality_name": "El Burgo Ranero",
+    "title": "Confederación Hidrográfica del Duero autoriza el uso de agua a la macrogranja de cerdos de El Burgo Ranero a pesar del rechazo vecinal",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/16970/confederacion-hidrografica-del-duero-autoriza-el-uso-de-agua-a-la-macrogranja-de-cerdos-de-el-burgo-ranero-a-pesar-del-rechazo-vecinal",
+    "published_at": "2026-07-17",
+    "detected_at": "2026-07-17T06:42:28.677488+00:00",
+    "hash": "2c2c8905e040c9342fa1da795eda1941dab4fe154b5e6b6e7831f53ecd95eae2",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Confederación del Duero da luz verde al agua para la macrogranja de porcino de El Burgo Ranero",
+      "entradilla": "El organismo propone conceder el uso de agua subterránea a la explotación pese a la oposición de vecinos, juntas vecinales y el propio Ayuntamiento. Hay 15 días para presentar alegaciones.",
+      "cuerpo": [
+        "El proyecto de granja intensiva de cerdos en El Burgo Ranero ha superado uno de sus trámites clave. Según informa Sahagún Digital, la Comisaría de Aguas de la Confederación Hidrográfica del Duero ha emitido una propuesta de resolución favorable a conceder a la promotora Danakil Studios y Proyectos el uso de aguas subterráneas que solicitaba. El organismo sostiene que la masa de agua de la que se extraerá el caudal está en buen estado y que el volumen pedido no perjudicará a otros usuarios con derechos preferentes.",
+        "La concesión se plantea por 30 años y autoriza sacar hasta 29.762 metros cúbicos anuales, a través de un sondeo de 100 metros de profundidad en el paraje de Las Mostaliegas. El agua abastecería una explotación de multiplicación pensada para 2.640 cerdas con lechones, 500 hembras de reposición y 6 verracos.",
+        "La decisión choca con la oposición que se había organizado en la comarca. Durante la fase de información pública se presentaron alegaciones de colectivos, particulares, grupos políticos y ocho juntas vecinales: Villamuñio, Reliegos, Las Grañeras, Santa Martas, Calzadilla de los Hermanillos, Villamizar, Villacintor y Villamarco. El propio Ayuntamiento de El Burgo Ranero mostró formalmente su rechazo por los posibles riesgos ambientales, los malos olores y el impacto en la economía y el turismo locales.",
+        "Los opositores advertían del riesgo de contaminación por nitratos y bacterias en el acuífero que abastece a decenas de pueblos del sureste leonés, y recordaban la cercanía de la explotación al Camino de Santiago y a una calzada romana. El Servicio Instructor, según recoge Sahagún Digital, ha desestimado esos argumentos: alega que la Junta de Castilla y León ya emitió este año una Declaración de Impacto Ambiental favorable y que las cuestiones sobre olores o patrimonio corresponden a la Junta y al Ayuntamiento mediante las licencias de actividad.",
+        "La Confederación acompaña la autorización de una serie de condiciones. Prohíbe esparcir purines sobre las zonas protegidas de abastecimiento humano y en las bandas de cinco metros junto a ríos, arroyos o lagunas; obliga a situar las balsas de residuos a un mínimo de 100 metros de los humedales y de 200 metros de pozos o manantiales de consumo público; y exige instalar tres piezómetros de control para vigilar el subsuelo y detectar posibles fugas. Los afectados disponen ahora de 15 días para revisar el expediente y presentar alegaciones."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "cea",
+    "municipality_name": "Cea",
+    "title": "Cea se rinde a su devoción por el Carmen con cuatro días de reencuentro y celebración",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17194/cea-se-rinde-a-su-devocion-por-el-carmen-con-cuatro-dias-de-reencuentro-y-celebracion",
+    "published_at": "2026-07-17",
+    "detected_at": "2026-07-17T06:42:12.093964+00:00",
+    "hash": "8dd477e94258460fd73e4441e3e2079c1cec94781d1b5cd334671ffe396724e2",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Cea celebra las fiestas del Carmen del 17 al 19 de julio",
+      "entradilla": "La localidad rinde honores a su patrona con tres días de verbenas, pasacalles y actos religiosos. El pregón corre a cargo de Alfonso Vallecillo Torres, jefe de zona de agentes medioambientales de la comarca de Sahagún.",
+      "cuerpo": [
+        "Cea vive este fin de semana sus fiestas en honor a la Virgen del Carmen. Según informa Sahagún Digital, la programación arranca el viernes por la tarde y se prolonga hasta el domingo, con propuestas para todas las horas del día.",
+        "El pregón, previsto para las 21:30 horas del viernes tras la novena, lo dará este año Alfonso Vallecillo Torres. La Junta Vecinal ha querido reconocer así sus 30 años como servidor público dedicado a la defensa del medio ambiente. En su intervención repasará su vinculación con el pueblo, su trabajo en la gestión del monte junto a presidentes y alcaldes, y dedicará una parte a Riocamba.",
+        "La música marca buena parte del programa. Habrá verbena con la orquesta Nuevo Tango el viernes y con Nebraska el sábado, ambas acompañadas de discoteca móvil hasta la madrugada. Durante el día, el grupo Sámbala llevará su espectáculo 'Danza en la calle' y no faltarán los pasacalles con la charanga Dos Rombos y los dulzaineros.",
+        "El domingo llegan los actos más solemnes: a las 13:00 horas se celebra la misa y la procesión de la patrona, y a las 18:00 horas el rezo del rosario y el regreso de la virgen a su ermita cierran las celebraciones."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza pone rumbo a sus fiestas de Santa Marina",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17185/almanza-pone-rumbo-a-sus-fiestas-de-santa-marina",
+    "published_at": "2026-07-17",
+    "detected_at": "2026-07-17T06:41:10.594950+00:00",
+    "hash": "1cf4d01073c81b64099802faae6f5e71fe58bd5e2d214666445e936568aef4df",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza celebra sus fiestas de Santa Marina del 17 al 19 de julio",
+      "entradilla": "La villa arranca este fin de semana sus fiestas patronales con música, gastronomía, teatro y actos populares para todas las edades.",
+      "cuerpo": [
+        "Almanza vive desde este viernes sus fiestas en honor a Santa Marina, que se prolongan hasta el domingo 19 de julio. Según informa Sahagún Digital, el programa combina las costumbres de siempre con conciertos, gastronomía y propuestas de ocio.",
+        "El viernes la fiesta empieza a las 20:00 horas con una ronda de bares animada por la charanga Proyecto X, y la primera jornada se alargará hasta la madrugada con la discoteca móvil RC Project.",
+        "El sábado concentra buena parte de los actos. A primera hora se celebra la tradicional puesta del ramo en la iglesia, seguida de la misa solemne dedicada a la patrona y del baile vermú. Por la tarde habrá campeonato de tute y castillos hinchables, y la noche reunirá una parrillada popular, un concierto para amenizar la cena y la actuación del Grupo Track, uno de los platos fuertes del fin de semana. Después, la discoteca móvil volverá a tomar el relevo.",
+        "El domingo, las fiestas se despiden con la representación teatral 'Maribel y la extraña familia' en la Casa de la Cultura, a las 18:00 horas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villada",
     "municipality_name": "Villada",
     "title": "Un incendio originado por un tren mantiene en alerta a Sahagún tras propagarse desde Codornillos hasta Villada",

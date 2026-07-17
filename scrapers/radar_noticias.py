@@ -19,8 +19,6 @@ Fuentes (robots.txt verificado una a una el 2026-07-16):
     RSS: se leen los enlaces /art/ de la portada. Su plataforma (folioepress)
     permite bots (sin regla User-agent: * y con Allow explícito a bots de IA).
   · Leonsur Digital (leonsurdigital.com) — sur de León (Valderas…). Ídem.
-  · InterBenavente (interbenavente.es) — Zamora, con sección propia de
-    Tierra de Campos. Ídem.
 
 Grandes medios provinciales (El Norte de Castilla, Diario de León,
 Leonoticias…) también permiten rastreo, pero cubren mucho más ruido que
@@ -41,7 +39,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 from bs4 import BeautifulSoup
 
@@ -87,13 +85,12 @@ FUENTES = [
         # su sección de pueblos, que sí trae los enlaces /art/.
         "url": "https://leonsurdigital.com/sec/pueblos",
     },
-    {
-        "slug": "interbenavente",
-        "nombre": "InterBenavente",
-        "tipo": "html_folioepress",
-        "url": "https://interbenavente.es/sec/comarca-tierra-de-campos",
-    },
 ]
+# InterBenavente (interbenavente.es) se retiró el 2026-07-17: aunque su
+# robots.txt permite el rastreo, sus páginas de artículo responden "Tu
+# comportamiento parece de bot" (403) hasta a un navegador real. La intención
+# del medio es clara y se respeta, aunque el robots diga otra cosa. Perdemos
+# cobertura de Zamora (queda La Mar de Campos, que también llega a Villalpando).
 
 # Municipios del CSV maestro que NO deben usarse para casar titulares:
 # 'Palencia' es también la capital (todo el feed provincial la cita) y
@@ -137,10 +134,15 @@ def _items_folioepress(html_text: str, base_url: str) -> list[dict]:
     """Enlaces de artículo (/art/<id>/<slug>) de una portada o sección
     folioepress. Sin fecha: la plataforma no la expone en el listado."""
     soup = BeautifulSoup(html_text, "html.parser")
+    # Los href son relativos ('art/123/slug'). Se resuelven contra la RAÍZ del
+    # sitio, no contra base_url: si la portada de la fuente es una sección
+    # ('/sec/pueblos'), urljoin daría '/sec/art/123/...' — que es 404. La ruta
+    # buena siempre es '/art/123/...'.
+    raiz = f"{urlparse(base_url).scheme}://{urlparse(base_url).netloc}/"
     vistos: set[str] = set()
     items = []
     for a in soup.select('a[href*="/art/"], a[href^="art/"]'):
-        url = urljoin(base_url, a["href"])
+        url = urljoin(raiz, a["href"])
         titulo = a.get_text(" ", strip=True)
         if url in vistos or not titulo or len(titulo) < 15:
             continue  # anclas de imagen/duplicados: el titular real es el ancla larga
