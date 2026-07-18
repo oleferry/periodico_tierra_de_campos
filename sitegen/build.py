@@ -34,7 +34,7 @@ from scrapers.municipal_wp import fetch_noticias as municipal_noticias
 from scrapers.bdns import fetch_ayudas
 from scrapers.plenos_sedelectronica import fetch_plenos
 from scrapers.weather_openmeteo import geocode, weather_for
-from sitegen import cache, ia
+from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
     PUEBLOS_INFO,
     almanaque_del_dia,
@@ -49,10 +49,6 @@ ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 BRAND = ROOT / "brand"
 FOTOS_DIR = ROOT / "data" / "fotos"
-
-# URL de acción del formulario de Brevo (Contactos → Formularios → HTML del
-# formulario). Vacío = el popup de suscripción no se renderiza todavía.
-NEWSLETTER_FORM_URL = ""
 
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
@@ -225,14 +221,8 @@ def copy_assets() -> None:
     shutil.copy(BRAND / "logos" / "favicon-192.png", dst / "favicon-192.png")
     shutil.copy(BRAND / "logos" / "el-terracampino-ilustrado-transparente.png", dst / "logo.png")
 
-    # Fotos de vecinos ya aprobadas (ver sitegen/fotos.py): se procesan una vez
-    # con el bot y quedan en data/fotos/procesadas/, aquí solo se copian.
-    procesadas = FOTOS_DIR / "procesadas"
-    if procesadas.exists():
-        dst_fotos = dst / "fotos"
-        dst_fotos.mkdir(parents=True, exist_ok=True)
-        for f in procesadas.glob("*.jpg"):
-            shutil.copy(f, dst_fotos / f.name)
+    # Las fotos de vecinos ya no se copian aquí: las descarga del almacén
+    # compartido cargar_fotos_aprobadas(), directamente a web/assets/fotos/.
 
     # Imágenes de artículos de blog (ver scripts/generar_articulo_blog.py):
     # se generan una vez con OpenAI y quedan en data/blog/imagenes/.
@@ -245,10 +235,36 @@ def copy_assets() -> None:
 
 
 def cargar_fotos_aprobadas() -> dict[str, list[dict]]:
-    manifest = FOTOS_DIR / "aprobadas.json"
-    if not manifest.exists():
+    """Fotos de vecinos ya revisadas, agrupadas por municipio. Vienen del
+    almacén compartido en Supabase (sitegen/almacen_fotos.py) porque el bot
+    que las recibe corre en Railway, no aquí. Se descargan a
+    web/assets/fotos/ para servirlas como ficheros estáticos del sitio.
+
+    Si el almacén no está configurado o falla, se sigue sin fotos: no vale la
+    pena tumbar el build entero del sitio por esto."""
+    if not almacen_fotos.disponible():
         return {}
-    return json.loads(manifest.read_text(encoding="utf-8"))
+    try:
+        aprobadas = almacen_fotos.listar_aprobadas()
+    except almacen_fotos.AlmacenError as exc:
+        print(f"  aviso: sin fotos de vecinos ({exc})", file=sys.stderr)
+        return {}
+
+    destino = WEB / "assets" / "fotos"
+    destino.mkdir(parents=True, exist_ok=True)
+    por_slug: dict[str, list[dict]] = {}
+    for foto in aprobadas:
+        archivo = f"{foto['id']}.jpg"
+        ruta = destino / archivo
+        if not ruta.exists():  # ya descargada en un build anterior
+            ruta.write_bytes(almacen_fotos.descargar(f"aprobadas/{foto['id']}.jpg"))
+        por_slug.setdefault(foto["pueblo_slug"], []).append({
+            "id": foto["id"], "archivo": archivo,
+            "pie": foto.get("pie", ""), "fecha": foto.get("fecha", ""),
+        })
+    if aprobadas:
+        print(f"  {len(aprobadas)} fotos de vecinos aprobadas")
+    return por_slug
 
 
 def cargar_noticias_propias() -> dict[str, list[dict]]:
@@ -303,7 +319,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 {header(depth)}
 {body}
 {footer(depth)}
-{newsletter_popup()}
+{newsletter_popup(depth)}
 </body>
 </html>
 """
@@ -323,28 +339,59 @@ def header(depth: int) -> str:
 </div></header>"""
 
 
-def newsletter_popup() -> str:
-    if not NEWSLETTER_FORM_URL:
-        return ""
+def newsletter_popup(depth: int) -> str:
+    """Popup de suscripción + cableado de TODOS los formularios .tc-form de la
+    página contra /api/suscribir (web/api/suscribir.js, función de Vercel que
+    habla con MailerLite en servidor — la clave nunca toca el navegador).
+
+    El popup sale una sola vez por visitante (localStorage), a los 15s, y no
+    vuelve a molestar ni aunque cierre sin suscribirse."""
+    up = "../" * depth
     return f"""<div class="tc-popup-overlay" id="tc-popup-overlay">
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
     <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
-    <form class="tc-form" method="POST" action="{NEWSLETTER_FORM_URL}" id="tc-popup-form">
-      <!-- TODO: pegar aquí los campos ocultos del formulario de Brevo (locale, plantilla, etc.) -->
-      <input class="tc-input" type="email" name="EMAIL" placeholder="tu@correo.es" aria-label="Correo" required>
-      <button class="tc-button" type="submit">Suscribirme</button>
-    </form>
+    <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
 (function() {{
+  var API = "{up}api/suscribir";
+  // Todos los formularios de suscripción de la página (popup + pie) van al
+  // mismo endpoint; el resultado se muestra en el propio formulario.
+  document.querySelectorAll("form.tc-form").forEach(function(form) {{
+    form.addEventListener("submit", function(e) {{
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]');
+      var honey = form.querySelector('input[name="web"]');
+      var btn = form.querySelector("button");
+      btn.disabled = true; btn.textContent = "Un momento…";
+      fetch(API, {{
+        method: "POST",
+        headers: {{ "Content-Type": "application/json" }},
+        body: JSON.stringify({{ email: email.value, web: honey ? honey.value : "" }}),
+      }}).then(function(r) {{ return r.json().then(function(d) {{ return {{ ok: r.ok, d: d }}; }}); }})
+        .then(function(res) {{
+          if (res.ok) {{
+            form.innerHTML = "<p class=\\"tc-form-ok\\">Hecho. Revisa tu correo — bienvenido.</p>";
+            localStorage.setItem("tc_newsletter_popup_visto", "1");
+          }} else {{
+            btn.disabled = false; btn.textContent = "Suscribirme";
+            alert(res.d.error || "No se pudo completar el alta. Inténtalo más tarde.");
+          }}
+        }})
+        .catch(function() {{
+          btn.disabled = false; btn.textContent = "Suscribirme";
+          alert("No se pudo completar el alta. Inténtalo más tarde.");
+        }});
+    }});
+  }});
+
   var KEY = "tc_newsletter_popup_visto";
   if (localStorage.getItem(KEY)) return;
   var overlay = document.getElementById("tc-popup-overlay");
   var close = document.getElementById("tc-popup-close");
-  var form = document.getElementById("tc-popup-form");
   function ocultar() {{
     overlay.classList.remove("tc-popup-overlay--visible");
     localStorage.setItem(KEY, "1");
@@ -352,7 +399,6 @@ def newsletter_popup() -> str:
   setTimeout(function() {{ overlay.classList.add("tc-popup-overlay--visible"); }}, 15000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) {{ if (e.target === overlay) ocultar(); }});
-  form.addEventListener("submit", function() {{ localStorage.setItem(KEY, "1"); }});
 }})();
 </script>"""
 
@@ -553,7 +599,7 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
 
 <section class="tc-newsletter"><div class="tc-wrap tc-newsletter-inner">
   <div><h2>La semana terracampina</h2><p>Un correo, una vez por semana. Lo que pasa cerca, contado claro.</p></div>
-  <form class="tc-form" onsubmit="return false;"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo"><button class="tc-button" type="submit">Suscribirme</button></form>
+  <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
 </div></section>"""
     return shell("El Terracampino — el tiempo y las noticias de tu pueblo",
                  body, depth=0,

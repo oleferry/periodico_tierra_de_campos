@@ -1,86 +1,73 @@
 # Bot de Telegram — El Terracampino
 
-Recibe fotos de vecinos por Telegram, las procesa (recorte + marco de marca) y les pone
-pie de foto con IA. Las fotos quedan **pendientes de revisión**, no se publican solas.
+Recibe fotos de vecinos por Telegram (@Elterracampinobot), las procesa (recorte +
+marco de marca) y les pone pie de foto con IA. Las fotos quedan **pendientes de
+revisión** en Supabase Storage, no se publican solas.
 
-## 1. Crear el bot (una sola vez, lo hace una persona con cuenta de Telegram)
+**Estado: DESPLEGADO en Railway (proyecto `elterracampino-bot`, servicio `bot`)
+desde el 2026-07-18.** Corre 24/7; no depende de ningún ordenador encendido.
 
-1. Abre Telegram, busca **@BotFather**, escríbele `/newbot`.
-2. Dale un nombre visible (ej. `El Terracampino`) y un usuario único acabado en `bot`
-   (ej. `ElTerracampinoBot`).
-3. BotFather te da un **token** tipo `123456789:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`.
-   Guárdalo — es la contraseña del bot, no lo compartas en ningún sitio público.
-4. Pon el token en `.env` (en la raíz del repo, ese fichero está en `.gitignore` — nunca
-   se sube al repo):
-
-   ```
-   TELEGRAM_BOT_TOKEN=123456789:AAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-   ```
-
-## 2. Arrancar el bot
+## Arquitectura (por qué Supabase en medio)
 
 ```
-pip install -r requirements.txt
-python -m bot.telegram_bot
+vecino → @Elterracampinobot (Railway) → Supabase Storage (bucket 'fotos', privado)
+                                              │  pendientes/<id>.jpg + .json
+   revisor (portátil) ── scripts/revisar_fotos.py ──┤
+                                              │  aprobadas/<id>.jpg + .json
+   web ── python -m sitegen.build ── descarga aprobadas → web/assets/fotos/
 ```
 
-Tiene que quedarse corriendo (no es un script de una vez, como los `scrapers/*.py` —
-es un proceso que escucha mensajes todo el rato). Para probarlo en local basta con
-dejarlo corriendo en una terminal; para que funcione de verdad para los vecinos hace
-falta que corra en algún sitio siempre encendido (un servidor pequeño, p.ej. Railway,
-que ya tienes conectado a este proyecto — pendiente de decidir cuándo desplegarlo ahí).
+El disco de Railway es efímero (se borra en cada redespliegue) y la revisión y
+el build corren en otra máquina — por eso las fotos viven en Supabase
+(`sitegen/almacen_fotos.py`), un objeto por foto para que dos envíos
+simultáneos no se pisen. El bucket es privado: nada es público hasta aprobarse.
 
-## 3. Cómo funciona para quien manda la foto
+El bot hace además un **latido diario contra Supabase** para que el plan
+gratuito no pause el proyecto por 7 días de inactividad (pasó el 2026-07-17).
 
-1. Le escribe al bot `/foto`.
-2. El bot le pregunta de qué pueblo es (botones con los 12 pilotos).
-3. Manda la foto (puede añadir un texto explicando qué es — la IA lo usa para el pie
-   de foto, no inventa lo que no se ve en la imagen ni lo que no le han contado).
-4. El bot confirma que la ha recibido y que queda pendiente de revisión.
-
-## 4. Revisar y publicar
+## Variables de entorno (en Railway, servicio `bot`)
 
 ```
-python -m scripts.revisar_fotos
+TELEGRAM_BOT_TOKEN          token de @BotFather
+TELEGRAM_CHANNEL_ID         @elterracampino (avisos de artículos; opcional)
+SUPABASE_URL                proyecto de Supabase
+SUPABASE_SERVICE_ROLE_KEY   clave service_role (solo servidor, nunca en repo)
+ANTHROPIC_API_KEY           pies de foto con IA
 ```
 
-Te enseña cada foto pendiente (la abre con el visor de imágenes del sistema), el pie
-de foto que propuso la IA, y te deja aprobarla (puedes editar el pie antes), rechazarla,
-o dejarla para más tarde. Las aprobadas aparecen en la ficha del pueblo correspondiente
-en la siguiente vez que se ejecute `python -m sitegen.build`.
+Las mismas van en el `.env` local (gitignorado) para revisión y build.
 
-## 5. Publicar un artículo de blog en el canal de Telegram
+## Operar el bot
+
+- **Redesplegar tras cambiar código**: `railway up --detach --project 2b6aad7c-25fe-4e15-bcac-1f865d264542 --environment 36605291-eed7-4a4d-9cb8-6e39e7a1b068 --service bot` (respeta `.railwayignore`; el arranque lo define `railway.json`: `python -m bot.telegram_bot`, deps de `bot/requirements.txt`).
+- **Ver logs**: `railway logs --service bot ...` (mismos flags). httpx está
+  silenciado a WARNING a propósito: a nivel INFO escribía el token del bot en
+  cada línea de log.
+- **Probar en local**: `python -m bot.telegram_bot` — ¡OJO! para el servicio de
+  Railway antes (dos instancias con el mismo token entran en conflicto de
+  long-polling y Telegram da 409).
+
+## Flujo del vecino
+
+1. Le escribe a @Elterracampinobot: `/foto`.
+2. El bot pregunta el pueblo (botones con los 12 pilotos).
+3. Manda la foto (con texto opcional — la IA lo usa para el pie, no inventa).
+4. El bot confirma que queda pendiente de revisión.
+
+## Revisar y publicar (en el portátil)
 
 ```
-python -m scripts.generar_articulo_blog --tema despoblacion
+python -m scripts.revisar_fotos     # aprueba/edita pie/descarta, una a una
+python -m sitegen.build             # las aprobadas aparecen en su ficha
 ```
 
-Redacta el artículo largo con IA, genera la imagen de portada (si hay `OPENAI_API_KEY`
-real) y, si además hay `TELEGRAM_CHANNEL_ID` en `.env`, avisa en el canal con titular +
-entradilla + enlace. Para tener el `TELEGRAM_CHANNEL_ID`:
+## Publicar un artículo de blog en el canal
 
-1. Crea el canal en Telegram (aparte del bot) y hazlo público con un `@usuario`.
-2. Añade el bot como administrador del canal (Ajustes del canal → Administradores).
-3. El `TELEGRAM_CHANNEL_ID` es ese `@usuario` tal cual (con la arroba), por ejemplo:
+`python -m scripts.generar_articulo_blog --tema <tema>` avisa solo en el canal
+@elterracampino (el bot es administrador con permiso de publicar — verificado).
 
-   ```
-   TELEGRAM_CHANNEL_ID=@elterracampino
-   ```
+## Pendiente / fuera de alcance
 
-Si no está puesto (o sigue en `replace_me`), el artículo se genera y publica en la web
-igual, solo que no se avisa en ningún canal.
-
-## Pendiente / fuera de este alcance todavía
-
-- **Canal de difusión diaria** (tiempo/noticias del día a día, no solo los artículos de
-  blog): el bot de arriba recibe fotos y el punto 5 publica artículos largos, pero
-  publicar automáticamente el resumen diario de cada pueblo en su canal es una pieza
-  aparte, sin construir todavía.
-- **Facebook**: crear la Página de El Terracampino es un paso manual (Meta no permite
-  automatizarlo) — pendiente de que la crees. La publicación automática en Facebook
-  necesita además que Meta apruebe la app (revisión que puede tardar días), así que
-  conviene empezar publicando ahí a mano con lo que genere este bot, no automatizarlo
-  desde el primer día.
-- **Dónde vive el bot 24/7**: en local solo funciona mientras tengas la terminal
-  abierta. Para producción hace falta desplegarlo (Railway es la opción más a mano,
-  ya conectada a este proyecto).
+- **Canal de difusión diaria** (tiempo/noticias del día a día): sin construir.
+- **Facebook**: crear la Página es manual (Meta no lo permite automatizar);
+  la publicación automática necesita revisión de app de Meta — empezar a mano.

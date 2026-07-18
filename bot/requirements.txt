@@ -1,0 +1,13 @@
+# Dependencias SOLO del bot de Telegram (bot/telegram_bot.py), para desplegarlo
+# en Railway sin arrastrar todo lo del sitio. En concreto NO lleva playwright
+# (descarga un Chromium de cientos de MB, solo lo usa el scraper de plenos) ni
+# pypdf ni openai — el bot no los toca.
+#
+# anthropic se importa de forma perezosa en sitegen/ia.py (pie_de_foto), pero
+# el bot sí lo llama en cada foto, así que va aquí.
+python-telegram-bot>=21.0
+python-dotenv>=1.0
+requests>=2.32
+beautifulsoup4>=4.12
+Pillow>=10.0
+anthropic>=0.116

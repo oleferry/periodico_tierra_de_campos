@@ -18,12 +18,10 @@ Uso:
 
 from __future__ import annotations
 
-import json
 import logging
 import os
 import uuid
 from datetime import datetime, timezone
-from pathlib import Path
 
 from dotenv import load_dotenv
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -38,16 +36,16 @@ from telegram.ext import (
 )
 
 from scrapers.common import load_municipios
-from sitegen import fotos, ia
+from sitegen import almacen_fotos, fotos, ia
 
 load_dotenv()
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 log = logging.getLogger("bot")
-
-ROOT = Path(__file__).resolve().parents[1]
-FOTOS_DIR = ROOT / "data" / "fotos"
-PENDIENTES = FOTOS_DIR / "pendientes.json"
+# httpx (el cliente HTTP de python-telegram-bot) loguea a INFO cada petición
+# CON LA URL COMPLETA — y la URL de la API de Telegram lleva el token dentro.
+# Sin esto, el token acaba escrito en los logs de Railway en texto plano.
+logging.getLogger("httpx").setLevel(logging.WARNING)
 
 # PILOTS está en sitegen.build, pero importar ese módulo aquí arrastraría todos
 # los scrapers de la web (BOP, BOCyL, Playwright...) solo para leer una lista
@@ -59,16 +57,6 @@ PUEBLOS = {m.slug: m.name for m in load_municipios() if m.slug in {
 }}
 
 ELIGIENDO_PUEBLO, ESPERANDO_FOTO = range(2)
-
-
-def _cargar_pendientes() -> list[dict]:
-    if not PENDIENTES.exists():
-        return []
-    return json.loads(PENDIENTES.read_text(encoding="utf-8"))
-
-
-def _guardar_pendientes(items: list[dict]) -> None:
-    PENDIENTES.write_text(json.dumps(items, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 async def foto_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -112,22 +100,29 @@ async def foto_recibida(update: Update, context: ContextTypes.DEFAULT_TYPE) -> i
         return ConversationHandler.END
 
     id_foto = uuid.uuid4().hex[:12]
-    nombre_archivo = f"{id_foto}.jpg"
-    (FOTOS_DIR / "procesadas").mkdir(parents=True, exist_ok=True)
-    (FOTOS_DIR / "procesadas" / nombre_archivo).write_bytes(procesada)
-
-    pendientes = _cargar_pendientes()
-    pendientes.append({
+    meta = {
         "id": id_foto,
         "pueblo_slug": pueblo_slug,
         "pueblo_nombre": pueblo_nombre,
-        "archivo": nombre_archivo,
+        "archivo": f"{id_foto}.jpg",
         "pie": pie,
         "texto_remitente": texto_remitente,
         "remitente_telegram": update.effective_user.username or update.effective_user.first_name,
         "fecha": datetime.now(timezone.utc).isoformat(),
-    })
-    _guardar_pendientes(pendientes)
+        "recibida_en": datetime.now(timezone.utc).isoformat(),
+    }
+
+    # A Supabase, no al disco: el bot corre en Railway (disco efímero) y la
+    # revisión corre en otra máquina — ver sitegen/almacen_fotos.py.
+    try:
+        almacen_fotos.guardar_pendiente(id_foto, procesada, meta)
+    except Exception:
+        log.exception("Fallo guardando foto de %s en el almacén", pueblo_nombre)
+        await update.message.reply_text(
+            "He procesado la foto pero no he podido guardarla (fallo técnico). "
+            "Prueba otra vez en un rato, por favor."
+        )
+        return ConversationHandler.END
 
     await update.message.reply_text(
         f'Recibida. Pie de foto propuesto: "{pie}"\n\n'
@@ -141,10 +136,30 @@ async def cancelar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return ConversationHandler.END
 
 
+def _latido_supabase() -> None:
+    """Ping diario a Supabase para que el plan gratuito no pause el proyecto
+    por inactividad (lo hace a los 7 días sin peticiones — le pasó al usuario
+    el 2026-07-17 y tardó minutos en despausar). Como este bot corre 24/7 en
+    Railway, es el sitio natural para el latido: una petición al día basta."""
+    import time
+
+    while True:
+        try:
+            almacen_fotos.listar("pendientes")
+            log.info("Latido Supabase OK")
+        except Exception as exc:  # noqa: BLE001 — el latido nunca tumba el bot
+            log.warning("Latido Supabase falló: %s", exc)
+        time.sleep(24 * 3600)
+
+
 def main() -> None:
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     if not token:
         raise SystemExit("Falta TELEGRAM_BOT_TOKEN en .env — ver bot/README.md")
+
+    import threading
+
+    threading.Thread(target=_latido_supabase, daemon=True, name="latido-supabase").start()
 
     app = Application.builder().token(token).build()
     conv = ConversationHandler(

@@ -1,0 +1,28 @@
+# Qué NO se sube a Railway al desplegar el bot (railway.json arranca
+# `python -m bot.telegram_bot`). El bot solo necesita: bot/, sitegen/
+# (fotos, ia, almacen_fotos), scrapers/common.py, brand/fonts/ y
+# data/municipios_tierra_de_campos.csv.
+
+# Secretos: en Railway las credenciales van como variables del servicio,
+# nunca dentro del artefacto de despliegue.
+.env
+
+.git/
+.venv/
+node_modules/
+__pycache__/
+
+# Estado local de trabajo: no pinta nada en el servidor.
+data/cache/
+data/live/
+data/radar/
+data/fotos/
+data/blog/
+
+# El sitio generado y sus materiales: los sirve Vercel, no el bot.
+web/
+editorial/
+docs/
+prompts/
+brand/logos/
+brand/web/

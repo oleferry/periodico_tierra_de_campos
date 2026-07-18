@@ -569,3 +569,7 @@
   .tc-form { flex-direction: column; }
   .tc-input { min-width: 0; width: 100%; }
 }
+
+/* Mensaje de éxito al suscribirse (sustituye al formulario, ver newsletter_popup) */
+.tc-form-ok { margin: 0; font-weight: 700; color: var(--tc-tinta-tierra); }
+.tc-newsletter .tc-form-ok { color: inherit; }

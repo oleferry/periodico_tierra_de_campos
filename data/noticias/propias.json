@@ -1,5 +1,34 @@
 [
   {
+    "municipality_slug": "morales-de-campos",
+    "municipality_name": "Morales de Campos",
+    "title": "Morales de Campos presenta el programa de las fiestas de Santiago Apóstol",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/morales-de-campos-presenta-el-programa-de-las-fiestas-de-santiago-apostol/",
+    "published_at": "2026-07-14",
+    "detected_at": "2026-07-18T15:36:03.645791+00:00",
+    "hash": "eb61e2dd8d1450dc0ee738453b83c90c4268646e503f8261453f860b768c18d0",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Morales de Campos celebra sus fiestas de Santiago Apóstol del 23 al 26 de julio",
+      "entradilla": "El Ayuntamiento ha hecho pública la programación de las fiestas patronales, con cuatro días de música, tradición, deporte y actos gastronómicos.",
+      "cuerpo": [
+        "Morales de Campos ya tiene cerrado el programa de sus fiestas de Santiago Apóstol, que este año se desarrollarán del jueves 23 al domingo 26 de julio. Así lo recoge La Mar de Campos, que ha publicado la agenda completa facilitada por el Ayuntamiento.",
+        "La cita arranca el jueves 23 con el pregón, a cargo de un hijo del pueblo que actualmente es alcalde de Serrada. Después llegarán las jotas castellanas del Grupo de Danzas de Castromonte y sesión musical para cerrar la noche.",
+        "El viernes concentra buena parte del ambiente festivo, con paseo en minibueyes, parque infantil acuático, tren turístico gratuito por las calles del pueblo, fiesta de la espuma y un tardeo con el que la Peña Roper's celebra su 30 aniversario. También habrá cena popular y música hasta la madrugada.",
+        "El sábado 25, día del patrón, empieza con la misa solemne y sigue con las carreras de cintas, la mojada, el recorrido de peñas acompañado por la Charanga La Huevera y los concursos de limonada, tortilla y disfraces. La jornada se alarga con macrodisco a partir de medianoche.",
+        "El domingo 26 pone el cierre con misa, comida de convivencia a base de paella mixta, carrera de cintas a caballo y un último tardeo antes de la entrega de premios. Para la cena del viernes y la comida del domingo, según recoge La Mar de Campos, hay que recoger los tickets antes del 20 de julio."
+      ]
+    }
+  },
+  {
     "municipality_slug": "grajal-de-campos",
     "municipality_name": "Grajal de Campos",
     "title": "Doblete para los vinos Pincerna de Grajal de Campos en los Premios Pisado",
