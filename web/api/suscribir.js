@@ -30,7 +30,13 @@ export default async function handler(req, res) {
 
   const key = (process.env.MAILERLITE_API_KEY || "").trim();
   if (!key || key === "replace_me") {
-    return res.status(503).json({ error: "El alta no está disponible ahora mismo. Inténtalo más tarde." });
+    // Diagnóstico temporal (solo NOMBRES de variables, nunca valores): para
+    // averiguar por qué la clave no llega — quitar cuando funcione el alta.
+    const pistas = Object.keys(process.env).filter((k) => /MAIL/i.test(k));
+    return res.status(503).json({
+      error: "El alta no está disponible ahora mismo. Inténtalo más tarde.",
+      diag: { variables_con_MAIL: pistas, total_variables: Object.keys(process.env).length },
+    });
   }
 
   const cuerpo = { email };
