@@ -57,9 +57,14 @@ export default async function handler(req, res) {
     if (r.ok) return res.status(200).json({ ok: true });
     const detalle = await r.json().catch(() => ({}));
     console.error("MailerLite error", r.status, detalle);
-    return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde." });
+    // Diagnóstico temporal (respuesta real de MailerLite, sin la clave) —
+    // quitar cuando funcione el alta.
+    return res.status(502).json({
+      error: "No se pudo completar el alta. Inténtalo más tarde.",
+      diag: { mailerlite_status: r.status, mailerlite_body: detalle },
+    });
   } catch (e) {
     console.error("MailerLite excepción", e);
-    return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde." });
+    return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde.", diag: { excepcion: String(e) } });
   }
 }
