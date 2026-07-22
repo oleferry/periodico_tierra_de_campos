@@ -85,6 +85,32 @@ FUENTES = [
         # su sección de pueblos, que sí trae los enlaces /art/.
         "url": "https://leonsurdigital.com/sec/pueblos",
     },
+    # El Norte de Castilla (Vocento): medio provincial grande, no hiperlocal —
+    # por eso NO se usaba (más ruido que señal, ver nota histórica más abajo).
+    # Pero sí tiene un feed RSS por provincia con 100 noticias reales de
+    # pueblo en pueblo (verificado el 2026-07-22: recogió la misma noticia
+    # del gato de Villalpando que ya traía La Mar de Campos). El ruido no es
+    # problema real: match_municipio() ya filtra por título, así que un feed
+    # más grande solo da más posibilidades de pescar algo de los pilotos que
+    # ningún medio hiperlocal cubre (Carrión, Paredes, Mayorga, Villalón,
+    # Valderas, Villarramiel, Becerril, Fuentes de Nava) — y cubre las 4
+    # provincias, tapando el hueco de Zamora que dejó InterBenavente.
+    {
+        "slug": "elnortedecastilla-palencia", "nombre": "El Norte de Castilla",
+        "tipo": "rss", "url": "https://www.elnortedecastilla.es/rss/2.0/?section=/palencia",
+    },
+    {
+        "slug": "elnortedecastilla-valladolid", "nombre": "El Norte de Castilla",
+        "tipo": "rss", "url": "https://www.elnortedecastilla.es/rss/2.0/?section=/valladolid",
+    },
+    {
+        "slug": "elnortedecastilla-leon", "nombre": "El Norte de Castilla",
+        "tipo": "rss", "url": "https://www.elnortedecastilla.es/rss/2.0/?section=/leon",
+    },
+    {
+        "slug": "elnortedecastilla-zamora", "nombre": "El Norte de Castilla",
+        "tipo": "rss", "url": "https://www.elnortedecastilla.es/rss/2.0/?section=/zamora",
+    },
 ]
 # InterBenavente (interbenavente.es) se retiró el 2026-07-17: aunque su
 # robots.txt permite el rastreo, sus páginas de artículo responden "Tu
