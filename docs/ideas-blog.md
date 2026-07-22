@@ -32,7 +32,7 @@ modelo) — no se escribe nada sin cifras verificables detrás.
 17. **El agua también decide quién se queda** 🟡 — SIAR, AEMET, InfoRiego son públicos pero hay que scrapearlos, no los tenemos hoy. **Caso concreto detectado por el radar (2026-07-17)**: la CHD ha autorizado extraer ~117.000 m³/año del acuífero de las Lagunas de Villafáfila para una planta de hidrógeno verde en Granja de Moreruela (ambos pueblos de la comarca); Ecologistas Zamora habla de "ecocidio" y la CHD lo niega. Bien documentado en prensa (zamoranews, enfoquezamora, El Salto, Climática) y con documentos públicos de la CHD — da para dossier propio con las dos versiones.
 18. **Servicios móviles frente a edificios vacíos** 🔴 — inventario que requiere contactar diputaciones/ayuntamientos.
 19. **El negocio que cierra sin que nadie lo continúe** 🔴 — más un "radar" vivo (necesita fuentes que avisen de traspasos) que un artículo puntual.
-20. **Cien años perdiendo habitantes** 🟡 — ya tenemos población 1996-2025 (`data/poblacion_negocios.json`); para el siglo completo hace falta la serie histórica de censos INE (1900-1991), que no tenemos todavía pero es dato público descargable.
+20. **Cien años perdiendo habitantes** ✅ — **hecha (2026-07-22)**. La serie histórica 1900-1991 (operación 35 del INE, API Tempus, una tabla por provincia: León 3057, Palencia 3067, Valladolid 3080, Zamora 3082) ya está en `scripts/investigar_despoblacion.py` y combinada con la serie 1996-2025 en `dossier_cien_anos()`. Borrador en la rama `borrador/cien-anos-villarramiel`, pendiente de revisión.
 
 ## Recomendación de orden
 
