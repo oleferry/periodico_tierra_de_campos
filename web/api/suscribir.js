@@ -11,8 +11,14 @@
 //
 // Mientras la clave no esté puesta, responde 503 y el formulario muestra
 // "inténtalo más tarde" — la web no se rompe, solo no da de alta.
+//
+// CommonJS a propósito (module.exports, no "export default"): no hay
+// package.json en el proyecto que declare "type": "module", así que el
+// runtime Node de Vercel espera CommonJS. Con sintaxis ESM aquí, el build
+// entero fallaba (no solo esta función) — pasó el 2026-07-19, tumbó el
+// despliegue y desligó el dominio de producción.
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Método no permitido" });
@@ -67,4 +73,4 @@ export default async function handler(req, res) {
     console.error("MailerLite excepción", e);
     return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde.", diag: { excepcion: String(e) } });
   }
-}
+};
