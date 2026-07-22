@@ -85,6 +85,18 @@ PILOTS = list(MUNI_LINKS.keys())
 E = html.escape
 
 
+_DIAS_EN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+_MESES_EN = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+
+def rfc822(fecha_iso: str) -> str:
+    """'2026-07-22' -> 'Wed, 22 Jul 2026 00:00:00 GMT' (pubDate de RSS 2.0,
+    que exige inglés fijo — con strftime('%a')/('%b') saldría en español si
+    el sistema tiene esa locale, así que se listan los nombres a mano)."""
+    d = date.fromisoformat(fecha_iso)
+    return f"{_DIAS_EN[d.weekday()]}, {d.day:02d} {_MESES_EN[d.month]} {d.year} 00:00:00 GMT"
+
+
 def fecha_larga(d: date) -> str:
     return f"{DIAS[d.weekday()]}, {d.day} de {MESES[d.month - 1]} de {d.year}"
 
@@ -295,6 +307,39 @@ def cargar_blog_articulos() -> list[dict]:
     return json.loads(manifest.read_text(encoding="utf-8"))
 
 
+def render_feed_rss(articulos: list[dict]) -> str:
+    """RSS 2.0 de las investigaciones publicadas (solo blog, no las noticias
+    del día a día — son las piezas que de verdad merece la pena compartir en
+    redes). Pensado para conectar con Zapier ("New Item in Feed" → Facebook
+    Pages "Create Page Post"): Zapier ya tiene su propia app aprobada por
+    Meta, así que autorizar la Página se hace desde el propio Zapier sin
+    pasar por ninguna revisión nuestra.
+
+    Cada item ya viene con titular+entradilla redactados y revisados por un
+    humano antes de fusionarse a main (ver docs de scripts/desarrollar_pista.py
+    y scripts/generar_articulo_blog.py) — este feed no añade riesgo editorial
+    nuevo, solo sindica lo que ya está publicado."""
+    base = "https://elterracampino.es"
+    items = "".join(f"""  <item>
+    <title>{E(a['titular'])}</title>
+    <link>{base}/blog/{E(a['slug'])}.html</link>
+    <guid isPermaLink="true">{base}/blog/{E(a['slug'])}.html</guid>
+    <description>{E(a['entradilla'])}</description>
+    <pubDate>{rfc822(a['fecha'])}</pubDate>
+  </item>
+""" for a in articulos)
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>El Terracampino — Investigaciones</title>
+  <link>{base}/</link>
+  <description>Reportajes de investigación de Tierra de Campos, con datos oficiales y fuente citada.</description>
+  <language>es-es</language>
+{items}</channel>
+</rss>
+"""
+
+
 # --------------------------------------------------------------- plantilla
 
 def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
@@ -314,6 +359,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{up}assets/brand-tokens.css">
 <link rel="stylesheet" href="{up}assets/site.css">
+<link rel="alternate" type="application/rss+xml" title="El Terracampino — Investigaciones" href="{up}feed.xml">
 </head>
 <body class="tc-furrows">
 {header(depth)}
@@ -898,6 +944,7 @@ def main() -> int:
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
     (WEB / "noticia").mkdir(parents=True, exist_ok=True)
     (WEB / "index.html").write_text(render_home(built, feed, hoy), encoding="utf-8")
+    (WEB / "feed.xml").write_text(render_feed_rss(cargar_blog_articulos()), encoding="utf-8")
     for m in built:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
             render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
