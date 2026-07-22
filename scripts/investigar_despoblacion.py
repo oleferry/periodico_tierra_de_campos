@@ -1,10 +1,15 @@
 """Genera data/poblacion_negocios.json: series históricas reales del INE
 (población y número de empresas) para los 12 municipios piloto.
 
-Fuentes, ambas API pública del INE (Tempus, https://servicios.ine.es/wstempus/):
+Fuentes, todas API pública del INE (Tempus, https://servicios.ine.es/wstempus/):
   · Población: "Cifras Oficiales de Población de los Municipios Españoles:
     Revisión del Padrón Municipal" (operación 22), una tabla por provincia.
     Serie 1996-2025 (huecos en 1997: el Padrón no publicó revisión ese año).
+  · Población histórica: "Poblaciones de hecho desde 1900 hasta 1991. Cifras
+    oficiales sacadas de los Censos respectivos" (operación 35), una tabla
+    por provincia (censo decenal — 1900, 1910, 1920... 1991). Sirve para el
+    reportaje "cien años perdiendo habitantes" (docs/ideas-blog.md, #20):
+    combinada con la serie 1996-2025 da el arco completo del siglo.
   · Empresas: "Explotación Estadística del Directorio Central de Empresas.
     DIRCE" (operación 43, tabla 4721 "Empresas por municipio y actividad
     principal"), columna "Total CNAE" (todas las actividades). Serie 2012-2025.
@@ -40,6 +45,11 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; ElTerracampino/0.1; +https://
 TABLA_POBLACION = {
     "Valladolid": 2904, "Palencia": 2888, "León": 2877, "Zamora": 2906,
 }
+# Tabla de "Poblaciones de hecho 1900-1991" (operación 35), una por provincia
+# (ver TABLAS_OPERACION/35 — id distinto de la tabla moderna de arriba).
+TABLA_POBLACION_HISTORICA = {
+    "Valladolid": 3080, "Palencia": 3067, "León": 3057, "Zamora": 3082,
+}
 TABLA_EMPRESAS = 4721  # "Empresas por municipio y actividad principal" (operación 43)
 
 
@@ -55,6 +65,18 @@ def serie_poblacion(municipio: str, provincia: str) -> dict[str, float]:
     objetivo = f"{municipio}. Total. Total habitantes."
     for s in datos:
         if s.get("Nombre", "").startswith(objetivo):
+            return {str(d["Anyo"]): d["Valor"] for d in s["Data"]}
+    return {}
+
+
+def serie_poblacion_historica(municipio: str, provincia: str) -> dict[str, float]:
+    tabla = TABLA_POBLACION_HISTORICA[provincia]
+    datos = _get(f"{API}/DATOS_TABLA/{tabla}?nult=20")
+    # Nombre de serie distinto al de la tabla moderna: "Población de Hecho:
+    # <municipio>. Ambos Sexos" (sin el ". Total." de en medio).
+    objetivo = f"Población de Hecho: {municipio}. Ambos Sexos"
+    for s in datos:
+        if s.get("Nombre", "") == objetivo:
             return {str(d["Anyo"]): d["Valor"] for d in s["Data"]}
     return {}
 
@@ -81,13 +103,17 @@ def main() -> int:
         print(f"· {nombre} ({provincia})…", flush=True)
         poblacion = serie_poblacion(nombre, provincia)
         time.sleep(0.5)
+        poblacion_historica = serie_poblacion_historica(nombre, provincia)
+        time.sleep(0.5)
         empresas = serie_empresas(nombre)
         time.sleep(0.5)
         resultado[r["slug"]] = {
             "nombre": nombre, "provincia": provincia,
-            "poblacion": poblacion, "empresas": empresas,
+            "poblacion": poblacion, "poblacion_historica": poblacion_historica,
+            "empresas": empresas,
         }
-        print(f"    población: {len(poblacion)} años · empresas: {len(empresas)} años")
+        print(f"    población: {len(poblacion)} años · histórica: {len(poblacion_historica)} años"
+              f" · empresas: {len(empresas)} años")
 
     dest = ROOT / "data" / "poblacion_negocios.json"
     dest.write_text(json.dumps(resultado, ensure_ascii=False, indent=2, sort_keys=True), encoding="utf-8")

@@ -21,6 +21,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import re
 import sys
@@ -31,6 +32,14 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# La consola de Windows viene en cp1252 y revienta si la IA usa un carácter
+# que no está en esa tabla (guiones largos "−", comillas tipográficas...) —
+# el artículo ya se ha escrito bien en disco para entonces, pero el script
+# salía con error igualmente. Mismo fix que scripts/desarrollar_pista.py.
+if hasattr(sys.stdout, "buffer"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 from sitegen import ia, imagenes  # noqa: E402
 from sitegen.build import E, render_blog_articulo, shell  # noqa: E402
@@ -98,6 +107,60 @@ def dossier_despoblacion() -> tuple[str, str]:
     return tema, "\n".join(lineas)
 
 
+def dossier_cien_anos() -> tuple[str, str]:
+    """Dossier del arco completo de población 1900-2025 de los 12 pilotos,
+    combinando el censo histórico decenal (scripts/investigar_despoblacion.py,
+    operación 35 del INE) con la serie moderna 1996-2025 (operación 22).
+    Devuelve (tema, dossier). Ver docs/ideas-blog.md, idea #20."""
+    path = DATA / "poblacion_negocios.json"
+    if not path.exists():
+        raise SystemExit(
+            "Falta data/poblacion_negocios.json — ejecuta primero:\n"
+            "  python -m scripts.investigar_despoblacion"
+        )
+    datos = json.loads(path.read_text(encoding="utf-8"))
+
+    lineas = [
+        "Fuente: INE (Instituto Nacional de Estadística), API pública Tempus.",
+        "Población histórica: 'Poblaciones de hecho desde 1900 hasta 1991. Cifras "
+        "oficiales sacadas de los Censos respectivos', un dato por censo decenal "
+        "(1900, 1910, 1920... 1991).",
+        "Población moderna: 'Cifras Oficiales de Población de los Municipios "
+        "Españoles: Revisión del Padrón Municipal', serie 1996-2025 (casi anual).",
+        "Aviso: entre 1991 y 1996 no hay dato (salto de fuente censo→padrón); "
+        "el resto del siglo está cubierto.",
+        "",
+    ]
+    for slug, d in datos.items():
+        historica = d.get("poblacion_historica", {})
+        moderna = d.get("poblacion", {})
+        if not historica and not moderna:
+            continue
+        serie = {**historica, **moderna}  # une los dos tramos en una sola serie
+        if not serie:
+            continue
+        anios = sorted(serie.keys())
+        primero, ultimo = anios[0], anios[-1]
+        pico_anio = max(anios, key=lambda a: serie[a])
+        pico = serie[pico_anio]
+        cambio_total = serie[ultimo] - pico
+        pct_total = (cambio_total / pico * 100) if pico else 0
+
+        lineas.append(f"## {d['nombre']} ({d['provincia']})")
+        lineas.append(
+            f"Serie completa {primero}-{ultimo}: {int(serie[primero])} habitantes en {primero}, "
+            f"máximo de {int(pico)} en {pico_anio}, {int(serie[ultimo])} en {ultimo} "
+            f"({pct_total:+.1f}% desde el máximo)."
+        )
+        # puntos intermedios legibles: uno por década disponible, para poder citar el detalle
+        puntos = ", ".join(f"{a}: {int(serie[a])}" for a in anios)
+        lineas.append(f"Serie completa por año: {puntos}.")
+        lineas.append("")
+
+    tema = "cien años de despoblación en Tierra de Campos, de 1900 a hoy"
+    return tema, "\n".join(lineas)
+
+
 def dossier_ayudas() -> tuple[str, str]:
     """Dossier del dinero real en ayudas y subvenciones que ha llegado a los 12
     pilotos y a las 4 diputaciones, desde la BDNS (scrapers/bdns.py) — misma
@@ -157,7 +220,11 @@ def dossier_ayudas() -> tuple[str, str]:
     return tema, "\n".join(lineas)
 
 
-DOSSIERS = {"despoblacion": dossier_despoblacion, "ayudas": dossier_ayudas}
+DOSSIERS = {
+    "despoblacion": dossier_despoblacion,
+    "ayudas": dossier_ayudas,
+    "cien_anos": dossier_cien_anos,
+}
 
 
 def publicar_telegram(titular: str, entradilla: str, url: str) -> None:
