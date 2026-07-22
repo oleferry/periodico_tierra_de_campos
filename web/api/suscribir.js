@@ -36,26 +36,12 @@ module.exports = async function handler(req, res) {
 
   const key = (process.env.MAILERLITE_API_KEY || "").trim();
   if (!key || key === "replace_me") {
-    // Diagnóstico temporal (solo NOMBRES de variables, nunca valores): para
-    // averiguar por qué la clave no llega — quitar cuando funcione el alta.
-    const pistas = Object.keys(process.env).filter((k) => /MAIL/i.test(k));
-    return res.status(503).json({
-      error: "El alta no está disponible ahora mismo. Inténtalo más tarde.",
-      diag: { variables_con_MAIL: pistas, total_variables: Object.keys(process.env).length },
-    });
+    return res.status(503).json({ error: "El alta no está disponible ahora mismo. Inténtalo más tarde." });
   }
 
   const cuerpo = { email };
   const grupo = (process.env.MAILERLITE_GROUP_ID || "").trim();
   if (grupo) cuerpo.groups = [grupo];
-  // Diagnóstico temporal: por qué sigue mandando "groups" si se borró la
-  // variable en Vercel — quitar cuando funcione el alta.
-  if (grupo) {
-    return res.status(502).json({
-      error: "diagnóstico",
-      diag: { grupo_leido: grupo, longitud: grupo.length },
-    });
-  }
 
   try {
     const r = await fetch("https://connect.mailerlite.com/api/subscribers", {
@@ -71,14 +57,9 @@ module.exports = async function handler(req, res) {
     if (r.ok) return res.status(200).json({ ok: true });
     const detalle = await r.json().catch(() => ({}));
     console.error("MailerLite error", r.status, detalle);
-    // Diagnóstico temporal (respuesta real de MailerLite, sin la clave) —
-    // quitar cuando funcione el alta.
-    return res.status(502).json({
-      error: "No se pudo completar el alta. Inténtalo más tarde.",
-      diag: { mailerlite_status: r.status, mailerlite_body: detalle },
-    });
+    return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde." });
   } catch (e) {
     console.error("MailerLite excepción", e);
-    return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde.", diag: { excepcion: String(e) } });
+    return res.status(502).json({ error: "No se pudo completar el alta. Inténtalo más tarde." });
   }
 };
