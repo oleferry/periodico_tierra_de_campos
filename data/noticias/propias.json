@@ -1,5 +1,34 @@
 [
   {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "Mayorga reúne en una exposición sus imágenes devocionales",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/mayorga-reune-exposicion-imagenes-devocionales-20260722191042-nt.html",
+    "published_at": "2026-07-22",
+    "detected_at": "2026-07-22T20:48:29.231798+00:00",
+    "hash": "abda302a726992caf8fa7f45559a6ed101a5746f920a6c620e511295c2a0807c",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Mayorga reúne en Santa Marina toda su imaginería devocional en una exposición",
+      "entradilla": "La iglesia de Santa Marina acoge 'Un año de fe en Mayorga', una muestra con 32 esculturas de las cofradías locales dentro de los actos por el 300 aniversario de la canonización de Santo Toribio de Mogrovejo.",
+      "cuerpo": [
+        "La localidad ha juntado por primera vez las imágenes que salen o han salido en procesión a lo largo del año, según informa El Norte de Castilla. La exposición se organiza como un recorrido de enero a diciembre: arranca el 1 de enero con la festividad del Niño Jesús, cuya imagen llevan a hombros los niños del pueblo, y termina el 8 de diciembre con la Inmaculada.",
+        "Entre las piezas hay esculturas de las cofradías de Gloria y de las penitenciales de Semana Santa. La muestra recuerda también a los tres patronos que ha tenido Mayorga: la Virgen de Calatrava entre los siglos XIII y XV, San Nabor desde el XV y, ya después, el actual Santo Toribio de Mogrovejo. De San Nabor y Santo Toribio se exhiben las tallas que están en los retablos de la iglesia del convento de las dominicas.",
+        "En el apartado de Semana Santa destacan un Cristo Crucificado del siglo XIV, del tipo de los crucifijos patéticos, y el Sepulcro, una urna del XVIII que guarda una imagen yacente articulada del XVII. También se ven pasos como La Oración en el Huerto, el Nazareno, la Dolorosa, la Soledad o Jesús Resucitado, además de la Virgen de las Hijas de María, una imagen de vestir con cara y manos de marfil. Se muestran igualmente las capillas que cada año pasan por las casas del pueblo.",
+        "El alcalde, David de la Viuda, calificó la muestra de \"única\" por reunir por primera vez toda la imaginería devocional y procesional del municipio, y señaló que el objetivo es seguir creciendo en el aniversario de Santo Toribio.",
+        "La entrada es libre y se puede visitar hasta el 9 de agosto, de viernes a domingo, de 11.00 a 14.00 y de 18.00 a 20.00 horas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villada",
     "municipality_name": "Villada",
     "title": "El festival PipaFest de Villada se  hace más fuerte con su quinta edición",
