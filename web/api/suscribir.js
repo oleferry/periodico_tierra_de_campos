@@ -48,6 +48,14 @@ module.exports = async function handler(req, res) {
   const cuerpo = { email };
   const grupo = (process.env.MAILERLITE_GROUP_ID || "").trim();
   if (grupo) cuerpo.groups = [grupo];
+  // Diagnóstico temporal: por qué sigue mandando "groups" si se borró la
+  // variable en Vercel — quitar cuando funcione el alta.
+  if (grupo) {
+    return res.status(502).json({
+      error: "diagnóstico",
+      diag: { grupo_leido: grupo, longitud: grupo.length },
+    });
+  }
 
   try {
     const r = await fetch("https://connect.mailerlite.com/api/subscribers", {
