@@ -320,6 +320,8 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 {body}
 {footer(depth)}
 {newsletter_popup(depth)}
+<script>window.va = window.va || function () {{ (window.vaq = window.vaq || []).push(arguments); }};</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
 """
