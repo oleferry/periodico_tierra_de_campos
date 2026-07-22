@@ -594,9 +594,9 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
 </section>
 
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
-  <div><h2>Entérate de lo de tu pueblo por WhatsApp o Telegram</h2>
-  <p>Un canal por pueblo: el tiempo, las noticias, la agenda de fiestas, alguna historia de aquí y una foto de vez en cuando. Sin ruido de fuera.</p></div>
-  <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+  <div><h2>Entérate de lo de tu pueblo por Telegram</h2>
+  <p>El tiempo, las noticias, la agenda de fiestas, alguna historia de aquí y una foto de vez en cuando. Sin ruido de fuera.</p></div>
+  <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
 </div></section>
 
 <section class="tc-newsletter"><div class="tc-wrap tc-newsletter-inner">
@@ -766,9 +766,9 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     <h2 class="tc-block-title">A ras de tierra — {tiempo_titular}</h2>
     {weather_block(m)}
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de {E(m['name'])} por canal</h3>
+      <div><h3 style="margin:0 0 4px;">Recibe lo de {E(m['name'])} por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
-      <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+      <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
     </div></div>
     {propias_html}
     {ayto}
