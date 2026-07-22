@@ -264,7 +264,10 @@ _SISTEMA_PISTA = (
     "Voz: humana, directa, local, clara, prudente. Sin alarmismo, sin adjetivos vacíos, sin "
     "emojis, sin tono de nota de prensa, sin clichés de IA ('cabe destacar', 'en resumen').\n\n"
     "Personas: no des nombres de particulares, ni detalles que permitan identificarlos, ni datos "
-    "de menores. Cargos públicos sí, por su cargo.\n\n"
+    "de menores. Cargos públicos sí, por su cargo — y esto incluye a quien ejerció un cargo "
+    "público en el pasado (exalcalde, exconcejal…) aunque ya no lo tenga hoy, por ejemplo en un "
+    "obituario: si la fuente ya lo nombra abiertamente por haber sido alcalde, nómbralo tú "
+    "también.\n\n"
     "Formato: titular claro y sin sensacionalismo; entradilla de una o dos frases con lo "
     "esencial; cuerpo de 2 a 5 párrafos cortos."
 )

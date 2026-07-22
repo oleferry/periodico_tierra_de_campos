@@ -1,5 +1,91 @@
 [
   {
+    "municipality_slug": "villada",
+    "municipality_name": "Villada",
+    "title": "El festival PipaFest de Villada se  hace más fuerte con su quinta edición",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/festival-pipafest-villada-consagra-edicion-20260716143848-nt.html",
+    "published_at": "2026-07-16",
+    "detected_at": "2026-07-22T20:20:46.583547+00:00",
+    "hash": "733fc993a8ecf765d9e1b8a3c1d002072f7dab0358adeef0453e611ac2b44f6d",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El PipaFest vuelve a Villada los días 24 y 25 de julio",
+      "entradilla": "El festival, nacido en 2019 de la mano de la Asociación Camposadda, llega a su nueva edición con música, gastronomía y actividades para todas las edades en Villada.",
+      "cuerpo": [
+        "Villada acogerá los próximos 24 y 25 de julio una nueva edición del PipaFest, el festival que combina música, cultura, tradición y producto local. Según informa El Norte de Castilla, sus organizadores insisten en que la calidad de una propuesta no tiene que ver con el tamaño del lugar donde se celebra.",
+        "El cartel musical reúne a La Ganga Calé, El Naán, Sobrezero, Los Justicieros, King Sapo, Moonshine Wagon y Prieto Picado, y se completa con las sesiones de Dridri DJ, Pedro León DJ, Chemi DJ y Marche. Junto a los conciertos habrá catas de vino, proyecciones y talleres, aprovechando los espacios abiertos del entorno.",
+        "La organización recuerda que el festival nació en 2019 de la mano de la Asociación Camposadda y que su valor real está en el trabajo que se hace durante todo el año, con la cultura como forma de dar vida a los pueblos y plantar cara a la despoblación.",
+        "Después del fin de semana del festival, llega el ciclo 'Atardeceres en Tierra de Campos', con dos conciertos: Ginel el 30 de julio y Mery Sanz el 6 de agosto. Estos atardeceres, según recoge El Norte de Castilla, buscan ser un espacio para las voces femeninas."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "valverde-de-campos",
+    "municipality_name": "Valverde de Campos",
+    "title": "Valverde de Campos despide a Isaías Martín, el primer alcalde de la democracia",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/valverde-campos-despide-isaias-martin-primer-alcalde-20260718182817-nt.html",
+    "published_at": "2026-07-18",
+    "detected_at": "2026-07-22T20:19:57.144972+00:00",
+    "hash": "e6a20160cf1d253801b0c7f25c23d0eb803e66ae6d1599fa3df55268bf44373c",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Valverde de Campos despide a su primer alcalde de la democracia",
+      "entradilla": "Isaías Martín Blanco, que fue regidor de Valverde de Campos entre 1979 y 1983, falleció este sábado a los 73 años tras una enfermedad.",
+      "cuerpo": [
+        "Valverde de Campos ha dicho adiós a quien fue su primer alcalde tras la llegada de la democracia. Según informa El Norte de Castilla, Isaías Martín Blanco murió este pasado sábado a los 73 años, después de no poder superar una enfermedad.",
+        "Fue elegido alcalde el 3 de abril de 1979, en las primeras elecciones municipales de la democracia, y ocupó el cargo un solo mandato, hasta 1983. Como tantos ayuntamientos de la época, tuvo que gestionar con muy pocos recursos, tratando de sacar adelante mejoras básicas como el asfaltado de las calles. Su hijo Diego es hoy teniente de alcalde del municipio.",
+        "El actual alcalde, José Ignacio del Campo, agradeció en nombre de los vecinos su trabajo al frente del Ayuntamiento y también su empuje emprendedor en el pueblo, hasta el punto de calificarlo como «un valiente». Recordó cómo, junto a su esposa, levantó con esfuerzo una explotación agroganadera de ovejas y tierras de cultivo que dio empleo a vecinos de Valverde y de otros pueblos. Esa explotación la continúan ahora sus hijos.",
+        "El medio recoge también las palabras de su esposa, que rememoró su apuesta por vivir en Valverde de Campos y la ilusión con la que él lograba cosas para la localidad durante su etapa de alcalde. Cientos de vecinos del pueblo y de la comarca acudieron al tanatorio de San Juan de Rioseco para darle el último adiós.",
+        "Isaías Martín era pariente cercano del beato Ponciano Nieto Asensio, beatificado en 2017, y participaba cada último domingo de junio en la fiesta que el Ayuntamiento declaró en 2024 en su honor. Estuvo presente, junto a otros vecinos que también fueron alcaldes, en la inauguración del nuevo Ayuntamiento de la localidad, un edificio que él describió como «luminoso, transparente, con calor»."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "valderas",
+    "municipality_name": "Valderas",
+    "title": "Piden la paralización del proyecto de la fábrica de armas de guerra en Valderas",
+    "source_type": "radar_local",
+    "url_original": "https://leonsurdigital.com/art/31652/piden-paralizacion-proyecto-fabrica-armas-guerra-valderas",
+    "published_at": "2026-07-22",
+    "detected_at": "2026-07-22T20:19:31.288181+00:00",
+    "hash": "c32d65f6aae756fada7bbd2bfa2d9e3d374d2379d49a45890b59a9420206f73b",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Leonsur Digital",
+      "fuente_slug": "leonsurdigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Ecologistas en Acción pide frenar una fábrica de munición de artillería en Valderas",
+      "entradilla": "La organización reclama a la Junta que archive el expediente y al Ayuntamiento que paralice las licencias del proyecto que promueve la empresa Tecnesis 3000, al considerar que se trata de una fábrica de armas de guerra.",
+      "cuerpo": [
+        "Ecologistas en Acción de León ha presentado alegaciones contra el proyecto de una planta de fabricación y carga de munición de artillería de gran calibre en Valderas, según informa Leonsur Digital. La organización ha pedido a la Junta que archive el expediente y al Ayuntamiento que detenga cualquier licencia que facilite la instalación.",
+        "El fondo del problema, según los ecologistas, está en cómo se tramita. Sostienen que el proyecto se está gestionando como si fuera una fábrica de explosivos de uso civil, aplicando el Real Decreto de Explosivos, cuando a su juicio se trata de una fábrica de armas de guerra cuya autorización correspondería al Ministerio de Defensa. Argumentan que la munición de calibre igual o superior a 20 milímetros y las granadas de mortero se consideran armas de guerra según el Reglamento de Armas.",
+        "De acuerdo con la documentación que citan, extraída del trámite de consultas de la Consejería de Agricultura, Ganadería, Medio Rural y Política Ambiental, la planta fabricaría granadas de mortero y proyectiles de gran calibre, como el de 155 milímetros. El Ayuntamiento de Valderas ha cedido terrenos en arrendamiento a Tecnesis 3000 por 74.000 euros al año.",
+        "La organización advierte de que la nueva instalación quedaría junto a la fábrica ya existente de Orica Explosivos Industriales, y considera que eso aumentaría el riesgo de accidentes graves con sustancias peligrosas en Valderas, Villafer y Campazas. Habla de una capacidad de almacenamiento de hasta 800 toneladas de material explosivo.",
+        "Ecologistas en Acción reclama además que un proyecto de este tipo debería someterse a una evaluación ambiental mucho más exigente que la simplificada que, según denuncian, se está aplicando."
+      ]
+    }
+  },
+  {
     "municipality_slug": "morales-de-campos",
     "municipality_name": "Morales de Campos",
     "title": "Morales de Campos presenta el programa de las fiestas de Santiago Apóstol",
