@@ -111,6 +111,37 @@ FUENTES = [
         "slug": "elnortedecastilla-zamora", "nombre": "El Norte de Castilla",
         "tipo": "rss", "url": "https://www.elnortedecastilla.es/rss/2.0/?section=/zamora",
     },
+    # Páginas "todo sobre este pueblo" (verificadas el 2026-07-22): buscadas
+    # específicamente para los 4 pilotos que se quedaron sin ninguna pista tras
+    # ampliar a El Norte de Castilla — Villalón de Campos, Becerril de Campos,
+    # Fuentes de Nava y Villarramiel. No tienen medio hiperlocal propio ni
+    # ayuntamiento con sección de noticias viva (Fuentes de Nava es Joomla sin
+    # apartado de noticias; Villalón usa el portal de la Diputación de
+    # Valladolid pero su sección "Noticias" está vacía; Villarramiel tiene
+    # WordPress con la API REST desactivada). En su lugar, El Español y Diario
+    # de Valladolid mantienen una página por localidad con sus artículos —
+    # tipo "html_tema" (ver _items_articulos_tema): sin RSS, pero cada
+    # <article> trae el titular en un <h2>/<h3> y la fecha en la URL.
+    {
+        "slug": "elespanol-villalon", "nombre": "El Español",
+        "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/villalon_de_campos/",
+    },
+    {
+        "slug": "elespanol-becerril", "nombre": "El Español",
+        "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/becerril_de_campos/",
+    },
+    {
+        "slug": "elespanol-fuentesdenava", "nombre": "El Español",
+        "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/fuentes_de_nava/",
+    },
+    {
+        "slug": "elespanol-villarramiel", "nombre": "El Español",
+        "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/villarramiel_palencia/",
+    },
+    {
+        "slug": "diariodevalladolid-villalon", "nombre": "Diario de Valladolid",
+        "tipo": "html_tema", "url": "https://www.diariodevalladolid.es/temas/villalon-de-campos/",
+    },
 ]
 # InterBenavente (interbenavente.es) se retiró el 2026-07-17: aunque su
 # robots.txt permite el rastreo, sus páginas de artículo responden "Tu
@@ -179,6 +210,38 @@ def _items_folioepress(html_text: str, base_url: str) -> list[dict]:
     return items
 
 
+def _items_articulos_tema(html_text: str) -> list[dict]:
+    """Artículos de una página "todo sobre este pueblo" (El Español /lugares/,
+    Diario de Valladolid /temas/): cada <article> trae su titular dentro de un
+    <h2>/<h3>. La fecha se lee de la propia URL, que en estos dos sitios sigue
+    el patrón .../AAAAMMDD/... o .../AAMMDD/<id>/...; si no aparece, se deja
+    sin fecha en vez de inventarla."""
+    soup = BeautifulSoup(html_text, "html.parser")
+    items = []
+    vistos: set[str] = set()
+    for art in soup.select("article"):
+        a = art.select_one("h2 a[href], h3 a[href]")
+        if not a:
+            continue
+        titulo = a.get_text(" ", strip=True)
+        url = a["href"]
+        if not titulo or not url or url in vistos:
+            continue
+        vistos.add(url)
+        publicado = None
+        m = re.search(r"/(\d{8})/", url) or re.search(r"/(\d{6})/\d+/", url)
+        if m:
+            crudo = m.group(1)
+            try:
+                publicado = datetime.strptime(crudo, "%Y%m%d" if len(crudo) == 8 else "%y%m%d").date().isoformat()
+            except ValueError:
+                pass
+        items.append({"titulo": titulo, "url": url, "publicado": publicado, "resumen": ""})
+    if not items:
+        raise ScraperError(ERR_STRUCTURE, "No se encontró ningún <article> con titular en h2/h3")
+    return items
+
+
 def buscar_pistas() -> list[dict]:
     """Recorre las fuentes y devuelve las pistas que citan a algún municipio
     de la comarca (los 191 del CSV maestro, no solo los 12 pilotos — una
@@ -192,6 +255,8 @@ def buscar_pistas() -> list[dict]:
             html_o_xml = fetch(fuente["url"])
             if fuente["tipo"] == "rss":
                 items = _items_rss(html_o_xml)
+            elif fuente["tipo"] == "html_tema":
+                items = _items_articulos_tema(html_o_xml)
             else:
                 items = _items_folioepress(html_o_xml, fuente["url"])
         except ScraperError as exc:
