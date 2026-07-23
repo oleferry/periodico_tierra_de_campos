@@ -20,6 +20,7 @@ from __future__ import annotations
 import csv
 import html
 import json
+import re
 import shutil
 import sys
 from datetime import date
@@ -297,6 +298,32 @@ def cargar_noticias_propias() -> dict[str, list[dict]]:
     return por_slug
 
 
+CATEGORIAS_DIRECTORIO = {
+    "sanidad": "Sanidad",
+    "alimentacion": "Alimentación",
+    "hosteleria": "Hostelería y alojamiento",
+    "oficios": "Oficios y talleres",
+    "peluqueria": "Peluquería y estética",
+    "taxi": "Taxi",
+    "otros": "Otros servicios",
+}
+
+
+def cargar_directorio_servicios() -> dict[str, list[dict]]:
+    """Directorio de servicios y profesionales por pueblo (data/directorio_servicios.json).
+    Investigado a mano en fuentes públicas (Páginas Amarillas, webs municipales,
+    Google Business) — NO es un scraper automático: no hay fuente única fiable
+    para esto, así que se actualiza por rondas de investigación puntuales, no
+    en cada build. Los teléfonos/direcciones con fuentes contradictorias se
+    omitieron ya en el propio JSON en vez de arriesgar un dato erróneo."""
+    path = ROOT / "data" / "directorio_servicios.json"
+    if not path.exists():
+        return {}
+    datos = json.loads(path.read_text(encoding="utf-8"))
+    datos.pop("_notas", None)
+    return datos
+
+
 def cargar_blog_articulos() -> list[dict]:
     """Artículos de blog/investigación ya publicados (ver scripts/generar_articulo_blog.py).
     Es un índice ligero: el HTML de cada artículo ya está escrito en web/blog/,
@@ -383,6 +410,7 @@ def header(depth: int) -> str:
     <a href="{home}#pueblos">Elige tu pueblo</a>
     <a href="{home}#comarca">La comarca</a>
     <a href="{home}#blog">Investigaciones</a>
+    <a href="{up}huerta.html">Huerta</a>
   </nav>
 </div></header>"""
 
@@ -642,7 +670,7 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
   <div><h2>Entérate de lo de tu pueblo por Telegram</h2>
   <p>El tiempo, las noticias, la agenda de fiestas, alguna historia de aquí y una foto de vez en cuando. Sin ruido de fuera.</p></div>
-  <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+  <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></section>
 
 <section class="tc-newsletter"><div class="tc-wrap tc-newsletter-inner">
@@ -774,6 +802,37 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     else:
         leyenda_html = ""
 
+    # Directorio de servicios: investigado a mano (data/directorio_servicios.json),
+    # agrupado por categoría. Solo aparece si hay datos para este pueblo — nunca
+    # una sección vacía con "todavía no hay nada" (a diferencia del tablón, que sí
+    # se explica como vacío porque son anuncios que envía la gente).
+    directorio = m.get("_directorio", [])
+    if directorio:
+        por_categoria: dict[str, list[dict]] = {}
+        for neg in directorio:
+            por_categoria.setdefault(neg.get("categoria", "otros"), []).append(neg)
+        bloques = []
+        for cat_slug, etiqueta in CATEGORIAS_DIRECTORIO.items():
+            negocios = por_categoria.get(cat_slug)
+            if not negocios:
+                continue
+            items = "".join(
+                f'<li><strong>{E(neg["nombre"])}</strong>'
+                + (f' — <a href="tel:+34{re.sub(r"[^0-9]", "", neg["telefono"])}">{E(neg["telefono"])}</a>'
+                   if neg.get("telefono") else "")
+                + (f' · {E(neg["direccion"])}' if neg.get("direccion") else "")
+                + "</li>"
+                for neg in negocios
+            )
+            bloques.append(f'<h4 style="margin:14px 0 4px;">{E(etiqueta)}</h4><ul class="tc-links-list">{items}</ul>')
+        directorio_html = f"""<div class="tc-card"><h3>Servicios y profesionales de {E(m['name'])}</h3>
+      {''.join(bloques)}
+      <p class="tc-item-meta" style="margin-top:10px;">Datos investigados en fuentes públicas (Páginas Amarillas, web del
+      ayuntamiento, Google Business) en julio de 2026 — pueden quedar desactualizados. ¿Ves un error, un negocio cerrado
+      o falta el tuyo? <a href="https://wa.me/34695645395" target="_blank" rel="noopener">Dínoslo por WhatsApp</a>.</p></div>"""
+    else:
+        directorio_html = ""
+
     # Negocios y tablón: sección honesta. NO se inventan anuncios; los envían vecinos/comercios.
     tablon_html = f"""<div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
       <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de {E(m['name'])}. Todavía no hay anuncios publicados.</p>
@@ -829,12 +888,13 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de {E(m['name'])} por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
-      <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+      <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     {propias_html}
     {ayto}
     {ayudas_html}
     {galeria_html}
+    {directorio_html}
     {tablon_html}
   </main>
   <aside class="tc-muni-side">
@@ -868,6 +928,115 @@ def render_sitemap(paginas: list[tuple[str, str]]) -> str:
 
 def render_robots_txt() -> str:
     return "User-agent: *\nAllow: /\n\nSitemap: https://elterracampino.es/sitemap.xml\n"
+
+
+GUIA_HUERTA_MESES = [
+    ("Enero", "enero", (
+        "Es el mes de tocar poco la tierra y planear mucho. La meseta está helada casi a diario y "
+        "sacar plantas fuera ahora es tirarlas. Lo que sí se puede: preparar semillero protegido "
+        "(alféizar, invernadero casero, un plástico bien puesto) para guisante y haba, revisar y "
+        "afilar herramientas, y si hay frutales, aprovechar que están en reposo para podarlos."
+    )),
+    ("Febrero", "febrero", (
+        "Arranca el semillero de tomate, pimiento y berenjena, siempre protegido — aquí no salen al "
+        "aire libre hasta bien entrado mayo, así que cuanto antes empiecen dentro, más planta tendrán "
+        "cuando llegue su momento. Al aire libre, si el suelo no está encharcado ni helado, ya se "
+        "puede sembrar guisante, haba y espinaca, y plantar ajo si no se hizo en otoño."
+    )),
+    ("Marzo", "marzo", (
+        "El suelo empieza a trabajarse mejor, pero las heladas tardías de la meseta no se van todavía "
+        "— alguna nevada de marzo no es rara. Se puede sembrar directo zanahoria, remolacha, rábano, "
+        "lechuga y acelga en los días buenos. El semillero de tomate y pimiento sigue dentro; aporcar "
+        "las habas que ya estén altas."
+    )),
+    ("Abril", "abril", (
+        "Mes de trasplantar lechuga, acelga y cebolla al terreno definitivo, y de sembrar calabacín y "
+        "calabaza en semillero. Ojo con las heladas tardías: en años fríos llegan hasta entrado mayo "
+        "en esta comarca, así que conviene tener algo con lo que tapar los semilleros por la noche si "
+        "se anuncia frío."
+    )),
+    ("Mayo", "mayo", (
+        "El mes clave: cuando ya no hay riesgo real de helada (el dicho de aquí es claro — hasta San "
+        "Isidro, 15 de mayo, no te quites el sayo, y en años fríos ni eso), se trasplanta fuera todo "
+        "lo que estaba protegido: tomate, pimiento, berenjena, calabacín. Se siembra directo judía "
+        "verde, maíz y pepino, y se aporca la patata."
+    )),
+    ("Junio", "junio", (
+        "Con el calor ya instalado, el riego pasa a ser la tarea central — mejor temprano por la "
+        "mañana o al atardecer, nunca a pleno sol de mediodía. Se entutoran los tomates para que no se "
+        "vengan abajo con el peso, se acolcha el suelo (paja, hierba seca) para que no se seque tan "
+        "rápido, y se puede sembrar otra tanda de judía verde escalonada."
+    )),
+    ("Julio", "julio", (
+        "Empieza la recolección fuerte: ajo (se arranca y se pone a secar a la sombra), cebolla "
+        "temprana, calabacín, judía verde y los primeros tomates. Es el mes más exigente de riego del "
+        "verano castellano — vigilar que el agua llegue de verdad a la raíz, no solo a la superficie. "
+        "Buen momento para sembrar en semillero, a resguardo del sol, la lechuga y acelga de otoño."
+    )),
+    ("Agosto", "agosto", (
+        "Recolección plena de tomate, pimiento, pepino, calabacín y judía. Es el mes más seco del año "
+        "en la comarca, así que el riego no da tregua. Se empieza a preparar el otoño: trasplantar "
+        "puerro y col, y seguir con la lechuga de otoño en semillero a la sombra hasta que baje un "
+        "poco el calor."
+    )),
+    ("Septiembre", "septiembre", (
+        "El calor afloja y es un buen momento para trasplantar al terreno lo que se sembró en agosto "
+        "(puerro, coles, lechuga de otoño). Se recolecta lo último del verano — tomate, pimiento, "
+        "calabaza — antes de que las noches empiecen a refrescar de verdad."
+    )),
+    ("Octubre", "octubre", (
+        "Con las primeras heladas ya posibles en la comarca, toca recoger lo que quede de verano "
+        "(calabaza, últimos pimientos) y dejar el terreno preparado para el invierno: limpiar restos "
+        "de cosecha y abonar con compost o estiércol bien hecho. Es la época clásica para plantar ajo "
+        "de cara a la cosecha del verano que viene."
+    )),
+    ("Noviembre", "noviembre", (
+        "La huerta entra en calma. Poco que sembrar al aire libre con el frío ya asentado — mejor "
+        "dejar el terreno descansar con una cubierta (paja, restos vegetales) que lo proteja de la "
+        "erosión y el frío directo. Momento de revisar y guardar bien las herramientas."
+    )),
+    ("Diciembre", "diciembre", (
+        "Mes de descanso para la tierra. Si hay frutales, se podan ahora que están parados. Es también "
+        "buen momento para planificar el año que viene: qué fue bien, qué no, y dejar listo el rincón "
+        "donde en enero arrancará el semillero de guisante y haba."
+    )),
+]
+
+
+def render_huerta() -> str:
+    """Guía evergreen de huerta amateur, mes a mes, adaptada al clima de la
+    meseta de Tierra de Campos (heladas tardías hasta mayo, veranos secos y
+    calurosos, suelo arcilloso). Ver docs/secciones-editoriales.md §3.2:
+    contenido diferencial, pensado para quien mantiene un huerto familiar,
+    NUNCA para agricultura profesional (esa es otra pieza, "Campo y huerta"
+    profesional, con sus propias fuentes AEMET/InfoRiego).
+
+    Deliberadamente sin consejos fitosanitarios cerrados ni promesas de
+    cosecha — cada suelo, orientación y microclima del pueblo es distinto;
+    esto es orientación general, no una receta."""
+    secciones_html = "".join(f"""<h2 class="tc-blog-subtitulo" id="{E(anchor)}">{E(nombre)}</h2>
+  <p class="tc-articulo-parrafo">{E(texto)}</p>
+""" for nombre, anchor, texto in GUIA_HUERTA_MESES)
+    indice_html = "".join(
+        f'<a href="#{E(anchor)}" class="tc-button tc-button--ghost" style="margin:0 6px 6px 0;">{E(nombre)}</a>'
+        for nombre, anchor, _ in GUIA_HUERTA_MESES
+    )
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Campo y huerta</span>
+  <h1>Guía de huerta, mes a mes, para Tierra de Campos</h1>
+  <p class="tc-articulo-entradilla">Qué sembrar, trasplantar y recolectar cada mes en un huerto
+  familiar de la meseta — pensada para quien tiene un huerto de recreo o de toda la vida, no para
+  agricultura profesional. Es orientación general: cada parcela, orientación y suelo es un mundo, así
+  que tómalo como punto de partida, no como receta cerrada.</p>
+  <p style="margin:14px 0 22px;">{indice_html}</p>
+  {secciones_html}
+  <p class="tc-item-meta" style="margin-top:18px;">¿Aviso de helada o de ola de calor esta semana? Mira
+  el tiempo de tu pueblo — la lectura práctica para el huerto (cubrir semilleros, regar antes de que
+  apriete el calor) va con el parte de cada ficha de municipio.</p>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Guía de huerta — El Terracampino", body, depth=0,
+                 desc="Calendario mensual de siembra y cosecha para un huerto familiar en Tierra de Campos.")
 
 
 def render_404() -> str:
@@ -913,6 +1082,7 @@ def main() -> int:
     copy_assets()
     fotos_por_slug = cargar_fotos_aprobadas()
     propias_por_slug = cargar_noticias_propias()
+    directorio_por_slug = cargar_directorio_servicios()
 
     # Foto de cabecera con licencia libre (scripts/buscar_fotos_libres.py):
     # solo relleno honesto mientras no hay fotos de vecinos, con su autor y
@@ -989,6 +1159,7 @@ def main() -> int:
             m["_plenos"] = []
         m["_ayudas"] = ayudas_por_slug.get(slug, [])
         m["_propias"] = propias_por_slug.get(slug, [])
+        m["_directorio"] = directorio_por_slug.get(slug, [])
         m["_fotos"] = fotos_por_slug.get(slug, [])
         m["_foto_libre"] = fotos_libres.get(slug)
         m["_anuncios"] = por_muni.get(slug, [])
@@ -1031,7 +1202,8 @@ def main() -> int:
     # Páginas para sitemap.xml: se van acumulando según se escribe cada
     # fichero, así el sitemap nunca puede desincronizarse de lo que hay
     # realmente en disco (nada de reconstruir la lista aparte a mano).
-    paginas_sitemap: list[tuple[str, str]] = [("", hoy.isoformat())]
+    (WEB / "huerta.html").write_text(render_huerta(), encoding="utf-8")
+    paginas_sitemap: list[tuple[str, str]] = [("", hoy.isoformat()), ("huerta.html", hoy.isoformat())]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 
     for m in built:
