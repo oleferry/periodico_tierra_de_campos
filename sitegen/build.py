@@ -801,10 +801,25 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     tiempo_titular = (f"El tiempo hoy en {E(m['name'])}: {w['ahora']['temp']}° y {E(w['ahora']['desc'])}"
                       if w else f"{E(m['name'])}")
 
+    # Foto de cabecera con licencia libre (scripts/buscar_fotos_libres.py):
+    # solo relleno mientras no hay fotos de vecinos propias más abajo. La
+    # atribución de autor y licencia es obligatoria (CC-BY/CC-BY-SA), nunca
+    # se omite.
+    foto_libre = m.get("_foto_libre")
+    foto_libre_html = ""
+    if foto_libre:
+        credito_url = foto_libre.get("licencia_url") or foto_libre["pagina_commons"]
+        foto_libre_html = f"""<div class="tc-muni-hero-foto">
+    <img src="../assets/fotos-libres/{E(foto_libre['archivo'])}" alt="{E(m['name'])}" loading="lazy">
+    <p class="tc-muni-hero-credito">Foto: <a href="{E(foto_libre['pagina_commons'])}" target="_blank" rel="noopener">{E(foto_libre['autor'])}</a>,
+      <a href="{E(credito_url)}" target="_blank" rel="noopener">{E(foto_libre['licencia'])}</a>, vía Wikimedia Commons</p>
+  </div>"""
+
     body = f"""<section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>{E(m['name'])}</h1>
   <div class="tc-muni-meta">{meta_html}</div>
+  {foto_libre_html}
 </div></section>
 
 <div class="tc-wrap tc-muni-grid">
@@ -841,6 +856,14 @@ def main() -> int:
     copy_assets()
     fotos_por_slug = cargar_fotos_aprobadas()
     propias_por_slug = cargar_noticias_propias()
+
+    # Foto de cabecera con licencia libre (scripts/buscar_fotos_libres.py):
+    # solo relleno honesto mientras no hay fotos de vecinos, con su autor y
+    # licencia siempre visibles (obligatorio en CC-BY/CC-BY-SA). Nunca se
+    # mezcla con la galería de vecinos, que sigue siendo la sección principal.
+    fotos_libres_path = ROOT / "data" / "fotos_libres.json"
+    fotos_libres = (json.loads(fotos_libres_path.read_text(encoding="utf-8"))
+                     if fotos_libres_path.exists() else {})
 
     print("· BOP Valladolid…", flush=True)
     try:
@@ -910,6 +933,7 @@ def main() -> int:
         m["_ayudas"] = ayudas_por_slug.get(slug, [])
         m["_propias"] = propias_por_slug.get(slug, [])
         m["_fotos"] = fotos_por_slug.get(slug, [])
+        m["_foto_libre"] = fotos_libres.get(slug)
         m["_anuncios"] = por_muni.get(slug, [])
         # Marcador: último resultado y próximo partido del club local (si hay uno
         # cubierto). Futbolme cubre categorías nacionales/regionales; para las

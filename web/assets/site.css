@@ -453,6 +453,11 @@
   margin: 4px 0 8px;
 }
 
+.tc-muni-hero-foto { margin-top: var(--tc-space-3); }
+.tc-muni-hero-foto img { display: block; width: 100%; max-height: 340px; object-fit: cover; border: 1px solid var(--tc-linea); }
+.tc-muni-hero-credito { font-size: .76rem; color: var(--tc-texto-secundario); margin: 6px 0 0; }
+.tc-muni-hero-credito a { color: inherit; }
+
 .tc-muni-meta {
   display: flex;
   gap: var(--tc-space-3);
