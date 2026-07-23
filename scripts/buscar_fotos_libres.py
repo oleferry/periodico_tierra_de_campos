@@ -41,6 +41,7 @@ if hasattr(sys.stdout, "buffer"):
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 import requests
+from PIL import Image
 
 from scrapers.common import ROOT, load_municipios
 
@@ -49,6 +50,23 @@ HEADERS = {"User-Agent": "ElTerracampinoBot/0.1 (+https://elterracampino.es; con
 
 DESTINO_JSON = ROOT / "data" / "fotos_libres.json"
 DESTINO_IMG = ROOT / "web" / "assets" / "fotos-libres"
+
+# La ficha solo enseña esta foto en un banner de 340px de alto (ver
+# .tc-muni-hero-foto en web/assets/site.css): pedirle a Commons "iiurlwidth"
+# no basta, porque para fotos en vertical (más alta que ancha) Commons puede
+# devolver la imagen casi sin recortar y de varios MB. Se reescala y
+# recomprime siempre en local antes de guardar.
+ANCHO_MAX_PX = 1400
+CALIDAD_JPEG = 82
+
+
+def _guardar_comprimida(contenido: bytes, destino: Path) -> None:
+    imagen = Image.open(io.BytesIO(contenido))
+    imagen = imagen.convert("RGB")
+    if imagen.width > ANCHO_MAX_PX:
+        alto = round(imagen.height * ANCHO_MAX_PX / imagen.width)
+        imagen = imagen.resize((ANCHO_MAX_PX, alto), Image.LANCZOS)
+    imagen.save(destino, "JPEG", quality=CALIDAD_JPEG, optimize=True)
 
 # Prefijos de licencia aceptados (LicenseShortName normalizado a minúsculas).
 # Todo lo demás (NC, ND, o sin extmetadata de licencia) se descarta.
@@ -223,7 +241,7 @@ def main() -> int:
         archivo = f"{slug}.jpg"
         img = requests.get(foto["url_imagen"], headers=HEADERS, timeout=25)
         img.raise_for_status()
-        (DESTINO_IMG / archivo).write_bytes(img.content)
+        _guardar_comprimida(img.content, DESTINO_IMG / archivo)
         foto["archivo"] = archivo
         existentes[slug] = foto
         DESTINO_JSON.write_text(json.dumps(existentes, ensure_ascii=False, indent=2), encoding="utf-8")
