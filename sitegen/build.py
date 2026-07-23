@@ -498,7 +498,7 @@ def footer(depth: int) -> str:
     home = "../" * depth + "index.html"
     return f"""<footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="{home}">Portada</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{"../" * depth}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
 </div></footer>"""
 
 
@@ -1110,6 +1110,78 @@ def render_huerta() -> str:
                  desc="Calendario mensual de siembra y cosecha para un huerto familiar en Tierra de Campos.")
 
 
+def render_chivatazo(built: list[dict]) -> str:
+    """Buzón de chivatazos anónimos (web/api/chivatazo.js + sitegen/almacen_chivatazos.py).
+    Nunca se publica un chivatazo tal cual — solo alimenta, tras revisión
+    editorial de Daniel, hechos que se verifican aparte para una pieza propia
+    (mismo criterio que el radar de pistas)."""
+    opciones_pueblo = "".join(f'<option value="{E(m["name"])}">{E(m["name"])}</option>' for m in built)
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">Buzón</span>
+  <h1>¿Sabes algo? Cuéntanoslo</h1>
+  <p class="tc-articulo-entradilla">Una obra rara, una subvención que no cuadra, algo de un pleno que no
+  se explicó bien... Si tienes una pista de la comarca, mándala aquí. Es anónimo de verdad: no pedimos tu
+  nombre, ni tu correo, ni guardamos ningún dato tuyo — solo el texto que escribas.</p>
+
+  <div class="tc-card">
+    <form id="tc-chivatazo-form">
+      <p style="margin:0 0 6px;"><label for="tc-chiv-pueblo" style="font-weight:700; font-size:.9rem;">Pueblo (opcional)</label></p>
+      <select id="tc-chiv-pueblo" name="pueblo" class="tc-muni-select" style="margin-bottom:14px;">
+        <option value="">No lo sé / es de toda la comarca</option>{opciones_pueblo}
+      </select>
+      <p style="margin:0 0 6px;"><label for="tc-chiv-texto" style="font-weight:700; font-size:.9rem;">Cuéntanoslo</label></p>
+      <textarea id="tc-chiv-texto" name="texto" class="tc-input" rows="6" required minlength="20" maxlength="4000"
+        placeholder="Cuanto más concreto (dónde, cuándo, qué has visto), más fácil es comprobarlo."
+        style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
+      <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <p style="margin:14px 0 0;"><button class="tc-button" type="submit">Enviar de forma anónima</button></p>
+      <p id="tc-chiv-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
+    </form>
+  </div>
+
+  <p class="tc-item-meta" style="margin-top:14px;">Nada se publica directamente desde aquí: una persona del
+  equipo valora cada aviso y, si hay algo que investigar, se hacen las comprobaciones necesarias antes de
+  escribir nada — igual que con cualquier otra pieza de este periódico. No es un canal de emergencias: para
+  algo urgente, llama al 112.</p>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>
+<script>
+(function() {{
+  var form = document.getElementById("tc-chivatazo-form");
+  form.addEventListener("submit", function(e) {{
+    e.preventDefault();
+    var texto = document.getElementById("tc-chiv-texto").value;
+    var pueblo = document.getElementById("tc-chiv-pueblo").value;
+    var honey = form.querySelector('input[name="web"]');
+    var resultado = document.getElementById("tc-chiv-resultado");
+    var btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    fetch("api/chivatazo", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{ texto: texto, pueblo: pueblo, web: honey.value }}),
+    }})
+      .then(function(r) {{ return r.json().then(function(d) {{ return {{ ok: r.ok, body: d }}; }}); }})
+      .then(function(res) {{
+        if (res.ok) {{
+          form.style.display = "none";
+          resultado.textContent = "Recibido. Gracias — lo revisamos con calma.";
+        }} else {{
+          resultado.textContent = res.body.error || "No se pudo enviar. Inténtalo más tarde.";
+          btn.disabled = false; btn.textContent = "Enviar de forma anónima";
+        }}
+      }})
+      .catch(function() {{
+        resultado.textContent = "No se pudo enviar. Inténtalo más tarde.";
+        btn.disabled = false; btn.textContent = "Enviar de forma anónima";
+      }});
+  }});
+}})();
+</script>"""
+    return shell("¿Sabes algo? Cuéntanoslo — El Terracampino", body, depth=0,
+                 desc="Buzón anónimo de chivatazos para El Terracampino, periódico hiperlocal de Tierra de Campos.")
+
+
 def render_404() -> str:
     """Página de error 404. NO puede usar shell() (que resuelve assets con
     rutas relativas tipo '../assets/...' según la profundidad de la página):
@@ -1275,7 +1347,10 @@ def main() -> int:
     # fichero, así el sitemap nunca puede desincronizarse de lo que hay
     # realmente en disco (nada de reconstruir la lista aparte a mano).
     (WEB / "huerta.html").write_text(render_huerta(), encoding="utf-8")
-    paginas_sitemap: list[tuple[str, str]] = [("", hoy.isoformat()), ("huerta.html", hoy.isoformat())]
+    (WEB / "chivatazo.html").write_text(render_chivatazo(built), encoding="utf-8")
+    paginas_sitemap: list[tuple[str, str]] = [
+        ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
+    ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 
     for m in built:

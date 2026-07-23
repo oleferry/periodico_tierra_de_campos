@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Sabes algo? Cuéntanoslo — El Terracampino</title>
+<meta name="description" content="Buzón anónimo de chivatazos para El Terracampino, periódico hiperlocal de Tierra de Campos.">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand-tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="alternate" type="application/rss+xml" title="El Terracampino — Investigaciones" href="feed.xml">
+</head>
+<body class="tc-furrows">
+<header class="tc-header"><div class="tc-wrap tc-header-inner">
+  <a href="index.html" class="tc-logo"><img src="assets/logo.png" alt="El Terracampino" height="52"></a>
+  <nav class="tc-nav">
+    <a href="index.html">Portada</a>
+    <a href="index.html#pueblos">Elige tu pueblo</a>
+    <a href="index.html#comarca">La comarca</a>
+    <a href="index.html#blog">Investigaciones</a>
+    <a href="huerta.html">Huerta</a>
+  </nav>
+</div></header>
+<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">Buzón</span>
+  <h1>¿Sabes algo? Cuéntanoslo</h1>
+  <p class="tc-articulo-entradilla">Una obra rara, una subvención que no cuadra, algo de un pleno que no
+  se explicó bien... Si tienes una pista de la comarca, mándala aquí. Es anónimo de verdad: no pedimos tu
+  nombre, ni tu correo, ni guardamos ningún dato tuyo — solo el texto que escribas.</p>
+
+  <div class="tc-card">
+    <form id="tc-chivatazo-form">
+      <p style="margin:0 0 6px;"><label for="tc-chiv-pueblo" style="font-weight:700; font-size:.9rem;">Pueblo (opcional)</label></p>
+      <select id="tc-chiv-pueblo" name="pueblo" class="tc-muni-select" style="margin-bottom:14px;">
+        <option value="">No lo sé / es de toda la comarca</option><option value="Medina de Rioseco">Medina de Rioseco</option><option value="Sahagún">Sahagún</option><option value="Carrión de los Condes">Carrión de los Condes</option><option value="Paredes de Nava">Paredes de Nava</option><option value="Valderas">Valderas</option><option value="Villalón de Campos">Villalón de Campos</option><option value="Villalpando">Villalpando</option><option value="Mayorga">Mayorga</option><option value="Villada">Villada</option><option value="Villarramiel">Villarramiel</option><option value="Becerril de Campos">Becerril de Campos</option><option value="Fuentes de Nava">Fuentes de Nava</option><option value="Almanza">Almanza</option><option value="Cea">Cea</option><option value="El Burgo Ranero">El Burgo Ranero</option><option value="Gordaliza del Pino">Gordaliza del Pino</option><option value="Grajal de Campos">Grajal de Campos</option><option value="Herrín de Campos">Herrín de Campos</option><option value="Morales de Campos">Morales de Campos</option><option value="Valverde de Campos">Valverde de Campos</option>
+      </select>
+      <p style="margin:0 0 6px;"><label for="tc-chiv-texto" style="font-weight:700; font-size:.9rem;">Cuéntanoslo</label></p>
+      <textarea id="tc-chiv-texto" name="texto" class="tc-input" rows="6" required minlength="20" maxlength="4000"
+        placeholder="Cuanto más concreto (dónde, cuándo, qué has visto), más fácil es comprobarlo."
+        style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
+      <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <p style="margin:14px 0 0;"><button class="tc-button" type="submit">Enviar de forma anónima</button></p>
+      <p id="tc-chiv-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
+    </form>
+  </div>
+
+  <p class="tc-item-meta" style="margin-top:14px;">Nada se publica directamente desde aquí: una persona del
+  equipo valora cada aviso y, si hay algo que investigar, se hacen las comprobaciones necesarias antes de
+  escribir nada — igual que con cualquier otra pieza de este periódico. No es un canal de emergencias: para
+  algo urgente, llama al 112.</p>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>
+<script>
+(function() {
+  var form = document.getElementById("tc-chivatazo-form");
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    var texto = document.getElementById("tc-chiv-texto").value;
+    var pueblo = document.getElementById("tc-chiv-pueblo").value;
+    var honey = form.querySelector('input[name="web"]');
+    var resultado = document.getElementById("tc-chiv-resultado");
+    var btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    fetch("api/chivatazo", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ texto: texto, pueblo: pueblo, web: honey.value }),
+    })
+      .then(function(r) { return r.json().then(function(d) { return { ok: r.ok, body: d }; }); })
+      .then(function(res) {
+        if (res.ok) {
+          form.style.display = "none";
+          resultado.textContent = "Recibido. Gracias — lo revisamos con calma.";
+        } else {
+          resultado.textContent = res.body.error || "No se pudo enviar. Inténtalo más tarde.";
+          btn.disabled = false; btn.textContent = "Enviar de forma anónima";
+        }
+      })
+      .catch(function() {
+        resultado.textContent = "No se pudo enviar. Inténtalo más tarde.";
+        btn.disabled = false; btn.textContent = "Enviar de forma anónima";
+      });
+  });
+})();
+</script>
+<footer class="tc-footer"><div class="tc-wrap">
+  <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
+  <div class="tc-footer-links"><a href="index.html">Portada</a><a href="chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+</div></footer>
+<div class="tc-popup-overlay" id="tc-popup-overlay">
+  <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
+    <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
+    <h2>La semana terracampina</h2>
+    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+  </div>
+</div>
+<script>
+(function() {
+  var API = "api/suscribir";
+  // Todos los formularios de suscripción de la página (popup + pie) van al
+  // mismo endpoint; el resultado se muestra en el propio formulario.
+  document.querySelectorAll("form.tc-form").forEach(function(form) {
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]');
+      var honey = form.querySelector('input[name="web"]');
+      var btn = form.querySelector("button");
+      btn.disabled = true; btn.textContent = "Un momento…";
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.value, web: honey ? honey.value : "" }),
+      }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+        .then(function(res) {
+          if (res.ok) {
+            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            localStorage.setItem("tc_newsletter_popup_visto", "1");
+          } else {
+            btn.disabled = false; btn.textContent = "Suscribirme";
+            alert(res.d.error || "No se pudo completar el alta. Inténtalo más tarde.");
+          }
+        })
+        .catch(function() {
+          btn.disabled = false; btn.textContent = "Suscribirme";
+          alert("No se pudo completar el alta. Inténtalo más tarde.");
+        });
+    });
+  });
+
+  var KEY = "tc_newsletter_popup_visto";
+  if (localStorage.getItem(KEY)) return;
+  var overlay = document.getElementById("tc-popup-overlay");
+  var close = document.getElementById("tc-popup-close");
+  function ocultar() {
+    overlay.classList.remove("tc-popup-overlay--visible");
+    localStorage.setItem(KEY, "1");
+  }
+  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 15000);
+  close.addEventListener("click", ocultar);
+  overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+})();
+</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
