@@ -33,12 +33,14 @@ en MailerLite (no tiene API para crear automatizaciones):
 
 MailerLite → **Automations → Create workflow** → disparador "subscriber joins
 group" (el grupo de arriba) → un email por reportaje con 3-4 días de espera
-entre cada uno. Hoy hay 2 reportajes publicados:
+entre cada uno. A fecha de 2026-07-23 hay 3 reportajes publicados, en orden:
 
-1. "Villada pierde casi cuatro de cada diez negocios..." —
+1. "Villada pierde casi cuatro de cada diez negocios..." (2026-07-16) —
    https://elterracampino.es/blog/villada-pierde-casi-cuatro-de-cada-diez-negocios-el-mapa-de-un-vaciado-que-no-espera.html
-2. "Qué esconde el dinero público que llega a Tierra de Campos..." —
+2. "Qué esconde el dinero público que llega a Tierra de Campos..." (2026-07-16) —
    https://elterracampino.es/blog/que-esconde-el-dinero-publico-que-llega-a-tierra-de-campos-32-ayudas-470-973-euros-y-un-solo-convenio-que-se-lleva-la-mayoria.html
+3. "Villarramiel perdió ocho de cada diez vecinos en un siglo..." (2026-07-22) —
+   https://elterracampino.es/blog/villarramiel-perdio-ocho-de-cada-diez-vecinos-en-un-siglo-y-nadie-firmo-la-orden.html
 
 Cada lunes que la tarea programada publique una investigación nueva, se añade
 un paso más al final del workflow.

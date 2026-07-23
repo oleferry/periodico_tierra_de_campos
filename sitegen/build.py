@@ -848,6 +848,63 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
     return shell(f"{m['name']} — El Terracampino", body, depth=1, desc=desc)
 
 
+def render_sitemap(paginas: list[tuple[str, str]]) -> str:
+    """sitemap.xml estándar: (ruta relativa a web/, fecha ISO de última
+    modificación) para cada página real del sitio — portada, fichas de
+    municipio, noticias propias e investigaciones. Los anuncios oficiales
+    (plenos/BOCyL/BDNS) no tienen página propia, viven dentro de la ficha de
+    su municipio, así que no generan entrada aparte."""
+    base = "https://elterracampino.es"
+    urls = "".join(f"""  <url>
+    <loc>{base}/{E(ruta)}</loc>
+    <lastmod>{E(lastmod)}</lastmod>
+  </url>
+""" for ruta, lastmod in paginas)
+    return f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{urls}</urlset>
+"""
+
+
+def render_robots_txt() -> str:
+    return "User-agent: *\nAllow: /\n\nSitemap: https://elterracampino.es/sitemap.xml\n"
+
+
+def render_404() -> str:
+    """Página de error 404. NO puede usar shell() (que resuelve assets con
+    rutas relativas tipo '../assets/...' según la profundidad de la página):
+    Vercel sirve este mismo fichero para cualquier ruta rota, a cualquier
+    profundidad, así que el navegador resuelve las rutas relativas contra la
+    URL que el visitante pidió, no contra donde vive 404.html realmente.
+    Hacen falta rutas absolutas ('/assets/...')."""
+    return """<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada — El Terracampino</title>
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/brand-tokens.css">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<section class="tc-muni-hero"><div class="tc-wrap">
+  <span class="tc-section-label">Vaya</span>
+  <h1>Esta página no existe</h1>
+  <p style="margin:8px 0 0;">El enlace puede estar mal escrito, o la página ya no está aquí.</p>
+  <p style="margin-top:18px;">
+    <a class="tc-button" href="/">Portada</a>
+    <a class="tc-button tc-button--ghost" href="/index.html#pueblos">Elige tu pueblo</a>
+  </p>
+</div></section>
+</body>
+</html>
+"""
+
+
 # --------------------------------------------------------------- build
 
 def main() -> int:
@@ -968,10 +1025,19 @@ def main() -> int:
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
     (WEB / "noticia").mkdir(parents=True, exist_ok=True)
     (WEB / "index.html").write_text(render_home(built, feed, hoy), encoding="utf-8")
-    (WEB / "feed.xml").write_text(render_feed_rss(cargar_blog_articulos()), encoding="utf-8")
+    blog_articulos = cargar_blog_articulos()
+    (WEB / "feed.xml").write_text(render_feed_rss(blog_articulos), encoding="utf-8")
+
+    # Páginas para sitemap.xml: se van acumulando según se escribe cada
+    # fichero, así el sitemap nunca puede desincronizarse de lo que hay
+    # realmente en disco (nada de reconstruir la lista aparte a mano).
+    paginas_sitemap: list[tuple[str, str]] = [("", hoy.isoformat())]
+    paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
+
     for m in built:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
             render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
+        paginas_sitemap.append((f"municipio/{m['slug']}.html", hoy.isoformat()))
 
     # Artículo propio para cada pleno/ayuda con cuerpo redactado (ver doc_row:
     # solo se enlaza aquí si de verdad hay un artículo, si no se cae a la fuente oficial).
@@ -987,12 +1053,18 @@ def main() -> int:
         if r.get("cuerpo"):
             (WEB / "noticia" / f"{d['hash'][:16]}.html").write_text(
                 render_articulo(d, r), encoding="utf-8")
+            paginas_sitemap.append((f"noticia/{d['hash'][:16]}.html", d.get("published_at") or hoy.isoformat()))
             n_articulos += 1
+
+    (WEB / "sitemap.xml").write_text(render_sitemap(paginas_sitemap), encoding="utf-8")
+    (WEB / "robots.txt").write_text(render_robots_txt(), encoding="utf-8")
+    (WEB / "404.html").write_text(render_404(), encoding="utf-8")
 
     cache.flush()
     modo = "IA (Claude)" if ia.disponible() else "reglas (sin ANTHROPIC_API_KEY)"
     print(f"\nGenerado: web/index.html + {len(built)} fichas de municipio + "
-          f"{n_articulos} artículos (plenos + ayudas). Redacción: {modo}.")
+          f"{n_articulos} artículos (plenos + ayudas) + sitemap.xml ({len(paginas_sitemap)} páginas). "
+          f"Redacción: {modo}.")
     return 0
 
 
