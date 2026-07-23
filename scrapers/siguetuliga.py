@@ -89,6 +89,14 @@ CLUBES = {
 #   · Sahagún: ficha en siguetuliga sin liga asignada esta temporada.
 #   · Valderas: su liga real es la "Liga de la Amistad" de León, otra
 #     plataforma (ligadelaamistadleon.es) — pendiente de scraper propio.
+#     Localizado el 2026-07-23: hay DOS equipos de Valderas en Segunda
+#     División (temporada "_temporada=7263", división "_division=10825"),
+#     "Valderas" y "El Zulo Valderas" (que además se enfrentan entre sí en
+#     la jornada 1 — nombre de curiosidad para una pieza de color, no solo
+#     de resultados). La ficha de equipo carga el calendario por AJAX filtrado
+#     por jornada (selects "Comienza"/"Finaliza"), no como HTML estático de un
+#     tirón como siguetuliga — hace falta investigar esa llamada antes de
+#     poder scrapearlo con requests normales.
 #   · Fuentes de Nava y Villarramiel: no localizados en fútbol federado 11
 #     en ninguna plataforma revisada; puede que solo compitan en fútbol sala.
 
