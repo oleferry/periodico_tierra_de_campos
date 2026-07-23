@@ -511,6 +511,14 @@
 .tc-links-list li { padding: 5px 0; border-bottom: 1px solid var(--tc-linea-suave); font-size: .88rem; }
 .tc-links-list a { color: var(--tc-azul-bop); text-decoration: none; }
 .tc-links-list a:hover { text-decoration: underline; }
+
+.tc-comentarios-lista { list-style: none; padding: 0; margin: 0; }
+.tc-comentarios-lista li {
+  padding: 10px 0; border-bottom: 1px solid var(--tc-linea-suave);
+}
+.tc-comentarios-lista li:last-child { border-bottom: none; }
+.tc-comentario-autor { font-weight: 700; font-size: .9rem; }
+.tc-comentario-texto { margin: 3px 0 4px; font-size: .92rem; }
 .tc-agenda strong { color: var(--tc-azul-bop); font-family: var(--tc-font-data); font-size: .82rem; }
 
 /* ---- Noticias como tarjetas clicables ---- */

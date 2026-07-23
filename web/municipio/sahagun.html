@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sahagún — El Terracampino</title>
-<meta name="description" content="En Sahagún estamos ahora en 34 grados, con el cielo cubierto pero sin que caiga nada. La máxima se queda ahí, en esos 34, y no se espera lluvia; el vi">
+<meta name="description" content="Ahora mismo en Sahagún estamos en 27 grados y despejado, sin nada de viento. Subirá hasta los 34 a lo largo del día y no se espera lluvia. Mañana camb">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,25 +38,46 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Sahagún: 34° y nublado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Sahagún: 27° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">34°</span>
-      <span class="tc-weather-desc">nublado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">27°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Sahagún estamos ahora en 34 grados, con el cielo cubierto pero sin que caiga nada. La máxima se queda ahí, en esos 34, y no se espera lluvia; el viento flojo, sobre los 14. Mañana afloja un poco la cosa, con nubes y claros y hasta 29 grados. Si tienes huerto, riega a primera hora o cuando caiga la tarde, que al mediodía con este calor es tirar el agua.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.371111&longitude=-5.033056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Ahora mismo en Sahagún estamos en 27 grados y despejado, sin nada de viento. Subirá hasta los 34 a lo largo del día y no se espera lluvia. Mañana cambia algo la cosa, con cielo nublado y máxima de 29. Si tienes huerto, riega a primera hora o ya al anochecer, que al mediodía con este calor el agua no cunde.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
       <h4 class="tc-day-titular">Viernes, refresca</h4>
-      <p class="tc-day-texto">Máxima de 29° y mínima de 16°, con nubes y claros. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
+      <p class="tc-day-texto">Máxima de 29° y mínima de 17°, con nublado. Sopla viento fuerte.</p>
+      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 26° y mínima de 15°, con nublado. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">15°</span></span>
+      <h4 class="tc-day-titular">Sábado, refresca</h4>
+      <p class="tc-day-texto">Máxima de 25° y mínima de 16°, con llovizna débil. Sopla viento fuerte.</p>
+      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
       <h4 class="tc-day-titular">Domingo, sube el calor</h4>

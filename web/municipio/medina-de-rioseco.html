@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medina de Rioseco — El Terracampino</title>
-<meta name="description" content="En Medina de Rioseco ahora mismo aprieta el calor: 33 grados y el cielo despejado. La cosa se queda por ahí, hasta los 34, con algo de viento y sin ll">
+<meta name="description" content="En Medina de Rioseco estamos ahora con 26 grados y el cielo despejado. La cosa va a apretar hasta los 34, con apenas viento y sin pinta de lluvia. Mañ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Medina de Rioseco: 33° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Medina de Rioseco: 26° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">33°</span>
-      <span class="tc-weather-desc">despejado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Medina de Rioseco ahora mismo aprieta el calor: 33 grados y el cielo despejado. La cosa se queda por ahí, hasta los 34, con algo de viento y sin lluvia. Mañana afloja bastante, con nubes y claros y máxima de 27. Con estas temperaturas, riega a primera hora o al anochecer, que al mediodía no aprovechas nada.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.883056&longitude=-5.042778&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Medina de Rioseco estamos ahora con 26 grados y el cielo despejado. La cosa va a apretar hasta los 34, con apenas viento y sin pinta de lluvia. Mañana afloja un poco, con nubes y claros y máxima de 27. Con este calor, riega a primera hora o cuando caiga el sol, que al mediodía es tirar el agua.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes seco y algo ventoso</h4>
-      <p class="tc-day-texto">Jornada de nubes y claros sin lluvia a la vista. Máxima de 27 grados y mínima de 17, con el viento soplando a 28 kilómetros por hora, que se notará.</p>
+      <h4 class="tc-day-titular">Viernes, refresca</h4>
+      <p class="tc-day-texto">Máxima de 27° y mínima de 17°, con nubes y claros. Sopla viento fuerte.</p>
       <span class="tc-day-temp tc-data">27° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado más gris</h4>
-      <p class="tc-day-texto">Cielo nublado casi todo el día, aunque no se espera que caiga nada, con solo un 8 por ciento de probabilidad. Máxima de 25 grados y mínima de 14, y el viento aflojando un poco a 24.</p>
+      <h4 class="tc-day-titular">Sábado, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 25° y mínima de 14°, con nublado.</p>
       <span class="tc-day-temp tc-data">25° <span class="tc-day-min">14°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo abierto y seco</h4>
-      <p class="tc-day-texto">Vuelven las nubes y claros sin riesgo de lluvia. Sube la máxima a 28 grados y baja la mínima hasta los 11, con viento flojo de 16 kilómetros por hora.</p>
+      <h4 class="tc-day-titular">Domingo, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 28° y mínima de 11°, con nubes y claros.</p>
       <span class="tc-day-temp tc-data">28° <span class="tc-day-min">11°</span></span>
     </article></div>
   </div>

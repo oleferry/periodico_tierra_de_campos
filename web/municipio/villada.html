@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villada — El Terracampino</title>
-<meta name="description" content="En Villada estamos ahora mismo en 34 grados y con el cielo casi limpio. Ya no va a subir de ahí y no se espera lluvia, aunque corre algo de viento, un">
+<meta name="description" content="Ahora mismo en Villada estamos en 26 grados y despejado, con poco viento. La cosa va a apretar hasta los 34, así que se notará el calor a mediodía, y ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villada: 34° y casi despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villada: 26° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">34°</span>
-      <span class="tc-weather-desc">casi despejado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Villada estamos ahora mismo en 34 grados y con el cielo casi limpio. Ya no va a subir de ahí y no se espera lluvia, aunque corre algo de viento, unos 18 por hora. Mañana afloja un poco la cosa y se queda en 29. Con este calor, riega a primera hora o cuando caiga el sol, nunca al mediodía, que es tirar el agua.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.25056&longitude=-4.96694&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Ahora mismo en Villada estamos en 26 grados y despejado, con poco viento. La cosa va a apretar hasta los 34, así que se notará el calor a mediodía, y no se espera lluvia. Mañana algo más suave, con despejado y máxima de 29. Si tienes huerto, riega a primera hora o al anochecer, que al mediodía con este calor no aprovechas el agua.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes despejado y con aire</h4>
-      <p class="tc-day-texto">Cielo despejado y buen calor, con 29 de máxima y 17 a primera hora. El viento se hará notar rondando los 35 km/h.</p>
+      <h4 class="tc-day-titular">Viernes de cielo limpio y viento</h4>
+      <p class="tc-day-texto">Jornada despejada con la máxima en 29 grados y la mínima en 17. El viento aprieta hasta los 35 kilómetros por hora, así que se notará por la calle.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado con nubes de adorno</h4>
-      <p class="tc-day-texto">Alternan nubes y claros con 26 grados de máxima y 15 de madrugada. Alguna posibilidad muy baja de lluvia y viento de 30 km/h.</p>
+      <h4 class="tc-day-titular">Sábado con alguna llovizna</h4>
+      <p class="tc-day-texto">Cielo revuelto y posibilidad de alguna llovizna, apenas 0.8 milímetros con un 15 por ciento de probabilidad. Temperaturas de 15 a 26 grados y viento de 30.</p>
       <span class="tc-day-temp tc-data">26° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo de nuevo despejado</h4>
-      <p class="tc-day-texto">Vuelve el cielo casi limpio y los 29 de máxima, con 15 al amanecer. El viento afloja hasta los 23 km/h.</p>
+      <h4 class="tc-day-titular">Domingo casi despejado</h4>
+      <p class="tc-day-texto">Vuelve el tiempo tranquilo, con cielos casi limpios y sin lluvia a la vista. La máxima llega a 29 grados, la mínima se queda en 15 y el viento afloja hasta los 23.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
     </article></div>
   </div>

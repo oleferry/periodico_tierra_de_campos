@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grajal de Campos — El Terracampino</title>
-<meta name="description" content="Ahora mismo en Grajal estamos en 34 grados, con nubes y claros que van y vienen. El viento es flojo, unos 10 por hora, y no se espera lluvia hoy. Maña">
+<meta name="description" content="En Grajal estamos ahora en 27 grados y despejado. Durante el día subirá hasta los 34, con el viento parado y sin visos de lluvia. Mañana se queda algo">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,14 +38,35 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Grajal de Campos: 34° y nubes y claros</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Grajal de Campos: 27° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">34°</span>
-      <span class="tc-weather-desc">nubes y claros</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">27°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">Ahora mismo en Grajal estamos en 34 grados, con nubes y claros que van y vienen. El viento es flojo, unos 10 por hora, y no se espera lluvia hoy. Mañana aflojará un poco el calor y no debería pasar de los 29. Con lo que aprieta, riega a primera hora o ya al anochecer, que al mediodía se evapora casi todo.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.32073&longitude=-5.01938&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Grajal estamos ahora en 27 grados y despejado. Durante el día subirá hasta los 34, con el viento parado y sin visos de lluvia. Mañana se queda algo más suave, sobre los 29 y también despejado. Con este calor, riega a primera hora o al anochecer, que al mediodía no aprovechas nada.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
@@ -54,12 +75,12 @@
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 26° y mínima de 15°, con nublado. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">15°</span></span>
+      <h4 class="tc-day-titular">Sábado, refresca</h4>
+      <p class="tc-day-texto">Máxima de 25° y mínima de 15°, con nublado. Sopla viento fuerte.</p>
+      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo de sol</h4>
+      <h4 class="tc-day-titular">Domingo, sube el calor</h4>
       <p class="tc-day-texto">Máxima de 29° y mínima de 15°, con casi despejado.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
     </article></div>

@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fuentes de Nava — El Terracampino</title>
-<meta name="description" content="En Fuentes de Nava estamos ahora en 33 grados y sin nubes. La cosa apenas subirá, hasta los 34, con algo de viento y sin nada de lluvia. Mañana afloja">
+<meta name="description" content="En Fuentes de Nava estamos ahora en 26 grados y el cielo despejado. La cosa irá a más durante el día, hasta los 34, con apenas viento y sin pinta de l">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Fuentes de Nava: 33° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Fuentes de Nava: 26° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">33°</span>
-      <span class="tc-weather-desc">despejado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Fuentes de Nava estamos ahora en 33 grados y sin nubes. La cosa apenas subirá, hasta los 34, con algo de viento y sin nada de lluvia. Mañana afloja un poco, con nubes y claros y máxima de 28. Si tienes huerta, riega a primera hora o ya de noche, que al mediodía con este calor se te va el agua sin aprovechar.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.083056&longitude=-4.783056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Fuentes de Nava estamos ahora en 26 grados y el cielo despejado. La cosa irá a más durante el día, hasta los 34, con apenas viento y sin pinta de lluvia. Mañana afloja algo, con nubes y claros y máxima de 28. Si tienes que regar, hazlo a primera hora o al caer la tarde, que al mediodía con este calor no aprovechas nada.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con viento y nubes</h4>
-      <p class="tc-day-texto">Jornada de nubes y claros con la máxima en 28 grados y mínima de 16. El viento aprieta a 28 kilómetros por hora, que se notará por la comarca. No se espera lluvia.</p>
+      <h4 class="tc-day-titular">Viernes, refresca</h4>
+      <p class="tc-day-texto">Máxima de 28° y mínima de 16°, con nubes y claros. Sopla viento fuerte.</p>
       <span class="tc-day-temp tc-data">28° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado nublado con poca cosa</h4>
-      <p class="tc-day-texto">Cielo cubierto buena parte del día, con 25 grados de máxima y 14 de mínima. Hay un 33 por ciento de posibilidad de alguna gota, pero apenas tres décimas de milímetro, así que nada serio.</p>
+      <h4 class="tc-day-titular">Sábado, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 25° y mínima de 14°, con nublado.</p>
       <span class="tc-day-temp tc-data">25° <span class="tc-day-min">14°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo despejado</h4>
-      <p class="tc-day-texto">Vuelve el sol casi limpio, con la máxima subiendo a 27 grados y una mínima fresca de 12. Viento flojo y sin lluvia a la vista.</p>
+      <h4 class="tc-day-titular">Domingo de sol</h4>
+      <p class="tc-day-texto">Máxima de 27° y mínima de 12°, con casi despejado.</p>
       <span class="tc-day-temp tc-data">27° <span class="tc-day-min">12°</span></span>
     </article></div>
   </div>

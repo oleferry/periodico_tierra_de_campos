@@ -5,6 +5,13 @@ data/fotos/pendientes.json a la espera de que alguien las revise a mano
 (scripts/revisar_fotos.py), igual que el tablón de negocios: "los anuncios
 los envían vecinos... y se publican tras revisión. No se inventan."
 
+También escucha el grupo de discusión enlazado al canal (si está configurado
+con TELEGRAM_DISCUSSION_CHAT_ID) y guarda cada mensaje como comentario
+pendiente en sitegen/almacen_comentarios.py. A diferencia de las fotos, aquí
+la revisión NO es humana: scripts/moderar_comentarios.py decide con IA de
+forma autónoma qué se publica — decisión explícita del usuario del proyecto,
+"esto tiene que ser autónomo, yo no quiero intervenir" (2026-07-23).
+
 Es un proceso APARTE del generador del sitio (sitegen.build): este bot tiene
 que estar corriendo todo el rato para poder recibir mensajes (long polling),
 no se lanza como parte de `python -m sitegen.build`. Necesita
@@ -36,7 +43,7 @@ from telegram.ext import (
 )
 
 from scrapers.common import load_municipios
-from sitegen import almacen_fotos, fotos, ia
+from sitegen import almacen_comentarios, almacen_fotos, fotos, ia
 
 load_dotenv()
 
@@ -136,6 +143,43 @@ async def cancelar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     return ConversationHandler.END
 
 
+# Grupo de discusión enlazado al canal (Ajustes del canal → Discusión). Hasta
+# que se configure esta variable, cualquier mensaje de grupo que llegue solo
+# se registra en el log (con su chat_id) para poder copiarlo al .env — no se
+# guarda nada como comentario real sin esto puesto explícitamente.
+DISCUSSION_CHAT_ID = os.getenv("TELEGRAM_DISCUSSION_CHAT_ID")
+
+
+async def comentario_recibido(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Mensaje de texto del grupo de discusión del canal: se guarda como
+    pendiente para que scripts/moderar_comentarios.py (moderación 100%
+    autónoma por IA, sin revisión humana — decisión explícita del usuario)
+    decida si se publica. Nunca se publica directamente desde aquí."""
+    chat = update.effective_chat
+    if not DISCUSSION_CHAT_ID:
+        log.info("Mensaje de grupo sin TELEGRAM_DISCUSSION_CHAT_ID configurado: "
+                  "chat_id=%s texto=%r", chat.id, (update.message.text or "")[:50])
+        return
+    if str(chat.id) != str(DISCUSSION_CHAT_ID):
+        return  # mensaje de otro grupo distinto al de discusión del canal
+
+    texto = (update.message.text or "").strip()
+    if not texto or update.effective_user.is_bot:
+        return
+
+    comentario_id = uuid.uuid4().hex[:12]
+    meta = {
+        "id": comentario_id,
+        "texto": texto,
+        "autor": update.effective_user.first_name or update.effective_user.username or "Alguien",
+        "recibido_en": datetime.now(timezone.utc).isoformat(),
+    }
+    try:
+        almacen_comentarios.guardar_pendiente(comentario_id, meta)
+    except Exception:
+        log.exception("Fallo guardando comentario en el almacén")
+
+
 def _latido_supabase() -> None:
     """Ping diario a Supabase para que el plan gratuito no pause el proyecto
     por inactividad (lo hace a los 7 días sin peticiones — le pasó al usuario
@@ -161,6 +205,12 @@ def main() -> None:
 
     threading.Thread(target=_latido_supabase, daemon=True, name="latido-supabase").start()
 
+    if almacen_comentarios.disponible():
+        try:
+            almacen_comentarios.asegurar_bucket()
+        except Exception:
+            log.exception("No se pudo asegurar el bucket 'comentarios' (no es fatal, se reintenta luego)")
+
     app = Application.builder().token(token).build()
     conv = ConversationHandler(
         entry_points=[CommandHandler("foto", foto_cmd)],
@@ -171,6 +221,12 @@ def main() -> None:
         fallbacks=[CommandHandler("cancelar", cancelar)],
     )
     app.add_handler(conv)
+    # Va DESPUÉS del ConversationHandler: si no, sus filtros más amplios (texto
+    # en cualquier grupo) podrían interceptar mensajes que en realidad son de
+    # la conversación de /foto. python-telegram-bot prueba los handlers en
+    # orden de inserción y para en el primero que encaja.
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & filters.ChatType.GROUPS,
+                                    comentario_recibido))
     log.info("Bot arrancado, esperando mensajes…")
     app.run_polling()
 

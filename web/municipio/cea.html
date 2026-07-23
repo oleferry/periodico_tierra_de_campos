@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cea — El Terracampino</title>
-<meta name="description" content="Ahora en Cea estamos en 33 grados, con el cielo nublado aunque no parece que vaya a caer nada. Es la máxima del día y sopla algo de viento, unos 14 po">
+<meta name="description" content="En Cea estamos ahora en 26 grados y sin una nube. Irá subiendo hasta los 33 a lo largo del día, con el viento parado y sin nada de lluvia. Mañana la c">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Cea: 33° y nublado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Cea: 26° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">33°</span>
-      <span class="tc-weather-desc">nublado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">Ahora en Cea estamos en 33 grados, con el cielo nublado aunque no parece que vaya a caer nada. Es la máxima del día y sopla algo de viento, unos 14 por hora, así que la cosa no va a apretar más. Para mañana bajará un poco, hasta los 29, con nubes y claros.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.46278&longitude=-5.01152&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Cea estamos ahora en 26 grados y sin una nube. Irá subiendo hasta los 33 a lo largo del día, con el viento parado y sin nada de lluvia. Mañana la cosa afloja un poco, con nubes y claros y máxima de 29. Si tienes que hacer faena al sol, mejor por la mañana temprano, que al mediodía va a apretar.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, refresca</h4>
-      <p class="tc-day-texto">Máxima de 29° y mínima de 16°, con nubes y claros. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
+      <h4 class="tc-day-titular">Viernes con viento y sin agua</h4>
+      <p class="tc-day-texto">Nubes y claros que van y vienen, con la máxima en 29 grados y una mínima de 17. El viento aprieta hasta los 30 por hora, así que se notará fuera.</p>
+      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado, refresca</h4>
-      <p class="tc-day-texto">Máxima de 25° y mínima de 15°, con nublado. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">15°</span></span>
+      <h4 class="tc-day-titular">Sábado tapado pero seco</h4>
+      <p class="tc-day-texto">Cielo nublado buena parte del día, con 24 de máxima y 15 de mínima. La probabilidad de lluvia es solo del 10 por ciento, así que no cuento con que caiga nada.</p>
+      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 29° y mínima de 15°, con despejado.</p>
+      <h4 class="tc-day-titular">Domingo despejado</h4>
+      <p class="tc-day-texto">Vuelve el sol sin complicaciones, con la máxima en 29 grados y la mínima en 15. Sin lluvia a la vista y el viento más calmado, sobre los 21 por hora.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
     </article></div>
   </div>

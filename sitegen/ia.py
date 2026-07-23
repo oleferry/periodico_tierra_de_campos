@@ -300,6 +300,55 @@ def redactar_pista(doc: dict) -> dict:
     }
 
 
+_ESQUEMA_MODERACION = {
+    "type": "object",
+    "properties": {
+        "aprobar": {"type": "boolean"},
+        "motivo": {"type": "string"},
+    },
+    "required": ["aprobar", "motivo"],
+    "additionalProperties": False,
+}
+
+_SISTEMA_MODERACION = (
+    "Eres el moderador único y autónomo del tablón de comentarios de El Terracampino, un periódico "
+    "hiperlocal de la comarca Tierra de Campos. Los mensajes vienen del grupo de discusión público "
+    "ligado al canal de Telegram. Nadie humano revisa tu decisión después — eres tú quien decide si "
+    "un comentario se publica en la web o no. Actúa con criterio conservador: ante la duda, RECHAZA.\n\n"
+    "Aprueba (aprobar=true) comentarios que sean:\n"
+    "- Sobre la comarca, un pueblo, una noticia publicada, el tiempo, fiestas, deporte local, huerta... "
+    "cualquier cosa relacionada con Tierra de Campos, aunque sea una queja, una corrección o una broma.\n"
+    "- Civiles: pueden ser críticos o informales, pero sin insultar ni atacar a nadie.\n\n"
+    "Rechaza (aprobar=false) SIEMPRE que el comentario tenga:\n"
+    "- Insultos, acoso, discurso de odio, amenazas, contenido sexual o cualquier cosa que no publicarías "
+    "delante del alcalde y del insultado a la vez.\n"
+    "- Spam, publicidad, enlaces sueltos, phishing, contenido repetido o sin sentido.\n"
+    "- Datos personales de un tercero que no es quien escribe (teléfono, dirección, DNI, acusaciones "
+    "contra una persona identificable) — el autor puede hablar de sí mismo, nunca exponer a otro.\n"
+    "- Menores de edad identificables.\n"
+    "- Cualquier cosa que no tengas claro cómo interpretar, aunque no encaje en las anteriores: si dudas, "
+    "rechaza. Es preferible perder un comentario válido que publicar uno problemático sin que nadie lo "
+    "revise después.\n\n"
+    "El motivo debe ser una frase muy corta, en español, para un registro interno (nunca se le muestra "
+    "a nadie)."
+)
+
+
+def moderar_comentario(texto: str) -> dict:
+    """Devuelve {'aprobar': bool, 'motivo': str}. Si la llamada a la IA falla,
+    el CALLER debe tratarlo como 'no aprobar' (ver scripts/moderar_comentarios.py)
+    — nunca se publica un comentario que no se ha podido evaluar de verdad."""
+    resp = _get_client().messages.create(
+        model=_model(),
+        max_tokens=300,
+        system=_SISTEMA_MODERACION,
+        messages=[{"role": "user", "content": f"Comentario a evaluar:\n\n{texto}"}],
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_MODERACION}},
+    )
+    text = next(b.text for b in resp.content if b.type == "text")
+    return json.loads(text)
+
+
 _SISTEMA_TIEMPO = (
     "Eres el vecino de Tierra de Campos que te cuenta el tiempo, como si te cruzaras con él en "
     "la plaza. Recibes datos meteorológicos ya medidos y escribes un parte breve. Cercano pero "

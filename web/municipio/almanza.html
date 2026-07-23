@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Almanza — El Terracampino</title>
-<meta name="description" content="En Almanza estamos ahora en 32 grados, con el cielo nublado y algo de viento, unos 15 por hora. Ya no va a subir más, y aunque esté cubierto no se esp">
+<meta name="description" content="Ahora en Almanza estamos en 23 grados y con el cielo despejado. Durante el día irá subiendo hasta los 32, con poco viento y sin nada de lluvia. Mañana">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Almanza: 32° y nublado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Almanza: 23° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">32°</span>
-      <span class="tc-weather-desc">nublado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Almanza estamos ahora en 32 grados, con el cielo nublado y algo de viento, unos 15 por hora. Ya no va a subir más, y aunque esté cubierto no se espera lluvia. Para mañana la cosa se queda parecida, nublado y bajando un poco, hasta los 28. Buen momento para adelantar las labores de la huerta antes de que apriete el calor del mediodía.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.65825&longitude=-5.0362&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Ahora en Almanza estamos en 23 grados y con el cielo despejado. Durante el día irá subiendo hasta los 32, con poco viento y sin nada de lluvia. Mañana la cosa cambia un poco, con nubes y claros y una máxima algo más baja, sobre los 28. Buen día para lo que tengas que hacer al aire libre, aunque a mediodía apretará el calor.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, refresca</h4>
-      <p class="tc-day-texto">Máxima de 28° y mínima de 15°, con nublado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Viernes de nubes y claros</h4>
+      <p class="tc-day-texto">Jornada movida entre nubes y claros, con la máxima subiendo hasta los 28 grados y una mínima de 15. El viento aprieta algo, sobre los 25 por hora, y apenas hay opción de que caiga algo.</p>
       <span class="tc-day-temp tc-data">28° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado, refresca</h4>
-      <p class="tc-day-texto">Máxima de 23° y mínima de 13°, con nublado.</p>
-      <span class="tc-day-temp tc-data">23° <span class="tc-day-min">13°</span></span>
+      <h4 class="tc-day-titular">Sábado tapado pero seco</h4>
+      <p class="tc-day-texto">El cielo se cubre casi por completo y la máxima se queda en 22 grados, con 13 de mínima. La lluvia prácticamente descartada y el viento algo más calmado, en torno a los 21 por hora.</p>
+      <span class="tc-day-temp tc-data">22° <span class="tc-day-min">13°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 27° y mínima de 12°, con despejado.</p>
+      <h4 class="tc-day-titular">Domingo despejado</h4>
+      <p class="tc-day-texto">Vuelve el sol sin nubes que lo estorben, con 27 grados de máxima y una mínima fresca de 12. Sin nada de lluvia y viento flojo, alrededor de los 15 por hora.</p>
       <span class="tc-day-temp tc-data">27° <span class="tc-day-min">12°</span></span>
     </article></div>
   </div>

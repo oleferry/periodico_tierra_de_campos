@@ -298,6 +298,21 @@ def cargar_noticias_propias() -> dict[str, list[dict]]:
     return por_slug
 
 
+def cargar_comentarios_aprobados(limite: int = 12) -> list[dict]:
+    """Comentarios del grupo de discusión de Telegram ya moderados por IA
+    (scripts/moderar_comentarios.py, ejecución autónoma sin revisión humana —
+    ver sitegen/almacen_comentarios.py). Si el almacén no está configurado o
+    falla, el sitio sigue sin el tablón: no es motivo para tumbar el build."""
+    from sitegen import almacen_comentarios
+    if not almacen_comentarios.disponible():
+        return []
+    try:
+        return almacen_comentarios.listar_aprobados()[:limite]
+    except almacen_comentarios.AlmacenError as exc:
+        print(f"  aviso: sin comentarios del tablón ({exc})", file=sys.stderr)
+        return []
+
+
 CATEGORIAS_DIRECTORIO = {
     "sanidad": "Sanidad",
     "alimentacion": "Alimentación",
@@ -638,6 +653,29 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
     else:
         blog_html = ""
 
+    # Tablón de comentarios del grupo de discusión de Telegram, moderados de
+    # forma 100% autónoma por IA (sitegen/ia.py:moderar_comentario, ejecutado
+    # por scripts/moderar_comentarios.py) — nadie humano revisa esto después,
+    # así que solo llegan aquí los que la propia IA ya aprobó. Ver
+    # sitegen/almacen_comentarios.py para el porqué del diseño.
+    comentarios = cargar_comentarios_aprobados()
+    if comentarios:
+        items_comentarios = "".join(f'''<li class="tc-comentario">
+      <span class="tc-comentario-autor">{E(c.get("autor") or "Alguien de la comarca")}</span>
+      <p class="tc-comentario-texto">{E(c["texto"])}</p>
+      <span class="tc-item-meta">{E((c.get("recibido_en") or "")[:10])}</span>
+    </li>''' for c in comentarios)
+        comentarios_html = f"""<section class="tc-wrap">
+  <div class="tc-card">
+    <h3>Se comenta en el canal</h3>
+    <ul class="tc-comentarios-lista">{items_comentarios}</ul>
+    <p class="tc-item-meta">Mensajes del grupo de Telegram de El Terracampino, filtrados automáticamente
+    por IA antes de aparecer aquí — <a href="https://t.me/elterracampino" target="_blank" rel="noopener">únete a la conversación</a>.</p>
+  </div>
+</section>"""
+    else:
+        comentarios_html = ""
+
     alm = almanaque_del_dia(hoy)
     body = f"""<section class="tc-masthead"><div class="tc-wrap">
   <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
@@ -654,6 +692,8 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
 </section>
 
 {blog_html}
+
+{comentarios_html}
 
 <section class="tc-wrap tc-comun">
   <div class="tc-comun-huerta">
@@ -694,12 +734,43 @@ def weather_block(m: dict) -> str:
       <p class="tc-day-texto">{E(d['texto'])}</p>
       <span class="tc-day-temp tc-data">{d['max']}° <span class="tc-day-min">{d['min']}°</span></span>
     </article>""" for d in w["dias"][1:])
+    lat, lon = m.get("lat"), m.get("lon")
+    # El número grande y la descripción de "ahora mismo" quedaban fijados a la
+    # hora del último build (una vez al día) y mal etiquetados como en vivo —
+    # un vecino que entraba por la tarde veía la temperatura de la mañana. Si
+    # hay coordenadas, un script los refresca de verdad al cargar la página,
+    # pidiendo el dato actual a Open-Meteo (misma fuente, sin clave, sin
+    # servidor propio). El artículo y los próximos días siguen siendo el
+    # texto redactado en el build: eso sí tiene sentido que sea del día, no
+    # al segundo.
+    vivo_html = "" if not (lat and lon) else f"""<script>
+(function() {{
+  var WMO = {{0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"}};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) {{ return r.ok ? r.json() : null; }})
+    .then(function(d) {{
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    }})
+    .catch(function() {{ /* si falla, se queda el dato del build — mejor eso que nada */ }});
+}})();
+</script>"""
     return f"""<div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">{w['ahora']['temp']}°</span>
-      <span class="tc-weather-desc">{E(w['ahora']['desc'])}</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">{w['ahora']['temp']}°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">{E(w['ahora']['desc'])}</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
+    {vivo_html}
     <p class="tc-weather-article">{E(w['articulo'])}</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days">{dias}</div>
@@ -1134,6 +1205,7 @@ def main() -> int:
                     print(f"  aviso: sin coordenadas para {m['name']} ({m['province']}): "
                           f"su ficha sale sin el tiempo", file=sys.stderr)
             if lat and lon:
+                m["lat"], m["lon"] = float(lat), float(lon)
                 m["weather"] = weather_for(m["name"], float(lat), float(lon))
                 tiempo_ia(m["weather"], hoy)
                 print(f"· {m['name']}: {m['weather']['ahora']['temp']}° {m['weather']['ahora']['desc']}", flush=True)

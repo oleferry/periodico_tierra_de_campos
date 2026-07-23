@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gordaliza del Pino — El Terracampino</title>
-<meta name="description" content="Ahora mismo en Gordaliza estamos en 34 grados y con el cielo nublado, aunque no espero que caiga nada: la probabilidad de lluvia es cero. Hace algo de">
+<meta name="description" content="En Gordaliza estamos ahora en 27 grados y el cielo despejado. Irá subiendo hasta los 34 a lo largo del día, con algo de viento flojo y sin nada de llu">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Gordaliza del Pino: 34° y nublado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Gordaliza del Pino: 27° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">34°</span>
-      <span class="tc-weather-desc">nublado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">27°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">Ahora mismo en Gordaliza estamos en 34 grados y con el cielo nublado, aunque no espero que caiga nada: la probabilidad de lluvia es cero. Hace algo de viento, unos 15 por hora, pero poca cosa. Mañana la cosa afloja, se queda casi despejado y no debería pasar de los 28. Si tienes huerto, riega a primera hora o cuando caiga el sol, que al mediodía con este calor es tirar el agua.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.34357&longitude=-5.15731&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Gordaliza estamos ahora en 27 grados y el cielo despejado. Irá subiendo hasta los 34 a lo largo del día, con algo de viento flojo y sin nada de lluvia. Mañana afloja un poco la cosa, se quedará en unos 28 y seguirá casi despejado. Con este calor, riega temprano o cuando caiga el sol, que al mediodía no aprovechas el agua.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes seco y ventoso</h4>
-      <p class="tc-day-texto">Cielo casi despejado con máxima de 28 grados y mínima de 16. El viento aprieta hasta los 34 km/h, así que se notará por la tarde.</p>
+      <h4 class="tc-day-titular">Viernes, refresca</h4>
+      <p class="tc-day-texto">Máxima de 28° y mínima de 16°, con casi despejado. Sopla viento fuerte.</p>
       <span class="tc-day-temp tc-data">28° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado tapado pero sin agua</h4>
-      <p class="tc-day-texto">Jornada nublada con 26 de máxima y 16 de mínima. Apenas un 10% de probabilidad de lluvia, así que no habrá que preocuparse. El viento afloja algo, en torno a 28 km/h.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">16°</span></span>
+      <h4 class="tc-day-titular">Sábado, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 25° y mínima de 16°, con nublado. Sopla viento fuerte.</p>
+      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo despejado</h4>
-      <p class="tc-day-texto">Cielo limpio y ambiente más cálido, con máxima de 29 grados y mínima de 16. El viento baja a 23 km/h y no se espera lluvia.</p>
+      <h4 class="tc-day-titular">Domingo, sube el calor</h4>
+      <p class="tc-day-texto">Máxima de 29° y mínima de 16°, con despejado.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
     </article></div>
   </div>

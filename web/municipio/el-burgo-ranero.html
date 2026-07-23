@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El Burgo Ranero — El Terracampino</title>
-<meta name="description" content="En El Burgo Ranero estamos ahora en 33 grados, con nubes y claros. Poco más va a subir, hasta los 34, con algo de viento y sin lluvia. Mañana baja la ">
+<meta name="description" content="En El Burgo Ranero estamos ahora en 26 grados y despejado. Hoy irá subiendo hasta los 33, con el viento flojo y sin nada de lluvia. Mañana cambia la c">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en El Burgo Ranero: 33° y nubes y claros</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en El Burgo Ranero: 26° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">33°</span>
-      <span class="tc-weather-desc">nubes y claros</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En El Burgo Ranero estamos ahora en 33 grados, con nubes y claros. Poco más va a subir, hasta los 34, con algo de viento y sin lluvia. Mañana baja la cosa: se queda nublado y no pasará de 28. Con este calor, riega a primera hora o al anochecer, que al mediodía no aprovechas el agua.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.42225&longitude=-5.21919&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En El Burgo Ranero estamos ahora en 26 grados y despejado. Hoy irá subiendo hasta los 33, con el viento flojo y sin nada de lluvia. Mañana cambia la cosa: se pondrá nublado y no pasará de los 28. Aprovecha hoy para lo que tengas al aire libre, que mañana no promete tanto sol.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
       <h4 class="tc-day-titular">Viernes nublado y ventoso</h4>
-      <p class="tc-day-texto">Cielo cubierto casi todo el día, con máxima de 28 grados y mínima de 17. El viento aprieta con rachas de 34 km/h, aunque la lluvia queda descartada.</p>
+      <p class="tc-day-texto">Cielos cubiertos casi todo el día, con máxima de 28 grados y mínima de 17. El viento aprieta con rachas de 34 km/h, aunque la lluvia queda descartada.</p>
       <span class="tc-day-temp tc-data">28° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado gris pero sin agua</h4>
-      <p class="tc-day-texto">Seguimos con nubes y termómetros algo más bajos, 25 de máxima y 15 de mínima. El viento sopla a 30 km/h y apenas hay opción de mojarse.</p>
-      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">15°</span></span>
+      <h4 class="tc-day-titular">Sábado de nubes y algún gotal</h4>
+      <p class="tc-day-texto">Podría caer alguna llovizna suelta, más de anécdota que otra cosa, apenas una décima. Se quedan en 24 grados de máxima y sigue soplando el aire, sobre 31 km/h.</p>
+      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo casi despejado</h4>
-      <p class="tc-day-texto">Se abren los cielos y sube hasta los 29 grados, con 15 de mínima. Sin lluvia a la vista y el viento afloja un poco, sobre los 26 km/h.</p>
+      <h4 class="tc-day-titular">Domingo despejado</h4>
+      <p class="tc-day-texto">El día se planta casi sin nubes y con la máxima subiendo a 29 grados, mínima de 15. El viento afloja un poco y no hay nada de lluvia a la vista.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
     </article></div>
   </div>

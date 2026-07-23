@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrión de los Condes — El Terracampino</title>
-<meta name="description" content="En Carrión estamos ahora en 34 grados, con el cielo casi limpio. Es la máxima del día, así que de aquí no sube más, y el viento va flojo, sobre los 15">
+<meta name="description" content="En Carrión estamos ahora en 26 grados y sin nubes. Va a apretar el calor durante el día, hasta los 34, con el viento flojo y sin nada de lluvia. Mañan">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Carrión de los Condes: 34° y casi despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Carrión de los Condes: 26° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">34°</span>
-      <span class="tc-weather-desc">casi despejado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Carrión estamos ahora en 34 grados, con el cielo casi limpio. Es la máxima del día, así que de aquí no sube más, y el viento va flojo, sobre los 15. No se espera lluvia hoy, y mañana algo más suave, hasta los 29. Con este calor, riega a primera hora o ya de noche, que al mediodía no vale la pena.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.338889&longitude=-4.601944&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Carrión estamos ahora en 26 grados y sin nubes. Va a apretar el calor durante el día, hasta los 34, con el viento flojo y sin nada de lluvia. Mañana sigue despejado, aunque baja un poco, hasta los 29. Con estas temperaturas, riega a primera hora o cuando caiga el sol, que al mediodía no aprovechas el agua.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes seco pero ventoso</h4>
-      <p class="tc-day-texto">Cielo despejado y hasta 29 grados, con una mínima de 15. Lo que va a marcar el día es el viento, que puede alcanzar los 33 kilómetros por hora.</p>
+      <h4 class="tc-day-titular">Viernes, refresca</h4>
+      <p class="tc-day-texto">Máxima de 29° y mínima de 15°, con despejado. Sopla viento fuerte.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado con posible llovizna</h4>
-      <p class="tc-day-texto">Se queda en 26 grados de máxima y 14 de mínima, con algo de viento. Hay un 43 por ciento de que caiga alguna llovizna, poca cosa, apenas para mojar el suelo.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">14°</span></span>
+      <h4 class="tc-day-titular">Sábado con opciones de lluvia</h4>
+      <p class="tc-day-texto">Máxima de 24° y mínima de 14°, con llovizna débil. Hay un 43% de probabilidad de lluvia, aunque poca cosa. Sopla viento fuerte.</p>
+      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">14°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo despejado otra vez</h4>
-      <p class="tc-day-texto">Vuelve el sol con 29 grados de máxima y 14 de mínima. La lluvia queda prácticamente descartada, y el viento aflojará un poco respecto a los días previos.</p>
+      <h4 class="tc-day-titular">Domingo, sube el calor</h4>
+      <p class="tc-day-texto">Máxima de 29° y mínima de 14°, con despejado. Sopla viento fuerte.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">14°</span></span>
     </article></div>
   </div>

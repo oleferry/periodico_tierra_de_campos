@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paredes de Nava — El Terracampino</title>
-<meta name="description" content="En Paredes de Nava estamos ahora en 34 grados, con el cielo casi despejado y algo de viento, unos 17 por hora. La máxima se queda en esos 34 y no se e">
+<meta name="description" content="En Paredes de Nava estamos ahora en 28 grados y con el cielo despejado. Va a apretar la cosa hasta los 34, con viento flojo y sin nada de lluvia. Maña">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,29 +38,50 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Paredes de Nava: 34° y casi despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Paredes de Nava: 28° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data">34°</span>
-      <span class="tc-weather-desc">casi despejado</span>
-      <span class="tc-sello tc-sello--auto">Automático · Open-Meteo</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
-    <p class="tc-weather-article">En Paredes de Nava estamos ahora en 34 grados, con el cielo casi despejado y algo de viento, unos 17 por hora. La máxima se queda en esos 34 y no se espera lluvia en todo el día. Mañana aflojará un poco, hasta los 29 y despejado. Si tienes huerto, riega a primera hora o ya al anochecer, que al mediodía con este calor no aprovechas el agua.</p>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.152778&longitude=-4.694444&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Paredes de Nava estamos ahora en 28 grados y con el cielo despejado. Va a apretar la cosa hasta los 34, con viento flojo y sin nada de lluvia. Mañana afloja un poco, se queda en 29 y sigue despejado. Con este calor, riega a primera hora o cuando caiga la tarde, que al mediodía no aprovechas nada.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes seco y ventoso</h4>
-      <p class="tc-day-texto">Cielo despejado y ambiente cálido, con 29 de máxima y 18 de mínima. El viento aprieta hasta los 31 kilómetros por hora, así que se notará por la calle.</p>
+      <h4 class="tc-day-titular">Viernes despejado y con aire</h4>
+      <p class="tc-day-texto">Cielo despejado y máxima de 29 grados, con mínima de 18. El viento marcará el día, soplando hasta los 32 kilómetros por hora.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">18°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado con algo de llovizna</h4>
-      <p class="tc-day-texto">Puede caer alguna llovizna suelta, aunque con un 33 por ciento y apenas tres décimas de milímetro no da para mojarse mucho. Máxima de 27 y viento algo más flojo, sobre los 25.</p>
-      <span class="tc-day-temp tc-data">27° <span class="tc-day-min">15°</span></span>
+      <h4 class="tc-day-titular">Sábado con opciones de lluvia</h4>
+      <p class="tc-day-texto">Se cubre el cielo y podría caer algo de agua, aunque la probabilidad se queda en un 33 por ciento. Máxima de 25 y mínima de 15, con el viento algo más flojo que el viernes.</p>
+      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">15°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Domingo</span>
       <h4 class="tc-day-titular">Domingo despejado otra vez</h4>
-      <p class="tc-day-texto">Vuelve el sol sin nubes y sin probabilidad de lluvia. Se van hasta los 29 de máxima con 15 de mínima y el viento ya más calmado.</p>
+      <p class="tc-day-texto">Vuelve el sol sin rastro de lluvia y con la máxima de nuevo en 29 grados. Mínima de 15 y viento más calmado, sobre los 23 por hora.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
     </article></div>
   </div>
