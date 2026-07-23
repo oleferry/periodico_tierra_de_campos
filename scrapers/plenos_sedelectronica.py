@@ -49,7 +49,7 @@ from datetime import datetime, timezone
 from urllib.parse import urlsplit
 
 import requests
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Error as PlaywrightError, sync_playwright
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
@@ -154,6 +154,12 @@ def _listar_documentos(listado_url: str, anios: int) -> list[dict]:
                 )
                 encontrados.extend(docs)
                 page.go_back(wait_until="networkidle", timeout=20000)
+        except PlaywrightError as exc:
+            # Un timeout de red aquí (sedelectronica.es puede ir lento) no
+            # puede tumbar el build ENTERO del sitio — se envuelve en
+            # ScraperError, que el resto del proyecto ya sabe atrapar y
+            # seguir sin este municipio, igual que cualquier otro scraper.
+            raise ScraperError(ERR_NETWORK, f"navegador: {exc}") from exc
         finally:
             browser.close()
     return encontrados

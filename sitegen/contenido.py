@@ -266,10 +266,20 @@ def almanaque_del_dia(hoy: date) -> dict:
 # Leyendas e historias populares por municipio. SOLO se incluyen las que están
 # documentadas (tradición recogida por fuentes verificables: turismo oficial,
 # Códice Calixtino, estudios locales) — igual que en el resto del proyecto,
-# si no se puede trazar a una fuente, no se publica. Faltan 7 de los 12
-# pilotos: pendiente de investigar con la misma exigencia antes de inventar
-# nada. "fuente" es orientativa (dónde se puede contrastar), no una URL fija
-# que pueda romperse.
+# si no se puede trazar a una fuente, no se publica. "fuente" es orientativa
+# (dónde se puede contrastar), no una URL fija que pueda romperse.
+#
+# Investigado el 2026-07-23 para completar los 12 pilotos: Mayorga se quedó
+# con UNA sola leyenda a propósito. El usuario pidió investigar el mito de
+# que, al dejar San Nabor de ser patrón, no se podía uno meter en el río —
+# tras revisar BurgosConecta, un artículo académico de 42 páginas (Rupérez
+# Almajano, "Santo Toribio de Mogrovejo, entre Mayorga y Villaquejida", 2025),
+# Wikipedia y varias búsquedas cruzadas, no hay ninguna fuente que conecte a
+# San Nabor con el río Cea ni con ninguna prohibición de bañarse — solo una
+# frase suelta sin desarrollar en un blog, insuficiente para publicar. Sí se
+# confirmó que San Nabor y Santo Toribio fueron copatronos en 1746 (no un
+# patrón sustituyendo limpiamente a otro), pero eso es dato histórico, no la
+# leyenda que se pedía — no se fuerza la entrada.
 LEYENDAS = {
     "mayorga": {
         "titulo": "El fuego que recuerda a San Toribio",
@@ -295,6 +305,41 @@ LEYENDAS = {
         "titulo": "El túnel que unía dos castillos",
         "texto": "De abuelos a nietos, junto al fuego en las noches de invierno, en Valderas se ha contado siempre que del castillo salía un pasadizo subterráneo tan largo que llegaba hasta el castillo de Benavente, y otro hasta el de Grajal de Campos. No hay ningún resto que lo confirme. Lo que sí es historia, y no leyenda, es que en el cerco de 1387, cuando un ejército angloportugués asedió la villa, mujeres, niños y ancianos escaparon por una salida secreta del castillo. Puede que la leyenda del túnel no sea más que el recuerdo, agrandado con los años, de aquella salida real.",
         "fuente": "tradición oral local; cerco de Valderas de 1387",
+    },
+    "villada": {
+        "titulo": "El indiano que volvió pobre: la leyenda de Alonso de Villada",
+        "texto": "Cuenta la tradición que Alonso, hijo de una familia humilde de Villada, se marchó de joven a hacer fortuna y volvió convertido en un hombre rico. Antes de darse a conocer quiso probar el cariño de los suyos: se presentó de noche, vestido con un pobre sayal y apoyado en una cayada, pidiendo hospitalidad en casa de sus parientes más cercanos, que lo tomaron por un mendigo y le cerraron la puerta. Solo una anciana que había sido su nodriza lo reconoció y lo acogió con cariño. Dolido por el desprecio de su familia, Alonso empleó gran parte de su fortuna en fundar una Obra Pía para socorrer a los pobres del pueblo, con préstamos a interés no superior al 3% para viudas, ancianos y labradores necesitados. La propia tradición local reconoce que no puede confirmarse cuánto hay de cierto en el relato, aunque el legado de Alonso —casas y viñas donadas a esa obra benéfica— sí quedó documentado.",
+        "fuente": "tradición oral de Villada recogida por Salcedo en su Libro de Villada; portal oficial de turismo municipal (villadaturismo.com)",
+    },
+    "villarramiel": {
+        "titulo": "La torre que cayó el día de la Candelaria",
+        "texto": "El 2 de febrero de 1776, día de la Candelaria, la torre de piedra de la iglesia de San Miguel de Villarramiel se desplomó sobre los fieles que llenaban el templo durante la celebración litúrgica, causando la muerte de 106 vecinos, dos tercios de ellos mujeres. Un informe legal de la época atribuyó el desastre a un invierno especialmente lluvioso que había debilitado la construcción. La tragedia conmovió tanto que el rey Carlos III encargó la reconstrucción del templo al arquitecto real Ventura Rodríguez, que levantó una nueva iglesia de tres naves en ladrillo, conservando la antigua fachada renacentista conocida como 'la Cantería'. Más que una leyenda con elementos sobrenaturales, el suceso sigue siendo el episodio fundacional de la memoria colectiva del pueblo: el día en que Villarramiel perdió a un centenar de vecinos bajo las piedras de su propia iglesia.",
+        "fuente": "Wikipedia (que cita el informe legal de 1776 de Francisco Rojo González); blog cultural Pueblo en Pueblo",
+    },
+    "becerril-de-campos": {
+        "titulo": "La Senda del Cautivo y el Cristo de San Felices",
+        "texto": "La tradición local cuenta que, durante la Reconquista, una madre de la antigua aldea de San Miguel de San Felices caminaba a diario hasta la ermita de Nuestra Señora de Carejas para rogar por la liberación de su hijo, cautivo de los moros. Según la leyenda, la Virgen obró el milagro y el hijo volvió sano y salvo, y madre e hijo desandaron el mismo camino hasta la ermita del Cristo de San Felices para dar gracias, llevando consigo los grilletes y el arcón donde había estado preso, objetos que la tradición asegura que aún se conservan allí. De tanto recorrerse, aquella ruta recibió el nombre de Senda del Cautivo, que todavía puede caminarse hoy. En 1718 los pastores de la zona fundaron una cofradía bajo esta advocación, que mantiene vivas dos romerías anuales. Sea cual sea su origen exacto, la leyenda explica por qué esta pequeña ermita a las afueras del pueblo sigue congregando cada año a todo Becerril.",
+        "fuente": "Ayuntamiento de Becerril de Campos; Terranostrum.es (ruta senderista); Tierras del Renacimiento",
+    },
+    "carrion-de-los-condes": {
+        "titulo": "El Tributo de las Cien Doncellas",
+        "texto": "Cuenta la leyenda medieval que el rey Mauregato, para congraciarse con el emir de Córdoba Abderramán I, se comprometió a entregarle cada año cien doncellas cristianas, de las que cuatro debían salir de Carrión de los Condes. La tradición añade que Ramiro I puso fin al oprobio en la legendaria batalla de Clavijo (844), y que unos toros defendieron milagrosamente a las doncellas por el camino — recuerdo que quedó tallado en piedra en la portada de la iglesia de Santa María del Camino, donde aún se ven las figuras de las doncellas y cabezas de toro. Los historiadores, sin embargo, coinciden en que el episodio es apócrifo: ninguna crónica cercana al reinado de Mauregato lo menciona, y todo apunta a que la leyenda se redactó tres siglos después, en el XII, para justificar el Voto de Santiago. Aun sabiéndose legendario, el relato sigue siendo parte viva de la identidad de Carrión, villa que el Camino de Santiago atraviesa desde hace mil años.",
+        "fuente": "Ayuntamiento de Carrión de los Condes; Xacobeo; Biblioteca Virtual Miguel de Cervantes; consenso historiográfico sobre su autoría por el canónigo Pedro Marcio",
+    },
+    "paredes-de-nava": {
+        "titulo": "El secreto bajo el rostro de la Virgen de Carejas",
+        "texto": "La patrona de Paredes de Nava, la Virgen de Carejas, protagoniza una vieja leyenda de cautiverio: una madre cuyo hijo había sido apresado por los moros acudía cada día a rezarle pidiendo su libertad, y al obrarse el milagro, madre e hijo volvieron juntos a darle gracias por el mismo camino que desde entonces se conoce como la Senda del Cautivo. Durante siglos se creyó que la imagen venerada en la ermita era una talla del siglo XVI. Pero en 2007, durante unas obras de restauración, se desprendió un brazo postizo y dejó a la vista, oculta bajo esa reconstrucción posterior, una talla románica original del siglo XIII, sin parangón por su antigüedad en toda Tierra de Campos según confirmó la Universidad de Valladolid. Entre la leyenda del cautivo y el hallazgo arqueológico, la pequeña Virgen morena de Carejas ha terminado por acumular dos historias de milagro: una de fe y otra de piedra.",
+        "fuente": "Wikipedia (artículo 'Virgen de Carejas', con referencia al profesor Martín Cea); La Hornacina, portal de arte sacro; Tierras del Renacimiento",
+    },
+    "fuentes-de-nava": {
+        "titulo": "La campana milagrosa de San Miguel",
+        "texto": "En Fuentes de Nava se cuenta que la campana de la ermita de San Miguel tiene el poder de ahuyentar las tormentas de granizo, la mayor amenaza para el trigo cuando la cosecha está en su apogeo. Según la tradición local, los devotos subían a la torre a repicarla en cuanto veían asomar el nublado, convencidos de que su sonido bastaba para disipar la tormenta antes de que arruinara los campos. La costumbre no ha desaparecido del todo: si el cielo se encapota en verano, todavía no es raro ver a algún agricultor del pueblo subir a tocar las campanas. No hay una explicación histórica documentada que sustituya a la creencia popular, aunque tocar campanas contra el granizo fue una práctica extendida en la España rural hasta bien entrado el siglo XX. Sea por fe o por costumbre heredada, el gesto sigue marcando en Fuentes de Nava la relación entre el pueblo y el cielo que decide su cosecha.",
+        "fuente": "tradición oral local recogida en los portales de patrimonio Tierras del Renacimiento y Terra Nostrum",
+    },
+    "villalpando": {
+        "titulo": "El voto de Villalpando a la Purísima Concepción",
+        "texto": "El 1 de noviembre de 1466, representantes de Villalpando y de doce aldeas de su jurisdicción se reunieron en la iglesia de San Nicolás de Bari y juraron defender, 'a costa de su sangre y de sus vidas', que la Virgen María fue concebida sin pecado. El juramento quedó recogido en un pergamino de cuatro hojas que todavía se conserva. Según reconoció el Congreso Mariano Internacional de 1908, fue el primer voto solemne y público al dogma de la Inmaculada Concepción del mundo: se adelantó tres décadas a la Universidad de la Sorbona y casi cuatro siglos a la proclamación oficial del dogma por el papa Pío IX en 1854. A diferencia de una leyenda de tradición oral, aquí no hace falta separar mito de historia: el documento físico y el reconocimiento eclesiástico posterior convierten este episodio en una tradición fundacional verificable, no en un relato embellecido con el tiempo.",
+        "fuente": "Ayuntamiento de Villalpando; Punto y Coma; crónicas del Congreso Mariano Internacional de 1908",
     },
 }
 
