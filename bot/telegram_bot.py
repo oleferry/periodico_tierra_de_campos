@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import logging
 import os
+import requests
 import uuid
 from datetime import datetime, timezone
 
@@ -180,6 +181,57 @@ async def comentario_recibido(update: Update, context: ContextTypes.DEFAULT_TYPE
         log.exception("Fallo guardando comentario en el almacén")
 
 
+def _vigilar_avisos_meteo() -> None:
+    """Publica en el canal los avisos de AEMET nuevos que afectan a la comarca.
+
+    Vive aquí, en el bot de Railway, y no en una tarea programada del portátil,
+    porque una alerta de tormenta o helada solo sirve si sale a tiempo: este
+    proceso está encendido 24/7 y el portátil no.
+
+    Arranque en frío a propósito: al iniciarse marca como ya avisados los
+    avisos que ya estaban vigentes, sin publicarlos. Así un reinicio del bot
+    (un despliegue, un fallo) no vuelve a soltar en el canal avisos que ya se
+    dieron; el precio es no repescar uno que empezara justo en ese hueco, y ese
+    ya está visible en la web de todas formas."""
+    import time
+
+    from scrapers.aemet_avisos import avisos as leer_avisos, clave, mensaje_telegram
+
+    token = os.getenv("TELEGRAM_BOT_TOKEN")
+    canal = (os.getenv("TELEGRAM_CHANNEL_ID") or "").strip()
+    if not canal:
+        log.info("Sin TELEGRAM_CHANNEL_ID: no se vigilan avisos meteorológicos")
+        return
+
+    ya_avisados: set[str] = set()
+    primera_vuelta = True
+
+    while True:
+        try:
+            for a in leer_avisos():
+                k = clave(a)
+                if k in ya_avisados:
+                    continue
+                ya_avisados.add(k)
+                if primera_vuelta:
+                    continue  # arranque en frío: se anotan, no se publican
+                r = requests.post(
+                    f"https://api.telegram.org/bot{token}/sendMessage",
+                    json={"chat_id": canal, "text": mensaje_telegram(a), "parse_mode": "Markdown",
+                          "disable_web_page_preview": True},
+                    timeout=20,
+                )
+                if r.ok:
+                    log.info("Aviso meteo publicado: %s en %s", a["nivel"], a["zona"])
+                else:
+                    # Nunca loguear r.url: lleva el token del bot dentro.
+                    log.warning("Telegram rechazó el aviso meteo: HTTP %s", r.status_code)
+            primera_vuelta = False
+        except Exception as exc:  # noqa: BLE001 — vigilar avisos nunca tumba el bot
+            log.warning("Fallo vigilando avisos meteo: %s", exc)
+        time.sleep(3600)
+
+
 def _latido_supabase() -> None:
     """Ping diario a Supabase para que el plan gratuito no pause el proyecto
     por inactividad (lo hace a los 7 días sin peticiones — le pasó al usuario
@@ -204,6 +256,7 @@ def main() -> None:
     import threading
 
     threading.Thread(target=_latido_supabase, daemon=True, name="latido-supabase").start()
+    threading.Thread(target=_vigilar_avisos_meteo, daemon=True, name="avisos-meteo").start()
 
     if almacen_comentarios.disponible():
         try:

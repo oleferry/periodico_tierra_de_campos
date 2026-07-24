@@ -138,6 +138,46 @@ def avisos(ahora: datetime | None = None, *, solo_vigentes: bool = True) -> list
     return todos
 
 
+EMOJI = {"amarillo": "🟡", "naranja": "🟠", "rojo": "🔴"}
+DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+
+
+def clave(a: dict) -> str:
+    """Identifica un aviso concreto, para no publicarlo dos veces. Incluye el
+    nivel a propósito: si AEMET sube un amarillo a naranja, eso sí es noticia y
+    debe volver a avisarse."""
+    return f"{a['zona']}|{a['fenomeno']}|{a['nivel']}|{a['inicio']}"
+
+
+def _cuando(iso: str | None) -> str:
+    if not iso:
+        return ""
+    try:
+        d = datetime.fromisoformat(iso)
+    except ValueError:
+        return ""
+    return f"{DIAS[d.weekday()]} a las {d.strftime('%H:%M')}"
+
+
+def mensaje_telegram(a: dict) -> str:
+    """Texto del aviso para el canal. Se reproduce lo que dice AEMET (nivel,
+    fenómeno, zona, horas) y se enlaza a AEMET; nada de adornos ni dramatismo
+    (política editorial: prohibido el alarmismo)."""
+    emoji = EMOJI.get(a["nivel"], "⚠️")
+    inicio, fin = _cuando(a.get("inicio")), _cuando(a.get("fin"))
+    periodo = ""
+    if inicio and fin:
+        periodo = f"\nDesde el {inicio} hasta el {fin}."
+    elif inicio:
+        periodo = f"\nDesde el {inicio}."
+    return (
+        f"{emoji} *Aviso {a['nivel']}* por {a['fenomeno'].lower()}\n"
+        f"{a['zona']} ({a['provincia']}).{periodo}\n\n"
+        f"Fuente: AEMET, Plan Meteoalerta.\n"
+        f"https://www.aemet.es/es/eltiempo/prediccion/avisos"
+    )
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="SCR-019 — Avisos meteorológicos de AEMET para la comarca")
     ap.add_argument("--dry-run", action="store_true", help="solo imprime")

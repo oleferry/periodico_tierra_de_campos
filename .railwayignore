@@ -1,6 +1,7 @@
 # Qué NO se sube a Railway al desplegar el bot (railway.json arranca
 # `python -m bot.telegram_bot`). El bot solo necesita: bot/, sitegen/
-# (fotos, ia, almacen_fotos), scrapers/common.py, brand/fonts/ y
+# (fotos, ia, almacen_fotos, almacen_comentarios), scrapers/common.py y
+# scrapers/aemet_avisos.py (hilo de avisos meteorológicos), brand/fonts/ y
 # data/municipios_tierra_de_campos.csv.
 
 # Secretos: en Railway las credenciales van como variables del servicio,
