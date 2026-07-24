@@ -95,10 +95,23 @@ RADAR/United Robots/Newsworthy ("un dataset nacional → una pieza por municipio
 - [ ] **Mercado inmobiliario trimestral** [media]. Transacciones por municipio
   del Ministerio de Vivienda. En pueblos de 200 hab. hay 0-3 operaciones →
   pieza trimestral comarcal, no por pueblo.
-- [ ] **Detector de "leads" estadísticos** [media, transversal]. El corazón de
-  Newsworthy.se: un job que compara cada serie municipal (INE, SEPE, FEGA...)
-  contra su histórico y la media provincial, y avisa SOLO si hay récord o
-  cambio brusco. Multiplica el valor de todo lo anterior y evita el ruido.
+- [x] **Detector de "leads" estadísticos** — HECHO el 2026-07-24
+  (`scripts/detectar_anomalias.py` + tarea mensual `detector-anomalias-mensual`).
+  Cuatro tipos de anomalía: récord de la serie, cruce de cifra redonda, cambio
+  brusco para ese municipio (z-score sobre su propia historia) y
+  "contracorriente" (va al revés que la comarca). No publica nada: da pistas
+  para mirar, como el radar de noticias.
+  Dos filtros anti-ruido que resultaron imprescindibles al probarlo:
+    · En una comarca que se vacía, "otro mínimo histórico" es el paisaje de
+      fondo, no una noticia. Si el municipio lleva 3+ años encadenando mínimos,
+      la pista baja a relevancia 4 y no dispara aviso (Mayorga lleva 10 años
+      seguidos; Valderas, 9).
+    · Si más de un tercio de los pueblos va "a contracorriente", no es una
+      anomalía: significa que el signo del total lo marcan uno o dos municipios
+      grandes. En la primera prueba salían 7 de 12, todos falsos positivos.
+  **Primera pista real encontrada**: Villada llevaba 11 años seguidos perdiendo
+  población (1.042 en 2014 → 834 en 2024) y en 2025 gana 29 habitantes. Serie
+  verificada a mano. Pendiente de averiguar la causa antes de escribir nada.
 
 Fuentes: RADAR/PA Media, Newsworthy.se, United Robots (Press Gazette, CJR,
 Global Project Oasis). Advertencia Hoodline: firmas falsas de IA y una acusación
