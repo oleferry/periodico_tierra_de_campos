@@ -39,13 +39,18 @@ Las cuatro investigaciones, hechas por separado, coinciden en esto:
 Verticales de datos con fuente pública española verificada, siguiendo el modelo
 RADAR/United Robots/Newsworthy ("un dataset nacional → una pieza por municipio"):
 
-- [ ] **Precios de lonja semanal** [fácil, la de mayor fidelización agraria].
-  Lonja de León, Lonja Valladolid-Palencia e informes semanales de la Junta.
-  Pieza fija semanal: trigo, cebada, ovino. Es el "mercado bursátil" rural — no
-  tiene equivalente internacional porque es nuestro nicho puro.
-- [ ] **Avisos meteorológicos adversos → alerta Telegram** [fácil, ya hay clave
-  AEMET]. RSS de avisos CAP de AEMET por zona. Distinto del widget de tiempo:
-  esto es push ante aviso naranja/rojo (galerna, helada, incendio).
+- [x] **Precios de lonja semanal** — HECHO el 2026-07-24 (`scrapers/lonja.py`,
+  página `/lonja.html` + resumen en portada). La web de la Lonja de Valladolid
+  y Palencia sirve la serie histórica completa en un atributo `data-data`, así
+  que además del precio de hoy se compara con la sesión anterior y con hace un
+  año. Contempla productos estacionales (el girasol se marca "último precio,
+  <fecha>" fuera de campaña en vez de darlo como actual).
+- [x] **Avisos meteorológicos adversos** — HECHO el 2026-07-24
+  (`scrapers/aemet_avisos.py`, banda de alerta en portada y en la ficha de cada
+  pueblo). RSS oficial del Plan Meteoalerta por provincia, filtrado por las
+  zonas "Meseta de…" (las de Cordillera Cantábrica, Bierzo y Sanabria son
+  montaña y no afectan a la comarca). Pendiente: empujarlo también al canal de
+  Telegram.
 - [ ] **Paro municipal mensual** [fácil]. CSV mensual del SEPE por municipio,
   sexo, edad y sector. Pieza mensual comarcal con serie histórica.
 - [ ] **Agua y sequía semanal** [fácil]. SAIH Duero (embalses en tiempo real) +

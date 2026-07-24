@@ -512,6 +512,12 @@
 .tc-links-list a { color: var(--tc-azul-bop); text-decoration: none; }
 .tc-links-list a:hover { text-decoration: underline; }
 
+.tc-tabla-lonja th, .tc-tabla-lonja td {
+  padding: 8px 10px; border-bottom: 1px solid var(--tc-linea-suave); font-size: .92rem;
+}
+.tc-tabla-lonja th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+.tc-tabla-lonja tr:last-child td { border-bottom: none; }
+
 .tc-comentarios-lista { list-style: none; padding: 0; margin: 0; }
 .tc-comentarios-lista li {
   padding: 10px 0; border-bottom: 1px solid var(--tc-linea-suave);

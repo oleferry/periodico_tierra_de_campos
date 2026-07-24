@@ -23,7 +23,7 @@ import json
 import re
 import shutil
 import sys
-from datetime import date
+from datetime import date, datetime
 from pathlib import Path
 
 from scrapers.bocyl import buscar as bocyl_buscar, to_documents as bocyl_docs
@@ -35,6 +35,8 @@ from scrapers.municipal_wp import fetch_noticias as municipal_noticias
 from scrapers.bdns import fetch_ayudas
 from scrapers.plenos_sedelectronica import fetch_plenos
 from scrapers.weather_openmeteo import geocode, weather_for
+from scrapers.lonja import cotizaciones as lonja_cotizaciones
+from scrapers.aemet_avisos import avisos as aemet_avisos
 from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
     LEYENDAS,
@@ -427,6 +429,7 @@ def header(depth: int) -> str:
     <a href="{home}#comarca">La comarca</a>
     <a href="{home}#blog">Investigaciones</a>
     <a href="{up}huerta.html">Huerta</a>
+    <a href="{up}lonja.html">Precios del cereal</a>
     <a href="{up}leyendas.html">Leyendas</a>
   </nav>
 </div></header>"""
@@ -601,7 +604,8 @@ def tiempo_ia(w: dict, hoy: date) -> None:
 
 # --------------------------------------------------------------- portada
 
-def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
+def render_home(built: list[dict], feed: list[dict], hoy: date,
+                avisos: list[dict] | None = None, cots: list[dict] | None = None) -> str:
     # Noticias relevantes: se prioriza lo jugoso; se descartan titulares repetidos.
     ordenadas = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
     noticias, vistos = [], set()
@@ -660,6 +664,31 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
     # por scripts/moderar_comentarios.py) — nadie humano revisa esto después,
     # así que solo llegan aquí los que la propia IA ya aprobó. Ver
     # sitegen/almacen_comentarios.py para el porqué del diseño.
+    # Precios del cereal: en portada solo el titular (trigo y cebada, que es lo
+    # que casi todo el mundo siembra aquí); el detalle vive en /lonja.html.
+    lonja_html = ""
+    destacados = [c for c in (cots or []) if c["slug"] in ("trigo", "cebada")]
+    if destacados:
+        piezas = []
+        for c in destacados:
+            d = c["plazas"].get("Valladolid") or next(iter(c["plazas"].values()), None)
+            if not d or not d["vigente"]:
+                continue
+            v = d["vs_anterior"]
+            mov = ""
+            if v and v["euros"]:
+                mov = f' ({"+" if v["sube"] else ""}{v["euros"]:.0f} € respecto a la sesión anterior)'
+            piezas.append(f'<li><strong>{E(c["nombre"])}</strong>: {d["precio"]:.0f} €/t{E(mov)}</li>')
+        if piezas:
+            lonja_html = f"""<section class="tc-wrap">
+  <div class="tc-card">
+    <h3 style="margin-top:0;">Precios del cereal</h3>
+    <ul class="tc-links-list">{''.join(piezas)}</ul>
+    <p class="tc-item-meta">Lonja de Valladolid y Palencia ·
+    <a href="lonja.html">ver todos los precios →</a></p>
+  </div>
+</section>"""
+
     comentarios = cargar_comentarios_aprobados()
     if comentarios:
         items_comentarios = "".join(f'''<li class="tc-comentario">
@@ -686,6 +715,8 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
   <p class="tc-almanaque">«{E(alm['refran'])}» <span class="tc-almanaque-sep">·</span> Hoy es {E(alm['santo'])} <span class="tc-almanaque-sep">·</span> {alm['luna']['emoji']} {E(alm['luna']['fase'])}</p>
 </div></section>
 
+{banda_avisos(avisos or [])}
+
 <section class="tc-wrap" id="tiempo">{tiempo_html}</section>
 
 <section class="tc-wrap" id="comarca">
@@ -708,6 +739,8 @@ def render_home(built: list[dict], feed: list[dict], hoy: date) -> str:
     <ul class="tc-links-list tc-agenda">{agenda_html}</ul>
   </div>
 </section>
+
+{lonja_html}
 
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
   <div><h2>Entérate de lo de tu pueblo por Telegram</h2>
@@ -779,7 +812,8 @@ def weather_block(m: dict) -> str:
   </div>"""
 
 
-def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
+def render_municipio(m: dict, anuncios: list[dict], hoy: date,
+                     avisos: list[dict] | None = None) -> str:
     meta = [f"Provincia de {E(m['province'])}"]
     if str(m.get("population", "")).isdigit():
         meta.append(f"{miles(m['population'])} habitantes")
@@ -953,6 +987,8 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date) -> str:
   <div class="tc-muni-meta">{meta_html}</div>
   {foto_libre_html}
 </div></section>
+
+{banda_avisos(avisos or [], provincia=m.get("province"))}
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
@@ -1184,6 +1220,147 @@ def render_chivatazo(built: list[dict]) -> str:
                  desc="Buzón anónimo de chivatazos para El Terracampino, periódico hiperlocal de Tierra de Campos.")
 
 
+_COLOR_AVISO = {
+    "amarillo": "#C9A227",
+    "naranja": "#D2691E",
+    "rojo": "var(--tc-rojo-aviso, #A32C2C)",
+}
+
+
+def _fecha_aviso(iso: str | None) -> str:
+    """'2026-07-25T13:00:00' -> 'el sábado a las 13:00'. Cadena vacía si no hay."""
+    if not iso:
+        return ""
+    try:
+        d = datetime.fromisoformat(iso)
+    except ValueError:
+        return ""
+    return f"el {DIAS[d.weekday()]} a las {d.strftime('%H:%M')}"
+
+
+def banda_avisos(avisos: list[dict], provincia: str | None = None) -> str:
+    """Banda de alerta meteorológica. En la ficha de un pueblo solo se muestran
+    los avisos de SU provincia (las zonas de AEMET son 'Meseta de <provincia>',
+    ver scrapers/aemet_avisos.py); en portada, todos los de la comarca.
+
+    Es el único elemento del sitio que puede ser urgente, así que va arriba del
+    todo — pero sin alarmismo: se dice el nivel, el fenómeno, cuándo y dónde,
+    con enlace a AEMET, y nada más."""
+    relevantes = [a for a in avisos if provincia is None or a["provincia"] == provincia]
+    if not relevantes:
+        return ""
+    filas = []
+    for a in relevantes:
+        cuando = _fecha_aviso(a.get("inicio"))
+        hasta = _fecha_aviso(a.get("fin"))
+        periodo = f" · desde {cuando}" if cuando else ""
+        if hasta:
+            periodo += f" hasta {hasta}"
+        lugar = "" if provincia else f" · {E(a['zona'])}"
+        filas.append(
+            f'<li><strong>Aviso {E(a["nivel"])}</strong> por {E(a["fenomeno"].lower())}'
+            f'{lugar}{E(periodo)}</li>'
+        )
+    color = _COLOR_AVISO.get(relevantes[0]["nivel"], "#C9A227")
+    return f"""<section class="tc-wrap"><div class="tc-card" style="border-left:5px solid {color};">
+  <h3 style="margin-top:0;">Avisos de AEMET {'en la comarca' if provincia is None else 'en tu zona'}</h3>
+  <ul class="tc-links-list">{''.join(filas)}</ul>
+  <p class="tc-item-meta">Fuente: Agencia Estatal de Meteorología (Plan Meteoalerta) ·
+  <a href="https://www.aemet.es/es/eltiempo/prediccion/avisos" target="_blank" rel="noopener">ver el detalle en AEMET</a></p>
+</div></section>"""
+
+
+def _fila_lonja(c: dict) -> str:
+    """Una fila de la tabla de precios: producto + precio de cada plaza."""
+    celdas = []
+    for plaza in ("Valladolid", "Palencia"):
+        d = c["plazas"].get(plaza)
+        if not d:
+            celdas.append("<td>—</td>")
+            continue
+        if not d["vigente"]:
+            # Fuera de campaña (típico del girasol): se dice el precio pero se
+            # marca con su fecha, para no venderlo como cotización de hoy.
+            try:
+                f = date.fromisoformat(d["fecha"])
+                cuando = f"{f.day} de {MESES[f.month - 1]} de {f.year}"
+            except (ValueError, IndexError):
+                cuando = d["fecha"]
+            celdas.append(f'<td>{d["precio"]:.0f} €/t <span class="tc-item-meta">'
+                          f'(último precio, {E(cuando)})</span></td>')
+            continue
+        v = d["vs_anterior"]
+        flecha = ""
+        if v and v["euros"]:
+            signo = "▲" if v["sube"] else "▼"
+            flecha = (f' <span class="tc-item-meta">{signo} {abs(v["euros"]):.0f} €</span>')
+        celdas.append(f'<td><strong>{d["precio"]:.0f} €/t</strong>{flecha}</td>')
+    return f"<tr><td>{E(c['nombre'])}</td>{''.join(celdas)}</tr>"
+
+
+def _fecha_lonja(cots: list[dict]) -> str:
+    """Fecha de la última sesión con cotización vigente (la más reciente)."""
+    fechas = [d["fecha"] for c in cots for d in c["plazas"].values() if d["vigente"]]
+    if not fechas:
+        return ""
+    try:
+        return fecha_larga(date.fromisoformat(max(fechas)))
+    except ValueError:
+        return ""
+
+
+def render_lonja(cots: list[dict]) -> str:
+    """Página propia con los precios del cereal y su comparativa anual."""
+    if not cots:
+        cuerpo = '<p class="tc-pieza-cuerpo">Ahora mismo no hay cotizaciones disponibles.</p>'
+    else:
+        filas = "".join(_fila_lonja(c) for c in cots)
+        # Comparativa interanual: solo con los productos vigentes que la tengan.
+        comparativas = []
+        for c in cots:
+            d = c["plazas"].get("Valladolid") or next(iter(c["plazas"].values()), None)
+            if not d or not d["vigente"] or not d["vs_hace_un_ano"]:
+                continue
+            v = d["vs_hace_un_ano"]
+            # Concordancia: el artículo, el verbo y la terminación del adjetivo
+            # vienen con el producto (ver PRODUCTOS en scrapers/lonja.py).
+            adj = ("car" if v["sube"] else "barat") + c.get("adj", "o")
+            comparativas.append(
+                f'<li>{E(c.get("art", "el").capitalize())} '
+                f'<strong>{E(c["nombre"].lower())}</strong> {E(c.get("verbo", "está"))} un '
+                f'{abs(v["porcentaje"]):.1f}% más {adj} que hace un año '
+                f'({"+" if v["sube"] else ""}{v["euros"]:.0f} €/t)</li>'
+            )
+        comp_html = ""
+        if comparativas:
+            comp_html = f"""<h2 class="tc-blog-subtitulo">Comparado con hace un año</h2>
+  <ul class="tc-links-list">{''.join(comparativas)}</ul>"""
+        cuerpo = f"""<div style="overflow-x:auto;">
+  <table class="tc-tabla-lonja" style="width:100%; border-collapse:collapse;">
+    <thead><tr><th style="text-align:left;">Producto</th><th style="text-align:left;">Valladolid</th><th style="text-align:left;">Palencia</th></tr></thead>
+    <tbody>{filas}</tbody>
+  </table>
+  </div>
+  <p class="tc-item-meta">Precio pagado a la salida del almacén del agricultor, sin transporte,
+  subvenciones ni impuestos indirectos. La flecha compara con la sesión anterior.</p>
+  {comp_html}"""
+
+    fecha = _fecha_lonja(cots)
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Campo y huerta</span>
+  <h1>Precios del cereal en la comarca</h1>
+  <p class="tc-articulo-entradilla">Cotizaciones de la Lonja de Valladolid y Palencia{
+    f', sesión del {E(fecha)}' if fecha else ''}. Se actualizan cada semana.</p>
+  {cuerpo}
+  <p class="tc-item-meta" style="margin-top:18px;">Fuente:
+  <a href="https://lonjavalladolidpalencia.com/cereales/" target="_blank" rel="noopener">Lonja de Valladolid y Palencia</a>.
+  Los precios son orientativos y no sustituyen a la cotización oficial de cada sesión.</p>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Precios del cereal — El Terracampino", body, depth=0,
+                 desc="Precios del trigo, la cebada y el resto de cereales en la Lonja de Valladolid y Palencia.")
+
+
 def render_leyendas(built: list[dict]) -> str:
     """Recopilatorio de todas las leyendas e historias populares (sitegen/contenido.py:LEYENDAS),
     hasta ahora escondidas dentro de la barra lateral de cada ficha de municipio —
@@ -1261,6 +1438,25 @@ def main() -> int:
     fotos_libres_path = ROOT / "data" / "fotos_libres.json"
     fotos_libres = (json.loads(fotos_libres_path.read_text(encoding="utf-8"))
                      if fotos_libres_path.exists() else {})
+
+    # Avisos meteorológicos y precios del cereal: ninguno de los dos es crítico
+    # para el sitio, así que si fallan se sigue sin ellos (mismo criterio que
+    # el resto de fuentes).
+    print("· Avisos de AEMET…", flush=True)
+    try:
+        avisos_meteo = aemet_avisos()
+    except Exception as exc:  # noqa: BLE001 — una alerta caída no tumba el build
+        print(f"  aviso: sin avisos de AEMET ({exc})", file=sys.stderr)
+        avisos_meteo = []
+    print(f"  {len(avisos_meteo)} aviso(s) vigentes en la comarca")
+
+    print("· Lonja de Valladolid y Palencia…", flush=True)
+    try:
+        cots_lonja = lonja_cotizaciones(hoy)
+    except Exception as exc:  # noqa: BLE001
+        print(f"  aviso: sin precios de lonja ({exc})", file=sys.stderr)
+        cots_lonja = []
+    print(f"  {len(cots_lonja)} productos con cotización")
 
     print("· BOP Valladolid…", flush=True)
     try:
@@ -1366,7 +1562,8 @@ def main() -> int:
 
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
     (WEB / "noticia").mkdir(parents=True, exist_ok=True)
-    (WEB / "index.html").write_text(render_home(built, feed, hoy), encoding="utf-8")
+    (WEB / "index.html").write_text(
+        render_home(built, feed, hoy, avisos_meteo, cots_lonja), encoding="utf-8")
     blog_articulos = cargar_blog_articulos()
     (WEB / "feed.xml").write_text(render_feed_rss(blog_articulos), encoding="utf-8")
 
@@ -1376,15 +1573,16 @@ def main() -> int:
     (WEB / "huerta.html").write_text(render_huerta(), encoding="utf-8")
     (WEB / "chivatazo.html").write_text(render_chivatazo(built), encoding="utf-8")
     (WEB / "leyendas.html").write_text(render_leyendas(built), encoding="utf-8")
+    (WEB / "lonja.html").write_text(render_lonja(cots_lonja), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
-        ("leyendas.html", hoy.isoformat()),
+        ("leyendas.html", hoy.isoformat()), ("lonja.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 
     for m in built:
         (WEB / "municipio" / f"{m['slug']}.html").write_text(
-            render_municipio(m, m["_anuncios"], hoy), encoding="utf-8")
+            render_municipio(m, m["_anuncios"], hoy, avisos_meteo), encoding="utf-8")
         paginas_sitemap.append((f"municipio/{m['slug']}.html", hoy.isoformat()))
 
     # Artículo propio para cada pleno/ayuda con cuerpo redactado (ver doc_row:
