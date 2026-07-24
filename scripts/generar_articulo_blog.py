@@ -220,10 +220,122 @@ def dossier_ayudas() -> tuple[str, str]:
     return tema, "\n".join(lineas)
 
 
+def dossier_migraciones() -> tuple[str, str]:
+    """Dossier de saldos migratorios frente a cambio real de padrón, 2024.
+
+    Salió investigando una pista del detector de anomalías (Villada rompía 11
+    años de caída) y resultó ser un fenómeno comarcal: la migración tapa casi
+    exactamente el agujero demográfico. Ver docs/ideas-blog.md, idea #21.
+
+    Aviso metodológico que va DENTRO del dossier, no solo aquí: la diferencia
+    entre el saldo migratorio y el cambio de padrón NO es un dato oficial, es
+    una resta. El INE no publica nacimientos ni defunciones por municipio en
+    pueblos de este tamaño (secreto estadístico), así que esa diferencia se
+    explica sobre todo por defunciones menos nacimientos, pero también puede
+    incluir ajustes del padrón. La pieza tiene que decirlo así."""
+    path = DATA / "migraciones_comarca.json"
+    if not path.exists():
+        raise SystemExit(
+            "Falta data/migraciones_comarca.json — se generó el 2026-07-24 desde el INE "
+            "(operación 455, tabla 69767). Ver docs/ideas-blog.md idea #21."
+        )
+    datos = json.loads(path.read_text(encoding="utf-8"))
+    municipios = datos["municipios"]
+    # Los nombres bien escritos (con tildes) están en el fichero de población;
+    # derivarlos del slug daría "Sahagun" y "Carrion De Los Condes".
+    nombres = {}
+    pob_path = DATA / "poblacion_negocios.json"
+    if pob_path.exists():
+        nombres = {k: v["nombre"] for k, v in
+                   json.loads(pob_path.read_text(encoding="utf-8")).items()}
+
+    lineas = [
+        "TEMA: qué sostiene hoy la población de Tierra de Campos.",
+        "",
+        "Fuente de los saldos migratorios: INE, Estadística de Migraciones y Cambios "
+        "de Residencia (operación 455, tabla 69767: saldos por municipio, año y tipo "
+        "de saldo). Año de referencia: 2024.",
+        "Fuente del padrón: INE, Cifras Oficiales de Población (revisión del Padrón "
+        "Municipal), series 1996-2025.",
+        "",
+        "AVISO METODOLÓGICO IMPORTANTE, hay que reflejarlo en el texto:",
+        "  · El saldo migratorio (cuánta gente llega menos cuánta se va) es dato "
+        "oficial del INE, por municipio.",
+        "  · El cambio de padrón también es dato oficial.",
+        "  · La DIFERENCIA entre ambos NO es un dato publicado: es una resta que "
+        "hacemos nosotros. Se explica sobre todo por defunciones menos nacimientos, "
+        "pero puede incluir además ajustes y bajas del padrón. El INE no publica "
+        "nacimientos ni defunciones por municipio en pueblos de este tamaño, por "
+        "secreto estadístico. NO llamarlo 'saldo vegetativo' como si fuera oficial: "
+        "decir que es la diferencia que queda y explicar a qué se debe.",
+        "",
+        "DATOS POR MUNICIPIO (saldo migratorio 2024 y cambio de padrón 2024→2025):",
+    ]
+
+    tot_mig = tot_ext = tot_int = tot_pad = 0
+    for slug, d in sorted(municipios.items()):
+        st = d.get("saldo_total", {}).get("2024")
+        se = d.get("saldo_exterior", {}).get("2024")
+        si = d.get("saldo_interior", {}).get("2024")
+        pob = d.get("poblacion", {})
+        if st is None or "2025" not in pob or "2024" not in pob:
+            continue
+        cambio = pob["2025"] - pob["2024"]
+        nombre = nombres.get(slug) or slug.replace("-", " ").title()
+        lineas.append(
+            f"  {nombre}: saldo migratorio {st:+.0f} (del extranjero {se:+.0f}, "
+            f"de otros municipios españoles {si:+.0f}); padrón {pob['2024']:.0f} → "
+            f"{pob['2025']:.0f} ({cambio:+.0f}); diferencia por explicar {cambio - st:+.0f}"
+        )
+        tot_mig += st
+        tot_ext += se or 0
+        tot_int += si or 0
+        tot_pad += cambio
+
+    lineas += [
+        "",
+        "TOTALES DE LOS 12 PUEBLOS:",
+        f"  Saldo migratorio 2024: {tot_mig:+.0f} personas.",
+        f"    · De ellas, llegadas del extranjero: {tot_ext:+.0f}.",
+        f"    · De otros municipios españoles: {tot_int:+.0f}.",
+        f"  Cambio real del padrón 2024→2025: {tot_pad:+.0f} habitantes.",
+        f"  Diferencia que se pierde por el camino: {tot_pad - tot_mig:+.0f}.",
+        "",
+        "LECTURA DE FONDO (el ángulo de la pieza): la migración no está haciendo "
+        "crecer la comarca; está tapando su agujero demográfico. Sin esas personas, "
+        f"los doce pueblos habrían perdido en torno a {abs(tot_pad - tot_mig):.0f} "
+        "habitantes en un solo año.",
+        "",
+        "CASOS QUE LO ILUSTRAN BIEN:",
+        "  · Sahagún ganó 35 personas por migración y aun así perdió 18 habitantes.",
+        "  · Carrión de los Condes ganó 31 por migración y perdió 2 habitantes.",
+        "  · Medina de Rioseco es el que más recibió: +95, de ellas 90 del extranjero.",
+        "  · Villada rompió once años seguidos de caída (+29 habitantes), con un "
+        "saldo migratorio de +33 repartido casi a partes iguales entre extranjero "
+        "e interior.",
+        "  · No todos suben: Mayorga (-27), Villalón de Campos (-11), Becerril (-11) "
+        "y Valderas (-6) tuvieron saldo migratorio negativo.",
+        "",
+        "CÓMO TRATAR ESTO EDITORIALMENTE (innegociable):",
+        "  · Las personas que llegan no son un instrumento demográfico ni 'la "
+        "solución' a nada: son vecinos. Escribir sobre ellas con el mismo respeto "
+        "con el que se escribiría sobre cualquier otro vecino del pueblo.",
+        "  · Nada de tono alarmista ni de 'invasión', y tampoco el paternalismo de "
+        "presentarlas como salvadoras que vienen a rescatar el pueblo.",
+        "  · No se sabe de qué países vienen ni en qué trabajan: el INE no lo "
+        "publica a este nivel. NO INVENTARLO NI INSINUARLO. Decir abiertamente que "
+        "es lo que falta por averiguar y que exige preguntar en los pueblos.",
+        "  · No atribuir intenciones ni causas que no estén en los datos: sabemos "
+        "QUÉ pasó, no POR QUÉ.",
+    ]
+    return "migraciones", "\n".join(lineas)
+
+
 DOSSIERS = {
     "despoblacion": dossier_despoblacion,
     "ayudas": dossier_ayudas,
     "cien_anos": dossier_cien_anos,
+    "migraciones": dossier_migraciones,
 }
 
 
