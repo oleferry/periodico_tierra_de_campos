@@ -34,6 +34,38 @@ modelo) — no se escribe nada sin cifras verificables detrás.
 19. **El negocio que cierra sin que nadie lo continúe** 🔴 — más un "radar" vivo (necesita fuentes que avisen de traspasos) que un artículo puntual.
 20. **Cien años perdiendo habitantes** ✅ — **hecha (2026-07-22)**. La serie histórica 1900-1991 (operación 35 del INE, API Tempus, una tabla por provincia: León 3057, Palencia 3067, Valladolid 3080, Zamora 3082) ya está en `scripts/investigar_despoblacion.py` y combinada con la serie 1996-2025 en `dossier_cien_anos()`. Borrador en la rama `borrador/cien-anos-villarramiel`, pendiente de revisión.
 
+21. **Lo que la inmigración está tapando** 🟢 — **ES LA MEJOR IDEA DEL BACKLOG
+    AHORA MISMO, y los datos ya están descargados** en
+    `data/migraciones_comarca.json`. Salió el 2026-07-24 investigando una pista
+    del detector de anomalías (Villada rompía 11 años de caída). Al comprobar si
+    Villada era excepcional, apareció algo mucho mayor:
+
+    **En 2024, los 12 pueblos piloto ganaron 278 personas por migración —197 de
+    ellas venidas del extranjero— pero el padrón solo creció en 39. Los otros
+    239 se los llevó la diferencia entre defunciones y nacimientos.**
+
+    Es decir: la inmigración no está haciendo crecer a la comarca, está tapando
+    casi exactamente el agujero demográfico. Sin esas 278 personas, Tierra de
+    Campos habría perdido 239 habitantes en un solo año.
+
+    Datos por municipio (saldo migratorio 2024 → cambio de padrón 24/25):
+    Medina de Rioseco +95 → +80 · Villalpando +70 → +34 · Paredes de Nava
+    +42 → +16 · Sahagún +35 → −18 · Villada +33 → +29 · Carrión +31 → −2 ·
+    Fuentes de Nava +18 → +14 · Villarramiel +9 → −6. En negativo: Mayorga −27,
+    Villalón −11, Becerril −11, Valderas −6.
+    Casos que hablan solos: **Sahagún ganó 35 personas por migración y aun así
+    perdió 18 habitantes**; **Carrión ganó 31 y perdió 2**.
+
+    Fuente: INE, Estadística de Migraciones y Cambios de Residencia (operación
+    455, tabla 69767, saldos por municipio, año y tipo). El saldo vegetativo es
+    implícito (cambio de padrón menos saldo migratorio), y conviene contrastarlo
+    con el Movimiento Natural de la Población antes de publicar.
+
+    Lo que falta para la pieza: quiénes son esas 197 personas llegadas de fuera
+    y en qué trabajan. Eso ya no está en ninguna API — son llamadas al
+    ayuntamiento, a las empresas agroalimentarias de la zona y, sobre todo, a
+    ellos mismos. Encaja con la idea #11 (nuevos vecinos) y con la #12 (Riace).
+
 ## Recomendación de orden
 
 Los dos más baratos de montar ya, reutilizando lo que existe:
