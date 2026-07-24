@@ -362,9 +362,33 @@ def publicar_telegram(titular: str, entradilla: str, url: str) -> None:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Genera un artículo de blog/investigación")
-    ap.add_argument("--tema", required=True, choices=sorted(DOSSIERS))
+    ap.add_argument("--tema", choices=sorted(DOSSIERS))
     ap.add_argument("--sin-imagen", action="store_true", help="no generar imagen aunque haya clave de OpenAI")
+    ap.add_argument("--anunciar", metavar="SLUG",
+                    help="anuncia en Telegram una pieza YA desplegada y revisada (no genera nada)")
+    ap.add_argument("--anunciar-ahora", action="store_true",
+                    help="anuncia en Telegram nada más generar, sin esperar al despliegue "
+                         "(deja el enlace en 404 hasta que se publique: usar solo a sabiendas)")
     args = ap.parse_args()
+
+    # Anunciar una pieza ya publicada: no genera nada, solo manda el aviso.
+    if args.anunciar:
+        manifest_path = DATA / "blog" / "articulos.json"
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        pieza = next((a for a in manifest if a["slug"] == args.anunciar), None)
+        if not pieza:
+            print(f"No hay ninguna pieza con slug {args.anunciar}", file=sys.stderr)
+            return 1
+        url = f"https://elterracampino.es/blog/{pieza['slug']}.html"
+        import requests as _rq
+        if _rq.get(url, timeout=20).status_code != 200:
+            print(f"{url} todavía no responde 200: despliégala antes de anunciarla.", file=sys.stderr)
+            return 1
+        publicar_telegram(pieza["titular"], pieza["entradilla"], url)
+        return 0
+
+    if not args.tema:
+        ap.error("indica --tema para generar, o --anunciar SLUG para avisar de una ya publicada")
 
     print(f"· Montando dossier de '{args.tema}'…")
     tema, dossier = DOSSIERS[args.tema]()
@@ -415,7 +439,19 @@ def main() -> int:
         for punto in art["revision_humana"]:
             print(f"  - {punto}")
 
-    publicar_telegram(art["titular"], art["entradilla"], url)
+    # NO se anuncia en Telegram desde aquí. El artículo acaba de escribirse en
+    # disco y todavía no está desplegado, así que el enlace daría 404 a todo el
+    # canal — pasó el 2026-07-24 con la pieza de migraciones. Además, estas
+    # piezas llevan revisión humana antes de difundirse, y anunciarlas al
+    # generarlas se la salta.
+    #
+    # El aviso al canal se manda cuando la pieza ya está en producción:
+    #   python -m scripts.generar_articulo_blog --anunciar <slug>
+    if args.anunciar_ahora:
+        publicar_telegram(art["titular"], art["entradilla"], url)
+    else:
+        print(f"\nCuando esté desplegado y revisado, anúncialo con:\n"
+              f"  python -m scripts.generar_articulo_blog --anunciar {slug}")
     return 0
 
 

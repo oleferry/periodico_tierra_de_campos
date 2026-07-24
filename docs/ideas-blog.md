@@ -66,6 +66,40 @@ modelo) — no se escribe nada sin cifras verificables detrás.
     ayuntamiento, a las empresas agroalimentarias de la zona y, sobre todo, a
     ellos mismos. Encaja con la idea #11 (nuevos vecinos) y con la #12 (Riace).
 
+    ✅ **PUBLICADA el 2026-07-24**: "Los 278 vecinos que llegaron y los 239 que
+    faltan". Queda abierta la segunda parte, la del "por qué", con estas pistas
+    ya localizadas en la búsqueda de prensa del mismo día:
+
+    · **Explicación oficial ya publicada, para Villada**: el alcalde Manuel
+      Gañán la dio en pleno y la recogió *Palencia en la Red* el 1-4-2025
+      ("Villada crece en población tras décadas de caída"). Atribuye el
+      repunte a negocios reabiertos, dos años de talleres de empleo y al
+      trabajo de la ampliación de la base del AVE. Ojo: **no aporta ni una
+      cifra**, son atribuciones suyas. Y no cuadran bien con la aritmética
+      (haría falta bastante más entrada neta de la que mueve reabrir dos o
+      tres negocios).
+    · **Base de mantenimiento de Adif en Villada** (LAV Madrid-Norte): contrato
+      de 67,9 M€ a la UTE Copasa-Sacyr Neopul-CSF, 2023-2027. Es el hecho
+      material más sólido y encaja en el tiempo. Falta acreditar cuántos
+      trabajadores se empadronaron: preguntar a Adif o a la UTE.
+    · **Hipótesis no verificada pero de mucho peso aritmético**: Villada tiene
+      la Residencia Fundación Casado del Alisal, con **113 plazas en un pueblo
+      de 863 habitantes** (el 13% del padrón). Una variación de ocupación de
+      25-30 plazas explicaría el +29 entero sin repoblación real. Nadie lo ha
+      comprobado; hay que llamar a la residencia y pedir ocupación 2023/24/25.
+    · **Contexto provincial que refuerza la tesis del reportaje**: en Palencia,
+      2º trimestre de 2025, los españoles bajan en 204 y los extranjeros suben
+      en 479 (*Palencia en la Red*).
+    · **Descartado**: la adaptación de los padrones de los 190 ayuntamientos de
+      la Diputación es de junio-septiembre de 2025, posterior al dato del
+      1-1-2025, así que no puede explicarlo.
+    · **Dato a cotejar antes de repetir la cifra**: el padrón oficial a
+      1-1-2025 lo fija el Real Decreto 1117/2025 (BOE de 11-12-2025); el código
+      INE de Villada es 34206.
+    · **Vía rápida pendiente**: la tabla 33571 del INE ("Población por sexo,
+      municipios, nacionalidad y edad") da el desglose español/extranjero por
+      municipio. Resolvería en minutos cuánto de esto es inmigración.
+
 ## Recomendación de orden
 
 Los dos más baratos de montar ya, reutilizando lo que existe:
