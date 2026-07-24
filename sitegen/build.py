@@ -37,6 +37,8 @@ from scrapers.plenos_sedelectronica import fetch_plenos
 from scrapers.weather_openmeteo import geocode, weather_for
 from scrapers.lonja import cotizaciones as lonja_cotizaciones
 from scrapers.aemet_avisos import avisos as aemet_avisos
+from scrapers.embalses import situacion as situacion_embalses
+from scrapers.paro_sepe import paro_comarca_cacheado
 from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
     LEYENDAS,
@@ -107,6 +109,11 @@ def fecha_larga(d: date) -> str:
 
 def miles(n) -> str:
     return f"{int(n):,}".replace(",", ".")
+
+
+def dec(n, decimales: int = 1) -> str:
+    """Número con coma decimal, como se escribe en español ('3,2' y no '3.2')."""
+    return f"{n:.{decimales}f}".replace(".", ",")
 
 
 def fuente_label(d: dict) -> str:
@@ -429,7 +436,7 @@ def header(depth: int) -> str:
     <a href="{home}#comarca">La comarca</a>
     <a href="{home}#blog">Investigaciones</a>
     <a href="{up}huerta.html">Huerta</a>
-    <a href="{up}lonja.html">Precios del cereal</a>
+    <a href="{up}campo.html">El campo</a>
     <a href="{up}leyendas.html">Leyendas</a>
   </nav>
 </div></header>"""
@@ -604,8 +611,38 @@ def tiempo_ia(w: dict, hoy: date) -> None:
 
 # --------------------------------------------------------------- portada
 
+def bloque_paro(paro: dict | None) -> str:
+    """Paro registrado en la comarca, con su comparativa interanual.
+
+    Se dice siempre "paro registrado" y no "tasa de paro" (son cosas distintas)
+    y se advierte de cuántos pueblos no tienen cifra pública: en más de la mitad
+    de la comarca hay menos de 5 parados y el SEPE los oculta por secreto
+    estadístico. Sin esa advertencia, el total parecería el de toda la comarca."""
+    if not paro:
+        return ""
+    v = paro.get("vs_hace_un_ano")
+    comparativa = ""
+    if v and v.get("porcentaje") is not None:
+        verbo = "menos" if v["baja"] else "más"
+        comparativa = (f", un {dec(abs(v['porcentaje']))}% {verbo} que hace un año "
+                       f"en los {v['municipios_comparados']} pueblos comparables")
+    return f"""<section class="tc-wrap">
+  <div class="tc-card">
+    <h3 style="margin-top:0;">El paro en la comarca</h3>
+    <p class="tc-pieza-cuerpo"><strong>{miles(paro['total'])}</strong> personas apuntadas al paro en
+    {paro['con_dato']} municipios de Tierra de Campos en {E(paro['mes_nombre'])} de {paro['anio']}{E(comparativa)}.</p>
+    <p class="tc-item-meta">Paro registrado en las oficinas de empleo (no es la tasa de paro de la EPA).
+    Otros {paro['ocultos']} pueblos de la comarca no aparecen: tienen menos de 5 personas apuntadas y el
+    SEPE no publica la cifra exacta por secreto estadístico. Fuente:
+    <a href="https://www.sepe.es/HomeSepe/que-es-el-sepe/estadisticas/datos-estadisticos/municipios.html"
+    target="_blank" rel="noopener">SEPE</a>.</p>
+  </div>
+</section>"""
+
+
 def render_home(built: list[dict], feed: list[dict], hoy: date,
-                avisos: list[dict] | None = None, cots: list[dict] | None = None) -> str:
+                avisos: list[dict] | None = None, cots: list[dict] | None = None,
+                paro: dict | None = None) -> str:
     # Noticias relevantes: se prioriza lo jugoso; se descartan titulares repetidos.
     ordenadas = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
     noticias, vistos = [], set()
@@ -665,7 +702,7 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
     # así que solo llegan aquí los que la propia IA ya aprobó. Ver
     # sitegen/almacen_comentarios.py para el porqué del diseño.
     # Precios del cereal: en portada solo el titular (trigo y cebada, que es lo
-    # que casi todo el mundo siembra aquí); el detalle vive en /lonja.html.
+    # que casi todo el mundo siembra aquí); el detalle vive en /campo.html.
     lonja_html = ""
     destacados = [c for c in (cots or []) if c["slug"] in ("trigo", "cebada")]
     if destacados:
@@ -685,7 +722,7 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
     <h3 style="margin-top:0;">Precios del cereal</h3>
     <ul class="tc-links-list">{''.join(piezas)}</ul>
     <p class="tc-item-meta">Lonja de Valladolid y Palencia ·
-    <a href="lonja.html">ver todos los precios →</a></p>
+    <a href="campo.html">ver todos los precios →</a></p>
   </div>
 </section>"""
 
@@ -741,6 +778,8 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
 </section>
 
 {lonja_html}
+
+{bloque_paro(paro)}
 
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
   <div><h2>Entérate de lo de tu pueblo por Telegram</h2>
@@ -1309,7 +1348,58 @@ def _fecha_lonja(cots: list[dict]) -> str:
         return ""
 
 
-def render_lonja(cots: list[dict]) -> str:
+def bloque_embalses(emb: dict | None) -> str:
+    """Situación del agua embalsada en los sistemas que riegan la comarca.
+    Se da el porcentaje y, sobre todo, la comparación con el año pasado y con la
+    media de diez años: un dato de hm3 suelto no le dice nada a nadie."""
+    if not emb or not emb.get("sistemas"):
+        return ""
+    from scrapers.embalses import resumen as resumen_embalses
+    r = resumen_embalses(emb)
+    if not r:
+        return ""
+
+    def _frase(pct: float | None, referencia: str) -> str:
+        if pct is None:
+            return ""
+        if abs(pct) < 1:
+            return f"prácticamente igual que {referencia}"
+        return f"un {dec(abs(pct))}% {'más' if pct > 0 else 'menos'} que {referencia}"
+
+    comparativas = [f for f in (
+        _frase(r["vs_anio_anterior_pct"], "el año pasado"),
+        _frase(r["vs_media_pct"], "la media de los diez últimos años"),
+    ) if f]
+    filas = "".join(
+        f'<tr><td>{E(s["sistema"])}</td>'
+        f'<td>{s["total"]["actual_hm3"]:.0f} hm³</td>'
+        f'<td>{s["total"]["actual_pct"]:.0f}%</td></tr>'
+        for s in emb["sistemas"] if s.get("total")
+    )
+    fecha = ""
+    if emb.get("fecha"):
+        try:
+            fecha = f" Datos del {fecha_larga(date.fromisoformat(emb['fecha']))}."
+        except ValueError:
+            pass
+    return f"""<h2 class="tc-blog-subtitulo">El agua embalsada</h2>
+  <p class="tc-articulo-parrafo">Los embalses que riegan la comarca están al
+  <strong>{r['actual_pct']:.0f}%</strong> de su capacidad ({r['actual_hm3']:.0f} hm³ de
+  {r['capacidad_hm3']:.0f}){': ' + ' y ' .join(comparativas) if comparativas else ''}.{E(fecha)}</p>
+  <div style="overflow-x:auto;">
+  <table class="tc-tabla-lonja" style="width:100%; border-collapse:collapse;">
+    <thead><tr><th style="text-align:left;">Sistema</th><th style="text-align:left;">Embalsado</th><th style="text-align:left;">Llenado</th></tr></thead>
+    <tbody>{filas}</tbody>
+  </table>
+  </div>
+  <p class="tc-item-meta">Sistemas Esla-Órbigo (riega la Tierra de Campos leonesa y, por el Esla,
+  Villalpando), Carrión (Carrión, Villada, Paredes, Becerril, Fuentes de Nava) y Pisuerga (que
+  alimenta el Canal de Castilla y el Canal de Campos). Fuente:
+  <a href="https://www.saihduero.es/situacion-embalses" target="_blank" rel="noopener">SAIH de la
+  Confederación Hidrográfica del Duero</a>; datos provisionales sujetos a revisión.</p>"""
+
+
+def render_lonja(cots: list[dict], emb: dict | None = None) -> str:
     """Página propia con los precios del cereal y su comparativa anual."""
     if not cots:
         cuerpo = '<p class="tc-pieza-cuerpo">Ahora mismo no hay cotizaciones disponibles.</p>'
@@ -1328,7 +1418,7 @@ def render_lonja(cots: list[dict]) -> str:
             comparativas.append(
                 f'<li>{E(c.get("art", "el").capitalize())} '
                 f'<strong>{E(c["nombre"].lower())}</strong> {E(c.get("verbo", "está"))} un '
-                f'{abs(v["porcentaje"]):.1f}% más {adj} que hace un año '
+                f'{dec(abs(v["porcentaje"]))}% más {adj} que hace un año '
                 f'({"+" if v["sube"] else ""}{v["euros"]:.0f} €/t)</li>'
             )
         comp_html = ""
@@ -1348,17 +1438,21 @@ def render_lonja(cots: list[dict]) -> str:
     fecha = _fecha_lonja(cots)
     body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
   <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Campo y huerta</span>
-  <h1>Precios del cereal en la comarca</h1>
-  <p class="tc-articulo-entradilla">Cotizaciones de la Lonja de Valladolid y Palencia{
-    f', sesión del {E(fecha)}' if fecha else ''}. Se actualizan cada semana.</p>
+  <h1>El campo: precios y agua</h1>
+  <p class="tc-articulo-entradilla">Cómo va la campaña en Tierra de Campos: lo que se paga por el
+  cereal en la Lonja de Valladolid y Palencia{f', sesión del {E(fecha)}' if fecha else ''}, y cuánta
+  agua queda en los embalses que riegan la comarca.</p>
+  <h2 class="tc-blog-subtitulo">Precios del cereal</h2>
   {cuerpo}
-  <p class="tc-item-meta" style="margin-top:18px;">Fuente:
+  <p class="tc-item-meta" style="margin-top:12px;">Fuente:
   <a href="https://lonjavalladolidpalencia.com/cereales/" target="_blank" rel="noopener">Lonja de Valladolid y Palencia</a>.
   Los precios son orientativos y no sustituyen a la cotización oficial de cada sesión.</p>
-  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+  {bloque_embalses(emb)}
+  <p class="tc-item-meta" style="margin-top:18px;"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Precios del cereal — El Terracampino", body, depth=0,
-                 desc="Precios del trigo, la cebada y el resto de cereales en la Lonja de Valladolid y Palencia.")
+    return shell("El campo: precios y agua — El Terracampino", body, depth=0,
+                 desc="Precios del cereal en la Lonja de Valladolid y Palencia y situación de los "
+                      "embalses que riegan Tierra de Campos.")
 
 
 def render_leyendas(built: list[dict]) -> str:
@@ -1457,6 +1551,24 @@ def main() -> int:
         print(f"  aviso: sin precios de lonja ({exc})", file=sys.stderr)
         cots_lonja = []
     print(f"  {len(cots_lonja)} productos con cotización")
+
+    print("· Embalses del Duero…", flush=True)
+    try:
+        emb_datos = situacion_embalses()
+    except Exception as exc:  # noqa: BLE001
+        print(f"  aviso: sin datos de embalses ({exc})", file=sys.stderr)
+        emb_datos = None
+    if emb_datos:
+        print(f"  {len(emb_datos['sistemas'])} sistemas de riego de la comarca")
+
+    print("· Paro registrado (SEPE)…", flush=True)
+    try:
+        paro_datos = paro_comarca_cacheado(hoy)
+    except Exception as exc:  # noqa: BLE001
+        print(f"  aviso: sin datos de paro ({exc})", file=sys.stderr)
+        paro_datos = None
+    if paro_datos:
+        print(f"  {paro_datos['mes_nombre']} {paro_datos['anio']}: {paro_datos['total']} personas")
 
     print("· BOP Valladolid…", flush=True)
     try:
@@ -1563,7 +1675,7 @@ def main() -> int:
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
     (WEB / "noticia").mkdir(parents=True, exist_ok=True)
     (WEB / "index.html").write_text(
-        render_home(built, feed, hoy, avisos_meteo, cots_lonja), encoding="utf-8")
+        render_home(built, feed, hoy, avisos_meteo, cots_lonja, paro_datos), encoding="utf-8")
     blog_articulos = cargar_blog_articulos()
     (WEB / "feed.xml").write_text(render_feed_rss(blog_articulos), encoding="utf-8")
 
@@ -1573,10 +1685,10 @@ def main() -> int:
     (WEB / "huerta.html").write_text(render_huerta(), encoding="utf-8")
     (WEB / "chivatazo.html").write_text(render_chivatazo(built), encoding="utf-8")
     (WEB / "leyendas.html").write_text(render_leyendas(built), encoding="utf-8")
-    (WEB / "lonja.html").write_text(render_lonja(cots_lonja), encoding="utf-8")
+    (WEB / "campo.html").write_text(render_lonja(cots_lonja, emb_datos), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
-        ("leyendas.html", hoy.isoformat()), ("lonja.html", hoy.isoformat()),
+        ("leyendas.html", hoy.isoformat()), ("campo.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 

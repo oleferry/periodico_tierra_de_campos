@@ -3,6 +3,10 @@ beautifulsoup4>=4.12
 python-dotenv>=1.0
 anthropic>=0.116
 
+# Solo para scrapers/paro_sepe.py: el SEPE publica el paro por municipio en
+# Excel binario antiguo (.xls), que openpyxl no lee.
+xlrd>=2.0
+
 # Solo para scrapers/plenos_sedelectronica.py (portales espublico con listado
 # de documentos protegido por AJAX firmado, ver docstring del módulo).
 # Tras `pip install -r requirements.txt` hace falta además, una sola vez:

@@ -1,4 +1,16 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/lonja.html",
+      "destination": "/campo.html",
+      "permanent": true
+    },
+    {
+      "source": "/lonja",
+      "destination": "/campo",
+      "permanent": true
+    }
+  ]
 }

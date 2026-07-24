@@ -51,10 +51,22 @@ RADAR/United Robots/Newsworthy ("un dataset nacional → una pieza por municipio
   zonas "Meseta de…" (las de Cordillera Cantábrica, Bierzo y Sanabria son
   montaña y no afectan a la comarca). Pendiente: empujarlo también al canal de
   Telegram.
-- [ ] **Paro municipal mensual** [fácil]. CSV mensual del SEPE por municipio,
-  sexo, edad y sector. Pieza mensual comarcal con serie histórica.
-- [ ] **Agua y sequía semanal** [fácil]. SAIH Duero (embalses en tiempo real) +
-  datos CHD. Vital en comarca cerealista; encaja con InfoRiego ya previsto.
+- [x] **Paro municipal mensual** — HECHO el 2026-07-24 (`scrapers/paro_sepe.py`,
+  bloque en portada). Excel mensual del SEPE por provincia, cruzado por nombre
+  con los 191 municipios de la comarca. Tres cosas que hubo que resolver: se
+  excluye Palencia capital (con 3.184 parados era el 72% del total y tapaba a
+  los pueblos); los municipios con menos de 5 parados salen como "<5" por
+  secreto estadístico y NO se suman (se dice cuántos son); y la mitad de los
+  ficheros del SEPE traen mal un campo de la cabecera OLE2, que hay que
+  corregir para poder abrirlos. La comparativa interanual se hace solo sobre
+  los municipios con cifra en ambos meses. Cacheado en `data/paro_comarca.json`
+  para no bajar ocho Excel en cada build.
+- [x] **Agua y sequía semanal** — HECHO el 2026-07-24 (`scrapers/embalses.py`,
+  bloque en `/campo.html`). SAIH Duero, filtrando los tres sistemas que riegan
+  la comarca (Esla-Órbigo, Carrión y Pisuerga) y descartando los de Burgos,
+  Soria, Segovia, Ávila y Salamanca, que están en la cuenca pero no riegan
+  aquí. Da el % de llenado y, sobre todo, la comparación con el año pasado y
+  con la media de diez años.
 - [ ] **Aperturas y cierres de empresas** [fácil-media]. BORME vía datos
   abiertos del BOE (API JSON diaria); parsers resueltos en libreBORME. Volumen
   bajo en pueblos pequeños → resumen mensual comarcal.
