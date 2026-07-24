@@ -67,11 +67,29 @@ RADAR/United Robots/Newsworthy ("un dataset nacional → una pieza por municipio
   Soria, Segovia, Ávila y Salamanca, que están en la cuenca pero no riegan
   aquí. Da el % de llenado y, sobre todo, la comparación con el año pasado y
   con la media de diez años.
-- [ ] **Aperturas y cierres de empresas** [fácil-media]. BORME vía datos
-  abiertos del BOE (API JSON diaria); parsers resueltos en libreBORME. Volumen
-  bajo en pueblos pequeños → resumen mensual comarcal.
-- [ ] **Incidencias de tráfico N-601/N-610/A-6** [media]. DGT DATEX II, cada 5
-  min. XML farragoso pero filtrable por carreteras de la comarca.
+- ⏸️ **Aperturas y cierres de empresas (BORME)** — APARCADA el 2026-07-24
+  tras medirlo de verdad, no por intuición. Datos de la prueba (6 días hábiles,
+  las 4 provincias): **198 actos publicados, 58 con domicilio, y solo 1 en la
+  comarca** — y ese era de Grijota, alfoz de Palencia, no de Tierra de Campos
+  profunda. Extrapolado: ~4 al mes en 191 municipios; en los 12 pilotos, casi
+  ninguno. Tres pegas más que lo desaconsejan hoy:
+    · El municipio SOLO aparece en las constituciones y cambios de domicilio.
+      En nombramientos, ceses o revocaciones (la mayoría) no hay forma de
+      ubicar la empresa, así que ni siquiera se pueden filtrar.
+    · Coste desproporcionado: habría que bajar ~40 PDFs semanales del BOE para
+      encontrar una sola noticia.
+    · Privacidad: los actos llevan nombres y apellidos de administradores y
+      apoderados. La política editorial prohíbe dar nombres de particulares, así
+      que habría que limpiarlos uno a uno.
+  Cuándo retomarla: si libreBORME concede credenciales de su API (hoy devuelve
+  401), el coste bajaría a una consulta por municipio y entonces sí compensa.
+  El robots.txt del BOE prohíbe `/diario_borme/xml.php` pero permite los PDF y
+  la API de sumarios, por si se retoma.
+- ~~**Incidencias de tráfico N-601/N-610/A-6**~~ — DESCARTADA el 2026-07-24.
+  Técnicamente se podía (DGT DATEX II, cada 5 minutos), pero aquí casi no hay
+  tráfico: la sección estaría vacía la mayor parte del tiempo y el lector
+  aprendería a ignorarla. Una sección permanentemente vacía resta credibilidad
+  en vez de sumar servicio.
 - [ ] **Beneficiarios PAC por pueblo** [fácil-media, pieza anual]. FEGA publica
   ficheros por municipio. Complementa la BDNS ya integrada. Ojo anonimización.
 - [ ] **Mercado inmobiliario trimestral** [media]. Transacciones por municipio
