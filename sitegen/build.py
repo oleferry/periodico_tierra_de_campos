@@ -37,6 +37,7 @@ from scrapers.plenos_sedelectronica import fetch_plenos
 from scrapers.weather_openmeteo import geocode, weather_for
 from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
+    LEYENDAS,
     PUEBLOS_INFO,
     almanaque_del_dia,
     eventos_comarca,
@@ -426,6 +427,7 @@ def header(depth: int) -> str:
     <a href="{home}#comarca">La comarca</a>
     <a href="{home}#blog">Investigaciones</a>
     <a href="{up}huerta.html">Huerta</a>
+    <a href="{up}leyendas.html">Leyendas</a>
   </nav>
 </div></header>"""
 
@@ -1182,6 +1184,31 @@ def render_chivatazo(built: list[dict]) -> str:
                  desc="Buzón anónimo de chivatazos para El Terracampino, periódico hiperlocal de Tierra de Campos.")
 
 
+def render_leyendas(built: list[dict]) -> str:
+    """Recopilatorio de todas las leyendas e historias populares (sitegen/contenido.py:LEYENDAS),
+    hasta ahora escondidas dentro de la barra lateral de cada ficha de municipio —
+    sin un sitio propio, nadie que no visitara pueblo a pueblo las encontraba."""
+    nombre_por_slug = {m["slug"]: m["name"] for m in built}
+    tarjetas = "".join(f"""<article class="tc-card" style="margin-bottom:var(--tc-space-3);">
+      <span class="tc-item-meta">{E(nombre_por_slug.get(slug, slug))}</span>
+      <h2 class="tc-blog-subtitulo" style="margin-top:4px;">{E(l['titulo'])}</h2>
+      <p class="tc-articulo-parrafo">{E(l['texto'])}</p>
+      <p class="tc-item-meta">Fuente: {E(l['fuente'])}
+      · <a href="municipio/{E(slug)}.html">Ver la ficha de {E(nombre_por_slug.get(slug, slug))} →</a></p>
+    </article>""" for slug, l in LEYENDAS.items() if slug in nombre_por_slug)
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">La comarca</span>
+  <h1>Leyendas e historias populares de Tierra de Campos</h1>
+  <p class="tc-articulo-entradilla">Cuentos de cautivos y milagros, torres que caen, indianos que vuelven a
+  probar a los suyos. Solo se cuentan aquí las leyendas que se pueden rastrear a una fuente real —
+  tradición oral recogida por turismo oficial, crónicas o estudios locales — nunca inventadas para rellenar.</p>
+  {tarjetas}
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Leyendas e historias populares — El Terracampino", body, depth=0,
+                 desc="Leyendas y tradiciones documentadas de los pueblos de Tierra de Campos.")
+
+
 def render_404() -> str:
     """Página de error 404. NO puede usar shell() (que resuelve assets con
     rutas relativas tipo '../assets/...' según la profundidad de la página):
@@ -1348,8 +1375,10 @@ def main() -> int:
     # realmente en disco (nada de reconstruir la lista aparte a mano).
     (WEB / "huerta.html").write_text(render_huerta(), encoding="utf-8")
     (WEB / "chivatazo.html").write_text(render_chivatazo(built), encoding="utf-8")
+    (WEB / "leyendas.html").write_text(render_leyendas(built), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
+        ("leyendas.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 

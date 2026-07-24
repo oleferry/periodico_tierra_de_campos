@@ -12,3 +12,5 @@ data/cache/
 # extractos de medios ajenos como PISTAS internas. El repo es público, así que
 # no se sube: publicarla sería republicar texto con derechos de otros.
 data/radar/
+
+.vercel
