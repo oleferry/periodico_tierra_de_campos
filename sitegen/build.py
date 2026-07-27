@@ -329,6 +329,43 @@ def cargar_esquelas() -> dict[str, list[dict]]:
     return por_slug
 
 
+def cargar_archivo_fotografico() -> dict[str, list[dict]]:
+    """Fotos antiguas del archivo comunitario ya revisadas
+    (sitegen/almacen_archivo.py), agrupadas por municipio y descargadas a
+    web/assets/archivo/. Si el almacén no está o falla, se sigue sin archivo."""
+    from sitegen import almacen_archivo
+    if not almacen_archivo.disponible():
+        return {}
+    try:
+        publicadas = almacen_archivo.listar_publicadas()
+    except almacen_archivo.AlmacenError as exc:
+        print(f"  aviso: sin archivo fotográfico ({exc})", file=sys.stderr)
+        return {}
+
+    destino = WEB / "assets" / "archivo"
+    por_slug: dict[str, list[dict]] = {}
+    for f in publicadas:
+        destino.mkdir(parents=True, exist_ok=True)
+        archivo = f"{f['id']}.jpg"
+        ruta = destino / archivo
+        if not ruta.exists():
+            try:
+                ruta.write_bytes(almacen_archivo.descargar(f"publicadas/{f['id']}.jpg"))
+            except almacen_archivo.AlmacenError:
+                continue
+        f["archivo"] = archivo
+        por_slug.setdefault(f.get("pueblo_slug", ""), []).append(f)
+    # Orden: por año si se puede leer un número, si no las más recientes de envío.
+    def _clave(x: dict):
+        m = re.search(r"\d{4}", str(x.get("anio") or ""))
+        return (0, int(m.group(0))) if m else (1, x.get("aprobada_en", ""))
+    for lista in por_slug.values():
+        lista.sort(key=_clave)
+    if publicadas:
+        print(f"  {len(publicadas)} fotos del archivo")
+    return por_slug
+
+
 def cargar_noticias_propias() -> dict[str, list[dict]]:
     """Piezas propias desarrolladas desde el radar (scripts/desarrollar_pista.py),
     agrupadas por municipio. Solo las marcadas 'publicado': un borrador nunca
@@ -495,6 +532,7 @@ def header(depth: int) -> str:
     <a href="{up}campo.html">El campo</a>
     <a href="{up}leyendas.html">Leyendas</a>
     <a href="{up}esquelas.html">Esquelas</a>
+    <a href="{up}archivo.html">Archivo</a>
   </nav>
 </div></header>"""
 
@@ -567,7 +605,7 @@ def footer(depth: int) -> str:
     home = "../" * depth + "index.html"
     return f"""<footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{"../" * depth}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{"../" * depth}gente.html">Gente de Campos</a><a href="{"../" * depth}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
 </div></footer>"""
 
 
@@ -1048,6 +1086,9 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
     # automáticas. Recientes destacadas + archivo "In memoriam".
     esquelas_html = bloque_esquelas_municipio(m.get("_esquelas", []), hoy)
 
+    # Archivo fotográfico: fotos antiguas que aportan los vecinos, revisadas.
+    archivo_html = bloque_archivo_municipio(m.get("_archivo", []))
+
     # Fotos de vecinos, estilo "Destino Tierra de Campos" pero con marco de marca
     # propio: llegan por Telegram, pasan por revisión, se procesan (sitegen/fotos.py)
     # y solo entonces aparecen aquí. Nunca automático.
@@ -1106,6 +1147,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
     {ayudas_html}
     {esquelas_html}
     {galeria_html}
+    {archivo_html}
     {directorio_html}
     {tablon_html}
   </main>
@@ -1781,6 +1823,185 @@ def render_esquela_form(built: list[dict]) -> str:
                  desc="Envía el aviso de fallecimiento de un familiar para publicarlo en El Terracampino.")
 
 
+def _tarjeta_archivo(f: dict, *, con_pueblo: str = "", depth: int = 1) -> str:
+    up = "../" * depth
+    anio = f'<span class="tc-archivo-anio">{E(str(f["anio"]))}</span>' if f.get("anio") else ""
+    pueblo = f'<span class="tc-item-meta">{E(con_pueblo)}</span>' if con_pueblo else ""
+    desc = f'<p class="tc-archivo-desc">{E(f["descripcion"])}</p>' if f.get("descripcion") else ""
+    credito = (f'<p class="tc-item-meta">Aportada por {E(f["autor"])}</p>'
+               if f.get("autor") else '<p class="tc-item-meta">Aportada por un vecino</p>')
+    return f"""<figure class="tc-archivo-foto">
+    <img src="{up}assets/archivo/{E(f['archivo'])}" alt="{E(f.get('descripcion') or 'Foto antigua')}" loading="lazy">
+    <figcaption>{anio}{pueblo}{desc}{credito}</figcaption>
+  </figure>"""
+
+
+def bloque_archivo_municipio(fotos: list[dict]) -> str:
+    """Sección 'Fotos de antes' dentro de la ficha de un pueblo."""
+    if not fotos:
+        return ""
+    tarjetas = "".join(_tarjeta_archivo(f, depth=1) for f in fotos)
+    return f"""<div class="tc-card"><h3>Fotos de antes</h3>
+    <div class="tc-archivo-grid">{tarjetas}</div>
+    <p class="tc-item-meta">¿Tienes fotos antiguas del pueblo en un cajón? <a href="../archivo-enviar.html">Compártelas
+    con el archivo</a>. ¿Reconoces a alguien o sabes de cuándo es una foto?
+    <a href="https://wa.me/34695645395" target="_blank" rel="noopener">Cuéntanoslo por WhatsApp</a>.</p></div>"""
+
+
+def render_archivo_pagina(por_slug: dict[str, list[dict]], nombre_por_slug: dict[str, str]) -> str:
+    """Página comarcal del archivo fotográfico: todas las fotos, por pueblo."""
+    bloques = []
+    for slug in sorted(por_slug, key=lambda s: nombre_por_slug.get(s, s)):
+        fotos = por_slug[slug]
+        if not fotos:
+            continue
+        tarjetas = "".join(_tarjeta_archivo(f, depth=0) for f in fotos)
+        bloques.append(f'<h2 class="tc-blog-subtitulo">{E(nombre_por_slug.get(slug, slug))}</h2>'
+                       f'<div class="tc-archivo-grid">{tarjetas}</div>')
+    if bloques:
+        cuerpo = "".join(bloques)
+    else:
+        cuerpo = ('<p class="tc-pieza-cuerpo">El archivo todavía está vacío. Si tienes fotos antiguas de '
+                  'tu pueblo, eres de los primeros: compártelas y empezamos a llenarlo.</p>')
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">La comarca</span>
+  <h1>El archivo: fotos de antes</h1>
+  <p class="tc-articulo-entradilla">La plaza en los años sesenta, una matanza, la escuela llena de niños, las
+  fiestas de hace medio siglo. Fotos antiguas de los pueblos de Tierra de Campos que traen los propios vecinos.
+  Si tienes alguna en un cajón, aquí tiene sitio.</p>
+  <p><a class="tc-button" href="archivo-enviar.html">Compartir una foto antigua</a></p>
+  {cuerpo}
+  <p class="tc-item-meta" style="margin-top:18px;">¿Reconoces a alguien en una foto, o sabes de qué año es?
+  <a href="https://wa.me/34695645395" target="_blank" rel="noopener">Cuéntanoslo por WhatsApp</a> y lo añadimos.</p>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("El archivo: fotos de antes — El Terracampino", body, depth=0,
+                 desc="Archivo de fotos antiguas de los pueblos de Tierra de Campos, aportadas por los vecinos.")
+
+
+def render_archivo_form(built: list[dict]) -> str:
+    """Formulario para aportar una foto antigua (web/api/archivo.js)."""
+    opciones = "".join(f'<option value="{E(m["slug"])}">{E(m["name"])}</option>' for m in built)
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">El archivo</span>
+  <h1>Compartir una foto antigua</h1>
+  <p class="tc-articulo-entradilla">Escanéala o hazle una foto con el móvil y súbela. La revisamos antes de
+  publicarla y aparecerá en el archivo de tu pueblo, con el año y tu nombre como quien la aporta. Solo sube
+  fotos que sean tuyas o que puedas compartir.</p>
+  <div class="tc-card">
+    <form id="tc-archivo-form">
+      <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
+      <select id="ar-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option>{opciones}</select>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Año aproximado</label></p>
+      <input id="ar-anio" name="anio" class="tc-input" maxlength="30" placeholder="p. ej. 1965, o 'años 70'" style="width:260px;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">¿Qué es o quién sale?</label></p>
+      <textarea id="ar-desc" name="descripcion" class="tc-input" rows="3" maxlength="600" style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu nombre (para el crédito)</label></p>
+      <input id="ar-autor" name="autor" class="tc-input" maxlength="120" placeholder="Cómo quieres que figure: 'Aportada por…'" style="width:100%; box-sizing:border-box;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">La foto *</label></p>
+      <input id="ar-foto" type="file" accept="image/*" required>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu contacto (opcional, no se publica)</label></p>
+      <input id="ar-contacto" name="contacto" class="tc-input" maxlength="200" style="width:100%; box-sizing:border-box;">
+      <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar la foto</button></p>
+      <p id="ar-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
+    </form>
+  </div>
+  <p class="tc-item-meta"><a href="archivo.html">← Ver el archivo</a></p>
+</div></article>
+<script>
+(function() {{
+  var form = document.getElementById("tc-archivo-form");
+  var fileInput = document.getElementById("ar-foto");
+  // Reduce la foto en el navegador (máx 1600px: es archivo, se quiere resolución
+  // pero sin mandar 8 MB desde el móvil del pueblo).
+  function leerFoto() {{
+    return new Promise(function(resolve, reject) {{
+      var f = fileInput.files && fileInput.files[0];
+      if (!f) return reject();
+      var img = new Image();
+      img.onload = function() {{
+        var max = 1600, w = img.width, h = img.height;
+        if (w > max || h > max) {{ var r = Math.min(max/w, max/h); w = Math.round(w*r); h = Math.round(h*r); }}
+        var c = document.createElement("canvas"); c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img, 0, 0, w, h);
+        resolve(c.toDataURL("image/jpeg", 0.85));
+      }};
+      img.onerror = reject;
+      var fr = new FileReader();
+      fr.onload = function(e) {{ img.src = e.target.result; }};
+      fr.readAsDataURL(f);
+    }});
+  }}
+  form.addEventListener("submit", function(e) {{
+    e.preventDefault();
+    var res = document.getElementById("ar-resultado");
+    var btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    leerFoto().then(function(fotoB64) {{
+      return fetch("api/archivo", {{
+        method: "POST", headers: {{ "Content-Type": "application/json" }},
+        body: JSON.stringify({{
+          pueblo: document.getElementById("ar-pueblo").value,
+          anio: document.getElementById("ar-anio").value,
+          descripcion: document.getElementById("ar-desc").value,
+          autor: document.getElementById("ar-autor").value,
+          contacto: document.getElementById("ar-contacto").value,
+          foto_base64: fotoB64,
+          web: form.querySelector('input[name="web"]').value
+        }})
+      }});
+    }}).then(function(r) {{ return r.json().then(function(d) {{ return {{ ok: r.ok, body: d }}; }}); }})
+      .then(function(out) {{
+        if (out.ok) {{ form.style.display = "none"; res.textContent = "Recibida. Gracias — la revisamos y la añadimos al archivo del pueblo."; }}
+        else {{ res.textContent = out.body.error || "No se pudo enviar."; btn.disabled = false; btn.textContent = "Enviar la foto"; }}
+      }})
+      .catch(function() {{ res.textContent = "Elige una foto y vuelve a intentarlo."; btn.disabled = false; btn.textContent = "Enviar la foto"; }});
+  }});
+}})();
+</script>"""
+    return shell("Compartir una foto antigua — El Terracampino", body, depth=0,
+                 desc="Comparte fotos antiguas de tu pueblo con el archivo fotográfico de El Terracampino.")
+
+
+def render_gente(built: list[dict], blog_articulos: list[dict]) -> str:
+    """Serie 'Gente de Campos': perfiles de personas reales de la comarca.
+
+    Los perfiles NO se generan solos: son de personas reales, con sus palabras
+    reales, y se escriben a partir de una entrevista o unas notas de verdad
+    (ver docs/ideas-mundo.md). Esta página presenta la serie, lista los perfiles
+    ya publicados (artículos de blog con tema 'gente') e invita a proponer
+    candidatos. Mientras no haya perfiles reales, no se inventa ninguno."""
+    perfiles = [a for a in blog_articulos if a.get("tema") == "gente"]
+    if perfiles:
+        tarjetas = "".join(f'''<a class="tc-blog-tarjeta" href="blog/{E(a["slug"])}.html">
+      {f'<img src="assets/blog/{E(a["slug"])}.jpg" alt="" loading="lazy">' if a.get("tiene_imagen") else ""}
+      <span class="tc-news-titular">{E(a["titular"])}</span>
+      <span class="tc-news-entradilla">{E(a["entradilla"])}</span>
+    </a>''' for a in perfiles)
+        lista = f'<div class="tc-blog-grid">{tarjetas}</div>'
+    else:
+        lista = ('<p class="tc-pieza-cuerpo">Todavía no hay perfiles publicados. El primero está por llegar: '
+                 'si conoces a alguien de la comarca cuya historia merezca contarse, dínoslo.</p>')
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">La comarca</span>
+  <h1>Gente de Campos</h1>
+  <p class="tc-articulo-entradilla">El último pastor, la panadera de toda la vida, el que se fue a la ciudad y
+  volvió, la maestra que conoció a varias generaciones. Retratos de personas de carne y hueso de Tierra de
+  Campos, contados con sus propias palabras.</p>
+  {lista}
+  <div class="tc-card" style="margin-top:var(--tc-space-3);">
+    <h3 style="margin-top:0;">¿Conoces a alguien que merezca un reportaje?</h3>
+    <p class="tc-pieza-cuerpo">Un oficio que se pierde, una vida que da para una historia, alguien a quien el
+    pueblo entero conoce. Propónnoslo y vamos a conocerlo.</p>
+    <p><a class="tc-button" href="https://wa.me/34695645395" target="_blank" rel="noopener">Proponer por WhatsApp</a></p>
+  </div>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Gente de Campos — El Terracampino", body, depth=0,
+                 desc="Retratos de personas de los pueblos de Tierra de Campos, contados con sus propias palabras.")
+
+
 def render_404() -> str:
     """Página de error 404. NO puede usar shell() (que resuelve assets con
     rutas relativas tipo '../assets/...' según la profundidad de la página):
@@ -1826,6 +2047,7 @@ def main() -> int:
     propias_por_slug = cargar_noticias_propias()
     directorio_por_slug = cargar_directorio_servicios()
     esquelas_por_slug = cargar_esquelas()
+    archivo_por_slug = cargar_archivo_fotografico()
 
     # Foto de cabecera con licencia libre (scripts/buscar_fotos_libres.py):
     # solo relleno honesto mientras no hay fotos de vecinos, con su autor y
@@ -1889,7 +2111,7 @@ def main() -> int:
     # Así la cobertura crece donde hay contenido, sin páginas vacías: el tiempo
     # se resuelve solo (geocode más abajo) y el BOCyL funciona para cualquiera.
     slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys()) + list(propias_por_slug.keys())
-                               + list(esquelas_por_slug.keys())))
+                               + list(esquelas_por_slug.keys()) + list(archivo_por_slug.keys())))
 
     print("· Ayudas y subvenciones (BDNS)…", flush=True)
     try:
@@ -1943,6 +2165,7 @@ def main() -> int:
         m["_propias"] = propias_por_slug.get(slug, [])
         m["_directorio"] = directorio_por_slug.get(slug, [])
         m["_esquelas"] = esquelas_por_slug.get(slug, [])
+        m["_archivo"] = archivo_por_slug.get(slug, [])
         m["_fotos"] = fotos_por_slug.get(slug, [])
         m["_foto_libre"] = fotos_libres.get(slug)
         m["_anuncios"] = por_muni.get(slug, [])
@@ -1994,10 +2217,15 @@ def main() -> int:
     (WEB / "esquelas.html").write_text(
         render_esquelas_pagina(esquelas_por_slug, nombre_por_slug_built, hoy), encoding="utf-8")
     (WEB / "esquela.html").write_text(render_esquela_form(built), encoding="utf-8")
+    (WEB / "archivo.html").write_text(
+        render_archivo_pagina(archivo_por_slug, nombre_por_slug_built), encoding="utf-8")
+    (WEB / "archivo-enviar.html").write_text(render_archivo_form(built), encoding="utf-8")
+    (WEB / "gente.html").write_text(render_gente(built, blog_articulos), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
         ("leyendas.html", hoy.isoformat()), ("campo.html", hoy.isoformat()),
-        ("esquelas.html", hoy.isoformat()),
+        ("esquelas.html", hoy.isoformat()), ("archivo.html", hoy.isoformat()),
+        ("gente.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 

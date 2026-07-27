@@ -534,6 +534,23 @@
 .tc-memoriam { margin-top: 12px; }
 .tc-memoriam summary { cursor: pointer; font-weight: 700; font-size: .9rem; }
 
+.tc-archivo-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px; margin-top: 10px;
+}
+.tc-archivo-foto { margin: 0; }
+.tc-archivo-foto img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border: 1px solid var(--tc-linea-suave); background: #efece5;
+  filter: saturate(0.9);
+}
+.tc-archivo-foto figcaption { margin-top: 5px; font-size: .84rem; }
+.tc-archivo-anio {
+  display: inline-block; font-family: var(--tc-font-mono, monospace); font-weight: 700;
+  margin-right: 6px;
+}
+.tc-archivo-desc { margin: 3px 0; font-size: .84rem; }
+
 .tc-comentarios-lista { list-style: none; padding: 0; margin: 0; }
 .tc-comentarios-lista li {
   padding: 10px 0; border-bottom: 1px solid var(--tc-linea-suave);

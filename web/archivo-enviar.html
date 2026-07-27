@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enviar una esquela — El Terracampino</title>
-<meta name="description" content="Envía el aviso de fallecimiento de un familiar para publicarlo en El Terracampino.">
+<title>Compartir una foto antigua — El Terracampino</title>
+<meta name="description" content="Comparte fotos antiguas de tu pueblo con el archivo fotográfico de El Terracampino.">
 <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,98 +30,80 @@
   </nav>
 </div></header>
 <article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
-  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">Esquelas</span>
-  <h1>Enviar una esquela</h1>
-  <p class="tc-articulo-entradilla">Si ha fallecido un familiar o un allegado y quieres que lo
-  publiquemos, rellena estos datos. Lo revisamos antes de publicarlo —puede que te llamemos para
-  confirmarlo— y no cuesta nada. Solo publicamos avisos que nos llegan de la familia o allegados.</p>
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">El archivo</span>
+  <h1>Compartir una foto antigua</h1>
+  <p class="tc-articulo-entradilla">Escanéala o hazle una foto con el móvil y súbela. La revisamos antes de
+  publicarla y aparecerá en el archivo de tu pueblo, con el año y tu nombre como quien la aporta. Solo sube
+  fotos que sean tuyas o que puedas compartir.</p>
   <div class="tc-card">
-    <form id="tc-esquela-form">
-      <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Nombre de la persona fallecida *</label></p>
-      <input id="es-nombre" name="nombre" class="tc-input" required maxlength="120" style="width:100%; box-sizing:border-box;">
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
-      <select id="es-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option><option value="medina-de-rioseco">Medina de Rioseco</option><option value="sahagun">Sahagún</option><option value="carrion-de-los-condes">Carrión de los Condes</option><option value="paredes-de-nava">Paredes de Nava</option><option value="valderas">Valderas</option><option value="villalon-de-campos">Villalón de Campos</option><option value="villalpando">Villalpando</option><option value="mayorga">Mayorga</option><option value="villada">Villada</option><option value="villarramiel">Villarramiel</option><option value="becerril-de-campos">Becerril de Campos</option><option value="fuentes-de-nava">Fuentes de Nava</option><option value="almanza">Almanza</option><option value="cea">Cea</option><option value="el-burgo-ranero">El Burgo Ranero</option><option value="gordaliza-del-pino">Gordaliza del Pino</option><option value="grajal-de-campos">Grajal de Campos</option><option value="morales-de-campos">Morales de Campos</option><option value="valverde-de-campos">Valverde de Campos</option><option value="villanueva-de-la-condesa">Villanueva de la Condesa</option></select>
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Edad (opcional)</label></p>
-      <input id="es-edad" name="edad" class="tc-input" inputmode="numeric" maxlength="3" style="width:120px;">
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Fecha del fallecimiento (opcional)</label></p>
-      <input id="es-fecha" name="fecha_fallecimiento" class="tc-input" type="date" style="width:200px;">
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Funeral: día, hora y lugar (opcional)</label></p>
-      <input id="es-funeral" name="funeral" class="tc-input" maxlength="200" placeholder="p. ej. Misa el jueves 12 a las 17:00 en la iglesia de Santa María" style="width:100%; box-sizing:border-box;">
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Unas palabras (opcional)</label></p>
-      <textarea id="es-texto" name="texto" class="tc-input" rows="3" maxlength="1000" style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Foto (opcional)</label></p>
-      <input id="es-foto" type="file" accept="image/*">
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu contacto (teléfono o correo) *</label></p>
-      <input id="es-contacto" name="contacto" class="tc-input" required maxlength="200" style="width:100%; box-sizing:border-box;">
-      <p class="tc-item-meta">Tu contacto es solo para que podamos verificar el aviso contigo. No se publica.</p>
+    <form id="tc-archivo-form">
+      <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
+      <select id="ar-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option><option value="medina-de-rioseco">Medina de Rioseco</option><option value="sahagun">Sahagún</option><option value="carrion-de-los-condes">Carrión de los Condes</option><option value="paredes-de-nava">Paredes de Nava</option><option value="valderas">Valderas</option><option value="villalon-de-campos">Villalón de Campos</option><option value="villalpando">Villalpando</option><option value="mayorga">Mayorga</option><option value="villada">Villada</option><option value="villarramiel">Villarramiel</option><option value="becerril-de-campos">Becerril de Campos</option><option value="fuentes-de-nava">Fuentes de Nava</option><option value="almanza">Almanza</option><option value="cea">Cea</option><option value="el-burgo-ranero">El Burgo Ranero</option><option value="gordaliza-del-pino">Gordaliza del Pino</option><option value="grajal-de-campos">Grajal de Campos</option><option value="morales-de-campos">Morales de Campos</option><option value="valverde-de-campos">Valverde de Campos</option><option value="villanueva-de-la-condesa">Villanueva de la Condesa</option></select>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Año aproximado</label></p>
+      <input id="ar-anio" name="anio" class="tc-input" maxlength="30" placeholder="p. ej. 1965, o 'años 70'" style="width:260px;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">¿Qué es o quién sale?</label></p>
+      <textarea id="ar-desc" name="descripcion" class="tc-input" rows="3" maxlength="600" style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu nombre (para el crédito)</label></p>
+      <input id="ar-autor" name="autor" class="tc-input" maxlength="120" placeholder="Cómo quieres que figure: 'Aportada por…'" style="width:100%; box-sizing:border-box;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">La foto *</label></p>
+      <input id="ar-foto" type="file" accept="image/*" required>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu contacto (opcional, no se publica)</label></p>
+      <input id="ar-contacto" name="contacto" class="tc-input" maxlength="200" style="width:100%; box-sizing:border-box;">
       <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
-      <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar</button></p>
-      <p id="es-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
+      <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar la foto</button></p>
+      <p id="ar-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
     </form>
   </div>
-  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+  <p class="tc-item-meta"><a href="archivo.html">← Ver el archivo</a></p>
 </div></article>
 <script>
 (function() {
-  var form = document.getElementById("tc-esquela-form");
-  var fileInput = document.getElementById("es-foto");
-
-  // Reduce la foto en el propio navegador antes de enviarla (máx. 1000px de
-  // lado, JPEG), para no mandar megas ni depender de la conexión del pueblo.
+  var form = document.getElementById("tc-archivo-form");
+  var fileInput = document.getElementById("ar-foto");
+  // Reduce la foto en el navegador (máx 1600px: es archivo, se quiere resolución
+  // pero sin mandar 8 MB desde el móvil del pueblo).
   function leerFoto() {
-    return new Promise(function(resolve) {
+    return new Promise(function(resolve, reject) {
       var f = fileInput.files && fileInput.files[0];
-      if (!f) return resolve(null);
+      if (!f) return reject();
       var img = new Image();
       img.onload = function() {
-        var max = 1000, w = img.width, h = img.height;
+        var max = 1600, w = img.width, h = img.height;
         if (w > max || h > max) { var r = Math.min(max/w, max/h); w = Math.round(w*r); h = Math.round(h*r); }
         var c = document.createElement("canvas"); c.width = w; c.height = h;
         c.getContext("2d").drawImage(img, 0, 0, w, h);
-        resolve(c.toDataURL("image/jpeg", 0.82));
+        resolve(c.toDataURL("image/jpeg", 0.85));
       };
-      img.onerror = function() { resolve(null); };
+      img.onerror = reject;
       var fr = new FileReader();
       fr.onload = function(e) { img.src = e.target.result; };
       fr.readAsDataURL(f);
     });
   }
-
   form.addEventListener("submit", function(e) {
     e.preventDefault();
-    var res = document.getElementById("es-resultado");
+    var res = document.getElementById("ar-resultado");
     var btn = form.querySelector("button");
     btn.disabled = true; btn.textContent = "Enviando…";
     leerFoto().then(function(fotoB64) {
-      return fetch("api/esquela", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      return fetch("api/archivo", {
+        method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          nombre: document.getElementById("es-nombre").value,
-          pueblo: document.getElementById("es-pueblo").value,
-          edad: document.getElementById("es-edad").value,
-          fecha_fallecimiento: document.getElementById("es-fecha").value,
-          funeral: document.getElementById("es-funeral").value,
-          texto: document.getElementById("es-texto").value,
-          contacto: document.getElementById("es-contacto").value,
+          pueblo: document.getElementById("ar-pueblo").value,
+          anio: document.getElementById("ar-anio").value,
+          descripcion: document.getElementById("ar-desc").value,
+          autor: document.getElementById("ar-autor").value,
+          contacto: document.getElementById("ar-contacto").value,
           foto_base64: fotoB64,
           web: form.querySelector('input[name="web"]').value
         })
       });
     }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, body: d }; }); })
       .then(function(out) {
-        if (out.ok) {
-          form.style.display = "none";
-          res.textContent = "Recibido. Gracias — lo revisamos y, si hace falta, te llamamos antes de publicarlo. Te acompañamos en el sentimiento.";
-        } else {
-          res.textContent = out.body.error || "No se pudo enviar. Inténtalo más tarde.";
-          btn.disabled = false; btn.textContent = "Enviar";
-        }
+        if (out.ok) { form.style.display = "none"; res.textContent = "Recibida. Gracias — la revisamos y la añadimos al archivo del pueblo."; }
+        else { res.textContent = out.body.error || "No se pudo enviar."; btn.disabled = false; btn.textContent = "Enviar la foto"; }
       })
-      .catch(function() {
-        res.textContent = "No se pudo enviar. Inténtalo más tarde.";
-        btn.disabled = false; btn.textContent = "Enviar";
-      });
+      .catch(function() { res.textContent = "Elige una foto y vuelve a intentarlo."; btn.disabled = false; btn.textContent = "Enviar la foto"; });
   });
 })();
 </script>
