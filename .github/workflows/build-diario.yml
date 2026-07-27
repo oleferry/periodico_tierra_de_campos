@@ -1,0 +1,74 @@
+# Reconstruye el sitio y lo publica cada día, en los servidores de GitHub, para
+# que la web se actualice sola aunque el portátil de Daniel esté apagado. Antes
+# esto lo hacía la tarea programada local "build-diario", que solo corría con la
+# app de Claude Code abierta — poco fiable para un medio ya lanzado.
+#
+# El bot de Telegram sigue viviendo en Railway (24/7); esto es solo el build del
+# sitio. Al hacer push, Vercel despliega solo (integración de Git de Vercel).
+#
+# Secrets necesarios (Settings → Secrets and variables → Actions):
+#   ANTHROPIC_API_KEY          redacción con IA (sin ella cae al redactor por reglas)
+#   SUPABASE_URL               fotos, esquelas, archivo y comentarios de vecinos
+#   SUPABASE_SERVICE_ROLE_KEY  ídem
+#   LLM_MODEL, LLM_PROVIDER     opcionales, configuración del modelo
+
+name: Build diario
+
+on:
+  schedule:
+    - cron: "10 6 * * *"   # 06:10 UTC ≈ 08:10 hora peninsular (varía una hora con el cambio de hora)
+  workflow_dispatch: {}     # permite lanzarlo a mano desde la pestaña Actions
+
+concurrency:
+  group: build-diario
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write        # para poder hacer push del sitio regenerado
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependencias
+        # Se instala el paquete playwright (lo importa scrapers/plenos_sedelectronica.py)
+        # pero NO el navegador Chromium: en CI el scraper de plenos de Mayorga falla
+        # de forma controlada y el build sigue sin él (rara vez cambian las actas).
+        # Si algún día se quiere cubrir también en CI, añadir aquí:
+        #   python -m playwright install --with-deps chromium
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Refrescar la cola de pistas del radar
+        # Cola interna (data/radar/, en .gitignore): no se publica, solo alimenta
+        # la revisión. Si falla una fuente no pasa nada.
+        run: python -m scrapers.radar_noticias --guardar || true
+
+      - name: Reconstruir el sitio
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: python -m sitegen.build
+
+      - name: Publicar si hay cambios
+        run: |
+          git config user.name "El Terracampino (bot)"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Sin cambios que publicar."
+          else
+            git commit -m "Actualización diaria automática"
+            git push
+          fi
