@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalón de Campos — El Terracampino</title>
-<meta name="description" content="En Villalón estamos ahora en 24 grados y con el cielo despejado. A lo largo del día subirá hasta los 31, con algo de viento flojo y sin visos de lluvi">
+<meta name="description" content="Noticias y tiempo de Villalón de Campos, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,53 +49,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalón de Campos: 24° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">24°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.098449&longitude=-5.034713&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Villalón estamos ahora en 24 grados y con el cielo despejado. A lo largo del día subirá hasta los 31, con algo de viento flojo y sin visos de lluvia. Mañana la cosa aprieta más, que puede llegar a los 35, así que aprovecha hoy para lo que tengas pendiente en el campo.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 35° y mínima de 17°, con casi despejado.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 37° y mínima de 18°, con nubes y claros.</p>
-      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 34° y mínima de 18°, con nublado.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">18°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Villalón de Campos</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Villalón de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -105,29 +60,29 @@
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/15/html/BOCYL-D-15052026-91-37.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-15</span>
-      <span class="tc-news-titular">Villalón de Campos empieza a preparar su nuevo Plan General de Ordenación Urbana</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado el primer documento del nuevo plan que ordenará cómo se puede construir y usar el suelo en el pueblo. Está en información pública; es solo el arranque del proceso.</span>
+      <span class="tc-news-titular">Villalón de Campos empieza a rehacer su plan urbanístico y abre el trámite al público</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado el primer documento del nuevo Plan General de Ordenación Urbana, el que marcará qué se puede construir y dónde. Ahora está en información pública, así que se pueden presentar alegaciones antes de seguir adelante.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/01/27/html/BOCYL-D-27012025-42.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-01-27</span>
-      <span class="tc-news-titular">Villalón estudia un centro de selección de cereal y legumbres en suelo rústico</span>
-      <span class="tc-news-entradilla">La empresa Comcertrans, S.L. quiere instalar en la parcela 27 del polígono 401 un centro para seleccionar y clasificar cereal y legumbres. Al ser suelo rústico, necesita un permiso excepcional y está en información pública antes de decidirse.</span>
+      <span class="tc-news-titular">Comcertrans quiere montar un centro de selección de cereal y legumbres en Villalón de Campos</span>
+      <span class="tc-news-entradilla">La empresa Comcertrans, S.L. ha pedido permiso para instalar en suelo rústico un centro básico de selección y clasificación de cereal y legumbres, en la parcela 27 del polígono 401. Está en información pública, así que aún falta que se le den los permisos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/02/25/html/BOCYL-D-25022025-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-02-25</span>
-      <span class="tc-news-titular">Villalón de Campos tendrá una nueva red de distribución eléctrica</span>
-      <span class="tc-news-entradilla">Industria ha dado el permiso para levantar una instalación de distribución de electricidad en el término municipal. Con la autorización concedida, falta que se construya.</span>
+      <span class="tc-news-titular">Villalón de Campos tendrá una nueva instalación de distribución eléctrica</span>
+      <span class="tc-news-entradilla">Industria ha dado el permiso previo y el de construcción para levantar una instalación de distribución de electricidad en el término municipal. El siguiente paso es construirla.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/05/15/html/BOCYL-D-15052025-10.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-05-15</span>
-      <span class="tc-news-titular">Anulada la autorización ambiental de una granja de cerdos en Villalón de Campos</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha declarado caducado el permiso que tenía desde 2009 una explotación porcina del municipio. Sin esa autorización, la granja pierde la cobertura ambiental que le permitía funcionar.</span>
+      <span class="tc-news-titular">Se anula el permiso ambiental de una granja de cerdos en Villalón de Campos</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha declarado caducada la autorización ambiental que tenía desde 2009 esta explotación porcina de Villalón. Con esto pierde el permiso que le permitía funcionar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/02/26/html/BOCYL-D-26022025-15.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-02-26</span>
-      <span class="tc-news-titular">Piden ocupar temporalmente terreno de la vía pecuaria Colada de Villabaruz en Villalón de Campos</span>
-      <span class="tc-news-entradilla">Hay una solicitud para usar de forma temporal parte de esta vía pecuaria del término municipal. Está en información pública, así que se pueden presentar alegaciones antes de que se resuelva.</span>
+      <span class="tc-news-titular">Piden ocupar un tramo de la cañada Colada de Villabaruz en Villalón de Campos</span>
+      <span class="tc-news-entradilla">Se ha solicitado ocupar temporalmente terrenos de esta vía pecuaria. Está en información pública, así que quien tenga algo que decir puede alegar antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     

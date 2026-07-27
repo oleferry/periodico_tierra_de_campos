@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cea — El Terracampino</title>
-<meta name="description" content="Ahora mismo en Cea estamos en 23 grados y despejado, con el viento casi parado. A lo largo del día subirá hasta los 31 y no se espera lluvia ninguna. ">
+<meta name="description" content="Noticias y tiempo de Cea, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,53 +44,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Cea: 23° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.46278&longitude=-5.01152&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Ahora mismo en Cea estamos en 23 grados y despejado, con el viento casi parado. A lo largo del día subirá hasta los 31 y no se espera lluvia ninguna. Mañana viene más caluroso todavía, hasta los 35, así que aprovecha hoy para lo que tengas pensado antes de que apriete.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 35° y mínima de 16°, con despejado.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 36° y mínima de 21°, con despejado. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">21°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 34° y mínima de 20°, con nubes y claros.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">20°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Cea</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Cea por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -106,18 +61,18 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
-      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Cea para evacuar parques eólicos</span>
-      <span class="tc-news-entradilla">Se abre el trámite de la autorización para tender esta línea de alta tensión que pasa por Santa María del Monte de Cea y una veintena de municipios más de León y Palencia. Piden además declararla de utilidad pública; quien quiera alegar tiene ahora el plazo para hacerlo.</span>
+      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Cea y otros pueblos de León y Palencia</span>
+      <span class="tc-news-entradilla">Se plantea una línea de evacuación de 132 kV para conectar los parques eólicos del Nudo Luengos con la subestación, pasando por más de veinte municipios de León y Palencia. Está en información pública para presentar alegaciones antes de que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/04/html/BOCYL-D-04052026-82-18.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-04</span>
-      <span class="tc-news-titular">Cambio importante en la granja de cerdos de Gordoncillo, de Explotaciones de Porcino del Cea, S.L</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha modificado la autorización ambiental que la granja tenía desde 2016 por una reforma sustancial de la explotación. El cambio ya está aprobado.</span>
+      <span class="tc-news-titular">Cambian la autorización ambiental de la granja de cerdos de Explotaciones de Porcino del Cea en Gordoncillo</span>
+      <span class="tc-news-entradilla">La granja porcina de Explotaciones de Porcino del Cea, S.L. ha hecho una modificación importante en sus instalaciones, y por eso se ha actualizado el permiso ambiental que tenía desde 2016.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/04/06/html/BOCYL-D-06042026-64-17.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-04-06</span>
-      <span class="tc-news-titular">Vía libre ambiental para el almacenamiento de energía en baterías de Valcabado</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha dado su informe favorable al proyecto de baterías «Bess Zamora 220» y a las líneas comunes de evacuación de varios almacenamientos en Valcabado, que promueve Cea Infraestructuras Energéticas, S.L.U. Falta que se construya.</span>
+      <span class="tc-news-titular">Visto bueno ambiental para las baterías de almacenamiento energético en Valcabado</span>
+      <span class="tc-news-entradilla">El proyecto de la empresa Cea Infraestructuras Energéticas, S.L.U. incluye el almacenamiento en baterías «Bess Zamora 220» y las líneas comunes para evacuar la energía de tres instalaciones. Ya tiene el informe de impacto ambiental; falta que se construya.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     

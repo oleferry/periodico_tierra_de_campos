@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Morales de Campos — El Terracampino</title>
-<meta name="description" content="Ahora en Morales de Campos estamos en 25 grados y el cielo despejado, con algo de viento suave. La cosa irá a más y puede llegar a los 32, sin que se ">
+<meta name="description" content="Noticias y tiempo de Morales de Campos, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,53 +49,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Morales de Campos: 25° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">25°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.86068&longitude=-5.17252&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Ahora en Morales de Campos estamos en 25 grados y el cielo despejado, con algo de viento suave. La cosa irá a más y puede llegar a los 32, sin que se espere lluvia en todo el día. Para mañana pinta parecido, casi despejado, pero apuntando más alto, hasta los 36. Con ese calor que viene, conviene ir preparando el riego para las horas de menos sol.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 36° y mínima de 17°, con casi despejado.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 37° y mínima de 18°, con casi despejado.</p>
-      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 35° y mínima de 20°, con nublado.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">20°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Morales de Campos</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Morales de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -111,28 +66,28 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/05/22/html/BOCYL-D-22052023-26.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-05-22</span>
-      <span class="tc-news-titular">Se declara de utilidad pública la concentración parcelaria de Tordehumos, Villabrágima y Morales de Campos</span>
-      <span class="tc-news-entradilla">La Junta ha dado el paso para reordenar las fincas de estos tres pueblos, considerándola de utilidad pública y ejecución urgente. Es el arranque del proceso; queda por delante todo el reparto de parcelas.</span>
+      <span class="tc-news-titular">Declarada urgente la concentración parcelaria en Tordehumos, Villabrágima y Morales de Campos</span>
+      <span class="tc-news-entradilla">La Junta ha dado el paso para reorganizar las fincas de estos tres municipios, agrupando parcelas dispersas. Ahora arranca el proceso; queda por delante el reparto de las tierras.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/06/05/html/BOCYL-D-05062026-107-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-06-05</span>
-      <span class="tc-news-titular">Ya hay comisión para la concentración parcelaria de Tordehumos, Villabrágima y Morales de Campos</span>
-      <span class="tc-news-entradilla">Agricultura ha aprobado quiénes formarán la Comisión Local que se encargará de reordenar las fincas en estos tres municipios. Es el paso previo para empezar con la concentración parcelaria.</span>
+      <span class="tc-news-titular">Ya hay comisión para la concentración parcelaria de Morales de Campos, Tordehumos y Villabrágima</span>
+      <span class="tc-news-entradilla">Se ha aprobado quién formará la Comisión Local que llevará el reagrupamiento de fincas en estos tres municipios. Es el paso previo para empezar a ordenar las parcelas de la zona.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/11/html/BOCYL-D-11052026-87-27.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-11</span>
-      <span class="tc-news-titular">Aprobado el plan de obras de la concentración parcelaria de Tordehumos, Villabrágima y Morales de Campos</span>
-      <span class="tc-news-entradilla">La Junta ya ha dado luz verde al plan de obras que acompaña a la reordenación de fincas en estos tres municipios. Es el paso previo a que se ejecuten los trabajos sobre el terreno.</span>
+      <span class="tc-news-titular">Aprobado el plan de obras para la concentración parcelaria de Morales de Campos, Tordehumos y Villabrágima</span>
+      <span class="tc-news-entradilla">Ya está aprobado el plan de obras que acompaña a la reordenación de fincas en estos tres municipios. Es el paso previo a que empiecen los trabajos sobre el terreno.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/03/24/html/BOCYL-D-24032025-35.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-03-24</span>
-      <span class="tc-news-titular">Piden ocupar temporalmente seis vías pecuarias en la zona de Villabrágima, Valverde de Campos y La Mudarra</span>
-      <span class="tc-news-entradilla">Se quieren usar de forma temporal terrenos de seis coladas y veredas de estos municipios de Valladolid. El expediente está en información pública por si alguien quiere consultarlo o presentar alegaciones.</span>
+      <span class="tc-news-titular">Piden ocupar temporalmente varias vías pecuarias entre Villabrágima, Valverde de Campos y La Mudarra</span>
+      <span class="tc-news-entradilla">Se ha abierto información pública para ocupar de forma temporal terrenos de seis coladas y veredas en esos tres términos municipales de Valladolid. Quien quiera alegar tiene ahora el plazo para hacerlo.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/04/18/html/BOCYL-D-18042023-17.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-04-18</span>
-      <span class="tc-news-titular">El informe ambiental de la concentración parcelaria de Villabrágima, Tordehumos y Morales ya es público</span>
-      <span class="tc-news-entradilla">Sale a la luz el estudio de impacto ambiental para reordenar las fincas de los tres municipios. Es un paso previo antes de que la concentración parcelaria siga adelante.</span>
+      <span class="tc-news-titular">La concentración parcelaria de Villabrágima, Tordehumos y Morales de Campos pasa el filtro ambiental</span>
+      <span class="tc-news-entradilla">El estudio previo para reorganizar las fincas de estos tres municipios ya tiene el informe de impacto ambiental. Es un paso técnico antes de seguir adelante con la concentración parcelaria.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
