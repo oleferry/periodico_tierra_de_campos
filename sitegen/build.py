@@ -290,6 +290,45 @@ def cargar_fotos_aprobadas() -> dict[str, list[dict]]:
     return por_slug
 
 
+def cargar_esquelas() -> dict[str, list[dict]]:
+    """Esquelas ya revisadas por Daniel (sitegen/almacen_esquelas.py), agrupadas
+    por municipio. Vienen del formulario de la web (web/api/esquela.js) y pasan
+    SIEMPRE por revisión humana antes de publicarse. Si hay foto, se descarga a
+    web/assets/esquelas/. Si el almacén no está o falla, se sigue sin esquelas."""
+    from sitegen import almacen_esquelas
+    if not almacen_esquelas.disponible():
+        return {}
+    try:
+        publicadas = almacen_esquelas.listar_publicadas()
+    except almacen_esquelas.AlmacenError as exc:
+        print(f"  aviso: sin esquelas ({exc})", file=sys.stderr)
+        return {}
+
+    destino = WEB / "assets" / "esquelas"
+    por_slug: dict[str, list[dict]] = {}
+    for e in publicadas:
+        archivo = None
+        if e.get("tiene_foto"):
+            destino.mkdir(parents=True, exist_ok=True)
+            archivo = f"{e['id']}.jpg"
+            ruta = destino / archivo
+            if not ruta.exists():
+                try:
+                    ruta.write_bytes(almacen_esquelas.descargar(f"publicadas/{e['id']}.jpg"))
+                except almacen_esquelas.AlmacenError:
+                    archivo = None
+        e["archivo"] = archivo
+        # La fecha de referencia para ordenar y decidir "reciente" vs archivo:
+        # la del fallecimiento si consta, si no la de aprobación.
+        e["_fecha_orden"] = e.get("fecha_fallecimiento") or (e.get("aprobada_en") or "")[:10]
+        por_slug.setdefault(e.get("pueblo_slug", ""), []).append(e)
+    for lista in por_slug.values():
+        lista.sort(key=lambda x: x["_fecha_orden"], reverse=True)
+    if publicadas:
+        print(f"  {len(publicadas)} esquelas publicadas")
+    return por_slug
+
+
 def cargar_noticias_propias() -> dict[str, list[dict]]:
     """Piezas propias desarrolladas desde el radar (scripts/desarrollar_pista.py),
     agrupadas por municipio. Solo las marcadas 'publicado': un borrador nunca
@@ -455,6 +494,7 @@ def header(depth: int) -> str:
     <a href="{up}huerta.html">Huerta</a>
     <a href="{up}campo.html">El campo</a>
     <a href="{up}leyendas.html">Leyendas</a>
+    <a href="{up}esquelas.html">Esquelas</a>
   </nav>
 </div></header>"""
 
@@ -1004,6 +1044,10 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
       <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
       <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>"""
 
+    # Esquelas del pueblo (sitegen/almacen_esquelas.py): revisadas a mano, nunca
+    # automáticas. Recientes destacadas + archivo "In memoriam".
+    esquelas_html = bloque_esquelas_municipio(m.get("_esquelas", []), hoy)
+
     # Fotos de vecinos, estilo "Destino Tierra de Campos" pero con marco de marca
     # propio: llegan por Telegram, pasan por revisión, se procesan (sitegen/fotos.py)
     # y solo entonces aparecen aquí. Nunca automático.
@@ -1060,6 +1104,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
     {propias_html}
     {ayto}
     {ayudas_html}
+    {esquelas_html}
     {galeria_html}
     {directorio_html}
     {tablon_html}
@@ -1499,6 +1544,243 @@ def render_leyendas(built: list[dict]) -> str:
                  desc="Leyendas y tradiciones documentadas de los pueblos de Tierra de Campos.")
 
 
+# Una esquela se considera "reciente" (con el funeral aún próximo o recién
+# pasado) durante estos días; después pasa al archivo "In memoriam".
+DIAS_ESQUELA_RECIENTE = 30
+
+
+def _fecha_esquela(iso: str | None) -> str:
+    if not iso:
+        return ""
+    try:
+        return fecha_larga(date.fromisoformat(iso[:10]))
+    except ValueError:
+        return ""
+
+
+def _tarjeta_esquela(e: dict, *, con_pueblo: str = "", depth: int = 1) -> str:
+    """Una esquela, siempre sobria. `con_pueblo` añade el nombre del pueblo
+    (para la página comarcal); `depth` ajusta la ruta de la foto."""
+    up = "../" * depth
+    foto = ""
+    if e.get("archivo"):
+        foto = (f'<img class="tc-esquela-foto" src="{up}assets/esquelas/{E(e["archivo"])}" '
+                f'alt="{E(e["nombre"])}" loading="lazy">')
+    linea_pueblo = f'<span class="tc-item-meta">{E(con_pueblo)}</span>' if con_pueblo else ""
+    edad = f", {E(str(e['edad']))} años" if e.get("edad") else ""
+    fall = _fecha_esquela(e.get("fecha_fallecimiento"))
+    fall_html = f'<p class="tc-esquela-fecha">Falleció el {E(fall)}</p>' if fall else ""
+    funeral = f'<p class="tc-esquela-funeral">{E(e["funeral"])}</p>' if e.get("funeral") else ""
+    texto = f'<p class="tc-esquela-texto">{E(e["texto"])}</p>' if e.get("texto") else ""
+    return f"""<article class="tc-esquela">
+    {foto}
+    <div class="tc-esquela-cuerpo">
+      {linea_pueblo}
+      <h3 class="tc-esquela-nombre">{E(e['nombre'])}{edad}</h3>
+      {fall_html}
+      {funeral}
+      {texto}
+    </div>
+  </article>"""
+
+
+def _particion_esquelas(esquelas: list[dict], hoy: date) -> tuple[list[dict], list[dict]]:
+    """Separa (recientes, in_memoriam) por la fecha de referencia de cada una."""
+    recientes, memoriam = [], []
+    for e in esquelas:
+        ref = e.get("_fecha_orden") or ""
+        es_reciente = False
+        try:
+            es_reciente = (hoy - date.fromisoformat(ref[:10])).days <= DIAS_ESQUELA_RECIENTE
+        except ValueError:
+            pass
+        (recientes if es_reciente else memoriam).append(e)
+    return recientes, memoriam
+
+
+def bloque_esquelas_municipio(esquelas: list[dict], hoy: date) -> str:
+    """Sección de esquelas dentro de la ficha de un pueblo. Sobria, sin foto de
+    portada llamativa, sin publicidad. Recientes arriba; el resto, en un archivo
+    'In memoriam' plegado."""
+    if not esquelas:
+        return ""
+    recientes, memoriam = _particion_esquelas(esquelas, hoy)
+    partes = ['<div class="tc-card tc-esquelas"><h3>Esquelas</h3>']
+    if recientes:
+        partes.append("".join(_tarjeta_esquela(e, depth=1) for e in recientes))
+    if memoriam:
+        items = "".join(
+            f'<li>{E(e["nombre"])}'
+            + (f' <span class="tc-item-meta">· {E(_fecha_esquela(e.get("fecha_fallecimiento")))}</span>'
+               if _fecha_esquela(e.get("fecha_fallecimiento")) else "")
+            + "</li>"
+            for e in memoriam
+        )
+        partes.append(f"""<details class="tc-memoriam"><summary>In memoriam · quienes nos dejaron</summary>
+      <ul class="tc-links-list">{items}</ul></details>""")
+    partes.append(
+        '<p class="tc-item-meta">¿Quieres publicar el fallecimiento de un familiar? '
+        '<a href="../esquela.html">Mándanos el aviso</a>. Cada esquela se revisa antes de publicarse.</p>'
+    )
+    partes.append("</div>")
+    return "".join(partes)
+
+
+def render_esquelas_pagina(por_slug: dict[str, list[dict]], nombre_por_slug: dict[str, str],
+                            hoy: date) -> str:
+    """Página comarcal de esquelas: las recientes de todos los pueblos juntas
+    (lo que busca la diáspora), y el acceso al archivo de cada pueblo."""
+    todas = []
+    for slug, lista in por_slug.items():
+        for e in lista:
+            e = dict(e)
+            e["_pueblo_nombre"] = nombre_por_slug.get(slug, slug)
+            todas.append(e)
+    recientes, memoriam = _particion_esquelas(
+        sorted(todas, key=lambda x: x.get("_fecha_orden", ""), reverse=True), hoy)
+
+    if recientes:
+        cuerpo = "".join(_tarjeta_esquela(e, con_pueblo=e["_pueblo_nombre"], depth=0) for e in recientes)
+    else:
+        cuerpo = ('<p class="tc-pieza-cuerpo">No hay esquelas recientes. Cuando una familia nos '
+                  'haga llegar un aviso y lo revisemos, aparecerá aquí y en la ficha de su pueblo.</p>')
+    memoriam_html = ""
+    if memoriam:
+        items = "".join(
+            f'<li>{E(e["nombre"])} <span class="tc-item-meta">· {E(e["_pueblo_nombre"])}'
+            + (f' · {E(_fecha_esquela(e.get("fecha_fallecimiento")))}'
+               if _fecha_esquela(e.get("fecha_fallecimiento")) else "")
+            + "</span></li>"
+            for e in memoriam
+        )
+        memoriam_html = f"""<h2 class="tc-blog-subtitulo">In memoriam</h2>
+  <p class="tc-item-meta">Quienes nos dejaron en los pueblos de la comarca.</p>
+  <ul class="tc-links-list">{items}</ul>"""
+
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">La comarca</span>
+  <h1>Esquelas</h1>
+  <p class="tc-articulo-entradilla">Los fallecimientos recientes en los pueblos de Tierra de Campos.
+  Cada esquela la envía un familiar o allegado y se revisa antes de publicarse; no recogemos avisos de
+  otras webs. Para quien vive lejos y quiere estar al tanto de su pueblo.</p>
+  {cuerpo}
+  {memoriam_html}
+  <div class="tc-card" style="margin-top:var(--tc-space-3);">
+    <h3 style="margin-top:0;">Publicar una esquela</h3>
+    <p class="tc-pieza-cuerpo">Si quieres que publiquemos el fallecimiento de un familiar, con la
+    información del funeral, puedes enviárnoslo. Es gratis y se revisa antes de aparecer.</p>
+    <p><a class="tc-button" href="esquela.html">Enviar un aviso</a></p>
+  </div>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Esquelas — El Terracampino", body, depth=0,
+                 desc="Esquelas y fallecimientos recientes en los pueblos de Tierra de Campos.")
+
+
+def render_esquela_form(built: list[dict]) -> str:
+    """Formulario para que una familia envíe una esquela (web/api/esquela.js).
+    Nada se publica al enviarlo: entra en una cola de revisión humana."""
+    opciones = "".join(f'<option value="{E(m["slug"])}">{E(m["name"])}</option>' for m in built)
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">Esquelas</span>
+  <h1>Enviar una esquela</h1>
+  <p class="tc-articulo-entradilla">Si ha fallecido un familiar o un allegado y quieres que lo
+  publiquemos, rellena estos datos. Lo revisamos antes de publicarlo —puede que te llamemos para
+  confirmarlo— y no cuesta nada. Solo publicamos avisos que nos llegan de la familia o allegados.</p>
+  <div class="tc-card">
+    <form id="tc-esquela-form">
+      <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Nombre de la persona fallecida *</label></p>
+      <input id="es-nombre" name="nombre" class="tc-input" required maxlength="120" style="width:100%; box-sizing:border-box;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
+      <select id="es-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option>{opciones}</select>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Edad (opcional)</label></p>
+      <input id="es-edad" name="edad" class="tc-input" inputmode="numeric" maxlength="3" style="width:120px;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Fecha del fallecimiento (opcional)</label></p>
+      <input id="es-fecha" name="fecha_fallecimiento" class="tc-input" type="date" style="width:200px;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Funeral: día, hora y lugar (opcional)</label></p>
+      <input id="es-funeral" name="funeral" class="tc-input" maxlength="200" placeholder="p. ej. Misa el jueves 12 a las 17:00 en la iglesia de Santa María" style="width:100%; box-sizing:border-box;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Unas palabras (opcional)</label></p>
+      <textarea id="es-texto" name="texto" class="tc-input" rows="3" maxlength="1000" style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Foto (opcional)</label></p>
+      <input id="es-foto" type="file" accept="image/*">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu contacto (teléfono o correo) *</label></p>
+      <input id="es-contacto" name="contacto" class="tc-input" required maxlength="200" style="width:100%; box-sizing:border-box;">
+      <p class="tc-item-meta">Tu contacto es solo para que podamos verificar el aviso contigo. No se publica.</p>
+      <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar</button></p>
+      <p id="es-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
+    </form>
+  </div>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>
+<script>
+(function() {{
+  var form = document.getElementById("tc-esquela-form");
+  var fileInput = document.getElementById("es-foto");
+
+  // Reduce la foto en el propio navegador antes de enviarla (máx. 1000px de
+  // lado, JPEG), para no mandar megas ni depender de la conexión del pueblo.
+  function leerFoto() {{
+    return new Promise(function(resolve) {{
+      var f = fileInput.files && fileInput.files[0];
+      if (!f) return resolve(null);
+      var img = new Image();
+      img.onload = function() {{
+        var max = 1000, w = img.width, h = img.height;
+        if (w > max || h > max) {{ var r = Math.min(max/w, max/h); w = Math.round(w*r); h = Math.round(h*r); }}
+        var c = document.createElement("canvas"); c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img, 0, 0, w, h);
+        resolve(c.toDataURL("image/jpeg", 0.82));
+      }};
+      img.onerror = function() {{ resolve(null); }};
+      var fr = new FileReader();
+      fr.onload = function(e) {{ img.src = e.target.result; }};
+      fr.readAsDataURL(f);
+    }});
+  }}
+
+  form.addEventListener("submit", function(e) {{
+    e.preventDefault();
+    var res = document.getElementById("es-resultado");
+    var btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    leerFoto().then(function(fotoB64) {{
+      return fetch("api/esquela", {{
+        method: "POST",
+        headers: {{ "Content-Type": "application/json" }},
+        body: JSON.stringify({{
+          nombre: document.getElementById("es-nombre").value,
+          pueblo: document.getElementById("es-pueblo").value,
+          edad: document.getElementById("es-edad").value,
+          fecha_fallecimiento: document.getElementById("es-fecha").value,
+          funeral: document.getElementById("es-funeral").value,
+          texto: document.getElementById("es-texto").value,
+          contacto: document.getElementById("es-contacto").value,
+          foto_base64: fotoB64,
+          web: form.querySelector('input[name="web"]').value
+        }})
+      }});
+    }}).then(function(r) {{ return r.json().then(function(d) {{ return {{ ok: r.ok, body: d }}; }}); }})
+      .then(function(out) {{
+        if (out.ok) {{
+          form.style.display = "none";
+          res.textContent = "Recibido. Gracias — lo revisamos y, si hace falta, te llamamos antes de publicarlo. Te acompañamos en el sentimiento.";
+        }} else {{
+          res.textContent = out.body.error || "No se pudo enviar. Inténtalo más tarde.";
+          btn.disabled = false; btn.textContent = "Enviar";
+        }}
+      }})
+      .catch(function() {{
+        res.textContent = "No se pudo enviar. Inténtalo más tarde.";
+        btn.disabled = false; btn.textContent = "Enviar";
+      }});
+  }});
+}})();
+</script>"""
+    return shell("Enviar una esquela — El Terracampino", body, depth=0,
+                 desc="Envía el aviso de fallecimiento de un familiar para publicarlo en El Terracampino.")
+
+
 def render_404() -> str:
     """Página de error 404. NO puede usar shell() (que resuelve assets con
     rutas relativas tipo '../assets/...' según la profundidad de la página):
@@ -1543,6 +1825,7 @@ def main() -> int:
     fotos_por_slug = cargar_fotos_aprobadas()
     propias_por_slug = cargar_noticias_propias()
     directorio_por_slug = cargar_directorio_servicios()
+    esquelas_por_slug = cargar_esquelas()
 
     # Foto de cabecera con licencia libre (scripts/buscar_fotos_libres.py):
     # solo relleno honesto mientras no hay fotos de vecinos, con su autor y
@@ -1605,7 +1888,8 @@ def main() -> int:
     # publicado una pieza propia sobre él (radar → scripts/desarrollar_pista.py).
     # Así la cobertura crece donde hay contenido, sin páginas vacías: el tiempo
     # se resuelve solo (geocode más abajo) y el BOCyL funciona para cualquiera.
-    slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys()) + list(propias_por_slug.keys())))
+    slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys()) + list(propias_por_slug.keys())
+                               + list(esquelas_por_slug.keys())))
 
     print("· Ayudas y subvenciones (BDNS)…", flush=True)
     try:
@@ -1658,6 +1942,7 @@ def main() -> int:
         m["_ayudas"] = ayudas_por_slug.get(slug, [])
         m["_propias"] = propias_por_slug.get(slug, [])
         m["_directorio"] = directorio_por_slug.get(slug, [])
+        m["_esquelas"] = esquelas_por_slug.get(slug, [])
         m["_fotos"] = fotos_por_slug.get(slug, [])
         m["_foto_libre"] = fotos_libres.get(slug)
         m["_anuncios"] = por_muni.get(slug, [])
@@ -1705,9 +1990,14 @@ def main() -> int:
     (WEB / "chivatazo.html").write_text(render_chivatazo(built), encoding="utf-8")
     (WEB / "leyendas.html").write_text(render_leyendas(built), encoding="utf-8")
     (WEB / "campo.html").write_text(render_lonja(cots_lonja, emb_datos), encoding="utf-8")
+    nombre_por_slug_built = {m["slug"]: m["name"] for m in built}
+    (WEB / "esquelas.html").write_text(
+        render_esquelas_pagina(esquelas_por_slug, nombre_por_slug_built, hoy), encoding="utf-8")
+    (WEB / "esquela.html").write_text(render_esquela_form(built), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
         ("leyendas.html", hoy.isoformat()), ("campo.html", hoy.isoformat()),
+        ("esquelas.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 

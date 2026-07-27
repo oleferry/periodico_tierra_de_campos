@@ -518,6 +518,22 @@
 .tc-tabla-lonja th { font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
 .tc-tabla-lonja tr:last-child td { border-bottom: none; }
 
+.tc-esquela {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 14px 0; border-bottom: 1px solid var(--tc-linea-suave);
+}
+.tc-esquela:last-child { border-bottom: none; }
+.tc-esquela-foto {
+  width: 84px; height: 104px; object-fit: cover; flex: 0 0 auto;
+  border: 1px solid var(--tc-linea-suave); background: #f3f1ec;
+}
+.tc-esquela-nombre { font-family: var(--tc-font-headline); font-size: 1.1rem; margin: 2px 0 4px; }
+.tc-esquela-fecha { font-size: .9rem; margin: 0 0 4px; }
+.tc-esquela-funeral { font-size: .9rem; margin: 0 0 4px; }
+.tc-esquela-texto { font-size: .92rem; font-style: italic; margin: 6px 0 0; }
+.tc-memoriam { margin-top: 12px; }
+.tc-memoriam summary { cursor: pointer; font-weight: 700; font-size: .9rem; }
+
 .tc-comentarios-lista { list-style: none; padding: 0; margin: 0; }
 .tc-comentarios-lista li {
   padding: 10px 0; border-bottom: 1px solid var(--tc-linea-suave);

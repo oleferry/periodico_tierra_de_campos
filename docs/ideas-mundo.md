@@ -120,13 +120,21 @@ practica este proyecto son la línea que separa esto del "pink slime".
 
 ## Fase 2 — Comunidad y hábito (requieren pactos o acción del usuario)
 
-- [ ] **Esquelas dignas y gratuitas** [media, EDITORIALMENTE SENSIBLE, la más
-  valiosa de todo el backlog]. VTDigger montó autoservicio de esquelas: ingreso
-  directo modesto pero disparó afecto y donaciones. No hay dataset público:
-  pacto manual con tanatorios/funerarias/parroquias de la comarca, alta por
-  WhatsApp/teléfono para la familia, sección sobria SIN publicidad alrededor,
-  aviso por Telegram por pueblo. Contraparte alegre: nacimientos, bodas, bodas
-  de oro. Nunca scraper puro: acuerdo manual-asistido.
+- [x] **Esquelas dignas y gratuitas** — HECHO el 2026-07-27. Decisiones de
+  Daniel: entrada por formulario web, sin condolencias de momento, permanencia
+  como "In memoriam" en archivo por pueblo, foto opcional si la aporta la
+  familia. Piezas: `web/esquela.html` (formulario, reduce la foto en el propio
+  navegador) → `web/api/esquela.js` (serverless, guarda en Supabase bucket
+  `esquelas/pendientes`) → `scripts/revisar_esquelas.py` (revisión humana
+  OBLIGATORIA, nunca IA) → `sitegen/almacen_esquelas.py` → el build las pinta
+  en la ficha del pueblo (recientes + archivo In memoriam plegado) y en la
+  página comarcal `/esquelas.html` (enlazada en el menú). Sobria, sin
+  publicidad. El contacto de quien envía se guarda para verificar pero NUNCA se
+  publica. Nada se scrapea de otras webs.
+  Pendiente/futuro: aviso por Telegram al aprobar (hoy aparece en el build
+  diario), contraparte alegre (nacimientos, bodas), y el pacto con una
+  funeraria para que el formulario no dependa solo de que la familia lo
+  encuentre.
 - [ ] **Canal de WhatsApp de El Terracampino** [fácil técnica, la crea Daniel].
   1-3 envíos/día máx: esquelas, bandos, titular. Tono "mensaje de un amigo", no
   tablón. Valorar audio de 60 segundos ("buenos días, hoy en la comarca...")

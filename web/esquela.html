@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enviar una esquela — El Terracampino</title>
+<meta name="description" content="Envía el aviso de fallecimiento de un familiar para publicarlo en El Terracampino.">
+<link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="assets/favicon-192.png" type="image/png" sizes="192x192">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/brand-tokens.css">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="alternate" type="application/rss+xml" title="El Terracampino — Investigaciones" href="feed.xml">
+</head>
+<body class="tc-furrows">
+<header class="tc-header"><div class="tc-wrap tc-header-inner">
+  <a href="index.html" class="tc-logo"><img src="assets/logo.png" alt="El Terracampino" height="52"></a>
+  <nav class="tc-nav">
+    <a href="index.html">Portada</a>
+    <a href="index.html#pueblos">Elige tu pueblo</a>
+    <a href="index.html#comarca">La comarca</a>
+    <a href="index.html#blog">Investigaciones</a>
+    <a href="huerta.html">Huerta</a>
+    <a href="campo.html">El campo</a>
+    <a href="leyendas.html">Leyendas</a>
+    <a href="esquelas.html">Esquelas</a>
+  </nav>
+</div></header>
+<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">Esquelas</span>
+  <h1>Enviar una esquela</h1>
+  <p class="tc-articulo-entradilla">Si ha fallecido un familiar o un allegado y quieres que lo
+  publiquemos, rellena estos datos. Lo revisamos antes de publicarlo —puede que te llamemos para
+  confirmarlo— y no cuesta nada. Solo publicamos avisos que nos llegan de la familia o allegados.</p>
+  <div class="tc-card">
+    <form id="tc-esquela-form">
+      <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Nombre de la persona fallecida *</label></p>
+      <input id="es-nombre" name="nombre" class="tc-input" required maxlength="120" style="width:100%; box-sizing:border-box;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
+      <select id="es-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option><option value="medina-de-rioseco">Medina de Rioseco</option><option value="sahagun">Sahagún</option><option value="carrion-de-los-condes">Carrión de los Condes</option><option value="paredes-de-nava">Paredes de Nava</option><option value="valderas">Valderas</option><option value="villalon-de-campos">Villalón de Campos</option><option value="villalpando">Villalpando</option><option value="mayorga">Mayorga</option><option value="villada">Villada</option><option value="villarramiel">Villarramiel</option><option value="becerril-de-campos">Becerril de Campos</option><option value="fuentes-de-nava">Fuentes de Nava</option><option value="almanza">Almanza</option><option value="cea">Cea</option><option value="el-burgo-ranero">El Burgo Ranero</option><option value="gordaliza-del-pino">Gordaliza del Pino</option><option value="grajal-de-campos">Grajal de Campos</option><option value="morales-de-campos">Morales de Campos</option><option value="valverde-de-campos">Valverde de Campos</option><option value="villanueva-de-la-condesa">Villanueva de la Condesa</option></select>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Edad (opcional)</label></p>
+      <input id="es-edad" name="edad" class="tc-input" inputmode="numeric" maxlength="3" style="width:120px;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Fecha del fallecimiento (opcional)</label></p>
+      <input id="es-fecha" name="fecha_fallecimiento" class="tc-input" type="date" style="width:200px;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Funeral: día, hora y lugar (opcional)</label></p>
+      <input id="es-funeral" name="funeral" class="tc-input" maxlength="200" placeholder="p. ej. Misa el jueves 12 a las 17:00 en la iglesia de Santa María" style="width:100%; box-sizing:border-box;">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Unas palabras (opcional)</label></p>
+      <textarea id="es-texto" name="texto" class="tc-input" rows="3" maxlength="1000" style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Foto (opcional)</label></p>
+      <input id="es-foto" type="file" accept="image/*">
+      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Tu contacto (teléfono o correo) *</label></p>
+      <input id="es-contacto" name="contacto" class="tc-input" required maxlength="200" style="width:100%; box-sizing:border-box;">
+      <p class="tc-item-meta">Tu contacto es solo para que podamos verificar el aviso contigo. No se publica.</p>
+      <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
+      <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar</button></p>
+      <p id="es-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
+    </form>
+  </div>
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>
+<script>
+(function() {
+  var form = document.getElementById("tc-esquela-form");
+  var fileInput = document.getElementById("es-foto");
+
+  // Reduce la foto en el propio navegador antes de enviarla (máx. 1000px de
+  // lado, JPEG), para no mandar megas ni depender de la conexión del pueblo.
+  function leerFoto() {
+    return new Promise(function(resolve) {
+      var f = fileInput.files && fileInput.files[0];
+      if (!f) return resolve(null);
+      var img = new Image();
+      img.onload = function() {
+        var max = 1000, w = img.width, h = img.height;
+        if (w > max || h > max) { var r = Math.min(max/w, max/h); w = Math.round(w*r); h = Math.round(h*r); }
+        var c = document.createElement("canvas"); c.width = w; c.height = h;
+        c.getContext("2d").drawImage(img, 0, 0, w, h);
+        resolve(c.toDataURL("image/jpeg", 0.82));
+      };
+      img.onerror = function() { resolve(null); };
+      var fr = new FileReader();
+      fr.onload = function(e) { img.src = e.target.result; };
+      fr.readAsDataURL(f);
+    });
+  }
+
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    var res = document.getElementById("es-resultado");
+    var btn = form.querySelector("button");
+    btn.disabled = true; btn.textContent = "Enviando…";
+    leerFoto().then(function(fotoB64) {
+      return fetch("api/esquela", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: document.getElementById("es-nombre").value,
+          pueblo: document.getElementById("es-pueblo").value,
+          edad: document.getElementById("es-edad").value,
+          fecha_fallecimiento: document.getElementById("es-fecha").value,
+          funeral: document.getElementById("es-funeral").value,
+          texto: document.getElementById("es-texto").value,
+          contacto: document.getElementById("es-contacto").value,
+          foto_base64: fotoB64,
+          web: form.querySelector('input[name="web"]').value
+        })
+      });
+    }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, body: d }; }); })
+      .then(function(out) {
+        if (out.ok) {
+          form.style.display = "none";
+          res.textContent = "Recibido. Gracias — lo revisamos y, si hace falta, te llamamos antes de publicarlo. Te acompañamos en el sentimiento.";
+        } else {
+          res.textContent = out.body.error || "No se pudo enviar. Inténtalo más tarde.";
+          btn.disabled = false; btn.textContent = "Enviar";
+        }
+      })
+      .catch(function() {
+        res.textContent = "No se pudo enviar. Inténtalo más tarde.";
+        btn.disabled = false; btn.textContent = "Enviar";
+      });
+  });
+})();
+</script>
+<footer class="tc-footer"><div class="tc-wrap">
+  <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
+  <div class="tc-footer-links"><a href="index.html">Portada</a><a href="chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+</div></footer>
+<div class="tc-popup-overlay" id="tc-popup-overlay">
+  <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
+    <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
+    <h2>La semana terracampina</h2>
+    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+  </div>
+</div>
+<script>
+(function() {
+  var API = "api/suscribir";
+  // Todos los formularios de suscripción de la página (popup + pie) van al
+  // mismo endpoint; el resultado se muestra en el propio formulario.
+  document.querySelectorAll("form.tc-form").forEach(function(form) {
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]');
+      var honey = form.querySelector('input[name="web"]');
+      var btn = form.querySelector("button");
+      btn.disabled = true; btn.textContent = "Un momento…";
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.value, web: honey ? honey.value : "" }),
+      }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+        .then(function(res) {
+          if (res.ok) {
+            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            localStorage.setItem("tc_newsletter_popup_visto", "1");
+          } else {
+            btn.disabled = false; btn.textContent = "Suscribirme";
+            alert(res.d.error || "No se pudo completar el alta. Inténtalo más tarde.");
+          }
+        })
+        .catch(function() {
+          btn.disabled = false; btn.textContent = "Suscribirme";
+          alert("No se pudo completar el alta. Inténtalo más tarde.");
+        });
+    });
+  });
+
+  var KEY = "tc_newsletter_popup_visto";
+  if (localStorage.getItem(KEY)) return;
+  var overlay = document.getElementById("tc-popup-overlay");
+  var close = document.getElementById("tc-popup-close");
+  function ocultar() {
+    overlay.classList.remove("tc-popup-overlay--visible");
+    localStorage.setItem(KEY, "1");
+  }
+  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 15000);
+  close.addEventListener("click", ocultar);
+  overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+})();
+</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
