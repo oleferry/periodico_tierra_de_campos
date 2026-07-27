@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sahagún — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Sahagún, Tierra de Campos.">
+<meta name="description" content="En Sahagún ahora mismo tenemos 29 grados y el cielo despejado, con algo de viento flojo. La cosa subirá hasta los 32 y no se espera lluvia en todo el ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,8 +44,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Sahagún</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Sahagún: 29° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.371111&longitude=-5.033056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Sahagún ahora mismo tenemos 29 grados y el cielo despejado, con algo de viento flojo. La cosa subirá hasta los 32 y no se espera lluvia en todo el día. Para mañana, más de lo mismo pero con más calor, que se puede ir hasta los 36. Si tienes que andar en el campo, aprovecha las horas de la mañana antes de que apriete.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Martes</span>
+      <h4 class="tc-day-titular">Martes de calor firme</h4>
+      <p class="tc-day-texto">Cielo despejado y una máxima de 36 grados, con mínima de 17. El viento ronda los 24 km/h y no se espera lluvia.</p>
+      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles aún más caluroso</h4>
+      <p class="tc-day-texto">Sigue el sol sin nubes y sube hasta los 37 grados, dejando la mínima en 19. Viento moderado de 26 km/h y nada de agua.</p>
+      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">19°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves con el calor aflojando algo</h4>
+      <p class="tc-day-texto">Cielo casi despejado y la máxima baja un poco, a 35 grados, con 20 de mínima. Viento en torno a 24 km/h y sin precipitaciones.</p>
+      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">20°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Sahagún por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -56,34 +101,34 @@
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
       <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Sahagún para evacuar los parques eólicos</span>
-      <span class="tc-news-entradilla">Se pide permiso para construir la infraestructura que llevará la electricidad de los parques eólicos del Nudo Luengos hasta la subestación. La línea pasará por Sahagún y por otros muchos pueblos de León y Palencia. Ahora está en información pública antes de autorizarse.</span>
+      <span class="tc-news-entradilla">Es el trámite previo para autorizar y construir la línea que llevará la corriente de los parques eólicos, y que pasará por Sahagún y otros pueblos de León y Palencia. Se puede consultar y presentar alegaciones antes de que se apruebe.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/01/16/html/BOCYL-D-16012025-14.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-01-16</span>
       <span class="tc-news-titular">Vía libre ambiental a un sondeo para sacar agua en una parcela de Sahagún</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha dado el visto bueno al proyecto de un sondeo para extraer agua en la parcela 97 del polígono 917 de Sahagún. Con el informe favorable, el paso siguiente es que se ejecute la obra.</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha dado su informe de impacto favorable al proyecto para hacer un pozo y extraer agua en la parcela 97 del polígono 917. Falta que se ejecute la obra.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/04/30/html/BOCYL-D-30042026-81-47.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-04-30</span>
-      <span class="tc-news-titular">Sahagún tramita la declaración de ruina de un edificio en la plaza Santiago 14</span>
-      <span class="tc-news-entradilla">El Ayuntamiento estudia declarar en ruina total la edificación con fachada a la calle Antonio Nicolás, en la plaza Santiago n.º 14. El expediente está en información pública antes de resolverse.</span>
+      <span class="tc-news-titular">El Ayuntamiento de Sahagún tramita la declaración de ruina de un edificio en la plaza Santiago</span>
+      <span class="tc-news-entradilla">Se ha abierto expediente para declarar en ruina total una edificación del inmueble de la plaza Santiago n.º 14, con fachada a la calle Antonio Nicolás. Está en información pública antes de resolverse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/10/15/html/BOCYL-D-15102025-31.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-10-15</span>
-      <span class="tc-news-titular">El Ayuntamiento de Sahagún abre expediente de ruina para el edificio de la calle San Francisco número 2</span>
-      <span class="tc-news-entradilla">Se ha iniciado el trámite para declarar en ruina ese inmueble. Está en información pública, así que quien tenga algo que alegar puede hacerlo antes de que se resuelva.</span>
+      <span class="tc-news-titular">Sahagún estudia declarar en ruina un edificio de la calle San Francisco</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha iniciado el expediente para declarar en ruina el inmueble del número 2 de la calle San Francisco. Está en información pública antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/11/26/html/BOCYL-D-26112024-38.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-11-26</span>
-      <span class="tc-news-titular">Sahagún abre expediente para declarar en ruina una casa de la travesía La Barrera de San Martín de la Cueza</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha empezado el trámite para declarar en ruina el inmueble de la travesía La Barrera n.º 1, en San Martín de la Cueza. Está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-titular">Sahagún estudia declarar en ruina una casa de la travesía La Barrera de San Martín de la Cueza</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha abierto el expediente para declarar en ruina el inmueble del número 1 de esa calle. Está en información pública antes de que haya decisión definitiva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     <h2 class="tc-block-title">Ayudas y subvenciones</h2>
       <div class="tc-news-grid"><a class="tc-news" href="../noticia/8c998cbb433ac007.html" target="_self">
       <span class="tc-news-kicker">Ayudas y subvenciones · 2026-06-30</span>
-      <span class="tc-news-titular">Sahagún reparte ayudas a la natalidad para familias con hijos nacidos entre mediados de 2025 y 2026</span>
-      <span class="tc-news-entradilla">El Ayuntamiento de Sahagún destina 6.000 euros a ayudar a las familias del municipio por los nacimientos del segundo semestre de 2025 y el primer semestre de 2026. Ojo, porque el plazo ya no está abierto.</span>
+      <span class="tc-news-titular">Ayudas a la natalidad en Sahagún para bebés nacidos entre julio de 2025 y junio de 2026</span>
+      <span class="tc-news-entradilla">El Ayuntamiento de Sahagún reparte 6.000 euros entre las familias que hayan tenido un hijo en ese periodo. Ojo: el plazo ya no está abierto.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div>
     
@@ -115,7 +160,8 @@
 </div>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="../aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
 <div class="tc-popup-overlay" id="tc-popup-overlay">
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">

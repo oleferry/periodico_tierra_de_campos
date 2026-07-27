@@ -375,6 +375,14 @@
 
 .tc-footer-links a { color: var(--tc-azul-bop); }
 
+.tc-footer .tc-propiedad {
+  margin-top: var(--tc-space-3);
+  margin-bottom: 0;
+  padding-top: var(--tc-space-2);
+  border-top: 1px solid var(--tc-linea, rgba(0,0,0,.12));
+  font-size: .78rem;
+}
+
 /* Etiqueta de sello */
 
 .tc-sello {

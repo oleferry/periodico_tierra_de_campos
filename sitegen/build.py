@@ -209,8 +209,11 @@ def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool)
         if tiene_imagen else ""
     )
     fuentes_html = "".join(f"<li>{E(f)}</li>" for f in art.get("fuentes_usadas", []))
+    # Por defecto la pieza es una investigación; algunas (p. ej. un homenaje) traen
+    # su propia etiqueta en art["seccion_label"] para no rotularse como tal.
+    seccion_label = art.get("seccion_label") or f"Investigación · {tema}"
     body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Investigación · {E(tema)}</span>
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">{E(seccion_label)}</span>
   <h1>{E(art['titular'])}</h1>
   <p class="tc-articulo-entradilla">{E(art['entradilla'])}</p>
   {imagen_html}
@@ -602,10 +605,12 @@ def newsletter_popup(depth: int) -> str:
 
 
 def footer(depth: int) -> str:
-    home = "../" * depth + "index.html"
+    up = "../" * depth
+    home = up + "index.html"
     return f"""<footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{"../" * depth}gente.html">Gente de Campos</a><a href="{"../" * depth}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{up}gente.html">Gente de Campos</a><a href="{up}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="{up}aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="{up}aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>"""
 
 
@@ -2002,6 +2007,41 @@ def render_gente(built: list[dict], blog_articulos: list[dict]) -> str:
                  desc="Retratos de personas de los pueblos de Tierra de Campos, contados con sus propias palabras.")
 
 
+def render_aviso_legal() -> str:
+    """Aviso legal / titularidad del medio (LSSI-CE art. 10). Deja constancia de
+    quién es la propietaria del periódico y quién lo desarrolla y mantiene. No se
+    publica ningún DNI personal: la propietaria figura por nombre (es lo que exige
+    la ley para el titular) y la empresa de desarrollo con su CIF, que sí es un
+    identificador público de sociedad."""
+    body = """<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Información legal</span>
+  <h1>Aviso legal</h1>
+  <p class="tc-articulo-entradilla">Quién es responsable de El Terracampino y quién lo ha construido, en cumplimiento del artículo 10 de la Ley 34/2002 de Servicios de la Sociedad de la Información (LSSI-CE).</p>
+
+  <h2 class="tc-blog-subtitulo">Titularidad del medio</h2>
+  <p class="tc-articulo-parrafo">El Terracampino (elterracampino.es) es un medio de comunicación digital propiedad de <strong>María Vega Blanco</strong>, responsable de su línea editorial y de los contenidos publicados.</p>
+
+  <h2 class="tc-blog-subtitulo">Desarrollo y mantenimiento técnico</h2>
+  <p class="tc-articulo-parrafo">El diseño, desarrollo y mantenimiento técnico del sitio corre a cargo de <strong>Naraya Services Cloud Consulting, S.L.</strong>, con los siguientes datos identificativos:</p>
+  <ul class="tc-links-list">
+    <li>Denominación social: Naraya Services Cloud Consulting, S.L.</li>
+    <li>NIF: B-42792101</li>
+    <li>Domicilio: Calle Real 212 B, Villaobispo de las Regueras, 24193 Villaquilambre (León), España.</li>
+    <li>Actividad (CNAE 7020): otras actividades de consultoría de gestión empresarial.</li>
+  </ul>
+
+  <h2 class="tc-blog-subtitulo">Contacto</h2>
+  <p class="tc-articulo-parrafo">Para cualquier consulta, corrección o solicitud relacionada con los contenidos puedes escribirnos por WhatsApp al <a href="https://wa.me/34695645395" target="_blank" rel="noopener">695 645 395</a> o a través del <a href="chivatazo.html">formulario de contacto</a>.</p>
+
+  <h2 class="tc-blog-subtitulo">Sobre los contenidos</h2>
+  <p class="tc-articulo-parrafo">Este medio resume y enlaza información pública procedente de fuentes oficiales y abiertas (boletines oficiales, portales de transparencia, organismos públicos). Los resúmenes no sustituyen al documento original: ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada. Si detectas un error, dínoslo y lo corregimos.</p>
+
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Aviso legal — El Terracampino", body, depth=0,
+                 desc="Titularidad de El Terracampino: propiedad de María Vega Blanco, desarrollado por Naraya Services Cloud Consulting S.L.")
+
+
 def render_404() -> str:
     """Página de error 404. NO puede usar shell() (que resuelve assets con
     rutas relativas tipo '../assets/...' según la profundidad de la página):
@@ -2221,11 +2261,12 @@ def main() -> int:
         render_archivo_pagina(archivo_por_slug, nombre_por_slug_built), encoding="utf-8")
     (WEB / "archivo-enviar.html").write_text(render_archivo_form(built), encoding="utf-8")
     (WEB / "gente.html").write_text(render_gente(built, blog_articulos), encoding="utf-8")
+    (WEB / "aviso-legal.html").write_text(render_aviso_legal(), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
         ("leyendas.html", hoy.isoformat()), ("campo.html", hoy.isoformat()),
         ("esquelas.html", hoy.isoformat()), ("archivo.html", hoy.isoformat()),
-        ("gente.html", hoy.isoformat()),
+        ("gente.html", hoy.isoformat()), ("aviso-legal.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 

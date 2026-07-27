@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grajal de Campos — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Grajal de Campos, Tierra de Campos.">
+<meta name="description" content="En Grajal estamos ahora en 29 grados y con el cielo despejado. Hoy subirá un poco más, hasta los 32, con apenas nada de viento y sin pinta de lluvia. ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,8 +44,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Grajal de Campos</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Grajal de Campos: 29° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.32073&longitude=-5.01938&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Grajal estamos ahora en 29 grados y con el cielo despejado. Hoy subirá un poco más, hasta los 32, con apenas nada de viento y sin pinta de lluvia. Mañana la cosa aprieta y puede llegar a los 36. Si tienes huerto, ve pensando en regar temprano o ya de noche, que con ese calor al mediodía no cunde.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Martes</span>
+      <h4 class="tc-day-titular">Martes de calor y viento</h4>
+      <p class="tc-day-texto">Cielo despejado y jornada calurosa, con 36 grados de máxima y 18 de mínima. El viento sopla en torno a los 25 km/h, así que se agradecerá algo de sombra.</p>
+      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">18°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles a pleno sol</h4>
+      <p class="tc-day-texto">Otro día despejado y aún más caluroso, hasta 37 grados por la tarde y 19 de madrugada. Sigue el viento moderado, sobre 28 km/h, sin rastro de lluvia.</p>
+      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">19°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves con algo menos de calor</h4>
+      <p class="tc-day-texto">Se afloja un poco el calor con 35 de máxima y 21 de mínima, y el cielo queda casi despejado. Viento de unos 24 km/h y nada de lluvia a la vista.</p>
+      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">21°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Grajal de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -61,18 +106,18 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/11/14/html/BOCYL-D-14112022-37.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-11-14</span>
-      <span class="tc-news-titular">Adamo pide ocupar varias cañadas y coladas para pasar su red por Grajal de Campos y otros pueblos</span>
-      <span class="tc-news-entradilla">La empresa Adamo Telecom Iberia, S.A.U. quiere ocupar terrenos de siete vías pecuarias que cruzan Grajal de Campos, Sahagún, Gordaliza del Pino y otros municipios de la zona. Está en información pública, así que se pueden presentar alegaciones antes de que se resuelva.</span>
+      <span class="tc-news-titular">Adamo pide ocupar varias vías pecuarias para pasar su red por Grajal de Campos y otros seis pueblos</span>
+      <span class="tc-news-entradilla">La empresa Adamo Telecom Iberia, S.A.U. quiere ocupar terrenos de siete cañadas y coladas que cruzan Grajal de Campos, Sahagún, Bercianos del Real Camino y otros municipios de León. El expediente está en información pública por si alguien quiere alegar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/12/21/html/BOCYL-D-21122023-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-12-21</span>
-      <span class="tc-news-titular">La concentración parcelaria de Grajal, Escobar y Sahagún pasa el filtro ambiental</span>
-      <span class="tc-news-entradilla">El plan para reorganizar las fincas en los términos de Grajal de Campos, Escobar de Campos y Sahagún ya tiene el informe de impacto ambiental. Se ha hecho público antes de seguir adelante con la concentración.</span>
+      <span class="tc-news-titular">La concentración parcelaria de Grajal, Escobar y Sahagún ya tiene su informe ambiental</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha hecho público el informe de impacto ambiental de la reordenación de fincas que afecta a los términos de Grajal de Campos, Escobar de Campos y Sahagún. Es un paso previo dentro del proceso de concentración parcelaria.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/04/12/html/BOCYL-D-12042022-28.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-04-12</span>
-      <span class="tc-news-titular">Se paraliza la concentración parcelaria en la zona de Grajal, Escobar, Sahagún y Santervás de Campos</span>
-      <span class="tc-news-entradilla">La Junta disuelve los grupos de trabajo y anula la elección de los miembros que iban a formar la comisión local en Santervás de Campos, Zorita de la Loma y Villacreces. Con esto se deja sin efecto ese trámite de la concentración parcelaria.</span>
+      <span class="tc-news-titular">Se echa atrás la concentración parcelaria en Santervás de Campos, Zorita de la Loma y Villacreces</span>
+      <span class="tc-news-entradilla">La Junta disuelve los grupos de trabajo y anula la elección de los miembros que iban a formar la comisión local en esas entidades, dentro de la concentración parcelaria de Grajal, Escobar, Sahagún y Santervás de Campos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
@@ -97,7 +142,8 @@
 </div>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="../aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
 <div class="tc-popup-overlay" id="tc-popup-overlay">
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
