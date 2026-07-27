@@ -610,6 +610,7 @@ def footer(depth: int) -> str:
     return f"""<footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
   <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{up}gente.html">Gente de Campos</a><a href="{up}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="{up}aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
   <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="{up}aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>"""
 
