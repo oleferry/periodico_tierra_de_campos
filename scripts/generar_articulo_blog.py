@@ -331,11 +331,126 @@ def dossier_migraciones() -> tuple[str, str]:
     return "migraciones", "\n".join(lineas)
 
 
+def dossier_agricultura() -> tuple[str, str]:
+    """Dossier del campo de los 12 pilotos según el Censo Agrario 2009
+    (scripts/investigar_agricultura.py, tabla 29006 del INE). Retrata la
+    concentración: pocas explotaciones repartiéndose muchas hectáreas.
+    Ver docs/ideas-blog.md, idea #6 ('Más hectáreas. Menos agricultores').
+
+    Aviso que va DENTRO del dossier, no solo aquí: 2009 es la última edición del
+    Censo Agrario publicada municipio a municipio por esta vía (Tempus). El
+    Censo Agrario 2020 cambió umbrales y metodología y no da serie municipal
+    comparable con esta fuente. Es una FOTO de 2009, no una serie: no se puede
+    afirmar desde aquí ninguna cifra posterior ni una caída medida de
+    explotaciones. Y 'explotación' no es lo mismo que 'agricultor': una
+    explotación puede ser una sociedad o un titular con varias, y el censo
+    cuenta explotaciones, no personas."""
+    path = DATA / "agricultura_comarca.json"
+    if not path.exists():
+        raise SystemExit(
+            "Falta data/agricultura_comarca.json — ejecuta primero:\n"
+            "  python -m scripts.investigar_agricultura"
+        )
+    datos = json.loads(path.read_text(encoding="utf-8"))
+    municipios = datos["municipios"]
+    nac = datos["nacional"]
+
+    tot_exp = sum(d["explotaciones"] for d in municipios.values())
+    tot_sau = sum(d["sau_ha"] for d in municipios.values())
+    tot_ug = sum(d["unidades_ganaderas"] for d in municipios.values())
+    media_comarca = tot_sau / tot_exp if tot_exp else 0
+    veces = media_comarca / nac["ha_por_explotacion"] if nac["ha_por_explotacion"] else 0
+
+    lineas = [
+        "TEMA: cómo es el campo de Tierra de Campos: pocas explotaciones, muy "
+        "grandes. La tierra está concentrada en pocas manos.",
+        "",
+        f"Fuente: {datos['fuente']}",
+        "Qué mide cada cosa, en llano:",
+        "  · Explotación agraria: una unidad de producción con gestión única. "
+        "NO es un sinónimo de 'agricultor': puede ser una sociedad, o un titular "
+        "que lleva varias, y el censo cuenta explotaciones, no personas.",
+        "  · SAU (Superficie Agrícola Utilizada): las hectáreas realmente en uso "
+        "agrario (tierras labradas más pastos), sin contar eriales ni bosque.",
+        "  · Unidad ganadera (UG): medida que equipara distintos animales para "
+        "poder sumarlos (una vaca lechera es una UG; hacen falta varias ovejas "
+        "para sumar una UG).",
+        "",
+        "AVISO DE COMPARABILIDAD, hay que reflejarlo en el texto sin excusas:",
+        "  · Estos datos son del Censo Agrario de 2009, la ÚLTIMA edición que se "
+        "publicó municipio a municipio por esta vía. El Censo Agrario de 2020 "
+        "cambió umbrales y metodología y no ofrece serie municipal comparable con "
+        "esta fuente. Por tanto esto es una FOTO de 2009, no una serie temporal.",
+        "  · NO inventar ni insinuar cifras posteriores a 2009, ni afirmar una "
+        "caída medida del número de explotaciones: aquí solo hay un año.",
+        "  · El titular de la idea era 'Más hectáreas, menos agricultores'. Lo que "
+        "SÍ está medido y se puede afirmar es 'más hectáreas POR explotación' que "
+        "la media del país. Lo de 'menos agricultores' se puede relacionar con la "
+        "despoblación ya documentada en piezas anteriores del periódico, pero SIN "
+        "equipararlo a estas cifras como si fuera el mismo dato.",
+        "",
+        "DATOS POR MUNICIPIO (Censo Agrario 2009):",
+    ]
+    for slug, d in sorted(municipios.items(), key=lambda kv: -kv[1]["ha_por_explotacion"]):
+        lineas.append(
+            f"  {d['nombre']} ({d['provincia']}): {d['explotaciones']:.0f} explotaciones, "
+            f"{d['sau_ha']:,.0f} ha de SAU → {d['ha_por_explotacion']:.1f} ha por "
+            f"explotación; {d['unidades_ganaderas']:,.0f} unidades ganaderas."
+        )
+
+    lineas += [
+        "",
+        "TOTALES DE LOS 12 PUEBLOS (Censo Agrario 2009):",
+        f"  Explotaciones: {tot_exp:,.0f}.",
+        f"  SAU total: {tot_sau:,.0f} hectáreas.",
+        f"  Tamaño medio: {media_comarca:.1f} hectáreas por explotación.",
+        f"  Unidades ganaderas: {tot_ug:,.0f}.",
+        "",
+        "TÉRMINO DE COMPARACIÓN (misma fuente y año):",
+        f"  Media nacional 2009: {nac['ha_por_explotacion']:.1f} hectáreas por "
+        f"explotación (calculada sumando todos los municipios de la misma tabla "
+        f"del INE, no traída de fuera).",
+        f"  Es decir: cada explotación de estos doce pueblos trabajaba de media "
+        f"unas {veces:.1f} veces la superficie de la explotación española típica.",
+        "",
+        "LO QUE MÁS HABLA EN LOS DATOS:",
+        "  · Villarramiel es el caso extremo: 29 explotaciones se reparten 3.604 "
+        "hectáreas (124 ha cada una, más de cinco veces la media nacional), y "
+        "apenas 106 unidades ganaderas —un pueblo que fue de curtidos y calzado, "
+        "no de ganado.",
+        "  · Medina de Rioseco y Mayorga rondan las 100 ha por explotación; en el "
+        "otro extremo, Valderas baja a 41,5, todavía por encima de la media "
+        "española.",
+        "  · La ganadería se concentra en pocos sitios: Mayorga (3.483 UG) y "
+        "Villalpando (3.454) suman más que el resto juntos en varios casos, "
+        "mientras Villada (190) y Villarramiel (106) casi no tienen ganado.",
+        "",
+        "CÓMO TRATAR ESTO EDITORIALMENTE (innegociable):",
+        "  · La concentración de la tierra no es en sí un juicio moral: describir "
+        "lo que dicen los números (pocas explotaciones, muy grandes) sin cargar "
+        "las tintas ni presentarlo como culpa de nadie.",
+        "  · No confundir 'explotación' con 'agricultor' ni con 'familia': son "
+        "unidades de producción, no personas. Evitar frases como 'solo quedan 29 "
+        "agricultores en Villarramiel'; lo correcto es '29 explotaciones'.",
+        "  · No dar por hecho un relato de decadencia con estos datos solos: son "
+        "de 2009 y de un único año. Lo que muestran es una ESTRUCTURA (campo "
+        "grande y concentrado), no una caída medida.",
+        "  · Se puede enlazar con la despoblación y el cierre de negocios ya "
+        "contados en el periódico como contexto, dejando claro que son datos "
+        "distintos y que aquí no se demuestra causa ni efecto.",
+    ]
+
+    tema = ("cómo es el campo de Tierra de Campos según el último censo agrario "
+            "municipal: pocas explotaciones repartiéndose muchas hectáreas")
+    return tema, "\n".join(lineas)
+
+
 DOSSIERS = {
     "despoblacion": dossier_despoblacion,
     "ayudas": dossier_ayudas,
     "cien_anos": dossier_cien_anos,
     "migraciones": dossier_migraciones,
+    "agricultura": dossier_agricultura,
 }
 
 

@@ -1,0 +1,120 @@
+{
+  "fuente": "INE, Censo Agrario (operación 90), tabla 29006 'Resultados municipales', API Tempus. Año de referencia 2009.",
+  "anyo": 2009,
+  "nacional": {
+    "explotaciones": 1979592,
+    "sau_ha": 47505377,
+    "ha_por_explotacion": 24.0,
+    "nota": "Media nacional calculada sumando todos los municipios de la misma tabla (misma fuente y año que los pueblos)."
+  },
+  "municipios": {
+    "becerril-de-campos": {
+      "nombre": "Becerril de Campos",
+      "provincia": "Palencia",
+      "anyo": 2009,
+      "explotaciones": 144.0,
+      "sau_ha": 7839.26,
+      "unidades_ganaderas": 893.73,
+      "ha_por_explotacion": 54.4
+    },
+    "carrion-de-los-condes": {
+      "nombre": "Carrión de los Condes",
+      "provincia": "Palencia",
+      "anyo": 2009,
+      "explotaciones": 94.0,
+      "sau_ha": 4821.92,
+      "unidades_ganaderas": 715.7,
+      "ha_por_explotacion": 51.3
+    },
+    "fuentes-de-nava": {
+      "nombre": "Fuentes de Nava",
+      "provincia": "Palencia",
+      "anyo": 2009,
+      "explotaciones": 127.0,
+      "sau_ha": 6390.09,
+      "unidades_ganaderas": 1299.57,
+      "ha_por_explotacion": 50.3
+    },
+    "mayorga": {
+      "nombre": "Mayorga",
+      "provincia": "Valladolid",
+      "anyo": 2009,
+      "explotaciones": 112.0,
+      "sau_ha": 10952.29,
+      "unidades_ganaderas": 3483.38,
+      "ha_por_explotacion": 97.8
+    },
+    "medina-de-rioseco": {
+      "nombre": "Medina de Rioseco",
+      "provincia": "Valladolid",
+      "anyo": 2009,
+      "explotaciones": 108.0,
+      "sau_ha": 10941.08,
+      "unidades_ganaderas": 1874.17,
+      "ha_por_explotacion": 101.3
+    },
+    "paredes-de-nava": {
+      "nombre": "Paredes de Nava",
+      "provincia": "Palencia",
+      "anyo": 2009,
+      "explotaciones": 196.0,
+      "sau_ha": 12554.56,
+      "unidades_ganaderas": 981.54,
+      "ha_por_explotacion": 64.1
+    },
+    "sahagun": {
+      "nombre": "Sahagún",
+      "provincia": "León",
+      "anyo": 2009,
+      "explotaciones": 175.0,
+      "sau_ha": 10383.71,
+      "unidades_ganaderas": 1155.94,
+      "ha_por_explotacion": 59.3
+    },
+    "valderas": {
+      "nombre": "Valderas",
+      "provincia": "León",
+      "anyo": 2009,
+      "explotaciones": 177.0,
+      "sau_ha": 7341.49,
+      "unidades_ganaderas": 2532.66,
+      "ha_por_explotacion": 41.5
+    },
+    "villada": {
+      "nombre": "Villada",
+      "provincia": "Palencia",
+      "anyo": 2009,
+      "explotaciones": 81.0,
+      "sau_ha": 6666.29,
+      "unidades_ganaderas": 190.2,
+      "ha_por_explotacion": 82.3
+    },
+    "villalpando": {
+      "nombre": "Villalpando",
+      "provincia": "Zamora",
+      "anyo": 2009,
+      "explotaciones": 164.0,
+      "sau_ha": 8947.46,
+      "unidades_ganaderas": 3454.08,
+      "ha_por_explotacion": 54.6
+    },
+    "villalon-de-campos": {
+      "nombre": "Villalón de Campos",
+      "provincia": "Valladolid",
+      "anyo": 2009,
+      "explotaciones": 136.0,
+      "sau_ha": 6620.87,
+      "unidades_ganaderas": 1971.49,
+      "ha_por_explotacion": 48.7
+    },
+    "villarramiel": {
+      "nombre": "Villarramiel",
+      "provincia": "Palencia",
+      "anyo": 2009,
+      "explotaciones": 29.0,
+      "sau_ha": 3603.92,
+      "unidades_ganaderas": 105.75,
+      "ha_por_explotacion": 124.3
+    }
+  }
+}
