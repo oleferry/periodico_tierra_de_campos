@@ -74,13 +74,6 @@
       "fuente": "Páginas Amarillas"
     },
     {
-      "nombre": "Panadería Quiñones",
-      "categoria": "alimentacion",
-      "telefono": "983 75 11 54",
-      "direccion": "C. del Rollo, 15",
-      "fuente": "Varios directorios coincidentes"
-    },
-    {
       "nombre": "Supermercado Coviran",
       "categoria": "alimentacion",
       "telefono": "697 10 11 98",
@@ -93,13 +86,6 @@
       "telefono": "983 75 16 41",
       "direccion": "Costanilla, 4 bajo",
       "fuente": "Páginas Amarillas"
-    },
-    {
-      "nombre": "Restaurante El Madrileño",
-      "categoria": "hosteleria",
-      "telefono": "983 75 11 51",
-      "direccion": null,
-      "fuente": "Ayuntamiento de Mayorga"
     },
     {
       "nombre": "Restaurante El Arco",
