@@ -139,29 +139,34 @@ def _listar_documentos(listado_url: str, anios: int) -> list[dict]:
     (título, enlace a preview-document) de cada acta. Ver docstring del módulo:
     esta parte no se puede hacer con requests, el listado es AJAX firmado."""
     encontrados: list[dict] = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch()
-        page = browser.new_page(user_agent=USER_AGENT)
-        try:
-            page.goto(listado_url, wait_until="networkidle", timeout=30000)
-            enlaces_anio = page.locator("a.gIconLink.exp").all_text_contents()
-            for texto in enlaces_anio[:anios]:
-                with page.expect_navigation(wait_until="networkidle", timeout=20000):
-                    page.click(f"text={texto}", timeout=10000)
-                docs = page.eval_on_selector_all(
-                    'a[href*="preview-document"]',
-                    "els => els.map(e => ({href: e.href, texto: e.textContent.trim()}))",
-                )
-                encontrados.extend(docs)
-                page.go_back(wait_until="networkidle", timeout=20000)
-        except PlaywrightError as exc:
-            # Un timeout de red aquí (sedelectronica.es puede ir lento) no
-            # puede tumbar el build ENTERO del sitio — se envuelve en
-            # ScraperError, que el resto del proyecto ya sabe atrapar y
-            # seguir sin este municipio, igual que cualquier otro scraper.
-            raise ScraperError(ERR_NETWORK, f"navegador: {exc}") from exc
-        finally:
-            browser.close()
+    try:
+        with sync_playwright() as p:
+            # launch() va DENTRO del try a propósito: si el navegador Chromium no
+            # está instalado (p. ej. en CI/GitHub Actions, donde no se descarga
+            # para no engordar el job), launch() lanza aquí y hay que envolverlo
+            # igual que un timeout de red. Si quedara fuera, tumbaría el build
+            # entero en vez de saltarse solo este municipio. Ver .github/workflows.
+            browser = p.chromium.launch()
+            try:
+                page = browser.new_page(user_agent=USER_AGENT)
+                page.goto(listado_url, wait_until="networkidle", timeout=30000)
+                enlaces_anio = page.locator("a.gIconLink.exp").all_text_contents()
+                for texto in enlaces_anio[:anios]:
+                    with page.expect_navigation(wait_until="networkidle", timeout=20000):
+                        page.click(f"text={texto}", timeout=10000)
+                    docs = page.eval_on_selector_all(
+                        'a[href*="preview-document"]',
+                        "els => els.map(e => ({href: e.href, texto: e.textContent.trim()}))",
+                    )
+                    encontrados.extend(docs)
+                    page.go_back(wait_until="networkidle", timeout=20000)
+            finally:
+                browser.close()
+    except PlaywrightError as exc:
+        # Navegador ausente o timeout de red: no puede tumbar el build ENTERO —
+        # se envuelve en ScraperError, que el resto del proyecto atrapa y sigue
+        # sin este municipio, igual que cualquier otro scraper.
+        raise ScraperError(ERR_NETWORK, f"navegador: {exc}") from exc
     return encontrados
 
 

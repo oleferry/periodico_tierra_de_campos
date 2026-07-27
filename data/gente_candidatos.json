@@ -1,0 +1,157 @@
+{
+  "_notas": "Base de datos INTERNA de posibles entrevistados para la serie 'Gente de Campos'. NO se publica en la web (render_gente solo muestra perfiles ya escritos como artículos de blog con tema 'gente'). Personas relevantes VIVAS nacidas en municipios de Tierra de Campos, investigadas el 2026-07-27 con verificación estricta de lugar de nacimiento y estado vital. Antes de contactar o publicar sobre cualquiera, RE-VERIFICAR que sigue viva: el estado vital cambia. 'confidencia' = confianza en el dato de nacimiento; el estado vital va aparte.",
+  "candidatos": [
+    {
+      "nombre": "Carmelo Gómez",
+      "pueblo_nacimiento": "Sahagún",
+      "pueblo_slug": "sahagun",
+      "provincia": "León",
+      "anio_nacimiento": 1962,
+      "campo": "cine y teatro",
+      "relevancia": "Actor de primer nivel nacional, dos premios Goya (Días contados, El método); hoy volcado en el teatro.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Carmelo_G%C3%B3mez",
+      "fuente_vivo": "https://www.infobae.com/espana/cultura/2025/02/05/que-fue-de-carmelo-gomez-el-actor-de-exito-en-los-90-y-ganador-de-dos-goya-que-dejo-el-cine/",
+      "notas": "El perfil más fuerte de todos. Vínculo emocional con Sahagún y el Camino."
+    },
+    {
+      "nombre": "Ion Antolín Llorente",
+      "pueblo_nacimiento": "Villalón de Campos",
+      "pueblo_slug": "villalon-de-campos",
+      "provincia": "Valladolid",
+      "anio_nacimiento": 1977,
+      "campo": "periodismo y política",
+      "relevancia": "Periodista, ex director de comunicación del PSOE y Secretario de Estado de Comunicación con Pedro Sánchez.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Ion_Antol%C3%ADn_Llorente",
+      "fuente_vivo": "https://www.elespanol.com/castilla-y-leon/region/valladolid/20260529/ion-antolin-periodista-villalon-campos-dircom-psoe-ahora-investiga-audiencia-nacional/1003744263996_0.html",
+      "notas": "Muy accesible y de actualidad. Perfil de actualidad política."
+    },
+    {
+      "nombre": "José Ángel Alonso Pérez",
+      "pueblo_nacimiento": "Villalón de Campos",
+      "pueblo_slug": "villalon-de-campos",
+      "provincia": "Valladolid",
+      "anio_nacimiento": 1993,
+      "campo": "política",
+      "relevancia": "Alcalde de Villalón de Campos desde 2015 y senador del PP por Valladolid.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://en.wikipedia.org/wiki/Jos%C3%A9_%C3%81ngel_Alonso_P%C3%A9rez",
+      "fuente_vivo": "https://www.senado.es/web/composicionorganizacion/senadores/composicionsenado/fichasenador/index.html?legis=15&id1=18086",
+      "notas": "El más accesible: es el propio alcalde del pueblo, ya aparece en la ficha de Villalón. Historia 'joven que se queda y gobierna su pueblo'."
+    },
+    {
+      "nombre": "Jesús Callejo",
+      "pueblo_nacimiento": "Valderas",
+      "pueblo_slug": "valderas",
+      "provincia": "León",
+      "anio_nacimiento": 1959,
+      "campo": "divulgación y cultura",
+      "relevancia": "Escritor y divulgador de misterio y folclore, colaborador de Cuarto Milenio y director del podcast La Escóbula de la Brújula.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Jes%C3%BAs_Callejo",
+      "fuente_vivo": "https://open.spotify.com/episode/7ze9w3uYTNcoTHildg8h14",
+      "notas": "Encaja bien con la sección de leyendas del propio periódico."
+    },
+    {
+      "nombre": "Leonardo Marcos González",
+      "pueblo_nacimiento": "Valderas",
+      "pueblo_slug": "valderas",
+      "provincia": "León",
+      "anio_nacimiento": 1958,
+      "campo": "política y seguridad",
+      "relevancia": "Director General de la Guardia Civil (2023-2024) y antes de Protección Civil y Emergencias.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Leonardo_Marcos_Gonz%C3%A1lez",
+      "fuente_vivo": "https://es.wikipedia.org/wiki/Leonardo_Marcos_Gonz%C3%A1lez",
+      "notas": "Dimitió como DG de la Guardia Civil en septiembre de 2024."
+    },
+    {
+      "nombre": "Manuel Sánchez Monge",
+      "pueblo_nacimiento": "Fuentes de Nava",
+      "pueblo_slug": "fuentes-de-nava",
+      "provincia": "Palencia",
+      "anio_nacimiento": 1947,
+      "campo": "religión",
+      "relevancia": "Obispo emérito de Santander (obispo 2015-2023); antes obispo de Mondoñedo-Ferrol.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Manuel_S%C3%A1nchez_Monge",
+      "fuente_vivo": "https://www.eldebate.com/opinion/tribuna/20260331/religiosidad-riqueza-limitaciones_401873.html",
+      "notas": "Sigue escribiendo tribunas en 2026."
+    },
+    {
+      "nombre": "Javier Villán",
+      "pueblo_nacimiento": "Torre de los Molinos (pedanía de Carrión de los Condes)",
+      "pueblo_slug": "carrion-de-los-condes",
+      "provincia": "Palencia",
+      "anio_nacimiento": 1942,
+      "campo": "cultura y periodismo",
+      "relevancia": "Crítico teatral y taurino de El Mundo, poeta y ensayista; autor del poemario 'Parábolas palentinas'.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Javier_Vill%C3%A1n",
+      "fuente_vivo": "http://diariodejaviervillan.blogspot.com/2026/02/",
+      "notas": "Fuerte vínculo emocional con la comarca (poemario dedicado a la tierra palentina). Blog activo en 2026."
+    },
+    {
+      "nombre": "Santiago Trancón",
+      "pueblo_nacimiento": "Valderas",
+      "pueblo_slug": "valderas",
+      "provincia": "León",
+      "anio_nacimiento": null,
+      "campo": "filología y política",
+      "relevancia": "Filólogo, escritor y dramaturgo (grupo Cátaro), ensayista político; ex diputado.",
+      "estado_vital": "confirmado",
+      "confianza_nacimiento": "alta",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Santiago_Tranc%C3%B3n",
+      "fuente_vivo": "https://editorialcirculorojo.com/autores/santiago-trancon-perez/",
+      "notas": "OJO: año de nacimiento sin confirmar — Wikipedia se contradice (1947 en la entradilla, 1957 en la biografía). Confirmar antes de fijarlo. Libro publicado en 2024."
+    }
+  ],
+  "estado_vital_sin_confirmar": [
+    {
+      "nombre": "Eloy Ybáñez Bueno",
+      "pueblo_nacimiento": "Villarramiel",
+      "pueblo_slug": "villarramiel",
+      "provincia": "Palencia",
+      "anio_nacimiento": 1930,
+      "campo": "diplomacia y política",
+      "relevancia": "Diplomático, embajador (Finlandia, OCDE) y ex Secretario de Estado de Turismo.",
+      "estado_vital": "sin_confirmar",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Eloy_Yb%C3%A1%C3%B1ez_Bueno",
+      "notas": "96 años, figura en Wikipedia como 'Personas vivas' pero sin actividad pública reciente. RE-VERIFICAR estado vital antes de nada."
+    },
+    {
+      "nombre": "Rafael del Valle Curieses",
+      "pueblo_nacimiento": "Carrión de los Condes",
+      "pueblo_slug": "carrion-de-los-condes",
+      "provincia": "Palencia",
+      "anio_nacimiento": 1941,
+      "campo": "historia y cultura local",
+      "relevancia": "Archivero e historiador, autor de obras sobre Palencia y Tierra de Campos.",
+      "estado_vital": "sin_confirmar",
+      "fuente_nacimiento": "https://es.wikipedia.org/wiki/Rafael_Del_Valle_Curieses",
+      "notas": "Figura como 'Personas vivas' en Wikipedia, sin actividad reciente localizada. Perfil ideal para hablar de la propia comarca, si sigue vivo. RE-VERIFICAR."
+    }
+  ],
+  "fallecidos_notables": [
+    {
+      "nombre": "Mariano Haro",
+      "pueblo_nacimiento": "Becerril de Campos",
+      "pueblo_slug": "becerril-de-campos",
+      "provincia": "Palencia",
+      "anio_nacimiento": 1940,
+      "fallecimiento": "2024-07-27",
+      "campo": "atletismo",
+      "relevancia": "El 'león de Becerril', mítico fondista, dos veces olímpico y alcalde de Becerril. Falleció el 27 de julio de 2024 en Palencia.",
+      "fuente": "https://www.fetacyl.org/fallece-mariano-haro-leyenda-de-nuestro-atletismo/",
+      "notas": "No entra en 'Gente de Campos' (solo vivos), pero es un perfil histórico potentísimo de la comarca para un reportaje-homenaje. Nota: falleció justo el 27 de julio de 2024."
+    }
+  ]
+}

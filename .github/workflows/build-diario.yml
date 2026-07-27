@@ -70,5 +70,8 @@ jobs:
             echo "Sin cambios que publicar."
           else
             git commit -m "Actualización diaria automática"
+            # Por si alguien (o el build local) empujó algo entretanto: se
+            # reintegra antes de empujar, para no fallar por un push desfasado.
+            git pull --rebase origin main || true
             git push
           fi
