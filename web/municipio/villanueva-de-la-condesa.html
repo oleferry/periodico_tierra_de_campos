@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cea — El Terracampino</title>
-<meta name="description" content="En Cea la mañana ha salido despejada y estamos en 13 grados, con el viento casi parado. A lo largo del día irá subiendo bastante, hasta los 31, y no s">
+<title>Villanueva de la Condesa — El Terracampino</title>
+<meta name="description" content="En Villanueva de la Condesa estamos ahora en 15 grados y sin nubes. A lo largo del día irá subiendo bastante, hasta los 32, con algo de viento pero si">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,23 +29,24 @@
 </div></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
-  <h1>Cea</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 27/07/2026</span></div>
-  <div class="tc-muni-hero-foto">
-    <img src="../assets/fotos-libres/cea.jpg" alt="Cea" loading="lazy">
-    <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Cea.jpg" target="_blank" rel="noopener">Rodelar</a>,
-      <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, vía Wikimedia Commons</p>
-  </div>
+  <h1>Villanueva de la Condesa</h1>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 27/07/2026</span></div>
+  
 </div></section>
 
-
+<section class="tc-wrap"><div class="tc-card" style="border-left:5px solid #C9A227;">
+  <h3 style="margin-top:0;">Avisos de AEMET en tu zona</h3>
+  <ul class="tc-links-list"><li><strong>Aviso amarillo</strong> por temperaturas máximas · desde el martes a las 13:00 hasta el martes a las 20:59</li><li><strong>Aviso amarillo</strong> por temperaturas máximas · desde el miércoles a las 13:00 hasta el miércoles a las 20:59</li></ul>
+  <p class="tc-item-meta">Fuente: Agencia Estatal de Meteorología (Plan Meteoalerta) ·
+  <a href="https://www.aemet.es/es/eltiempo/prediccion/avisos" target="_blank" rel="noopener">ver el detalle en AEMET</a></p>
+</div></section>
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Cea: 13° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villanueva de la Condesa: 15° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">13°</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">15°</span>
       <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
       <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
@@ -56,7 +57,7 @@
     66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
     80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
     95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.46278&longitude=-5.01152&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.14914&longitude=-5.0955&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(d) {
       if (!d || !d.current) return;
@@ -70,62 +71,46 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Cea la mañana ha salido despejada y estamos en 13 grados, con el viento casi parado. A lo largo del día irá subiendo bastante, hasta los 31, y no se espera lluvia. Mañana la cosa aprieta más, que se puede ir a los 35. Aprovecha ahora para lo que tengas que hacer al aire libre, que luego el sol no perdona.</p>
+    <p class="tc-weather-article">En Villanueva de la Condesa estamos ahora en 15 grados y sin nubes. A lo largo del día irá subiendo bastante, hasta los 32, con algo de viento pero sin lluvia. Para mañana pinta parecido, despejado y todavía más caluroso, hasta los 36. Conviene ir preparándose para un par de días de calor.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes de calor y cielo limpio</h4>
-      <p class="tc-day-texto">Jornada despejada con la máxima subiendo hasta 35 grados y una mínima de 16. El viento sopla a 23 km/h, sin más consecuencia.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">16°</span></span>
+      <h4 class="tc-day-titular">Martes de calor y aire</h4>
+      <p class="tc-day-texto">Cielo despejado y jornada calurosa, con 36 grados de máxima y 18 de mínima. El viento sopla a 24 km/h, lo justo para notarlo pero sin quitar el bochorno.</p>
+      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">18°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles aún más caluroso</h4>
-      <p class="tc-day-texto">Otro día despejado, esta vez con 36 grados de máxima y una noche templada de 21. El viento aprieta algo más, sobre los 26 km/h.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">21°</span></span>
+      <h4 class="tc-day-titular">Miércoles a pleno sol</h4>
+      <p class="tc-day-texto">Otra vez despejado y aún más caluroso, hasta 37 grados por la tarde y una mínima de 21. El viento aprieta un poco más, rondando los 27 km/h.</p>
+      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">21°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves con el viento subiendo</h4>
-      <p class="tc-day-texto">Se mantiene el cielo despejado y los 35 grados, con mínima de 21. Lo que va a más es el viento, que ronda los 30 km/h.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">21°</span></span>
+      <h4 class="tc-day-titular">Jueves seguimos igual</h4>
+      <p class="tc-day-texto">Sol y sin lluvia a la vista, con 36 grados de máxima y 21 de mínima. El viento se mantiene alto, en torno a 28 km/h, pero sin cambios en el ambiente caluroso.</p>
+      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">21°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Cea por Telegram</h3>
+      <div><h3 style="margin:0 0 4px;">Recibe lo de Villanueva de la Condesa por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
-    <h2 class="tc-block-title">Lo que pasa en Cea</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="../noticia/8dd477e94258460f.html" target="_self">
-      <span class="tc-news-kicker">BOCyL · 2026-07-17</span>
-      <span class="tc-news-titular">Cea celebra las fiestas del Carmen del 17 al 19 de julio</span>
-      <span class="tc-news-entradilla">La localidad rinde honores a su patrona con tres días de verbenas, pasacalles y actos religiosos. El pregón corre a cargo de Alfonso Vallecillo Torres, jefe de zona de agentes medioambientales de la comarca de Sahagún.</span>
-      <span class="tc-news-more">Leer la noticia completa →</span>
-    </a></div>
+    
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
-      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Cea para evacuar parques eólicos</span>
-      <span class="tc-news-entradilla">Se abre el trámite de la autorización para tender esta línea de alta tensión que pasa por Santa María del Monte de Cea y una veintena de municipios más de León y Palencia. Piden además declararla de utilidad pública; quien quiera alegar tiene ahora el plazo para hacerlo.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/04/html/BOCYL-D-04052026-82-18.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-05-04</span>
-      <span class="tc-news-titular">Cambio importante en la granja de cerdos de Gordoncillo, de Explotaciones de Porcino del Cea, S.L</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha modificado la autorización ambiental que la granja tenía desde 2016 por una reforma sustancial de la explotación. El cambio ya está aprobado.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/04/06/html/BOCYL-D-06042026-64-17.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-04-06</span>
-      <span class="tc-news-titular">Vía libre ambiental para el almacenamiento de energía en baterías de Valcabado</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha dado su informe favorable al proyecto de baterías «Bess Zamora 220» y a las líneas comunes de evacuación de varios almacenamientos en Valcabado, que promueve Cea Infraestructuras Energéticas, S.L.U. Falta que se construya.</span>
+      <div class="tc-news-grid"><a class="tc-news" href="https://bop.sede.diputaciondevalladolid.es/boletines/2026/julio/27/BOPVA-A-2026-02233.pdf" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOP Valladolid · 2026-07-27</span>
+      <span class="tc-news-titular">Villanueva de la Condesa saca a información pública el proyecto de una nueva pista polideportiva</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha puesto a la vista el documento con los detalles y el coste de la futura pista polideportiva. Está en exposición pública antes de seguir adelante con la obra.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
-    <div class="tc-card"><h3>Fotos de Cea</h3>
-      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Cea.</p>
+    <div class="tc-card"><h3>Fotos de Villanueva de la Condesa</h3>
+      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Villanueva de la Condesa.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
       <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
     
     <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
-      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Cea. Todavía no hay anuncios publicados.</p>
+      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Villanueva de la Condesa. Todavía no hay anuncios publicados.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
       <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>
   </main>

@@ -346,7 +346,24 @@ def cargar_directorio_servicios() -> dict[str, list[dict]]:
         return {}
     datos = json.loads(path.read_text(encoding="utf-8"))
     datos.pop("_notas", None)
+    datos.pop("_verificado", None)
     return datos
+
+
+def _mes_anio_verificacion() -> str:
+    """'julio de 2026' de la última verificación del directorio, para el aviso
+    de frescura de la web. Vacío si no consta."""
+    path = ROOT / "data" / "directorio_servicios.json"
+    if not path.exists():
+        return ""
+    fecha = json.loads(path.read_text(encoding="utf-8")).get("_verificado")
+    if not fecha:
+        return ""
+    try:
+        d = date.fromisoformat(fecha)
+    except ValueError:
+        return ""
+    return f"{MESES[d.month - 1]} de {d.year}"
 
 
 def cargar_blog_articulos() -> list[dict]:
@@ -971,10 +988,12 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
                 for neg in negocios
             )
             bloques.append(f'<h4 style="margin:14px 0 4px;">{E(etiqueta)}</h4><ul class="tc-links-list">{items}</ul>')
+        verif = _mes_anio_verificacion()
+        sello = f"Datos verificados por última vez en {verif}" if verif else "Datos de fuentes públicas"
         directorio_html = f"""<div class="tc-card"><h3>Servicios y profesionales de {E(m['name'])}</h3>
       {''.join(bloques)}
-      <p class="tc-item-meta" style="margin-top:10px;">Datos investigados en fuentes públicas (Páginas Amarillas, web del
-      ayuntamiento, Google Business) en julio de 2026 — pueden quedar desactualizados. ¿Ves un error, un negocio cerrado
+      <p class="tc-item-meta" style="margin-top:10px;">{E(sello)} (Páginas Amarillas, web del
+      ayuntamiento, fichas de negocio) — pueden quedar desactualizados. ¿Ves un error, un negocio cerrado
       o falta el tuyo? <a href="https://wa.me/34695645395" target="_blank" rel="noopener">Dínoslo por WhatsApp</a>.</p></div>"""
     else:
         directorio_html = ""
