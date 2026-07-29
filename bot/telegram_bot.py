@@ -44,7 +44,7 @@ from telegram.ext import (
 )
 
 from scrapers.common import load_municipios
-from sitegen import almacen_comentarios, almacen_fotos, fotos, ia
+from sitegen import almacen_comentarios, almacen_fotos, almacen_notas, fotos, ia
 
 load_dotenv()
 
@@ -149,6 +149,78 @@ async def cancelar(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 # se registra en el log (con su chat_id) para poder copiarlo al .env — no se
 # guarda nada como comentario real sin esto puesto explícitamente.
 DISCUSSION_CHAT_ID = os.getenv("TELEGRAM_DISCUSSION_CHAT_ID")
+
+# Bloc de notas privado del administrador. Su id numérico de Telegram; solo
+# ese usuario puede anotar. Se saca con /id y se pone en Railway como variable.
+# Sin esto, la captura de notas está desactivada (y el bot dice cómo activarla).
+ADMIN_TELEGRAM_ID = (os.getenv("ADMIN_TELEGRAM_ID") or "").strip()
+
+
+def _es_admin(update: Update) -> bool:
+    return bool(ADMIN_TELEGRAM_ID) and str(update.effective_user.id) == ADMIN_TELEGRAM_ID
+
+
+async def id_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """/id — te dice tu id de Telegram, para poder configurar ADMIN_TELEGRAM_ID."""
+    uid = update.effective_user.id
+    if _es_admin(update):
+        await update.message.reply_text(f"Tu id de Telegram es {uid} — y eres el administrador. ✅")
+    else:
+        await update.message.reply_text(
+            f"Tu id de Telegram es {uid}.\n\n"
+            "Para activar el bloc de notas, ponlo en Railway como variable "
+            "ADMIN_TELEGRAM_ID y reinicia el bot."
+        )
+
+
+async def nota_recibida(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """Mensaje de texto en privado. Si es del administrador, se archiva como
+    nota personal en Supabase (bucket 'notas', privado — nunca se publica). Si
+    es de otra persona, se le orienta amablemente hacia /foto."""
+    texto = (update.message.text or "").strip()
+    if not _es_admin(update):
+        await update.message.reply_text(
+            "¡Hola! 👋 Soy el bot de El Terracampino. Para mandar una foto de tu "
+            "pueblo, escribe /foto."
+        )
+        return
+    if not texto:
+        return
+    nota_id = uuid.uuid4().hex[:12]
+    meta = {
+        "id": nota_id,
+        "texto": texto,
+        "de": update.effective_user.username or update.effective_user.first_name,
+        "fecha": datetime.now(timezone.utc).isoformat(),
+    }
+    try:
+        almacen_notas.guardar(nota_id, meta)
+    except Exception:
+        log.exception("Fallo guardando nota del administrador")
+        await update.message.reply_text("No he podido guardar la nota (fallo técnico). Prueba otra vez en un rato.")
+        return
+    await update.message.reply_text("🗒️ Anotado.")
+
+
+async def notas_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    """/notas — el administrador ve sus últimas notas."""
+    if not _es_admin(update):
+        return
+    try:
+        notas = almacen_notas.listar()
+    except Exception:
+        log.exception("Fallo listando notas")
+        await update.message.reply_text("No he podido leer las notas ahora mismo.")
+        return
+    if not notas:
+        await update.message.reply_text("Todavía no hay notas. Escríbeme cualquier cosa y la guardo.")
+        return
+    lineas = [f"🗒️ Tienes {len(notas)} notas. Las últimas:"]
+    for n in notas[:10]:
+        fecha = (n.get("fecha") or "")[:10]
+        texto = n["texto"] if len(n["texto"]) <= 80 else n["texto"][:77] + "…"
+        lineas.append(f"· {fecha} — {texto}")
+    await update.message.reply_text("\n".join(lineas))
 
 
 async def comentario_recibido(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -264,6 +336,12 @@ def main() -> None:
         except Exception:
             log.exception("No se pudo asegurar el bucket 'comentarios' (no es fatal, se reintenta luego)")
 
+    if ADMIN_TELEGRAM_ID and almacen_notas.disponible():
+        try:
+            almacen_notas.asegurar_bucket()
+        except Exception:
+            log.exception("No se pudo asegurar el bucket 'notas' (no es fatal, se reintenta luego)")
+
     app = Application.builder().token(token).build()
     conv = ConversationHandler(
         entry_points=[CommandHandler("foto", foto_cmd)],
@@ -274,12 +352,18 @@ def main() -> None:
         fallbacks=[CommandHandler("cancelar", cancelar)],
     )
     app.add_handler(conv)
+    app.add_handler(CommandHandler("id", id_cmd))
+    app.add_handler(CommandHandler("notas", notas_cmd))
     # Va DESPUÉS del ConversationHandler: si no, sus filtros más amplios (texto
     # en cualquier grupo) podrían interceptar mensajes que en realidad son de
     # la conversación de /foto. python-telegram-bot prueba los handlers en
     # orden de inserción y para en el primero que encaja.
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & filters.ChatType.GROUPS,
                                     comentario_recibido))
+    # Texto en privado: bloc de notas del administrador (nota_recibida decide si
+    # el remitente es el admin; a cualquier otro le orienta hacia /foto).
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND & filters.ChatType.PRIVATE,
+                                    nota_recibida))
     log.info("Bot arrancado, esperando mensajes…")
     app.run_polling()
 
