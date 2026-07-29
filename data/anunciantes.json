@@ -1,0 +1,44 @@
+{
+  "_notas": "Anunciantes de El Terracampino. La imagen (banner) va en brand/anunciantes/<slug>.png (recomendado 600x150 px, PNG/JPG, < 80 KB); mientras no haya banner, se usa la versión solo texto de la plantilla (docs/publicidad.md). Regla editorial: negocios reales, verificados; el banner se marca siempre como publicidad. Los 3 primeros verificados el 2026-07-28.",
+  "anunciantes": [
+    {
+      "slug": "gafasvan",
+      "nombre": "Gafasvan",
+      "pueblo": "Itinerante por Tierra de Campos",
+      "texto": "La óptica que va a tu pueblo: revisiones y gafas sin salir de casa.",
+      "url": "https://gafasvan.com",
+      "telefono": "",
+      "imagen": "brand/anunciantes/gafasvan.png",
+      "activo": true,
+      "desde": "2026-07-28",
+      "hasta": "",
+      "_verificado": "2026-07-28"
+    },
+    {
+      "slug": "madapan",
+      "nombre": "Madapan",
+      "pueblo": "Mayorga",
+      "texto": "Café obrador: el pan de cuadros y algo dulce, recién hecho cada día.",
+      "url": "https://madapan.es",
+      "telefono": "",
+      "imagen": "brand/anunciantes/madapan.png",
+      "activo": true,
+      "desde": "2026-07-28",
+      "hasta": "",
+      "_verificado": "2026-07-28"
+    },
+    {
+      "slug": "dameperrasperro",
+      "nombre": "DamePerrasPerro",
+      "pueblo": "Online",
+      "texto": "Alertas de ayudas y subvenciones para tu negocio, al día y sin buscar.",
+      "url": "https://dameperrasperro.es",
+      "telefono": "",
+      "imagen": "brand/anunciantes/dameperrasperro.png",
+      "activo": true,
+      "desde": "2026-07-28",
+      "hasta": "",
+      "_verificado": "2026-07-28"
+    }
+  ]
+}

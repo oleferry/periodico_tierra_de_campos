@@ -535,6 +535,7 @@ def header(depth: int) -> str:
     <a href="{up}campo.html">El campo</a>
     <a href="{up}leyendas.html">Leyendas</a>
     <a href="{up}esquelas.html">Esquelas</a>
+    <a href="{up}acompanar.html">Acompañar</a>
     <a href="{up}archivo.html">Archivo</a>
   </nav>
 </div></header>"""
@@ -2008,6 +2009,158 @@ def render_gente(built: list[dict], blog_articulos: list[dict]) -> str:
                  desc="Retratos de personas de los pueblos de Tierra de Campos, contados con sus propias palabras.")
 
 
+def render_acompanar() -> str:
+    """Sección "Acompañar" (Fase 1) — servicio público contra la soledad no
+    deseada de los mayores. Ver docs/acompanar.md.
+
+    LÍNEA ROJA: esta sección NUNCA publica que una persona concreta vive sola
+    ni datos personales de nadie. Solo recursos verificados a los que llamar,
+    dónde encontrarse, y cómo puede ayudar quien tiene cerca a alguien solo.
+    Todos los teléfonos están verificados (Cruz Roja, Teléfono de la Esperanza,
+    112) — antes de tocar un número, re-verificar."""
+    # Tarjetas de "a quién llamar": teléfonos verificados. tel: para que en el
+    # móvil se pueda llamar con un toque.
+    recursos = [
+        {
+            "nombre": "Emergencias",
+            "tel": "112", "tel_href": "112",
+            "coste": "24 horas · todos los días",
+            "desc": "Si hay peligro para la vida o la salud, o una urgencia de cualquier tipo. No lo dudes.",
+        },
+        {
+            "nombre": "Te Acompaña — Cruz Roja",
+            "tel": "900 444 111", "tel_href": "900444111",
+            "coste": "Gratuito · de lunes a viernes, de 10 a 18 h",
+            "desc": "Para quien se siente solo. Escuchan, orientan y acompañan, sin prisa y sin que cueste nada.",
+        },
+        {
+            "nombre": "Teléfono de la Esperanza",
+            "tel": "717 003 717", "tel_href": "717003717",
+            "coste": "Gratuito y anónimo · 24 horas, todos los días",
+            "desc": "Cuando uno necesita hablar y que le escuchen, a cualquier hora del día o de la noche.",
+        },
+    ]
+    tarjetas = "".join(f"""<div class="tc-card tc-acompanar-tarjeta">
+    <h3 style="margin-top:0;">{E(r['nombre'])}</h3>
+    <p class="tc-acompanar-tel"><a href="tel:{r['tel_href']}">{E(r['tel'])}</a></p>
+    <p class="tc-acompanar-coste">{E(r['coste'])}</p>
+    <p class="tc-pieza-cuerpo">{E(r['desc'])}</p>
+  </div>""" for r in recursos)
+
+    body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Acompañar</span>
+  <h1>No estás solo. No estás sola.</h1>
+  <p class="tc-articulo-entradilla">En nuestros pueblos hay mucha gente mayor que vive sola. La soledad no
+  se cuenta en el periódico, pero sí podemos poner a mano los teléfonos donde escuchan, recordar dónde
+  encontrarse con otros, y pedirte —si tienes cerca a alguien solo— que le eches una mano. Se hace entre todos.</p>
+
+  <h2 class="tc-blog-subtitulo">¿A quién llamar?</h2>
+  <p class="tc-pieza-cuerpo">Teléfonos de verdad, gratuitos, donde hay alguien al otro lado. Llamar no es molestar.</p>
+  <div class="tc-acompanar-grid">{tarjetas}</div>
+
+  <h2 class="tc-blog-subtitulo">La ayuda pública, tu ayuntamiento</h2>
+  <p class="tc-pieza-cuerpo">La puerta de entrada a la teleasistencia, la ayuda a domicilio y los programas
+  contra la soledad (como <strong>«Siempre Acompañados»</strong> de la Junta de Castilla y León) son los
+  <strong>Servicios Sociales</strong> de tu zona. Pregunta en tu ayuntamiento por el <strong>CEAS</strong> que
+  te corresponde: te explican qué hay y cómo pedirlo. Es un derecho, no un favor.</p>
+
+  <h2 class="tc-blog-subtitulo">¿Tienes cerca a alguien que pasa mucho tiempo solo?</h2>
+  <p class="tc-pieza-cuerpo">Casi siempre, lo que más ayuda no es un servicio: es un vecino. Si conoces a
+  alguien mayor que vive solo —un padre, una madre que se quedó, el vecino del final de la calle—:</p>
+  <ul class="tc-links-list">
+    <li>Llámale hoy, aunque sea un momento. Una llamada corta también acompaña.</li>
+    <li>Pásate a verle, o dile a quién puede llamar si un día se encuentra mal.</li>
+    <li>Si hay actividades en el pueblo (el hogar, una merienda, misa, el mercado), anímale a ir y, si puedes, llévale.</li>
+    <li>Si ves que algo va mal —no come, está muy decaído, no sale—, avisa a los Servicios Sociales del ayuntamiento.</li>
+  </ul>
+
+  <h2 class="tc-blog-subtitulo">Dónde encontrarse</h2>
+  <p class="tc-pieza-cuerpo">Queremos ir armando, pueblo a pueblo, la agenda de dónde y cuándo se junta la
+  gente: el hogar del jubilado, las actividades de la Diputación, las meriendas, el mercado. Si en tu pueblo
+  hay algo así y quieres que lo publiquemos para que nadie se quede sin enterarse,
+  <a href="chivatazo.html">cuéntanoslo aquí</a>.</p>
+
+  <div class="tc-card" style="margin-top:var(--tc-space-3);">
+    <h3 style="margin-top:0;">Una hoja para colgar en el pueblo</h3>
+    <p class="tc-pieza-cuerpo">No todo el mundo está en el móvil. Hemos preparado una hoja con estos teléfonos,
+    en letra grande, para imprimir y colgar donde pueda verla quien lo necesite: la farmacia, el consultorio,
+    el hogar del jubilado, la iglesia, el ayuntamiento.</p>
+    <p><a class="tc-button" href="acompanar-hoja.html">Ver e imprimir la hoja</a></p>
+  </div>
+
+  <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
+</div></article>"""
+    return shell("Acompañar — El Terracampino", body, depth=0,
+                 desc="Teléfonos y recursos contra la soledad de los mayores en Tierra de Campos: a quién llamar y cómo ayudar a quien tienes cerca.")
+
+
+def render_acompanar_hoja() -> str:
+    """Hoja A4 imprimible con los teléfonos, en letra grande, para colgar en
+    farmacias, consultorios, hogares del jubilado, iglesias. Página autónoma
+    (no usa shell): pensada para imprimirse limpia, no para navegar. Ver
+    docs/acompanar.md. Los teléfonos son los mismos verificados de render_acompanar()."""
+    return """<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Si te sientes solo, llama — El Terracampino</title>
+<link rel="icon" href="/assets/favicon-32.png" type="image/png" sizes="32x32">
+<style>
+  :root { --verde:#5F7C52; --tinta:#131313; --terr:#A65F2A; }
+  * { box-sizing:border-box; }
+  body { font-family: Georgia,'PT Serif',serif; color:var(--tinta); background:#fff; margin:0; padding:2.5rem; line-height:1.35; }
+  .hoja { max-width: 800px; margin:0 auto; }
+  h1 { font-size: 2.6rem; line-height:1.15; margin:0 0 .3em; }
+  .sub { font-size:1.35rem; margin:0 0 1.6rem; }
+  .tel-bloque { border:3px solid var(--verde); border-radius:14px; padding:1.1rem 1.4rem; margin:0 0 1.1rem; }
+  .tel-nombre { font-size:1.3rem; font-weight:bold; margin:0 0 .1em; }
+  .tel-num { font-size:2.7rem; font-weight:bold; letter-spacing:.02em; margin:.1em 0; font-family:Arial,Helvetica,sans-serif; }
+  .tel-cost { font-size:1.1rem; color:#444; margin:0; }
+  .emerg { border-color:var(--terr); }
+  .pie { margin-top:1.8rem; font-size:1.05rem; color:#333; border-top:1px solid #ccc; padding-top:1rem; }
+  .pie strong { color:var(--verde); }
+  .volver { font-family:Arial,sans-serif; font-size:.95rem; }
+  @media print {
+    body { padding:1.2cm; }
+    .no-print { display:none; }
+    .tel-bloque { break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="hoja">
+  <p class="no-print volver"><a href="acompanar.html">← Volver</a> · Imprime esta página (Archivo → Imprimir) y cuélgala donde pueda verla quien la necesite.</p>
+  <h1>¿Te sientes solo?<br>No estás solo.</h1>
+  <p class="sub">Llamar es gratis. Al otro lado hay alguien que escucha.</p>
+
+  <div class="tel-bloque">
+    <p class="tel-nombre">Para hablar, cuando lo necesites — Teléfono de la Esperanza</p>
+    <p class="tel-num">717 003 717</p>
+    <p class="tel-cost">Gratuito y anónimo · Las 24 horas, todos los días</p>
+  </div>
+
+  <div class="tel-bloque">
+    <p class="tel-nombre">Si te sientes solo — Te Acompaña, de Cruz Roja</p>
+    <p class="tel-num">900 444 111</p>
+    <p class="tel-cost">Gratuito · De lunes a viernes, de 10 a 18 horas</p>
+  </div>
+
+  <div class="tel-bloque emerg">
+    <p class="tel-nombre">Emergencias (peligro o urgencia)</p>
+    <p class="tel-num">112</p>
+    <p class="tel-cost">Las 24 horas, todos los días</p>
+  </div>
+
+  <p class="pie">Y para la teleasistencia o la ayuda a domicilio, pregunta en tu <strong>ayuntamiento</strong>
+  por los Servicios Sociales (CEAS) de tu zona.</p>
+  <p class="pie" style="border:0;padding-top:.3rem;"><strong>El Terracampino</strong> · el periódico de los pueblos de Tierra de Campos · elterracampino.es</p>
+</div>
+</body>
+</html>
+"""
+
+
 def render_aviso_legal() -> str:
     """Aviso legal / titularidad del medio (LSSI-CE art. 10). Deja constancia de
     quién es la propietaria del periódico y quién lo desarrolla y mantiene. No se
@@ -2263,11 +2416,14 @@ def main() -> int:
     (WEB / "archivo-enviar.html").write_text(render_archivo_form(built), encoding="utf-8")
     (WEB / "gente.html").write_text(render_gente(built, blog_articulos), encoding="utf-8")
     (WEB / "aviso-legal.html").write_text(render_aviso_legal(), encoding="utf-8")
+    (WEB / "acompanar.html").write_text(render_acompanar(), encoding="utf-8")
+    (WEB / "acompanar-hoja.html").write_text(render_acompanar_hoja(), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
         ("leyendas.html", hoy.isoformat()), ("campo.html", hoy.isoformat()),
         ("esquelas.html", hoy.isoformat()), ("archivo.html", hoy.isoformat()),
         ("gente.html", hoy.isoformat()), ("aviso-legal.html", hoy.isoformat()),
+        ("acompanar.html", hoy.isoformat()),
     ]
     paginas_sitemap += [(f"blog/{a['slug']}.html", a.get("fecha", hoy.isoformat())) for a in blog_articulos]
 

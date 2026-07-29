@@ -375,6 +375,31 @@
 
 .tc-footer-links a { color: var(--tc-azul-bop); }
 
+.tc-acompanar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--tc-space-3);
+  margin: var(--tc-space-2) 0 var(--tc-space-3);
+}
+
+.tc-acompanar-tarjeta { border-top: 4px solid var(--tc-verde-regadio); }
+
+.tc-acompanar-tel {
+  margin: .2rem 0 .1rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.tc-acompanar-tel a { color: var(--tc-verde-regadio); text-decoration: none; }
+
+.tc-acompanar-coste {
+  margin: 0 0 .5rem;
+  font-size: .82rem;
+  color: var(--tc-texto-secundario);
+}
+
 .tc-footer-redes {
   margin-top: var(--tc-space-2);
   display: flex;

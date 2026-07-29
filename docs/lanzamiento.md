@@ -26,17 +26,22 @@ Leyenda: 🟢 lo puedes hacer tú en minutos · 🔧 requiere una acción técni
 
 ## 2. Redes sociales (crearlas tú; el material está en la sección 5)
 
-- [ ] 🟢✍️ **Facebook** — la imprescindible para este público. Crear Página (no
-  perfil), categoría "Medios de comunicación". Foto = logo, portada = un paisaje
-  de la comarca.
+- [x] 🟢✍️ **Facebook** — CREADA y enlazada en el pie de la web
+  (`facebook.com/profile.php?id=61592649658185`). Pendiente: asignar el nombre de
+  usuario `@elterracampino` cuando Meta lo permita (y avisar para actualizar el
+  enlace a la URL limpia).
 - [ ] 🟢✍️ **Canal de WhatsApp** — la de mayor alcance real entre los mayores.
   Se crea desde la propia app de WhatsApp (pestaña Novedades → +).
-- [ ] 🟢✍️ **Instagram** — para lo visual (fotos de vecinos, archivo antiguo,
-  paisajes). Enlaza en la bio a elterracampino.es.
-- [ ] 🔧 **Conectar el feed RSS a Facebook con Zapier.** RSS by Zapier
-  (`https://elterracampino.es/feed.xml`) → Facebook Pages "Create Page Post".
-  Así las investigaciones se publican solas en Facebook. Zapier ya tiene su app
-  de Facebook aprobada; solo autorizas tu Página.
+- [x] 🟢✍️ **Instagram** — CREADA y enlazada (`instagram.com/elterracampino`).
+  Imagen de lanzamiento (el palomar) y texto de primer post ya preparados.
+- [ ] 🟢✍️ **X (Twitter)** — para más visibilidad y alcance (periodistas, cuentas
+  de la España vaciada, difusión rápida). Usuario `@elterracampino`. Foto = logo,
+  cabecera = un paisaje de la comarca; bio de la sección 5; enlace a
+  elterracampino.es.
+- [ ] 🔧 **Conectar el feed RSS a Facebook (y a X) con Zapier.** RSS by Zapier
+  (`https://elterracampino.es/feed.xml`) → Facebook Pages "Create Page Post" y, con
+  otro Zap, → X "Create Tweet". Así las investigaciones se publican solas. Zapier
+  ya tiene sus apps aprobadas; solo autorizas tus cuentas.
 
 ## 3. Automatismos que ya funcionan pero dependen de una acción tuya
 

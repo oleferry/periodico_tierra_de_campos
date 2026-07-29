@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mayorga — El Terracampino</title>
-<meta name="description" content="Ahora en Mayorga estamos en 27 grados y sin nubes, con algo de viento flojo que no molesta. La cosa subirá hasta los 31 y no va a caer nada de agua. M">
+<meta name="description" content="Noticias y tiempo de Mayorga, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,13 +26,14 @@
     <a href="../campo.html">El campo</a>
     <a href="../leyendas.html">Leyendas</a>
     <a href="../esquelas.html">Esquelas</a>
+    <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
 </div></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Mayorga</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.354 habitantes</span><span>Actualizado: 27/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.354 habitantes</span><span>Actualizado: 28/07/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/mayorga.jpg" alt="Mayorga" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Mayorga_01.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -49,53 +50,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Mayorga: 27° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">27°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.16663&longitude=-5.2627&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Ahora en Mayorga estamos en 27 grados y sin nubes, con algo de viento flojo que no molesta. La cosa subirá hasta los 31 y no va a caer nada de agua. Mañana viene más caluroso, hasta los 36, así que quien tenga que hacer faena fuera mejor la deja para primera hora.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes de calor firme</h4>
-      <p class="tc-day-texto">Cielo despejado y calor de pleno verano, con 36 grados de máxima y 17 de mínima. El viento sopla en torno a 20 km/h, sin más consecuencias.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles a más</h4>
-      <p class="tc-day-texto">Sube un punto el termómetro hasta los 37 grados, con noche suave de 18. El viento aprieta algo más, hasta los 26 km/h, pero seguimos sin agua a la vista.</p>
-      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves de nubes y claros</h4>
-      <p class="tc-day-texto">Baja un poco la máxima a 35 grados, aunque la noche queda más cargada con 24 de mínima. Alternancia de nubes y claros y viento moderado de 24 km/h, sin lluvia.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">24°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Mayorga</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Mayorga por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
