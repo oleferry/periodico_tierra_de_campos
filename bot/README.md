@@ -33,6 +33,7 @@ TELEGRAM_CHANNEL_ID         @elterracampino (avisos de artículos; opcional)
 SUPABASE_URL                proyecto de Supabase
 SUPABASE_SERVICE_ROLE_KEY   clave service_role (solo servidor, nunca en repo)
 ANTHROPIC_API_KEY           pies de foto con IA
+ADMIN_TELEGRAM_ID           id de Telegram de Daniel; activa el bloc de notas
 ```
 
 Las mismas van en el `.env` local (gitignorado) para revisión y build.
@@ -53,6 +54,25 @@ Las mismas van en el `.env` local (gitignorado) para revisión y build.
 2. El bot pregunta el pueblo (botones con los 12 pilotos).
 3. Manda la foto (con texto opcional — la IA lo usa para el pie, no inventa).
 4. El bot confirma que queda pendiente de revisión.
+
+## Bloc de notas del administrador (privado)
+
+Para apuntar ideas sobre la marcha sin salir de Telegram. Solo funciona para el
+usuario cuyo id esté en `ADMIN_TELEGRAM_ID`; a cualquier otro que escriba en
+privado, el bot le orienta hacia `/foto`.
+
+1. En el chat privado con @Elterracampinobot: `/id` → devuelve tu id numérico.
+2. Ese id se pone en Railway como `ADMIN_TELEGRAM_ID` (el servicio se reinicia).
+3. A partir de ahí, **cualquier mensaje privado** se archiva como nota y el bot
+   responde "🗒️ Anotado". `/notas` muestra las últimas.
+
+Las notas van al bucket **privado** `notas` de Supabase
+(`sitegen/almacen_notas.py`) — nunca se publican en la web. Para volcarlas:
+
+```
+python -m scripts.leer_notas        # las imprime, de la más reciente
+python -m scripts.leer_notas --md   # en formato lista, para pegar en docs/
+```
 
 ## Revisar y publicar (en el portátil)
 
