@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El Burgo Ranero — El Terracampino</title>
-<meta name="description" content="En El Burgo Ranero estamos ahora en 19 grados y sin nubes. Durante el día apretará el calor y llegará hasta los 34, con algo de viento flojo y sin nad">
+<meta name="description" content="Noticias y tiempo de El Burgo Ranero, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>El Burgo Ranero</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 28/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 30/07/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/el-burgo-ranero.jpg" alt="El Burgo Ranero" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:El_Burgo_Ranero.jpg" target="_blank" rel="noopener">José Antonio Gil Martínez from Vigo, Spain</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en El Burgo Ranero: 19° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">19°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.42225&longitude=-5.21919&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En El Burgo Ranero estamos ahora en 19 grados y sin nubes. Durante el día apretará el calor y llegará hasta los 34, con algo de viento flojo y sin nada de lluvia. Mañana va por el mismo camino, incluso un grado o dos más, hasta los 36. Con estas temperaturas, riega a primera hora o al anochecer, nunca al mediodía.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles despejado y caluroso</h4>
-      <p class="tc-day-texto">Cielo limpio y una máxima de 36 grados que se hace notar, con mínima de 19. El viento sopla en torno a 29 kilómetros por hora, así que algo de alivio habrá.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">19°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves nublado pero seco</h4>
-      <p class="tc-day-texto">Aunque el cielo se cubre, no se espera lluvia. Seguimos con calor, hasta 35 grados de máxima y 20 de mínima, y viento parecido al del día anterior.</p>
-      <span class="tc-day-temp tc-data">35° <span class="tc-day-min">20°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con nubes y más viento</h4>
-      <p class="tc-day-texto">Jornada nublada y sin lluvia, con la máxima bajando a 33 grados y mínima de 18. El viento aprieta un poco más, alrededor de 33 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">18°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — El Burgo Ranero</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de El Burgo Ranero por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -107,28 +62,28 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
-      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará El Burgo Ranero para evacuar los parques eólicos</span>
-      <span class="tc-news-entradilla">Es el trazado que llevará la corriente desde los parques eólicos del Nudo Luengos hasta la subestación, pasando por El Burgo Ranero y una veintena de municipios más de León y Palencia. Está en información pública para presentar alegaciones antes de que se autorice.</span>
+      <span class="tc-news-titular">A información pública las líneas eléctricas que evacuarán la energía de parques eólicos por El Burgo Ranero</span>
+      <span class="tc-news-entradilla">Se abre el trámite de información pública del proyecto de una línea de 132 kV que sacará la energía de los parques eólicos y que pasa por El Burgo Ranero y otros pueblos de León y Palencia. Cualquiera puede consultar el expediente y presentar alegaciones antes de que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-21.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-12</span>
-      <span class="tc-news-titular">Vía libre ambiental a una granja de 2.640 cerdas en El Burgo Ranero</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha dado la declaración de impacto ambiental al proyecto de la empresa Danakil Studios y Proyectos, S.L. para una explotación porcina de multiplicación con 2.640 cerdas, 500 de reposición y 6 verracos en el polígono 902. Es un paso previo; falta que la granja se ponga en marcha.</span>
+      <span class="tc-news-titular">Vía libre ambiental a una granja porcina de 2.640 cerdas en El Burgo Ranero</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha dado el visto bueno al proyecto de «Danakil Studios y Proyectos, S.L.» para una explotación de multiplicación con 2.640 cerdas, 500 de reposición y 6 verracos en la parcela 49 del polígono 902. Es el paso previo; falta que la granja se autorice y se construya.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/27/html/BOCYL-D-27022026-40-18.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-27</span>
-      <span class="tc-news-titular">Aprobado un sondeo para sacar agua de riego en una parcela de El Burgo Ranero</span>
-      <span class="tc-news-entradilla">Industria ha dado el visto bueno al proyecto para hacer un pozo que capte agua subterránea destinada al riego agrícola. Está en la parcela 34 del polígono 113.</span>
+      <span class="tc-news-titular">Aprobado un sondeo para sacar agua de riego en una finca de El Burgo Ranero</span>
+      <span class="tc-news-entradilla">Se ha dado el visto bueno al proyecto para perforar un pozo y captar aguas subterráneas destinadas al riego agrícola. Está en la parcela 34 del polígono 113 del término municipal.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/01/27/html/BOCYL-D-27012026-17-47.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-01-27</span>
-      <span class="tc-news-titular">El Burgo Ranero saca una plaza de auxiliar administrativo por oposición libre</span>
-      <span class="tc-news-entradilla">El Ayuntamiento convoca una oposición de turno libre para cubrir una plaza de auxiliar administrativo. Ya están publicadas las bases y la convocatoria para quien quiera presentarse.</span>
+      <span class="tc-news-titular">El Ayuntamiento de El Burgo Ranero saca una plaza de Auxiliar Administrativo</span>
+      <span class="tc-news-entradilla">El consistorio convoca una plaza de Auxiliar Administrativo, que se cubrirá por oposición y turno libre. Ya están publicadas las bases para quien quiera presentarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/14/html/BOCYL-D-14072026-134-47.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-14</span>
-      <span class="tc-news-titular">El Ayuntamiento de El Burgo Ranero abre expediente de ruina para una casa de la calle Real</span>
-      <span class="tc-news-entradilla">Se ha iniciado el trámite para declarar en ruina el inmueble de la calle Real n.º 62. Está en información pública antes de que se decida nada en firme.</span>
+      <span class="tc-news-titular">El Ayuntamiento de El Burgo Ranero abre expediente para declarar en ruina una casa de la calle Real</span>
+      <span class="tc-news-entradilla">Se ha iniciado el trámite para declarar en ruina ordinaria el inmueble del número 62 de la calle Real. Ahora está en información pública antes de que haya decisión definitiva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     

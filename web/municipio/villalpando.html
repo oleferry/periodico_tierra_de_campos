@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalpando — El Terracampino</title>
-<meta name="description" content="En Villalpando la mañana ha empezado fresca, con 19 grados y el cielo despejado. A lo largo del día va a apretar el calor y se puede llegar a los 36, ">
+<meta name="description" content="Noticias y tiempo de Villalpando, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalpando</h1>
-  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 28/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 30/07/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/villalpando.jpg" alt="Villalpando" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_Real,_Villalpando._-_panoramio.jpg" target="_blank" rel="noopener">Frank Baulo</a>,
@@ -41,62 +41,12 @@
   </div>
 </div></section>
 
-<section class="tc-wrap"><div class="tc-card" style="border-left:5px solid #C9A227;">
-  <h3 style="margin-top:0;">Avisos de AEMET en tu zona</h3>
-  <ul class="tc-links-list"><li><strong>Aviso amarillo</strong> por temperaturas máximas · desde el martes a las 13:00 hasta el martes a las 20:59</li><li><strong>Aviso amarillo</strong> por temperaturas máximas · desde el miércoles a las 13:00 hasta el miércoles a las 20:59</li></ul>
-  <p class="tc-item-meta">Fuente: Agencia Estatal de Meteorología (Plan Meteoalerta) ·
-  <a href="https://www.aemet.es/es/eltiempo/prediccion/avisos" target="_blank" rel="noopener">ver el detalle en AEMET</a></p>
-</div></section>
+
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalpando: 19° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">19°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.864722&longitude=-5.413056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Villalpando la mañana ha empezado fresca, con 19 grados y el cielo despejado. A lo largo del día va a apretar el calor y se puede llegar a los 36, con viento flojo y sin lluvia. Mañana seguirá la misma línea, casi despejado y con hasta 37. Con esas temperaturas, riega el huerto a primera hora o al caer la tarde, que al mediodía no aprovechas nada.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de calor y sol</h4>
-      <p class="tc-day-texto">Cielo casi despejado y una máxima de 37 grados que se hará notar. La mínima se queda en 19 y el viento sopla flojo, sobre los 23 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">19°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves nublado y caluroso</h4>
-      <p class="tc-day-texto">Aunque el cielo se cubre, no hay que esperar lluvia. Seguimos con 36 grados de máxima, 19 de mínima y viento suave de unos 20 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">19°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con nubes y sin agua</h4>
-      <p class="tc-day-texto">Otro día tapado pero seco, con máxima de 36 grados y mínima de 19. El viento aprieta un poco más, hasta los 24 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">19°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Villalpando</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Villalpando por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -107,23 +57,23 @@
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/06/13/html/BOCYL-D-13062025-27.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-06-13</span>
       <span class="tc-news-titular">Villalpando aprueba su oferta de empleo público para 2025</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha dado el visto bueno a las plazas que se convocarán este año. Falta que salgan las bases con los detalles de cada puesto.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha dado luz verde a las plazas que sacará a concurso este año. El acuerdo ya está publicado; falta que se convoquen los procesos de selección.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/27/html/BOCYL-D-27052026-99-29.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-27</span>
       <span class="tc-news-titular">Villalpando recupera su escudo y estrena bandera municipal</span>
-      <span class="tc-news-entradilla">El Pleno del Ayuntamiento ha aprobado rehabilitar el escudo del municipio y adoptar una bandera propia. El acuerdo se tomó el 12 de mayo.</span>
+      <span class="tc-news-entradilla">El Pleno del Ayuntamiento ha aprobado rehabilitar el escudo del pueblo y adoptar por primera vez una bandera municipal.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/07/10/html/BOCYL-D-10072025-23.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-07-10</span>
       <span class="tc-news-titular">Villalpando estudia un aparcamiento vigilado de camiones en suelo rústico</span>
-      <span class="tc-news-entradilla">La empresa Alvarezherrero NG, S.L. ha pedido permiso para construir un área vigilada de camiones en una parcela del polígono 1. La solicitud está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-entradilla">La empresa Alvarezherrero NG, S.L. ha pedido permiso para construir un área vigilada de camiones en la parcela 2072 del polígono 1. La solicitud está en información pública antes de decidirse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/21/html/BOCYL-D-21072026-139-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-21</span>
-      <span class="tc-news-titular">Aprobado el nuevo plan de gestión del monte Raso de Villalpando</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha dado luz verde a la segunda revisión del plan dasocrático del monte de utilidad pública número 214, que es de la Mancomunidad Intermunicipal de Raso de Villalpando. Es el documento que marca cómo se gestiona y aprovecha ese monte durante los próximos años.</span>
+      <span class="tc-news-titular">Nuevo plan de gestión para el monte Raso de Villalpando</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha aprobado la segunda revisión del plan dasocrático del monte «Raso de Villalpando» (utilidad pública nº 214), que gestiona la Mancomunidad Intermunicipal de Raso de Villalpando. Es el documento que marca cómo se aprovecha y cuida el monte los próximos años.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
