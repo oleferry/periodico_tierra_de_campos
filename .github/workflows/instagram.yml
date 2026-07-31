@@ -1,0 +1,74 @@
+# Publica en Instagram (@elterracampino) las investigaciones nuevas del blog.
+#
+# Va DESPUÉS del build diario (que corre a las 06:10 UTC) para que la imagen del
+# artículo ya esté publicada en la web: Instagram descarga la foto de una URL
+# pública, no se le sube el fichero.
+#
+# Publica UNA por vuelta, la más reciente que quede pendiente. El registro de lo
+# ya publicado vive en data/instagram_publicados.json y se commitea aquí mismo;
+# sin él se republicaría lo mismo cada día.
+#
+# Secrets necesarios (Settings → Secrets and variables → Actions):
+#   IG_USER_ID       id de la cuenta de Instagram (no es secreto, pero va aquí)
+#   IG_ACCESS_TOKEN  token de acceso con instagram_content_publish
+#
+# Si el token es de Usuario del Sistema, no caduca. Si es de Página de larga
+# duración, caduca a los ~60 días y este workflow empezará a fallar: la
+# ejecución sale en rojo en la pestaña Actions, que es el aviso.
+
+name: Instagram
+
+on:
+  schedule:
+    - cron: "45 7 * * *"   # 07:45 UTC ≈ 09:45 peninsular, tras el build diario
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Solo enseñar qué publicaría, sin publicar"
+        type: boolean
+        default: false
+
+concurrency:
+  group: instagram
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write        # para commitear el registro de publicados
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install requests python-dotenv
+
+      - name: Publicar
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            python -m scripts.publicar_instagram --dry-run
+          else
+            python -m scripts.publicar_instagram
+          fi
+
+      - name: Guardar el registro de lo publicado
+        if: ${{ inputs.dry_run != true }}
+        run: |
+          git config user.name "El Terracampino (bot)"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/instagram_publicados.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el registro."
+          else
+            git commit -m "Registro de publicación en Instagram"
+            git pull --rebase origin main || true
+            git push
+          fi
