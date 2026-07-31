@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grajal de Campos — El Terracampino</title>
-<meta name="description" content="En Grajal estamos ahora en 26 grados, con el cielo casi limpio. La cosa va a apretar, hasta los 35 a media tarde, con algo de viento flojo y sin lluvi">
+<meta name="description" content="Noticias y tiempo de Grajal de Campos, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Grajal de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 30/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 31/07/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/grajal-de-campos.jpg" alt="Grajal de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ermita_de_la_Virgen_de_las_Puertas.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Grajal de Campos: 26° y casi despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.32073&longitude=-5.01938&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Grajal estamos ahora en 26 grados, con el cielo casi limpio. La cosa va a apretar, hasta los 35 a media tarde, con algo de viento flojo y sin lluvia que merezca la pena. Para mañana se espera cielo nublado y algo menos de calor, en torno a los 33. Si tienes huerto, riega a primera hora o al caer la tarde, que al mediodía con este sol no aprovecha el agua.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes de calor y viento</h4>
-      <p class="tc-day-texto">Jornada nublada pero seca, con la máxima subiendo hasta los 33 grados y una mínima de 17. El viento se hará notar con rachas de 36 km/h.</p>
-      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado en seco</h4>
-      <p class="tc-day-texto">Nubes y claros sin lluvia a la vista, con 34 grados de máxima y 16 de mínima. El viento afloja un poco, sobre los 24 km/h.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo cerrado pero sin agua</h4>
-      <p class="tc-day-texto">Cielo nublado que no dejará nada, con máxima de 34 grados y una mínima más templada de 21. El viento vuelve a apretar hasta los 32 km/h.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">21°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Grajal de Campos</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Grajal de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -107,18 +62,18 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/11/14/html/BOCYL-D-14112022-37.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-11-14</span>
-      <span class="tc-news-titular">Adamo pide ocupar caminos ganaderos de Grajal de Campos y otros pueblos para pasar cable</span>
-      <span class="tc-news-entradilla">La empresa Adamo Telecom Iberia, S.A.U. quiere ocupar varias vías pecuarias que cruzan Grajal de Campos, Sahagún y otros municipios de la zona. El expediente está en información pública para que quien quiera pueda alegar antes de que se decida.</span>
+      <span class="tc-news-titular">Ocupación de terrenos, solicitada por «Adamo Telecom Iberia, S.A.U.», en las vías pecuar…</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la ocupación de terrenos, solicitada por «Adamo Telecom Iberia, S.A.U.», en las vías pecuarias denominadas «Colada de Valdegudino LI», «Cañada de Entrevalles», «Cordel de La Bañeza», «Vereda de Melgar de Arriba», «Colada Zamorana», «Vereda Zamorana» y «Cañada de Entrevalles», a su paso por los términos municipales de Bercianos del Real Camino, Vallecillo, Joarilla de las Matas, Gordaliza del Pino, Sahagún, Grajal de Campos y Castrotierra de Valmadrigal.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/12/21/html/BOCYL-D-21122023-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-12-21</span>
-      <span class="tc-news-titular">Vía libre ambiental a la concentración parcelaria de Grajal, Escobar y Sahagún</span>
-      <span class="tc-news-entradilla">El proyecto para reordenar las fincas en los términos de Grajal de Campos, Escobar de Campos y Sahagún ya tiene el informe de impacto ambiental. Lo promueve la Dirección General de Desarrollo Rural.</span>
+      <span class="tc-news-titular">Trámite ambiental de un proyecto en Grajal de Campos</span>
+      <span class="tc-news-entradilla">RESOLUCIÓN de 12 de diciembre de 2023, de la Delegación Territorial de León, por la que se hace público el informe de impacto ambiental de la zona de concentración parcelaria de Grajal, Escobar y Sahagún, promovido por la Dirección General de Desarrollo Rural, en los términos municipales de Grajal de Campos, Escobar de Campos y Sahagún.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/04/12/html/BOCYL-D-12042022-28.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-04-12</span>
-      <span class="tc-news-titular">Se paran los trabajos de concentración parcelaria en la zona de Grajal, Escobar, Sahagún y Santervás</span>
-      <span class="tc-news-entradilla">La Junta ha disuelto los grupos de trabajo y anula la elección de los miembros de la comisión local en Santervás de Campos, Zorita de la Loma y Villacreces. Queda sin efecto ese paso del proceso de reorganización de las fincas.</span>
+      <span class="tc-news-titular">De la Dirección General de Desarrollo Rural, por la que se procede a disolver los grupos…</span>
+      <span class="tc-news-entradilla">RESOLUCIÓN de 4 de abril de 2022, de la Dirección General de Desarrollo Rural, por la que se procede a disolver los grupos auxiliares de trabajo y a dejar sin efecto la elección de los miembros que iban a formar parte de la comisión local, para las entidades locales de Santervás de Campos, Zorita de la Loma y Villacreces, término municipal de Santervás de Campos, en relación con la zona de concentración parcelaria de Grajal, Escobar, Sahagún y Santervás de Campos (León y Valladolid).</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     

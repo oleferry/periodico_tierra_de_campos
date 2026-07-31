@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paredes de Nava — El Terracampino</title>
-<meta name="description" content="En Paredes de Nava estamos ahora en 25 grados y sin nubes. La cosa va a apretar durante el día, hasta los 36, con el viento flojo y sin lluvia que mer">
+<meta name="description" content="Noticias y tiempo de Paredes de Nava, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Paredes de Nava</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 30/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 31/07/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/paredes-de-nava.jpg" alt="Paredes de Nava" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_de_Paredes_de_Nava_-_panoramio.jpg" target="_blank" rel="noopener">Ugo Cuesta</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Paredes de Nava: 25° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">25°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.152778&longitude=-4.694444&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Paredes de Nava estamos ahora en 25 grados y sin nubes. La cosa va a apretar durante el día, hasta los 36, con el viento flojo y sin lluvia que merezca la pena. Mañana cambia algo, se nubla y se queda en 33. Con este calor, riega a primera hora o al caer la tarde, que al mediodía no aprovechas nada.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes de nubes y viento</h4>
-      <p class="tc-day-texto">Cielo nublado con máxima de 33 grados y mínima de 17. El viento sopla fuerte, hasta 42 kilómetros por hora, y no se espera lluvia.</p>
-      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado despejado y caluroso</h4>
-      <p class="tc-day-texto">Cielo casi despejado y termómetro hasta los 34 grados, con 16 de mínima. Sigue el viento marcado, sobre 41 por hora, pero sin agua a la vista.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo de calor con nubes</h4>
-      <p class="tc-day-texto">Vuelve el cielo nublado sin lluvia, con máxima de 34 y una mínima más suave de 20 grados. El viento afloja algo, en torno a 29 por hora.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">20°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Paredes de Nava</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Paredes de Nava por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -101,29 +56,29 @@
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/04/09/html/BOCYL-D-09042026-67-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-04-09</span>
-      <span class="tc-news-titular">Paredes de Nava aprueba de forma definitiva el estudio de detalle del entorno de Santa Eulalia</span>
-      <span class="tc-news-entradilla">El Pleno ha dado el visto bueno definitivo a la ordenación urbanística de la zona protegida del casco histórico, junto a la iglesia de Santa Eulalia y los soportales.</span>
+      <span class="tc-news-titular">Acuerdo del Pleno del Ayuntamiento de Paredes de Nava</span>
+      <span class="tc-news-entradilla">ACUERDO de 30 de marzo de 2026, del Pleno del Ayuntamiento de Paredes de Nava, relativo a la aprobación definitiva del estudio de detalle en la zona de ordenanza Casco Histórico - zona especial protección entorno Santa Eulalia y Soportales.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
-      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Paredes de Nava y otros pueblos</span>
-      <span class="tc-news-entradilla">Se ha abierto el trámite para autorizar y declarar de utilidad pública una línea de evacuación de parques eólicos que pasa por varios municipios de León y Palencia, entre ellos Paredes de Nava. Ahora es el momento de presentar alegaciones antes de que se apruebe.</span>
+      <span class="tc-news-titular">Un parque eólico avanza cerca de Paredes de Nava</span>
+      <span class="tc-news-entradilla">NUEVA INFORMACIÓN pública relativa a la solicitud de autorización administrativa previa, autorización administrativa de construcción, declaración, en concreto, de utilidad pública para el «Proyecto de infraestructuras eléctricas de evacuación 132 kV Nudo Luengos parques eólicos - S.E.T. 132/400 kV promotores», a ubicar en los términos municipales de Santas Martas, El Burgo Ranero, Santa María del Monte de Cea, Calzada del Coto, Villamol y Sahagún y Moratinos, Lagartos, Ledigos, Villarrabé, Bustillo del Páramo de Carrión, Villaturde, Carrión de los Condes, Calzada de los Molinos, Villamuera de la Cueza, Paredes de Nava, Perales, San Mamés de Campos, Valde-Ucieza, Villasarracino y Villaherreros. Exptes.: 34-ATSB-36, 34-ATLI-6472, 34-ATLI-6473 y 34/ATLI/6474.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/03/html/BOCYL-D-03072026-127-81.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-03</span>
-      <span class="tc-news-titular">A información pública el proyecto eólico-solar «Alcornoque» entre Paredes de Nava, Perales y Becerril</span>
-      <span class="tc-news-entradilla">Se abre el trámite para autorizar y construir esta instalación híbrida de eólica y solar, que también pide declaración de utilidad pública y estudio de impacto ambiental. Ahora está en información pública, antes de que se decida sobre ella.</span>
+      <span class="tc-news-titular">Un parque eólico «Alcornoque» avanza cerca de Paredes de Nava</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la solicitud de autorización administrativa previa, autorización administrativa de construcción, declaración en concreto de utilidad pública y declaración de impacto ambiental del proyecto híbrido eólico-solar «Alcornoque», a situar en los términos municipales de Paredes de Nava, Perales y Becerril de Campos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/06/html/BOCYL-D-06072026-128-24.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-06</span>
-      <span class="tc-news-titular">A información pública la planta de aceites de semillas y terminal de cargas de Paredes de Nava</span>
-      <span class="tc-news-entradilla">Piden permiso para levantar en suelo rústico una planta de extracción, refinado y embotellado de aceites de semillas, con una terminal intermodal de cargas e instalaciones auxiliares en el polígono 30. Está en información pública, así que se pueden presentar alegaciones antes de que se resuelva.</span>
+      <span class="tc-news-titular">Una planta de aceite proyecta instalarse en Paredes de Nava</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la solicitud de autorización de uso excepcional de suelo rústico y licencia urbanística, para una planta de extracción, refinado y embotellado de aceites de semillas, terminal intermodal de cargas e instalaciones auxiliares en las parcelas 6, 7, 8, 29, 30 y 41 del polígono 30, en el término municipal de Paredes de Nava.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/03/30/html/BOCYL-D-30032026-61-35.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-03-30</span>
-      <span class="tc-news-titular">Paredes de Nava cambia la ordenación de la zona entre la carretera de Villoldo y las vías del tren</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha dado el primer visto bueno a modificar sus Normas Subsidiarias para reordenar ese terreno. Está en información pública antes de aprobarse del todo.</span>
+      <span class="tc-news-titular">Aprobación inicial de la modificación puntual de las Normas Subsidiarias de Paredes de N…</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la aprobación inicial de la modificación puntual de las Normas Subsidiarias de Paredes de Nava, consistente en la modificación de ordenación del ámbito entre la carretera Villoldo y las vías de ferrocarril.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     

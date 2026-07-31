@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valverde de Campos — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Valverde de Campos, Tierra de Campos.">
+<meta name="description" content="Ahora mismo en Valverde de Campos, despejado y 23 grados. Hoy la máxima ronda los 32 y la mínima baja hasta 16. No se espera lluvia. Sopla viento floj">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Valverde de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 30/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 31/07/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/valverde-de-campos.jpg" alt="Valverde de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Valverde_de_Campos.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -41,17 +41,57 @@
   </div>
 </div></section>
 
-<section class="tc-wrap"><div class="tc-card" style="border-left:5px solid #C9A227;">
-  <h3 style="margin-top:0;">Avisos de AEMET en tu zona</h3>
-  <ul class="tc-links-list"><li><strong>Aviso amarillo</strong> por temperaturas máximas · desde el jueves a las 13:00 hasta el jueves a las 20:59</li></ul>
-  <p class="tc-item-meta">Fuente: Agencia Estatal de Meteorología (Plan Meteoalerta) ·
-  <a href="https://www.aemet.es/es/eltiempo/prediccion/avisos" target="_blank" rel="noopener">ver el detalle en AEMET</a></p>
-</div></section>
+
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Valverde de Campos</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Valverde de Campos: 23° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.8351&longitude=-5.03674&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Ahora mismo en Valverde de Campos, despejado y 23 grados. Hoy la máxima ronda los 32 y la mínima baja hasta 16. No se espera lluvia. Sopla viento flojo. Mañana, nublado y hasta 33 grados.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Sábado</span>
+      <h4 class="tc-day-titular">Sábado, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 33° y mínima de 15°, con nublado.</p>
+      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">15°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Domingo</span>
+      <h4 class="tc-day-titular">Domingo, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 33° y mínima de 16°, con nublado.</p>
+      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">16°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Lunes</span>
+      <h4 class="tc-day-titular">Lunes, tiempo tranquilo</h4>
+      <p class="tc-day-texto">Máxima de 30° y mínima de 17°, con nublado.</p>
+      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">17°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Valverde de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -67,28 +107,28 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/03/21/html/BOCYL-D-21032024-24.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-03-21</span>
-      <span class="tc-news-titular">Vía libre ambiental para renovar las líneas eléctricas de alta tensión que pasan por Valverde de Campos</span>
-      <span class="tc-news-entradilla">i-DE Redes Eléctricas Inteligentes, S.A.U. va a sustituir tramos de dos líneas de 45 kV, pasando de circuito simple a doble, entre La Mudarra, Valverde de Campos y Medina de Rioseco. El proyecto ya tiene el informe de impacto ambiental publicado.</span>
+      <span class="tc-news-titular">Trámite ambiental de un proyecto en Valverde de Campos</span>
+      <span class="tc-news-entradilla">RESOLUCIÓN de 6 de marzo de 2024, de la Delegación Territorial de Valladolid, por la que se hace público el informe de impacto ambiental del proyecto de sustitución de tramos de las L.A.A.T. en simple circuito a 45 kV (2.ª categoría) «77-Rioseco» de la S.T. «Zaratán» (3095) y «70 Monzón 1» de la S.T. «Palencia» (3112), por L.A.A.T. y L.S.A.T. en doble circuito, en los términos municipales de La Mudarra, Valverde de Campos y Medina de Rioseco, promovido por «i-DE Redes Eléctricas Inteligentes, S.A.U.».</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/04/04/html/BOCYL-D-04042025-42.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-04-04</span>
-      <span class="tc-news-titular">Nueva línea eléctrica que pasará por Valverde de Campos, La Mudarra y Medina de Rioseco</span>
-      <span class="tc-news-entradilla">Se ha presentado documentación adicional para autorizar y construir esta instalación de distribución eléctrica. Está en información pública, así que aún se pueden presentar alegaciones antes de que se apruebe.</span>
+      <span class="tc-news-titular">Nueva instalación eléctrica en Valverde de Campos</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la documentación complementaria aportada en relación con la solicitud de autorización administrativa previa, autorización administrativa de construcción y su reconocimiento de utilidad pública, en concreto, de una instalación de distribución eléctrica, en los términos municipales de La Mudarra, Valverde de Campos y Medina de Rioseco.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/03/24/html/BOCYL-D-24032025-35.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-03-24</span>
-      <span class="tc-news-titular">Piden ocupar temporalmente varias vías pecuarias a su paso por Valverde de Campos</span>
-      <span class="tc-news-entradilla">Se ha solicitado usar de forma temporal terrenos de seis caminos ganaderos entre Villabrágima, Valverde de Campos y La Mudarra. Está en información pública para quien quiera consultarlo o alegar.</span>
+      <span class="tc-news-titular">Ocupación temporal de terrenos de las vías pecuarias «Colada de Villapando», «Colada de …</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la ocupación temporal de terrenos de las vías pecuarias «Colada de Villapando», «Colada de Morales a Medina de Rioseco», «Vereda Zamorana», «Colada Real de Tordesillas», «Colada de Extremadura a León» y «Colada Burgalesa», en los términos municipales de Villabrágima, Valverde de Campos y La Mudarra.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/05/03/html/BOCYL-D-03052024-52.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-05-03</span>
-      <span class="tc-news-titular">Valverde de Campos estudia una estación base de fibra de 1 GBPS en suelo rústico</span>
-      <span class="tc-news-entradilla">Piden permiso para levantar en terreno rústico una estación base de un circuito de fibra de 1 GBPS, en las parcelas 52 y 9004 del polígono 7. Está en información pública antes de que se conceda el uso excepcional y la licencia.</span>
+      <span class="tc-news-titular">Solicitan un uso excepcional de suelo rústico en Valverde de Campos</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa a la solicitud de autorización de uso excepcional de suelo rústico y licencia urbanística, para la construcción de un circuito de 1 GBPS en su estación base, en las parcelas 52 y 9004 del polígono 7, en el término municipal de Valverde de Campos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/11/26/html/BOCYL-D-26112025-31.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-11-26</span>
-      <span class="tc-news-titular">El Ayuntamiento de Valverde de Campos abre expediente de ruina para una casa de la calle Abajo</span>
-      <span class="tc-news-entradilla">Se ha iniciado el trámite para declarar en ruina el edificio del número 7 de la calle Abajo. Ahora está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-titular">El Ayuntamiento de Valverde de Campos tramita la ruina de un inmueble</span>
+      <span class="tc-news-entradilla">INFORMACIÓN pública relativa al inicio del expediente de declaración de ruina ordinaria del edificio con referencia catastral 0836103UM3303N0001AB, situado en calle Abajo n.º 7, en el término municipal de Valverde de Campos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
