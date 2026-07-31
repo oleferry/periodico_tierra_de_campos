@@ -546,7 +546,7 @@ def newsletter_popup(depth: int) -> str:
     página contra /api/suscribir (web/api/suscribir.js, función de Vercel que
     habla con MailerLite en servidor — la clave nunca toca el navegador).
 
-    El popup sale una sola vez por visitante (localStorage), a los 15s, y no
+    El popup sale una sola vez por visitante (localStorage), a los 3s, y no
     vuelve a molestar ni aunque cierre sin suscribirse."""
     up = "../" * depth
     return f"""<div class="tc-popup-overlay" id="tc-popup-overlay">
@@ -598,7 +598,7 @@ def newsletter_popup(depth: int) -> str:
     overlay.classList.remove("tc-popup-overlay--visible");
     localStorage.setItem(KEY, "1");
   }}
-  setTimeout(function() {{ overlay.classList.add("tc-popup-overlay--visible"); }}, 15000);
+  setTimeout(function() {{ overlay.classList.add("tc-popup-overlay--visible"); }}, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) {{ if (e.target === overlay) ocultar(); }});
 }})();

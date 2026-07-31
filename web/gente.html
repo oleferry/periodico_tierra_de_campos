@@ -100,7 +100,7 @@
     overlay.classList.remove("tc-popup-overlay--visible");
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 15000);
+  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
 })();
