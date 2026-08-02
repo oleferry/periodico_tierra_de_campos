@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Becerril de Campos — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Becerril de Campos, Tierra de Campos.">
+<meta name="description" content="Ahora en Becerril estamos en 21 grados y despejado, así que la mañana viene tranquila. A lo largo del día apretará el calor hasta los 34, con el vient">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Becerril de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>737 habitantes</span><span>Actualizado: 1/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>737 habitantes</span><span>Actualizado: 2/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/becerril-de-campos.jpg" alt="Becerril de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:1867,_Crónica_de_la_provincia_de_Palencia,_Ermita_de_San_Juan_en_Becerril_de_Campos.jpg" target="_blank" rel="noopener">Eusebio de Letre / Tomás Carlos Capuz</a>,
@@ -45,8 +45,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Becerril de Campos</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Becerril de Campos: 21° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">21°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.108333&longitude=-4.641667&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Ahora en Becerril estamos en 21 grados y despejado, así que la mañana viene tranquila. A lo largo del día apretará el calor hasta los 34, con el viento casi parado y sin nada de lluvia. Mañana cambia algo la cosa, con cielo nublado y algo menos, unos 32. Aprovecha para regar a primera hora o ya al caer la tarde, que al mediodía con este calor no merece la pena.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Lunes</span>
+      <h4 class="tc-day-titular">Lunes nublado y en seco</h4>
+      <p class="tc-day-texto">Cielo cubierto buena parte del día, pero sin agua a la vista, con apenas un 3% de probabilidad. Máxima de 32 grados y mínima de 20, con viento moderado de unos 24 kilómetros por hora.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">20°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Martes</span>
+      <h4 class="tc-day-titular">Martes de nubes y viento</h4>
+      <p class="tc-day-texto">Sigue el cielo tapado y sin lluvia, pero el viento aprieta hasta los 34 kilómetros por hora. Se queda en 31 grados de máxima y 19 de mínima.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">19°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con claros y ventoso</h4>
+      <p class="tc-day-texto">Alternan nubes y ratos de sol, sin previsión de lluvia. El viento vuelve a ser protagonista, rondando los 36 kilómetros por hora, con máxima de 32 grados y mínima de 19.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">19°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Becerril de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -56,74 +101,74 @@
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="https://becerrildecampos.es/noticias/consulta-publica-de-ordenanza-de-terrazas/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2025-04-04</span>
-      <span class="tc-news-titular">Becerril de Campos abre a consulta la ordenanza que regulará las terrazas</span>
-      <span class="tc-news-entradilla">El Ayuntamiento pone en consulta pública la futura ordenanza de terrazas antes de redactarla. Es el momento para que vecinos y hosteleros puedan aportar.</span>
+      <span class="tc-news-titular">Becerril de Campos abre a consulta la nueva ordenanza de terrazas</span>
+      <span class="tc-news-entradilla">El Ayuntamiento pone a consulta pública la ordenanza que regulará las terrazas del municipio. Es la fase para que los vecinos den su opinión antes de redactar el texto.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-15.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-12</span>
-      <span class="tc-news-titular">Cambian el proyecto de la planta solar Grijota III entre Perales y Becerril de Campos</span>
-      <span class="tc-news-entradilla">Industria ha modificado los permisos previos y de construcción de la fotovoltaica que promueve La Caravia Solar, S.L.U. y de sus líneas de evacuación. El expediente sigue en marcha antes de que se construya.</span>
+      <span class="tc-news-titular">Cambios en el proyecto de la planta solar Grijota III entre Perales y Becerril de Campos</span>
+      <span class="tc-news-entradilla">La empresa La Caravia Solar, S.L.U. ha modificado los permisos previos y de construcción de esta planta fotovoltaica y sus líneas de evacuación, que se levantará en Perales y Becerril de Campos. Industria ya ha dado el visto bueno a los cambios.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/05/html/BOCYL-D-05122025-24.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-05</span>
-      <span class="tc-news-titular">Citan a los dueños de las tierras afectadas por la planta solar &#x27;FV Apamate Solar&#x27; en Becerril y Paredes</span>
-      <span class="tc-news-entradilla">Industria convoca a los propietarios de los terrenos que se van a ocupar para levantar las actas previas a la expropiación. La planta fotovoltaica, de la empresa Apamate Solar S.L.U., afecta a fincas de Becerril de Campos y Paredes de Nava.</span>
+      <span class="tc-news-titular">Citan a los propietarios afectados por la planta solar FV Apamate en Becerril de Campos</span>
+      <span class="tc-news-entradilla">Industria llama a los dueños de las fincas por donde va la planta fotovoltaica de Apamate Solar, S.L.U., que afecta a Becerril de Campos y Paredes de Nava, para firmar las actas previas antes de ocupar los terrenos. Es el paso previo a la expropiación forzosa.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/04/07/html/BOCYL-D-07042026-65-14.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-04-07</span>
-      <span class="tc-news-titular">Corrigen un error en el permiso de la planta solar Grijota III de Perales y Becerril de Campos</span>
-      <span class="tc-news-entradilla">El Servicio de Industria de Palencia ha enmendado fallos en la resolución de enero que modificaba los permisos de la instalación fotovoltaica de La Caravia Solar, S.L.U. y su línea de evacuación. Es una corrección del expediente FV-874.</span>
+      <span class="tc-news-titular">Corrigen un error en el permiso de la planta solar «Grijota III» de Perales y Becerril de Campos</span>
+      <span class="tc-news-entradilla">La resolución que modificaba la autorización de la planta fotovoltaica de La Caravia Solar, S.L.U. tenía un error, que ahora se ha subsanado. La instalación se ubica en Perales y Becerril de Campos y afecta también a sus líneas de evacuación.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/09/html/BOCYL-D-09122025-26.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-09</span>
-      <span class="tc-news-titular">Visto bueno ambiental a la línea eléctrica que abastecerá la planta de aceite entre Paredes de Nava y Becerril</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha aprobado el informe de impacto de una línea de 45 kV que dará suministro a la planta de refinado y embotellado de aceite vegetal, con trazado entre los dos municipios. Falta que se construya.</span>
+      <span class="tc-news-titular">Visto bueno ambiental a la línea eléctrica que unirá Paredes de Nava y Becerril de Campos</span>
+      <span class="tc-news-entradilla">La línea de 45 kV llevará corriente a la planta de refinado y embotellado de aceite vegetal, pasando por ambos pueblos. Ya tiene el informe de impacto ambiental; falta que se construya.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/03/html/BOCYL-D-03072026-127-81.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-03</span>
-      <span class="tc-news-titular">A información pública el proyecto híbrido eólico-solar &#x27;Alcornoque&#x27; en Becerril, Paredes y Perales</span>
-      <span class="tc-news-entradilla">La empresa pide los permisos para construir una instalación que combina eólica y solar entre Becerril de Campos, Paredes de Nava y Perales. Ahora está en información pública, así que se pueden presentar alegaciones antes de que se decida.</span>
+      <span class="tc-news-titular">A información pública el proyecto híbrido eólico-solar &#x27;Alcornoque&#x27; en Becerril de Campos</span>
+      <span class="tc-news-entradilla">El proyecto combina eólica y solar y afecta a los términos de Becerril de Campos, Paredes de Nava y Perales. Está en información pública para pedir permisos y su declaración de impacto ambiental; falta que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/convocatoria-de-empleo-publico-1-plaza-de-operario-de-usos-multiples/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2025-11-11</span>
       <span class="tc-news-titular">Becerril de Campos busca un operario de usos múltiples para el Ayuntamiento</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha abierto una convocatoria para cubrir una plaza de operario de usos múltiples. Quien quiera presentarse tendrá que estar atento a los plazos y requisitos de la oferta.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha abierto una convocatoria para cubrir una plaza de operario de usos múltiples. Quien quiera optar tendrá que presentarse al proceso de selección.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/convocatoria-de-pruebas-de-seleccion-1-plaza-de-personal-de-limpieza-a-media-jornada/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2025-10-23</span>
-      <span class="tc-news-titular">Becerril de Campos busca una persona de limpieza a media jornada</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha convocado las pruebas para cubrir una plaza de personal de limpieza a media jornada. Quien esté interesado tendrá que presentarse al proceso de selección.</span>
+      <span class="tc-news-titular">Becerril de Campos busca personal de limpieza a media jornada</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha abierto la convocatoria para cubrir una plaza de limpieza a media jornada. Quien quiera presentarse tendrá que pasar las pruebas de selección.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/programa-fiestas-san-isidro-2025/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2025-05-07</span>
       <span class="tc-news-titular">Becerril de Campos ya tiene programa para las fiestas de San Isidro 2025</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha publicado el programa de las fiestas de San Isidro de este año. Ahí están las actividades y los horarios previstos.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha publicado el programa de las fiestas de San Isidro de este año. Ya se pueden consultar los actos previstos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/programa-de-fiestas-san-isidro-2024/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2024-05-03</span>
-      <span class="tc-news-titular">Ya está el programa de fiestas de San Isidro 2024 en Becerril de Campos</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha publicado el programa de las fiestas de San Isidro de este año. Ahí están los actos previstos para consultarlos.</span>
+      <span class="tc-news-titular">Becerril de Campos ya tiene programa para las fiestas de San Isidro 2024</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha publicado la programación de las fiestas de San Isidro de este año. Se puede consultar en la web municipal.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/uncategorized/san-pedro-cultural-cumple-7-anos/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2022-03-19</span>
-      <span class="tc-news-titular">San Pedro Cultural, el antiguo templo de Becerril, cumple 7 años como espacio cultural</span>
-      <span class="tc-news-entradilla">El centro que ocupa la iglesia de San Pedro en Becerril de Campos celebra su séptimo aniversario abierto como espacio cultural.</span>
+      <span class="tc-news-titular">San Pedro Cultural cumple 7 años en Becerril de Campos</span>
+      <span class="tc-news-entradilla">El espacio cultural instalado en la antigua iglesia de San Pedro celebra su séptimo aniversario.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/becerril-de-campos-se-convierte-en-pueblo-magico-gracias-a-la-iniciativa-de-pueblos-magicos/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2022-03-11</span>
       <span class="tc-news-titular">Becerril de Campos entra en la lista de Pueblos Mágicos</span>
-      <span class="tc-news-entradilla">El pueblo se suma a la iniciativa Pueblos Mágicos, que reúne localidades con atractivo turístico. Becerril de Campos ya forma parte de ese grupo.</span>
+      <span class="tc-news-entradilla">El pueblo ha sido incluido en la iniciativa Pueblos Mágicos, que distingue a localidades por su interés turístico.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/san-pedro-cultural-pionero-de-la-provincia-de-palencia-en-la-creacion-de-una-gymkana-virtual-a-traves-de-guiaventuras/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2022-03-01</span>
-      <span class="tc-news-titular">San Pedro Cultural estrena una gymkana virtual, la primera de la provincia de Palencia</span>
-      <span class="tc-news-entradilla">El espacio de Becerril de Campos ha creado una gymkana virtual a través de Guiaventuras. Es la primera de este tipo en la provincia.</span>
+      <span class="tc-news-titular">Becerril de Campos estrena una gymkana virtual en San Pedro Cultural, la primera de la provincia</span>
+      <span class="tc-news-entradilla">San Pedro Cultural ha puesto en marcha una gymkana virtual a través de Guiaventuras. Es la primera de este tipo en la provincia de Palencia.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://becerrildecampos.es/noticias/campos-del-renacimiento-protagonista-en-fitur-2022-2/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2022-01-23</span>
-      <span class="tc-news-titular">Becerril de Campos lleva &#x27;Campos del Renacimiento&#x27; a FITUR 2022</span>
-      <span class="tc-news-entradilla">El municipio participa en la feria de turismo FITUR de este año con el proyecto Campos del Renacimiento.</span>
+      <span class="tc-news-titular">Becerril de Campos lleva el proyecto Campos del Renacimiento a FITUR 2022</span>
+      <span class="tc-news-entradilla">El municipio participa en la feria de turismo de Madrid con la iniciativa Campos del Renacimiento.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
