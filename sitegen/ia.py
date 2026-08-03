@@ -26,6 +26,30 @@ def _model() -> str:
     return m if m.startswith("claude-") else "claude-opus-4-8"
 
 
+# Modelo barato para las tareas MECÁNICAS: convertir números del parte
+# meteorológico en una frase, y filtrar comentarios. No hay criterio editorial
+# que proteger ahí — es transformar datos en texto — y cuesta unas cinco veces
+# menos que Opus ($1/$5 por millón de tokens frente a $5/$25).
+#
+# NO usar este modelo para redactar noticias, plenos, ayudas ni
+# investigaciones: ahí sí hay juicio editorial y se paga Opus a propósito.
+MODELO_MECANICO = "claude-haiku-4-5"
+
+
+def _model_mecanico() -> str:
+    """Si el usuario fija LLM_MODEL a mano, se respeta también aquí."""
+    m = (os.getenv("LLM_MODEL") or "").strip()
+    return m if m.startswith("claude-") else MODELO_MECANICO
+
+
+# Esfuerzo bajo para los textos cortos y repetitivos (titular + entradilla de
+# cada noticia del feed): son unas 100 llamadas por build y la tarea es acotada.
+# Los artículos largos (plenos, ayudas, investigaciones) NO lo llevan: ahí
+# interesa que el modelo piense. Ojo: 'effort' no existe en Haiku 4.5, así que
+# no se combina con MODELO_MECANICO.
+ESFUERZO_BAJO = {"effort": "low"}
+
+
 def disponible() -> bool:
     key = (os.getenv("ANTHROPIC_API_KEY") or "").strip()
     return bool(key) and key != "replace_me"
@@ -113,7 +137,8 @@ def redactar(doc: dict) -> dict:
         max_tokens=400,
         system=_SISTEMA_NOTICIA,
         messages=[{"role": "user", "content": user}],
-        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_NOTICIA}},
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_NOTICIA},
+                       **ESFUERZO_BAJO},
     )
     text = next(b.text for b in resp.content if b.type == "text")
     data = json.loads(text)
@@ -339,7 +364,7 @@ def moderar_comentario(texto: str) -> dict:
     el CALLER debe tratarlo como 'no aprobar' (ver scripts/moderar_comentarios.py)
     — nunca se publica un comentario que no se ha podido evaluar de verdad."""
     resp = _get_client().messages.create(
-        model=_model(),
+        model=_model_mecanico(),
         max_tokens=300,
         system=_SISTEMA_MODERACION,
         messages=[{"role": "user", "content": f"Comentario a evaluar:\n\n{texto}"}],
@@ -391,7 +416,7 @@ def tiempo(w: dict) -> str:
         datos += f"\n{aviso}"
 
     resp = _get_client().messages.create(
-        model=_model(),
+        model=_model_mecanico(),
         max_tokens=400,
         system=_SISTEMA_TIEMPO,
         messages=[{"role": "user", "content": datos}],
@@ -448,7 +473,7 @@ def tiempo_dias(municipio: str, dias: list[dict]) -> list[dict]:
     ]
     user = f"Municipio: {municipio}\n" + "\n".join(lineas)
     resp = _get_client().messages.create(
-        model=_model(),
+        model=_model_mecanico(),
         max_tokens=600,
         system=_SISTEMA_TIEMPO_DIAS,
         messages=[{"role": "user", "content": user}],

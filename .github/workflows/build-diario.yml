@@ -37,6 +37,24 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: Recuperar la caché de textos de IA
+        # SIN ESTO EL BUILD DIARIO CUESTA ~5x MÁS. sitegen/cache.py guarda por
+        # hash lo que ya ha redactado la IA (titulares, entradillas, el tiempo)
+        # para no volver a pagarlo en cada build. Esa caché vive en data/cache/,
+        # que está en .gitignore — así que sin este paso el Action arrancaba cada
+        # día en blanco y volvía a redactar ~215 textos que no habían cambiado,
+        # incluidos plenos y ayudas de hace semanas.
+        #
+        # La clave lleva el id de la ejecución para que cada build guarde una
+        # entrada nueva (las de GitHub son inmutables); restore-keys recupera la
+        # más reciente. Con un build al día no expira: GitHub solo descarta las
+        # que pasan 7 días sin usarse.
+        uses: actions/cache@v4
+        with:
+          path: data/cache
+          key: ia-cache-${{ github.run_id }}
+          restore-keys: ia-cache-
+
       - name: Instalar dependencias
         # Se instala el paquete playwright (lo importa scrapers/plenos_sedelectronica.py)
         # pero NO el navegador Chromium: en CI el scraper de plenos de Mayorga falla
