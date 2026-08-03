@@ -26,7 +26,13 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # 20 minutos se quedaban cortos: 3 de los 7 builds programados entre el
+    # 2026-07-28 y el 2026-08-03 se cancelaron al chocar con el límite (20,3 /
+    # 20,4 min) y varios más acabaron a 19,9 — al filo. La web se quedaba sin
+    # actualizar en silencio, porque una ejecución cancelada no avisa.
+    # Con la caché de IA los builds deberían bajar mucho, pero el margen tiene
+    # que cubrir un día con mucha noticia nueva o una fuente lenta.
+    timeout-minutes: 40
     permissions:
       contents: write        # para poder hacer push del sitio regenerado
     steps:
