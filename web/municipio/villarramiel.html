@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villarramiel — El Terracampino</title>
-<meta name="description" content="Ahora mismo en Villarramiel estamos en 22 grados y con el cielo despejado. A lo largo del día irá subiendo hasta los 33, con el viento casi parado y s">
+<meta name="description" content="Noticias y tiempo de Villarramiel, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villarramiel</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>782 habitantes</span><span>Actualizado: 2/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>782 habitantes</span><span>Actualizado: 3/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/villarramiel.jpg" alt="Villarramiel" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:4_Fabrica_de_curtidos.jpg" target="_blank" rel="noopener">LuisSTP</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villarramiel: 22° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">22°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.0425&longitude=-4.913056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Ahora mismo en Villarramiel estamos en 22 grados y con el cielo despejado. A lo largo del día irá subiendo hasta los 33, con el viento casi parado y sin nada de lluvia. Mañana cambia la cosa: se pone nublado y se queda en 30. Si tienes que regar, aprovecha hoy a primera hora antes de que apriete el calor.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Lunes</span>
-      <h4 class="tc-day-titular">Lunes con nubes y sin lluvia</h4>
-      <p class="tc-day-texto">Cielo cubierto pero seco, con la probabilidad de agua casi descartada. Máxima de 30 grados y mínima de 19, con algo de viento a 19 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">19°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes tapado y en seco</h4>
-      <p class="tc-day-texto">Sigue el nublado sin nada de lluvia a la vista. Baja un punto la temperatura, hasta 29 de máxima y 18 de mínima, y el viento se queda flojo.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles despejando con viento</h4>
-      <p class="tc-day-texto">Se abre el cielo y sube el termómetro hasta 31 grados, con 17 de mínima. Ojo al viento, que aprieta más a 26 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Villarramiel</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Villarramiel por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -101,28 +56,28 @@
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/24/html/BOCYL-D-24022026-37-40.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-24</span>
-      <span class="tc-news-titular">Avatel quiere llevar fibra óptica subterránea por el campo y el pueblo de Villarramiel</span>
-      <span class="tc-news-entradilla">La empresa Avatel Telecom, S.A. ha pedido permiso para instalar fibra óptica bajo tierra por suelo rústico y urbano del municipio. La solicitud está en información pública antes de que se autorice.</span>
+      <span class="tc-news-titular">Avatel quiere llevar fibra óptica soterrada por Villarramiel</span>
+      <span class="tc-news-entradilla">La empresa Avatel Telecom, S.A. ha pedido permiso para desplegar fibra óptica bajo tierra por suelo rústico y urbano del pueblo. El expediente está en información pública antes de que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/06/21/html/BOCYL-D-21062024-39.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-06-21</span>
-      <span class="tc-news-titular">Telefónica pide permiso para llevar fibra óptica soterrada junto a la P-922 en Villarramiel</span>
-      <span class="tc-news-entradilla">Telefónica de España quiere enterrar una línea de fibra óptica con 6 arquetas en paralelo a la carretera P-922, en parte por suelo rústico. Ahora está en información pública antes de que se autorice el uso excepcional del terreno.</span>
+      <span class="tc-news-titular">Telefónica quiere llevar fibra óptica soterrada junto a la P-922 en Villarramiel</span>
+      <span class="tc-news-entradilla">La empresa ha pedido permiso para meter cable de fibra bajo tierra y seis arquetas en suelo rústico y urbano, en paralelo a la carretera P-922. El proyecto está en información pública antes de que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/01/30/html/BOCYL-D-30012025-21.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-01-30</span>
       <span class="tc-news-titular">A información pública la ocupación de varias vías pecuarias en Villarramiel y otros tres pueblos</span>
-      <span class="tc-news-entradilla">Se plantea ocupar terrenos de varias vías pecuarias en Autilla del Pino, Mazariegos, Villamartín de Campos y Villarramiel. El expediente PA-VP-OC-23/24 está en información pública para quien quiera consultarlo o alegar.</span>
+      <span class="tc-news-entradilla">Se abre el plazo para consultar el expediente que afecta a terrenos de vías pecuarias en Villarramiel, Autilla del Pino, Mazariegos y Villamartín de Campos. Quien quiera revisarlo o alegar puede hacerlo antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/09/html/BOCYL-D-09122025-49.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-09</span>
-      <span class="tc-news-titular">El Ayuntamiento de Villarramiel arranca el expediente de ruina de una casa en la calle Salvador 47</span>
-      <span class="tc-news-entradilla">Se ha iniciado el procedimiento para declarar en ruina el inmueble del número 47 de la calle Salvador. Está en información pública, así que quien quiera alegar algo puede hacerlo antes de que se resuelva.</span>
+      <span class="tc-news-titular">El Ayuntamiento de Villarramiel arranca el expediente para declarar en ruina una casa de la calle Salvador</span>
+      <span class="tc-news-entradilla">Se ha iniciado el procedimiento para declarar en ruina el inmueble del número 47 de la calle Salvador. Está en información pública antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/01/html/BOCYL-D-01122025-48.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-01</span>
-      <span class="tc-news-titular">El Ayuntamiento de Villarramiel abre expediente para declarar en ruina la casa de la calle Mayor 25</span>
-      <span class="tc-news-entradilla">El consistorio ha empezado los trámites para declarar en estado de ruina ordinaria el edificio de la calle Mayor número 25. El expediente está en información pública antes de resolverse.</span>
+      <span class="tc-news-titular">Villarramiel abre expediente para declarar en ruina la casa del número 25 de la calle Mayor</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha empezado los trámites para declarar en ruina el inmueble de la calle Mayor n.º 25. Está en información pública antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     

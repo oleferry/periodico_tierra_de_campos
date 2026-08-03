@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Almanza — El Terracampino</title>
-<meta name="description" content="En Almanza estamos ahora en 23 grados y despejado, con apenas algo de viento. A lo largo del día subirá hasta los 32 y no se espera lluvia. Mañana la ">
+<meta name="description" content="Noticias y tiempo de Almanza, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Almanza</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 2/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 3/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/almanza.jpg" alt="Almanza" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:2017_Puente_de_Almanza_sobre_el_río_Cea._León_(2).jpg" target="_blank" rel="noopener">LOBO QUIRCE</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Almanza: 23° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.65825&longitude=-5.0362&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Almanza estamos ahora en 23 grados y despejado, con apenas algo de viento. A lo largo del día subirá hasta los 32 y no se espera lluvia. Mañana la cosa cambia un poco: nublado y hasta los 31. Aprovecha hoy para lo que tengas pendiente al aire libre.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Lunes</span>
-      <h4 class="tc-day-titular">Lunes nublado y caluroso</h4>
-      <p class="tc-day-texto">Cielo cubierto durante buena parte del día pero sin agua a la vista, con solo un 5% de probabilidad. La máxima se va hasta los 31 grados y por la noche baja a 18.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes tapado pero seco</h4>
-      <p class="tc-day-texto">Otro día de nubes sin lluvia, con la máxima bajando un poco hasta los 28 grados y mínima de 17. El viento flojo, sobre los 14 por hora.</p>
-      <span class="tc-day-temp tc-data">28° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de nubes y claros</h4>
-      <p class="tc-day-texto">El cielo se abre algo más, alternando sol y nubes, con 29 de máxima y 17 de mínima. Viento tranquilo y nada de lluvia prevista.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Almanza</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Almanza por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -107,29 +62,29 @@
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/03/20/html/BOCYL-D-20032026-55-33.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-03-20</span>
-      <span class="tc-news-titular">Almanza aprueba definitivamente la expropiación de las parcelas de la actuación AA-06</span>
-      <span class="tc-news-entradilla">El Pleno ha dado el visto bueno final a la expropiación forzosa y al precio que se pagará por las parcelas incluidas en la actuación aislada AA-06 de las Normas Urbanísticas. Afecta a los propietarios de esos terrenos.</span>
+      <span class="tc-news-titular">Almanza aprueba de forma definitiva la expropiación de parcelas en la actuación AA-06</span>
+      <span class="tc-news-entradilla">El Pleno ha dado luz verde definitiva a la expropiación de unas parcelas de la actuación AA-06 de las normas urbanísticas del pueblo, y ha fijado ya el precio a pagar por ellas.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/23/html/BOCYL-D-23122025-42.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-23</span>
-      <span class="tc-news-titular">Almanza saca adelante la expropiación de terrenos para la actuación urbanística AA-06</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado de forma inicial el proyecto para expropiar los terrenos necesarios en la unidad AA-06 de las Normas Urbanísticas. Ahora está en información pública antes de aprobarse del todo.</span>
+      <span class="tc-news-titular">Almanza inicia la expropiación de terrenos para desarrollar la actuación AA-06 del pueblo</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado de forma inicial expropiar suelo para sacar adelante la unidad de actuación AA-06 recogida en las normas urbanísticas. El proyecto está en información pública antes de aprobarse del todo.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/06/10/html/BOCYL-D-10062026-110-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-06-10</span>
       <span class="tc-news-titular">Aprobado el plan de obras para la concentración parcelaria de Almanza II</span>
-      <span class="tc-news-entradilla">La Junta ha dado luz verde al plan de obras de la nueva concentración parcelaria en Almanza. Con esto arranca la fase de trabajos para reordenar las fincas de la zona.</span>
+      <span class="tc-news-entradilla">La Junta ha dado luz verde al plan de obras que acompaña a la concentración parcelaria de la zona de Almanza II, en León. Es el paso previo para reordenar las fincas y las infraestructuras de la zona.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/01/14/html/BOCYL-D-14012026-8-21.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-01-14</span>
       <span class="tc-news-titular">Ya están las bases definitivas de la concentración parcelaria de Almanza II</span>
-      <span class="tc-news-entradilla">La reordenación de las fincas de esta zona de Almanza tiene aprobadas sus bases definitivas. Ahora se abre el plazo de información pública para que los afectados puedan consultarlas.</span>
+      <span class="tc-news-entradilla">Se han aprobado las bases definitivas para reordenar las fincas de la zona de Almanza II y ahora se abre el plazo para que los afectados puedan consultarlas y presentar lo que corresponda.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/06/17/html/BOCYL-D-17062025-43.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-06-17</span>
-      <span class="tc-news-titular">Nueva fase de la concentración parcelaria en la zona de Almanza II</span>
-      <span class="tc-news-entradilla">Ya están las bases provisionales que reorganizan las fincas de esta zona de Almanza. Ahora se abre el trámite de audiencia para que los afectados puedan revisarlas y alegar.</span>
+      <span class="tc-news-titular">Se abre el trámite de audiencia para la concentración parcelaria de Almanza II</span>
+      <span class="tc-news-entradilla">Ya han pasado por información pública las bases provisionales de la concentración de fincas en la zona de Almanza II. Ahora se abre el plazo para que los afectados puedan alegar antes de que se aprueben.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
