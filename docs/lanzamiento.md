@@ -11,18 +11,16 @@ Leyenda: 🟢 lo puedes hacer tú en minutos · 🔧 requiere una acción técni
 
 ## 1. Antes de anunciar nada (que la web esté redonda para el visitante nuevo)
 
-- [ ] 🔧 **Confirmar que MailerLite tiene el dominio verificado.** Quedó el
-  registro DKIM (CNAME `litesrv._domainkey`) puesto en Dondominio; entra en
-  MailerLite → dominios → "Check status" y comprueba que sale verificado. Sin
-  esto, los correos de la newsletter pueden ir a spam.
-- [ ] 🔧 **Montar la automatización de bienvenida en MailerLite.** Automations →
-  Create workflow → disparador "Subscriber joins group" → un email por
-  reportaje con 3-4 días de espera, en orden (los 3 de `docs/newsletter.md`).
+- [x] 🔧 **Dominio autenticado** (2026-08-01): SPF, DKIM y DMARC verificados por
+  DNS. Los correos salen con garantías de entregabilidad.
+- [x] 🔧 **Automatización de bienvenida montada en MailerLite** y probada con
+  una suscripción real: 6 pasos (bienvenida + 5 reportajes), ver
+  `docs/newsletter.md`. Al publicar una investigación nueva, añadir un paso más
+  al final del workflow.
+- [x] 🔧 **Build diario 24/7** en GitHub Actions (`.github/workflows/build-diario.yml`),
+  ya no depende del portátil. La tarea programada local quedó desactivada.
 - [ ] 🟢 **Activar Vercel Analytics.** En el proyecto `periodico-tierra-de-campos`
   (team gafasvan) → pestaña Analytics → Enable. El código ya está puesto.
-- [ ] 🟢 **Pulsar "Run now" en las tareas programadas** (barra lateral →
-  Scheduled) al menos una vez en `build-diario`, para pre-aprobar el permiso de
-  `git push` y que las siguientes ejecuciones no se queden paradas.
 
 ## 2. Redes sociales (crearlas tú; el material está en la sección 5)
 

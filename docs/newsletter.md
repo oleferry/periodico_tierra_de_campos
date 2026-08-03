@@ -1,29 +1,33 @@
-# Newsletter (MailerLite) — estado y el paso que falta
+# Newsletter (MailerLite)
 
-## Qué hay construido (2026-07-18)
+**Estado: FUNCIONANDO de punta a punta, probado con una suscripción real el
+2026-08-01.** Cadena completa: popup/formulario → `/api/suscribir` (Vercel) →
+MailerLite → grupo "El Terracampino" → doble opt-in → secuencia de bienvenida.
+
+## Qué hay construido
 
 - **Formulario cableado** en la web (el del pie de portada y el popup): hacen
   POST a `/api/suscribir` con validación, honeypot anti-bots y mensaje de
-  éxito/error. El popup sale una vez por visitante (localStorage), a los 15s.
+  éxito/error. El popup sale una vez por visitante (localStorage), a los 3s.
 - **Función serverless** `web/api/suscribir.js` (Vercel): habla con la API de
   MailerLite EN SERVIDOR — la clave nunca toca el navegador. Si la clave no
   está configurada responde "inténtalo más tarde" y la web no se rompe.
+- **Variables en Vercel**: `MAILERLITE_API_KEY` y `MAILERLITE_GROUP_ID`. Tras
+  cambiar cualquiera hay que **redesplegar** para que la función las coja.
+- **Autenticación del dominio verificada** (2026-08-01): SPF
+  (`include:_spf.mlsend.com`), DKIM (CNAME `litesrv._domainkey` → mlsend, clave
+  válida) y DMARC (`p=none` con informes). Los tres comprobados por DNS.
 
-## El único paso manual que falta (5 minutos, lo tiene que hacer Daniel)
+## Dos trampas que costaron horas (no volver a caer)
 
-1. MailerLite → **Integrations → API** → genera/copia el token.
-2. Vercel → proyecto de elterracampino → **Settings → Environment Variables**:
-   - `MAILERLITE_API_KEY` = el token.
-   - (Opcional) `MAILERLITE_GROUP_ID` = id del grupo donde meter a los
-     suscriptores (créalo en MailerLite → Subscribers → Groups, p. ej.
-     "El Terracampino"; el id sale en la URL). Sin esto, entran sin grupo.
-3. **Redeploy** en Vercel (Deployments → ⋯ → Redeploy) para que la función
-   coja las variables.
-4. Pega también la clave en el `.env` local (`MAILERLITE_API_KEY`) para que
-   los scripts puedan usarla en el futuro.
-
-Prueba: en la web, meter un correo en el formulario del pie → "Hecho. Revisa
-tu correo" → el correo aparece en MailerLite → Subscribers.
+1. **Un 422 "The selected groups is invalid" NO suele ser el group id**: era que
+   la `MAILERLITE_API_KEY` de Vercel pertenecía a **otra cuenta** de MailerLite
+   distinta de la que se estaba mirando. La clave y el grupo tienen que ser de
+   la MISMA cuenta. Síntoma delator: los suscriptores "desaparecen" (se crean
+   en la otra cuenta) y cualquier grupo nuevo sale inválido.
+2. **Con doble opt-in, un alta por API queda "unconfirmed"** y no aparece en la
+   vista por defecto de Subscribers hasta que la persona pincha el enlace del
+   correo. No es un fallo, y hasta ese momento **la secuencia no se dispara**.
 
 ## La secuencia de bienvenida — TEXTO LISTO PARA PEGAR (act. 2026-07-27)
 
