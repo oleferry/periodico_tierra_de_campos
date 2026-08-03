@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villarramiel — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Villarramiel, Tierra de Campos.">
+<meta name="description" content="En Villarramiel ahora hay 30 grados y apenas se ve una nube. La máxima no va a subir de aquí, y por la noche bajará hasta los 18. Sopla viento flojo d">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Villarramiel</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villarramiel: 30° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">30°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.0425&longitude=-4.913056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Villarramiel ahora hay 30 grados y apenas se ve una nube. La máxima no va a subir de aquí, y por la noche bajará hasta los 18. Sopla viento flojo de 17 kilómetros por hora y lluvia no hay ni la esperamos. Mañana se nubla pero sigue sin llover y se queda en la misma temperatura.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Martes</span>
+      <h4 class="tc-day-titular">Martes nublado y templado</h4>
+      <p class="tc-day-texto">Jornada gris pero seca en Villarramiel, con máxima de 30° y mínima de 18°. El viento sopla a 19 km/h sin traer complicaciones.</p>
+      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">18°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles despejado con viento</h4>
+      <p class="tc-day-texto">Se abre el cielo y desaparece la nubosidad, aunque el viento se refuerza hasta 27 km/h. Máxima de 30° y mínima de 16°, sin lluvia a la vista.</p>
+      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">16°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves variable y ventoso</h4>
+      <p class="tc-day-texto">Nubes y claros se alternan bajo un viento constante de 27 km/h. Temperaturas similares al día anterior, máxima de 30° y mínima de 17°, sin probabilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">17°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Villarramiel por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>

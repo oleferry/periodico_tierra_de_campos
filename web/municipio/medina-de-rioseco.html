@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medina de Rioseco — El Terracampino</title>
-<meta name="description" content="En Medina de Rioseco ahora andan los 30 grados con apenas una nube. Subirá poco más, hasta los 31, y el viento sopla a 18 por hora. No hay riesgo real">
+<meta name="description" content="Noticias y tiempo de Medina de Rioseco, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Medina de Rioseco: 30° y casi despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">30°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.883056&longitude=-5.042778&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Medina de Rioseco ahora andan los 30 grados con apenas una nube. Subirá poco más, hasta los 31, y el viento sopla a 18 por hora. No hay riesgo real de lluvia hoy, que es lo que importa. Mañana se nubla y baja algo la temperatura, rondando los 29.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes nublado y templado</h4>
-      <p class="tc-day-texto">La nubosidad dominará la jornada con máximas de 29° y mínimas de 17°. El viento soplará suave a 18 km/h sin probabilidad de lluvia.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles soleado y caluroso</h4>
-      <p class="tc-day-texto">Las nubes cederán espacio al sol con máximas de 31° y mínimas de 16°. El viento moderado de 28 km/h acompañará el día sin lluvia.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves despejado y cálido</h4>
-      <p class="tc-day-texto">Continuará el buen tiempo con máximas de 31° y mínimas de 17°, viento de 25 km/h y cielo con nubes dispersas. Sin lluvia a la vista.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Medina de Rioseco</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Medina de Rioseco por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -124,56 +79,6 @@
       <span class="tc-news-kicker">BOCyL · 2026-05-20</span>
       <span class="tc-news-titular">Vía libre ambiental para un pozo de riego en Medina de Rioseco</span>
       <span class="tc-news-entradilla">Medio Ambiente ha dado el visto bueno a perforar un sondeo para sacar agua subterránea con la que regar un huerto y zonas verdes. Ya está publicado el informe de impacto ambiental.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/informacion-publica-aprobacion-definitiva-proyecto-de-urbanizacion-de-la-travesia-de-la-carretera-a-villaesper/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-07-31</span>
-      <span class="tc-news-titular">Aprobada de forma definitiva la urbanización de la travesía hacia Villaesper en Medina de Rioseco</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha dado el visto bueno definitivo al proyecto para urbanizar ese tramo de carretera. El documento está en información pública.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/informacion-publica-relativa-al-ajuste-de-alineaciones-de-viario-en-las-calles-ancha-macio-prado-y-ahogaznos/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-05-21</span>
-      <span class="tc-news-titular">Medina de Rioseco revisa el trazado de las calles Ancha, Macio Prado y Ahogaznos</span>
-      <span class="tc-news-entradilla">El Ayuntamiento va a ajustar las alineaciones del viario en esas tres calles. Está en información pública, así que se puede consultar y presentar alegaciones antes de que se apruebe.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/virgen-de-castilviejo-alcaldesa-perpetua-de-medina-de-rioseco/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-05-11</span>
-      <span class="tc-news-titular">La Virgen de Castilviejo sigue siendo la Alcaldesa Perpetua de Medina de Rioseco</span>
-      <span class="tc-news-entradilla">El Ayuntamiento mantiene el título de Alcaldesa Perpetua para la Virgen de Castilviejo, patrona de la localidad.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/licencia-urbanistica-de-obras-proyecto-basico-y-de-ejecucion-de-vivienda-unifamiliar-garje-y-piscina-y-proyecto-de-derribo-de-las-edificaciones-existentes-en-ctra-villaesper/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-04-30</span>
-      <span class="tc-news-titular">Concedida licencia para tirar unas construcciones y levantar una vivienda con garaje y piscina en la carretera de Villaesper</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha dado licencia para derribar las edificaciones que hay en la carretera de Villaesper y construir en su lugar una vivienda unifamiliar con garaje y piscina.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/cambio-en-la-recogida-de-enseres-dia-villar-2026/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-04-17</span>
-      <span class="tc-news-titular">Cambia el día de recogida de enseres en el barrio del Villar de Medina de Rioseco</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha modificado la fecha del servicio de recogida de enseres para la zona del Villar en 2026. Conviene consultar el nuevo día antes de sacar los muebles a la calle.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/luto-oficial-y-convocatoria-de-un-minuto-de-silencio-por-las-victimas-del-tragico-accidente-de-trenes-en-adamuz/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-01-20</span>
-      <span class="tc-news-titular">Medina de Rioseco declara luto oficial por las víctimas del accidente de trenes en Adamuz</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha decretado luto oficial y convoca un minuto de silencio en memoria de las víctimas del accidente ferroviario ocurrido en Adamuz.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/festividad-de-todos-los-santos/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2025-10-24</span>
-      <span class="tc-news-titular">Medina de Rioseco recuerda la festividad de Todos los Santos</span>
-      <span class="tc-news-entradilla">El Ayuntamiento anuncia la celebración de Todos los Santos. Es la jornada del 1 de noviembre en que se visitan los cementerios.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/dus-5000-proyecto-de-sustitucion-de-iluminacion-exterior/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2025-08-05</span>
-      <span class="tc-news-titular">Medina de Rioseco cambiará su alumbrado exterior con las ayudas DUS 5000</span>
-      <span class="tc-news-entradilla">El Ayuntamiento va a sustituir la iluminación de la calle dentro del programa de ayudas DUS 5000. De momento se conoce el proyecto; falta que se ejecuten las obras.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/alerta-por-riesgo-meteorologico-de-incendios-forestales-en-toda-la-comunidad-de-castilla-y-leon/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2025-07-15</span>
-      <span class="tc-news-titular">Alerta por riesgo de incendios forestales en toda Castilla y León</span>
-      <span class="tc-news-entradilla">Hay avisada una situación de peligro meteorológico de incendios en toda la comunidad, Medina de Rioseco incluida. Conviene extremar la precaución con cualquier fuego en el campo.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://medinaderioseco.org/cambio-fecha-celebracion-mercado-semanal/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2025-04-01</span>
-      <span class="tc-news-titular">Cambia el día del mercado semanal en Medina de Rioseco</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha modificado la fecha en que se celebra el mercado semanal. Conviene comprobar el nuevo día antes de acercarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     <h2 class="tc-block-title">Ayudas y subvenciones</h2>
