@@ -10,6 +10,7 @@ No es asesoramiento: es orientación, en la línea de prompts/05_tiempo_humano.m
 
 from __future__ import annotations
 
+import time
 from datetime import date
 
 import requests
@@ -35,14 +36,34 @@ WMO = {
 DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
 
 
+# Reintentos ante fallos pasajeros de red. SIN ESTO, UN SOLO TIMEOUT DEJABA A UN
+# PUEBLO SIN PARTE DEL TIEMPO TODO EL DÍA: entre el 2026-07-28 y el 2026-08-03,
+# ~10 de los 27 municipios se quedaban sin tiempo en cada build diario por
+# ReadTimeout de Open-Meteo, y como el build degrada con gracia no avisaba nadie.
+# El tiempo es lo más visitado del sitio, así que compensa insistir un poco.
+INTENTOS = 3
+ESPERA_ENTRE_INTENTOS = 2.0  # segundos, se duplica en cada reintento
+
+
 def _get(url: str, params: dict) -> dict:
-    try:
-        r = requests.get(url, params=params, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
-    except requests.RequestException as exc:
-        raise ScraperError(ERR_NETWORK, f"{type(exc).__name__}: {exc}") from exc
-    if r.status_code >= 400:
-        raise ScraperError(ERR_NETWORK, f"HTTP {r.status_code} en {url}")
-    return r.json()
+    ultimo: Exception | None = None
+    for intento in range(INTENTOS):
+        try:
+            r = requests.get(url, params=params, headers={"User-Agent": USER_AGENT},
+                             timeout=REQUEST_TIMEOUT)
+        except requests.RequestException as exc:
+            ultimo = exc
+        else:
+            if r.status_code < 400:
+                return r.json()
+            # 4xx que no sea 429 es culpa nuestra (municipio inexistente, parámetro
+            # mal): reintentar no lo va a arreglar y solo retrasa el build.
+            if 400 <= r.status_code < 500 and r.status_code != 429:
+                raise ScraperError(ERR_NETWORK, f"HTTP {r.status_code} en {url}")
+            ultimo = ScraperError(ERR_NETWORK, f"HTTP {r.status_code} en {url}")
+        if intento < INTENTOS - 1:
+            time.sleep(ESPERA_ENTRE_INTENTOS * (2 ** intento))
+    raise ScraperError(ERR_NETWORK, f"tras {INTENTOS} intentos: {type(ultimo).__name__}: {ultimo}")
 
 
 def geocode(name: str, province: str | None = None) -> tuple[float, float] | None:
