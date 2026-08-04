@@ -11,6 +11,11 @@ build/
 
 data/live/
 data/cache/
+# Resumen del día que escribe el build para el boletín de Telegram: se
+# regenera en cada build y no aporta nada al repo. OJO: data/boletin_enviados.json
+# SÍ se versiona a propósito — es la memoria de lo ya publicado en el canal, y
+# sin ella el boletín repetiría las mismas noticias cada día.
+data/boletin_hoy.json
 # Cola de trabajo del radar (scrapers/radar_noticias.py): guarda titulares y
 # extractos de medios ajenos como PISTAS internas. El repo es público, así que
 # no se sube: publicarla sería republicar texto con derechos de otros.

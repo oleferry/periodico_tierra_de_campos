@@ -88,6 +88,17 @@ jobs:
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
         run: python -m sitegen.build
 
+      - name: Boletín diario en el canal de Telegram
+        # Va DESPUÉS del build (necesita data/boletin_hoy.json, que escribe él) y
+        # con continue-on-error a propósito: que Telegram esté caído no puede
+        # impedir que el sitio se publique. Si no hay nada nuevo, el script no
+        # envía nada — el canal calla en vez de mandar un boletín vacío.
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: python -m scripts.boletin_telegram
+
       - name: Publicar si hay cambios
         run: |
           git config user.name "El Terracampino (bot)"

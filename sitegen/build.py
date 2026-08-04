@@ -2009,6 +2009,46 @@ def render_gente(built: list[dict], blog_articulos: list[dict]) -> str:
                  desc="Retratos de personas de los pueblos de Tierra de Campos, contados con sus propias palabras.")
 
 
+def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: list[dict],
+                          avisos: list[dict], hoy: date) -> None:
+    """Deja en data/boletin_hoy.json lo publicable del día, para que
+    scripts/boletin_telegram.py componga el boletín sin repetir el trabajo del
+    build (scrapers + IA). Solo escribe datos: no envía nada.
+
+    Se guardan los titulares y entradillas YA redactados y revisados por la
+    cadena de redactor.py — el boletín no vuelve a pasar nada por la IA, así que
+    no puede introducir texto nuevo ni inventar."""
+    base = "https://elterracampino.es"
+    r = resumen_tiempo(built)
+    # Las noticias del día, ya ordenadas por relevancia como en portada.
+    ordenadas = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
+    noticias = []
+    for d in ordenadas[:8]:
+        red = redactar(d)
+        noticias.append({
+            "hash": d["hash"],
+            "titular": red["titular"],
+            "municipio": d.get("municipality_name", ""),
+            "fuente": fuente_label(d),
+            "url": f"{base}/{articulo_path(d)}" if red.get("cuerpo") else d.get("url_original", ""),
+        })
+    datos = {
+        "fecha": hoy.isoformat(),
+        "tiempo": r,
+        "avisos": [{"nivel": a.get("nivel"), "zona": a.get("zona"),
+                    "fenomeno": a.get("fenomeno", "")} for a in avisos],
+        "noticias": noticias,
+        "investigaciones": [
+            {"titular": a["titular"], "url": f"{base}/blog/{a['slug']}.html", "fecha": a.get("fecha", "")}
+            for a in blog_articulos[:3]
+        ],
+    }
+    ruta = ROOT / "data" / "boletin_hoy.json"
+    ruta.write_text(json.dumps(datos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"  resumen del día para el boletín: {len(noticias)} noticias, "
+          f"{len(datos['avisos'])} avisos")
+
+
 def render_acompanar() -> str:
     """Sección "Acompañar" (Fase 1) — servicio público contra la soledad no
     deseada de los mayores. Ver docs/acompanar.md.
@@ -2452,6 +2492,12 @@ def main() -> int:
     (WEB / "sitemap.xml").write_text(render_sitemap(paginas_sitemap), encoding="utf-8")
     (WEB / "robots.txt").write_text(render_robots_txt(), encoding="utf-8")
     (WEB / "404.html").write_text(render_404(), encoding="utf-8")
+
+    # Resumen del día para el boletín de Telegram (scripts/boletin_telegram.py).
+    # Se escribe aquí porque el build ya tiene todo esto en memoria: hacerlo
+    # aparte obligaría a repetir scrapers y llamadas a la IA. No publica nada —
+    # solo deja los datos; enviar es decisión de otro paso.
+    escribir_resumen_dia(built, feed, blog_articulos, avisos_meteo, hoy)
 
     cache.flush()
     modo = "IA (Claude)" if ia.disponible() else "reglas (sin ANTHROPIC_API_KEY)"
