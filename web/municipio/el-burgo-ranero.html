@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El Burgo Ranero — El Terracampino</title>
-<meta name="description" content="En El Burgo Ranero ahora mismo tenemos 29 grados y cielo limpio, con un poco de viento que corre a 14 kilómetros por hora. Hoy la cosa se queda en los">
+<meta name="description" content="Noticias y tiempo de El Burgo Ranero, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>El Burgo Ranero</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 3/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 4/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/el-burgo-ranero.jpg" alt="El Burgo Ranero" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:El_Burgo_Ranero.jpg" target="_blank" rel="noopener">José Antonio Gil Martínez from Vigo, Spain</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en El Burgo Ranero: 29° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.42225&longitude=-5.21919&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En El Burgo Ranero ahora mismo tenemos 29 grados y cielo limpio, con un poco de viento que corre a 14 kilómetros por hora. Hoy la cosa se queda en los 30 de máxima y bajaremos hasta los 17 por la noche, sin probabilidad de lluvia. Mañana se nubla pero sigue siendo templado, con máximas parecidas.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 18°, con nublado.</p>
-      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 16°, con nubes y claros. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves de sol</h4>
-      <p class="tc-day-texto">Máxima de 28° y mínima de 17°, con casi despejado. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">28° <span class="tc-day-min">17°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — El Burgo Ranero</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de El Burgo Ranero por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>

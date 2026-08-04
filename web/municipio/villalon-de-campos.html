@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalón de Campos — El Terracampino</title>
-<meta name="description" content="En Villalón ahora mismo estamos en 30 grados con el cielo casi limpio. La máxima del día se quedará ahí, sin bajar mucho la mínima de 19. Sopla viento">
+<meta name="description" content="Noticias y tiempo de Villalón de Campos, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalón de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.473 habitantes</span><span>Actualizado: 3/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.473 habitantes</span><span>Actualizado: 4/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/villalon-de-campos.jpg" alt="Villalón de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Fundación_Joaquín_Díaz_-_Vista_panorámica._Soportales_-_Villalón_de_Campos_(Valladolid).jpg" target="_blank" rel="noopener">Fundación Joaquín Díaz / Cayetano Enríquez</a>,
@@ -45,53 +45,8 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalón de Campos: 30° y casi despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">30°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.098449&longitude=-5.034713&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Villalón ahora mismo estamos en 30 grados con el cielo casi limpio. La máxima del día se quedará ahí, sin bajar mucho la mínima de 19. Sopla viento flojo de 17 kilómetros por hora y lluvia no hay, prácticamente nada. Mañana entra nublado pero sin gran cambio de temperaturas, rondará los 29 de máxima.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 29° y mínima de 18°, con nublado.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">18°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 17°, con nubes y claros. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 17°, con nubes y claros. Sopla viento fuerte.</p>
-      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">17°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Villalón de Campos</h2>
+    
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Villalón de Campos por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
