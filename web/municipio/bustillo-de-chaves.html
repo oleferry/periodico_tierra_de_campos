@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bustillo de Chaves — El Terracampino</title>
-<meta name="description" content="En Bustillo de Chaves estamos ahora en 28 grados y el cielo despejado. La máxima se queda ahí mismo, sobre los 28, y por la noche bajará hasta los 16,">
+<meta name="description" content="En Bustillo de Chaves ahora tenemos 29 grados y nubes, pero el aire se mueve poco. La máxima no subirá mucho más, a los 30, y la noche bajará hasta lo">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -25,12 +27,33 @@
     <a href="../huerta.html">Huerta</a>
     <a href="../campo.html">El campo</a>
     <a href="../leyendas.html">Leyendas</a>
+    <a href="../esquelas.html">Esquelas</a>
+    <a href="../acompanar.html">Acompañar</a>
+    <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Bustillo de Chaves</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 24/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 4/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/bustillo-de-chaves.jpg" alt="Bustillo de Chaves" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Bustillo_de_Chaves.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -42,11 +65,11 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Bustillo de Chaves: 28° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Bustillo de Chaves: 29° y nublado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
       <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
     <script>
@@ -70,48 +93,46 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Bustillo de Chaves estamos ahora en 28 grados y el cielo despejado. La máxima se queda ahí mismo, sobre los 28, y por la noche bajará hasta los 16, así que refresca. Fíjate que sopla viento de 28 por hora, que reseca bastante, aunque hoy no cae nada. Para mañana ya apuntan alguna llovizna floja y algo menos de calor, hasta los 25.</p>
+    <p class="tc-weather-article">En Bustillo de Chaves ahora tenemos 29 grados y nubes, pero el aire se mueve poco. La máxima no subirá mucho más, a los 30, y la noche bajará hasta los 18. No llueve nada hoy. Mañana limpia y más calor, que puede llegar a los 32.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado ventoso y algo gris</h4>
-      <p class="tc-day-texto">Jornada de nubes con máxima de 25 grados y mínima de 15. El viento aprieta hasta los 36 km/h y, aunque puede caer alguna llovizna, la probabilidad es baja y apenas dejaría gotas.</p>
-      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">15°</span></span>
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles despejado y ventoso</h4>
+      <p class="tc-day-texto">Cielo sin nubes con máxima de 32° y mínima de 16°. El viento será notable, rondando los 34 km/h, sin posibilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo limpio de nubes</h4>
-      <p class="tc-day-texto">Cielo despejado todo el día, sin rastro de lluvia. Se sube a 27 grados de máxima, con 12 de mínima, y el viento se calma en torno a los 17 km/h.</p>
-      <span class="tc-day-temp tc-data">27° <span class="tc-day-min">12°</span></span>
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves sin cambios, viento fuerte</h4>
+      <p class="tc-day-texto">Se mantiene el tiempo despejado con máxima de 32° y mínima de 16°. El viento ganará algo de intensidad hasta los 39 km/h y seguirá sin lluvia.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
-      <span class="tc-day-name">Lunes</span>
-      <h4 class="tc-day-titular">Lunes despejado y caluroso</h4>
-      <p class="tc-day-texto">Sol de principio a fin y el termómetro sube a 32 grados, con mínima de 18. El viento ronda los 26 km/h y no hay agua a la vista.</p>
-      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">18°</span></span>
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes más cálido y ventoso</h4>
+      <p class="tc-day-texto">La máxima subirá a 34° con mínima de 18° bajo un cielo casi despejado. El viento se mantendrá fuerte en torno a los 38 km/h sin probabilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">18°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Bustillo de Chaves por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Bustillo de Chaves incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/06/24/html/BOCYL-D-24062024-23.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/06/24/html/BOCYL-D-24062024-23.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-06-24</span>
       <span class="tc-news-titular">Bustillo de Chaves: dan más plazo para poner en marcha la ampliación de una granja de cerdos</span>
       <span class="tc-news-entradilla">La explotación porcina Dimar, en titularidad compartida, ha conseguido una prórroga para comunicar el inicio de su ampliación. Todavía queda que arranque la actividad.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bop.sede.diputaciondevalladolid.es/boletines/2026/julio/24/BOPVA-A-2026-02216.pdf" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOP Valladolid · 2026-07-24</span>
-      <span class="tc-news-titular">Bustillo de Chaves corrige un error en la superficie de las parcelas de un anuncio anterior</span>
-      <span class="tc-news-entradilla">El anuncio publicado el 17 de julio traía mal los metros de las parcelas y ahora se rectifica. Conviene revisarlo si te afectaba lo publicado entonces.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
+    
     
     <div class="tc-card"><h3>Fotos de Bustillo de Chaves</h3>
       <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Bustillo de Chaves.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
       <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
+    
     
     <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
       <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Bustillo de Chaves. Todavía no hay anuncios publicados.</p>
@@ -127,17 +148,42 @@
 </div>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="../aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
 <div class="tc-popup-overlay" id="tc-popup-overlay">
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -156,7 +202,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -176,11 +225,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

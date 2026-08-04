@@ -4,65 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Valdunquillo — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Valdunquillo, Tierra de Campos.">
-<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="description" content="En Valdunquillo estamos ahora en 27 grados y casi sin nubes. La máxima no pasará de los 30, con un viento flojo de 12 por hora y sin posibilidad de ll">
+<link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/brand-tokens.css">
 <link rel="stylesheet" href="../assets/site.css">
+<link rel="alternate" type="application/rss+xml" title="El Terracampino — Investigaciones" href="../feed.xml">
 </head>
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
+    <a href="../index.html#blog">Investigaciones</a>
+    <a href="../huerta.html">Huerta</a>
+    <a href="../campo.html">El campo</a>
+    <a href="../leyendas.html">Leyendas</a>
+    <a href="../esquelas.html">Esquelas</a>
+    <a href="../acompanar.html">Acompañar</a>
+    <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Valdunquillo</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 12/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 4/08/2026</span></div>
+  <div class="tc-muni-hero-foto">
+    <img src="../assets/fotos-libres/valdunquillo.jpg" alt="Valdunquillo" loading="lazy">
+    <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Valdunquillo.jpg" target="_blank" rel="noopener">Rodelar</a>,
+      <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, vía Wikimedia Commons</p>
+  </div>
 </div></section>
+
+
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Valdunquillo</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Valdunquillo: 27° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">27°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.04232&longitude=-5.31339&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Valdunquillo estamos ahora en 27 grados y casi sin nubes. La máxima no pasará de los 30, con un viento flojo de 12 por hora y sin posibilidad de lluvia. Mañana seguirá el buen tiempo, quizá un grado más, así que si tienes riego que hacer, estos días te vienen bien.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con buen viento</h4>
+      <p class="tc-day-texto">Casi despejado y sin lluvia a la vista, con máxima de 31° y mínima de 17°. El viento rondará los 25 km/h, así que notarás que corre el aire.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves entre nubes y sol</h4>
+      <p class="tc-day-texto">Nubes y claros sin probabilidad de lluvia, máxima de 31° y mínima de 17°. El viento seguirá presente con 26 km/h.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes despejado y más cálido</h4>
+      <p class="tc-day-texto">Casi despejado con máxima de 33°, la más alta de estos días, y mínima de 17°. El viento bajará un poco hasta 22 km/h, sin lluvia.</p>
+      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">17°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe el tiempo de Valdunquillo por canal</h3>
-      <p style="margin:0; font-size:.9rem;">La previsión de tu pueblo cada mañana, y aviso si hay helada o calor extremo.</p></div>
-      <div class="tc-channel-btns"><span class="tc-button">WhatsApp</span><span class="tc-button tc-button--ghost">Telegram</span></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Valdunquillo incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
+      <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
+    
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="https://bop.sede.diputaciondevalladolid.es/boletines/2026/julio/10/BOPVA-A-2026-02067.pdf" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOP Valladolid · 2026-07-10</span>
-      <span class="tc-news-titular">Valdunquillo saca a concurso el bar del centro cívico El Palomar</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha abierto el proceso para adjudicar la explotación del bar del centro cívico El Palomar. Quien quiera llevarlo puede presentarse a la licitación.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/03/10/html/BOCYL-D-10032026-47-40.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/03/10/html/BOCYL-D-10032026-47-40.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-03-10</span>
-      <span class="tc-news-titular">Valdunquillo saca su oferta de empleo público para 2026</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado las plazas que va a convocar este año. Ahora falta que se publiquen las bases para poder presentarse.</span>
+      <span class="tc-news-titular">Valdunquillo saca oferta de empleo público para 2026</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado la oferta de empleo público de este año. Habrá que esperar a las bases de la convocatoria para saber qué plazas se ofrecen y cómo apuntarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/12/07/html/BOCYL-D-07122023-45.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2023/12/07/html/BOCYL-D-07122023-45.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-12-07</span>
-      <span class="tc-news-titular">Solicitan ocupar tramos de varias vías pecuarias para llevar fibra óptica entre Villavicencio y Valdunquillo</span>
-      <span class="tc-news-entradilla">Quieren usar de forma temporal terrenos de las coladas y la Vereda de los Laneros para tender el enlace de fibra entre los dos pueblos. Está en información pública por si alguien quiere alegar.</span>
+      <span class="tc-news-titular">A información pública la ocupación de vías pecuarias para llevar fibra óptica a Valdunquillo</span>
+      <span class="tc-news-entradilla">Se van a ocupar temporalmente terrenos de varias vías pecuarias, entre ellas la Vereda de los Laneros en Valdunquillo, para tender el cable de fibra óptica que enlaza con Villavicencio de los Caballeros. Está en información pública por si alguien quiere alegar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/12/13/html/BOCYL-D-13122022-92.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2022/12/13/html/BOCYL-D-13122022-92.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-12-13</span>
-      <span class="tc-news-titular">Valdunquillo saca a concurso la plaza de alguacil dentro del proceso de estabilización</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado las bases para cubrir de forma fija la plaza de alguacil, mediante concurso, dentro del proceso extraordinario de estabilización de empleo. Ya se puede consultar la convocatoria.</span>
+      <span class="tc-news-titular">Valdunquillo saca a concurso la plaza de alguacil para estabilizarla</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado las bases para cubrir de forma fija la plaza de alguacil, dentro del proceso extraordinario de estabilización. Ya se puede consultar la convocatoria.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/12/07/html/BOCYL-D-07122023-47.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2023/12/07/html/BOCYL-D-07122023-47.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-12-07</span>
-      <span class="tc-news-titular">Van a ocupar dos cañadas para llevar fibra óptica entre La Unión de Campos, Valdunquillo y Bolaños</span>
-      <span class="tc-news-entradilla">Piden ocupar temporalmente terrenos del «Cordel de Valderas» y la «Colada del Camino Real» para pasar el enlace de fibra entre los tres pueblos. Está en información pública antes de autorizarse.</span>
+      <span class="tc-news-titular">Fibra óptica cruzará vías pecuarias para conectar La Unión de Campos, Valdunquillo y Bolaños de Campos</span>
+      <span class="tc-news-entradilla">Se pide ocupar temporalmente terrenos del Cordel de Valderas y de la Colada del Camino Real para pasar el cable de fibra que enlaza los tres pueblos. Está en información pública antes de darse el visto bueno.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
+    
+    
+    <div class="tc-card"><h3>Fotos de Valdunquillo</h3>
+      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Valdunquillo.</p>
+      <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
+      <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
+    
+    
     <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
       <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Valdunquillo. Todavía no hay anuncios publicados.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
@@ -77,7 +163,106 @@
 </div>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="../index.html">Portada</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="../aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
+<div class="tc-popup-overlay" id="tc-popup-overlay">
+  <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
+    <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
+    <h2>La semana terracampina</h2>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
+    <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+  </div>
+</div>
+<script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
+(function() {
+  var API = "../api/suscribir";
+  // Todos los formularios de suscripción de la página (popup + pie) van al
+  // mismo endpoint; el resultado se muestra en el propio formulario.
+  document.querySelectorAll("form.tc-form").forEach(function(form) {
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      var email = form.querySelector('input[type="email"]');
+      var honey = form.querySelector('input[name="web"]');
+      var btn = form.querySelector("button");
+      btn.disabled = true; btn.textContent = "Un momento…";
+      fetch(API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.value, web: honey ? honey.value : "" }),
+      }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
+        .then(function(res) {
+          if (res.ok) {
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
+            localStorage.setItem("tc_newsletter_popup_visto", "1");
+          } else {
+            btn.disabled = false; btn.textContent = "Suscribirme";
+            alert(res.d.error || "No se pudo completar el alta. Inténtalo más tarde.");
+          }
+        })
+        .catch(function() {
+          btn.disabled = false; btn.textContent = "Suscribirme";
+          alert("No se pudo completar el alta. Inténtalo más tarde.");
+        });
+    });
+  });
+
+  var KEY = "tc_newsletter_popup_visto";
+  if (localStorage.getItem(KEY)) return;
+  var overlay = document.getElementById("tc-popup-overlay");
+  var close = document.getElementById("tc-popup-close");
+  function ocultar() {
+    overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
+    localStorage.setItem(KEY, "1");
+  }
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
+  close.addEventListener("click", ocultar);
+  overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
+})();
+</script>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

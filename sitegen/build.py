@@ -2497,8 +2497,17 @@ def main() -> int:
     # publicado una pieza propia sobre él (radar → scripts/desarrollar_pista.py).
     # Así la cobertura crece donde hay contenido, sin páginas vacías: el tiempo
     # se resuelve solo (geocode más abajo) y el BOCyL funciona para cualquiera.
+    # Un pueblo que YA tuvo ficha se sigue regenerando aunque hoy no tenga
+    # noticias. Si no, pasaba esto: un pueblo pequeño sale una vez en el BOP, se
+    # le genera la ficha, y al día siguiente cae de la lista y su página queda
+    # CONGELADA en producción — con la plantilla de aquel día, sin el tiempo y
+    # sin los avisos de privacidad. Había 8 así, algunas del 12 de julio.
+    # La cobertura solo crece, que es justo lo que dice el comentario de arriba.
+    ya_publicados = sorted(p.stem for p in (WEB / "municipio").glob("*.html")) \
+        if (WEB / "municipio").exists() else []
     slugs = list(dict.fromkeys(PILOTS + list(por_muni.keys()) + list(propias_por_slug.keys())
-                               + list(esquelas_por_slug.keys()) + list(archivo_por_slug.keys())))
+                               + list(esquelas_por_slug.keys()) + list(archivo_por_slug.keys())
+                               + ya_publicados))
 
     print("· Ayudas y subvenciones (BDNS)…", flush=True)
     try:

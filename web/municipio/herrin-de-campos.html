@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Herrín de Campos — El Terracampino</title>
-<meta name="description" content="En Herrín estamos ahora en 26 grados y el cielo despejado, sin viento apenas. La cosa irá a más durante el día, hasta los 34, y no se espera lluvia. M">
+<meta name="description" content="En Herrín de Campos estamos ahora con 28 grados y nubes que no van a traer agua. La máxima llegará a 30 y bajará hasta los 19 esta noche, con apenas v">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,28 +17,55 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
     <a href="../index.html#blog">Investigaciones</a>
     <a href="../huerta.html">Huerta</a>
+    <a href="../campo.html">El campo</a>
+    <a href="../leyendas.html">Leyendas</a>
+    <a href="../esquelas.html">Esquelas</a>
+    <a href="../acompanar.html">Acompañar</a>
+    <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Herrín de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 23/07/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 4/08/2026</span></div>
   
 </div></section>
 
+
+
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Herrín de Campos: 26° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Herrín de Campos: 28° y nublado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
       <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
     <script>
@@ -62,68 +89,66 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Herrín estamos ahora en 26 grados y el cielo despejado, sin viento apenas. La cosa irá a más durante el día, hasta los 34, y no se espera lluvia. Mañana afloja algo, se queda en 29 y sigue despejado. Si tienes huerto, riega a primera hora o al caer la tarde, que al mediodía con este calor no aprovechas nada.</p>
+    <p class="tc-weather-article">En Herrín de Campos estamos ahora con 28 grados y nubes que no van a traer agua. La máxima llegará a 30 y bajará hasta los 19 esta noche, con apenas viento. Mañana se despeja del todo y subirá un poco más, rondando los 32.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con viento fuerte</h4>
+      <p class="tc-day-texto">Cielo despejado y máxima de 32 grados, pero el viento sopla a 37 km/h. Mínima de 17 grados sin posibilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves sin tregua en el aire</h4>
+      <p class="tc-day-texto">Despejado con 31 grados de máxima, aunque el viento se refuerza hasta los 40 km/h. Mínima de 17 grados y sin lluvia esperada.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes seco y con racheo</h4>
-      <p class="tc-day-texto">Cielo despejado y ambiente veraniego, con 29 grados de máxima y 17 de mínima. El viento aprieta hasta los 35 km/h, así que se notará durante el día.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado tapado pero sin agua</h4>
-      <p class="tc-day-texto">Nubes buena parte de la jornada, aunque solo hay un 10% de posibilidad de lluvia y no se esperan precipitaciones. Termómetros de 15 a 26 grados y viento algo más flojo, sobre los 28 km/h.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">15°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo despejado y tranquilo</h4>
-      <p class="tc-day-texto">Vuelve el cielo limpio, con 29 grados de máxima y 16 de mínima. El viento afloja hasta los 20 km/h y el día queda para disfrutarlo.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
+      <h4 class="tc-day-titular">Viernes cálido y ventoso</h4>
+      <p class="tc-day-texto">Casi despejado y más caluroso, con máxima de 34 grados. El viento se mantiene en 36 km/h y la mínima será de 19 grados sin precipitaciones.</p>
+      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">19°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Herrín de Campos por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Herrín de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2021/04/27/html/BOCYL-D-27042021-22.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2021/04/27/html/BOCYL-D-27042021-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2021-04-27</span>
       <span class="tc-news-titular">Aprobado el proyecto de puentes y caminos de la concentración parcelaria en la zona de Herrín</span>
       <span class="tc-news-entradilla">Sale adelante el proyecto definitivo de puentes e infraestructuras para la concentración parcelaria que afecta a Herrín, Villafrades, Villalón de Campos y Boadilla de Rioseco. Ya está publicada la lista definitiva de fincas y derechos que se expropian para las obras.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bop.sede.diputaciondevalladolid.es/boletines/2026/julio/23/BOPVA-A-2026-02209.pdf" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOP Valladolid · 2026-07-23</span>
-      <span class="tc-news-titular">Herrín de Campos saca a la vista las cuentas del año 2025</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha puesto en información pública la cuenta general del ejercicio 2025 para quien quiera consultarla. Se puede revisar durante el plazo de exposición antes de que se apruebe.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/12/27/html/BOCYL-D-27122024-23.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/12/27/html/BOCYL-D-27122024-23.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-12-27</span>
       <span class="tc-news-titular">Herrín de Campos entra en la agrupación de defensa sanitaria de ovino y caprino de Medina de Rioseco</span>
       <span class="tc-news-entradilla">Los ganaderos de ovejas y cabras del pueblo pasan a formar parte de la agrupación sanitaria &quot;Medina de Rioseco&quot;, junto con Tiedra, Velliza, Villabaruz de Campos y Villalón de Campos. Sirve para organizar la sanidad del ganado en la zona.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2021/06/22/html/BOCYL-D-22062021-17.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2021/06/22/html/BOCYL-D-22062021-17.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2021-06-22</span>
       <span class="tc-news-titular">Empiezan las expropiaciones para puentes y obras de la concentración parcelaria en Herrín de Campos</span>
       <span class="tc-news-entradilla">La Junta cita a los propietarios afectados para levantar las actas previas a la ocupación de fincas y derechos por las obras de infraestructura. Afecta también a Villafrades, Villalón de Campos y Boadilla de Rioseco.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2021/03/16/html/BOCYL-D-16032021-30.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2021/03/16/html/BOCYL-D-16032021-30.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2021-03-16</span>
       <span class="tc-news-titular">Puentes y obras nuevas en la concentración parcelaria de Herrín y pueblos vecinos</span>
       <span class="tc-news-entradilla">El proyecto contempla puentes e infraestructuras para la concentración parcelaria que afecta a Herrín, Villafrades, Villalón de Campos y Boadilla de Rioseco. Está en información pública 15 días para que quien quiera pueda alegar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/07/10/html/BOCYL-D-10072024-25.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/07/10/html/BOCYL-D-10072024-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-07-10</span>
       <span class="tc-news-titular">Piden ocupar temporalmente parte de la vía pecuaria que va de Villafrades a Villada en Herrín de Campos</span>
       <span class="tc-news-entradilla">Hay una solicitud para usar durante un tiempo terrenos de esa cañada en el término de Herrín de Campos. Está en información pública, así que se pueden presentar alegaciones antes de que se decida.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
+    
     <div class="tc-card"><h3>Fotos de Herrín de Campos</h3>
       <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Herrín de Campos.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
       <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
+    
     
     <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
       <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Herrín de Campos. Todavía no hay anuncios publicados.</p>
@@ -139,17 +164,42 @@
 </div>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="../aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
 <div class="tc-popup-overlay" id="tc-popup-overlay">
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -168,7 +218,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -188,11 +241,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
