@@ -62,14 +62,17 @@ jobs:
           restore-keys: ia-cache-
 
       - name: Instalar dependencias
-        # Se instala el paquete playwright (lo importa scrapers/plenos_sedelectronica.py)
-        # pero NO el navegador Chromium: en CI el scraper de plenos de Mayorga falla
-        # de forma controlada y el build sigue sin él (rara vez cambian las actas).
-        # Si algún día se quiere cubrir también en CI, añadir aquí:
-        #   python -m playwright install --with-deps chromium
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Instalar el navegador de Playwright
+        # Necesario para scrapers/plenos_sedelectronica.py: el listado de actas
+        # es una llamada AJAX de Wicket con token de sesión firmado, así que hace
+        # falta un navegador de verdad (ver el docstring de ese módulo).
+        # Sin este paso el build salía cada día con "aviso: sin actas de pleno
+        # para Mayorga" y el pueblo se quedaba sin sus plenos. Añade ~1 min.
+        run: python -m playwright install --with-deps chromium
 
       - name: Refrescar la cola de pistas del radar
         # Cola interna (data/radar/, en .gitignore): no se publica, solo alimenta

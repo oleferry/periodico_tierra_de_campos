@@ -97,16 +97,37 @@ def robots_allows(url: str) -> bool:
     return rp.can_fetch(USER_AGENT, url)
 
 
+# Reintentos ante fallos pasajeros de red (timeouts, 5xx, 429). Sin esto, un
+# tropiezo puntual de una sede electrónica dejaba el boletín de ese día fuera
+# del periódico: el 2026-08-03 el BOP de Valladolid dio ConnectTimeout y la web
+# salió sin él, en silencio, porque el build degrada con gracia.
+# Un 4xx que no sea 429 NO se reintenta: es culpa nuestra (URL mal, robots),
+# insistir solo retrasaría el build.
+INTENTOS = 3
+ESPERA_ENTRE_INTENTOS = 2.0  # segundos, se duplica en cada reintento
+
+
 def fetch(url: str, *, check_robots: bool = True) -> str:
-    """GET con User-Agent identificable, pausa y comprobación de robots.txt."""
+    """GET con User-Agent identificable, pausa, comprobación de robots.txt y
+    reintentos ante fallos pasajeros de red."""
     if check_robots and not robots_allows(url):
         raise ScraperError(ERR_BLOCKED, f"robots.txt prohíbe {url}")
-    try:
-        resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
-    except requests.RequestException as exc:
-        raise ScraperError(ERR_NETWORK, f"{type(exc).__name__}: {exc}") from exc
-    if resp.status_code >= 400:
-        raise ScraperError(ERR_NETWORK, f"HTTP {resp.status_code} en {url}")
+    ultimo: Exception | None = None
+    for intento in range(INTENTOS):
+        try:
+            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
+        except requests.RequestException as exc:
+            ultimo = exc
+        else:
+            if resp.status_code < 400:
+                break
+            if 400 <= resp.status_code < 500 and resp.status_code != 429:
+                raise ScraperError(ERR_NETWORK, f"HTTP {resp.status_code} en {url}")
+            ultimo = ScraperError(ERR_NETWORK, f"HTTP {resp.status_code} en {url}")
+        if intento < INTENTOS - 1:
+            time.sleep(ESPERA_ENTRE_INTENTOS * (2 ** intento))
+    else:
+        raise ScraperError(ERR_NETWORK, f"tras {INTENTOS} intentos: {type(ultimo).__name__}: {ultimo}")
     # 'ISO-8859-1' es el valor que requests asume por defecto cuando el
     # servidor no declara charset en el Content-Type (caso de siguetuliga.com,
     # que sí manda el HTML en UTF-8 real) — sin esto, las tildes se corrompen
