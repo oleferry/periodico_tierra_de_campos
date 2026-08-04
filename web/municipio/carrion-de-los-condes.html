@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrión de los Condes — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Carrión de los Condes, Tierra de Campos.">
+<meta name="description" content="En Carrión de los Condes ahora tenemos 28 grados y cielo limpio. Subirá poco, hasta los 29, y el viento sopla flojo desde el oeste. No hay visos de ll">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Carrión de los Condes</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Carrión de los Condes: 28° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.338889&longitude=-4.601944&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Carrión de los Condes ahora tenemos 28 grados y cielo limpio. Subirá poco, hasta los 29, y el viento sopla flojo desde el oeste. No hay visos de lluvia ni hoy ni mañana, y mañana seguirá despejado con temperaturas parecidas. La mínima de esta noche bajará a los 17.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles despejado con viento fuerte</h4>
+      <p class="tc-day-texto">Cielos limpios y temperaturas cálidas, con máxima de 29° y mínima de 16°. El viento soplará con fuerza, rondando los 35 km/h, sin posibilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves nublado y ventoso</h4>
+      <p class="tc-day-texto">La nubosidad aumentará aunque sin amenaza real de lluvia. Máxima de 29° y mínima de 16°, con vientos de 36 km/h que seguirán siendo protagonistas del día.</p>
+      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes casi despejado y cálido</h4>
+      <p class="tc-day-texto">El cielo se despejará prácticamente y las temperaturas subirán, alcanzando los 33° de máxima con mínima de 17°. El viento moderará ligeramente, en torno a 30 km/h, sin lluvia a la vista.</p>
+      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">17°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Carrión de los Condes por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
@@ -68,6 +113,16 @@
       <span class="tc-news-kicker">Web municipal · 2026-08-03</span>
       <span class="tc-news-titular">Carrión de los Condes celebra la 34ª Feria de Turismo y Artesanía del Camino de Santiago</span>
       <span class="tc-news-entradilla">Vuelve la feria que reúne turismo y artesanía ligados al Camino de Santiago en el pueblo. Es la edición número 34.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://www.carriondeloscondes.org/copa-diputacion-de-palencia-de-bolos-femeninos-2026/" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
+      <span class="tc-news-titular">Carrión de los Condes acoge la Copa Diputación de Palencia de bolos femeninos 2026</span>
+      <span class="tc-news-entradilla">La cita de bolos femeninos organizada por la Diputación de Palencia se celebra este año en Carrión de los Condes.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://www.carriondeloscondes.org/torneos-provinciales-de-futbol-sala-2026-27-de-la-diputacion-de-palencia-%f0%9f%8f%86/" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
+      <span class="tc-news-titular">Carrión de los Condes participará en los Torneos Provinciales de Fútbol Sala 2026-27</span>
+      <span class="tc-news-entradilla">La Diputación de Palencia organiza los torneos provinciales de fútbol sala para la temporada 2026-27. El Ayuntamiento ya ha dado a conocer la convocatoria.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/abiertas-las-inscripciones-para-el-xii-torneo-de-padel-san-zoilo-2026/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
@@ -103,16 +158,6 @@
       <span class="tc-news-kicker">Web municipal · 2026-07-29</span>
       <span class="tc-news-titular">Carrión de los Condes presenta y firma el libro «Peregrinaje explosivo»</span>
       <span class="tc-news-entradilla">El Ayuntamiento organiza la presentación y firma del libro «Peregrinaje explosivo». Está abierta al público.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://www.carriondeloscondes.org/ii-torneo-de-futbol-sala-infantil-los-chiguitos-san-zoilo-2026/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-07-28</span>
-      <span class="tc-news-titular">Carrión de los Condes celebra el II Torneo de Fútbol Sala Infantil «Los Chiguitos – San Zoilo 2026»</span>
-      <span class="tc-news-entradilla">Vuelve el torneo de fútbol sala para chavales en Carrión de los Condes, en su segunda edición dentro de las actividades de San Zoilo.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://www.carriondeloscondes.org/%f0%9f%8e%be-torneo-de-padel-carrion-de-los-condes-%f0%9f%8e%be/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-07-28</span>
-      <span class="tc-news-titular">Carrión de los Condes organiza un torneo de pádel en el pueblo</span>
-      <span class="tc-news-entradilla">El Ayuntamiento convoca un torneo de pádel. Falta que se conozcan las fechas, categorías y cómo apuntarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-43.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-12</span>

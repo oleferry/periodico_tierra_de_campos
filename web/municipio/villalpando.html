@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalpando — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Villalpando, Tierra de Campos.">
+<meta name="description" content="En Villalpando ahora mismo estamos en 29 grados con el cielo casi limpio. Subirá poco más, a los 30 como mucho, y el viento sopla flojo desde media ma">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Villalpando</h2>
-    
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalpando: 29° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.864722&longitude=-5.413056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Villalpando ahora mismo estamos en 29 grados con el cielo casi limpio. Subirá poco más, a los 30 como mucho, y el viento sopla flojo desde media mañana. No hay rastro de lluvia hoy ni mañana, que además se espera un poco más cálido, rondando los 31.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con brisa y cielos despejados</h4>
+      <p class="tc-day-texto">Jornada tranquila con máxima de 31° y mínima de 17°. El viento rondará los 26 km/h sin probabilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves entre nubes y claros</h4>
+      <p class="tc-day-texto">Temperaturas algo más altas, con máxima de 32° y mínima de 17°. Viento moderado de 24 km/h y sin lluvia a la vista.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes despejado y cálido</h4>
+      <p class="tc-day-texto">El más caluroso de los tres con máxima de 34° y mínima de 17°. Viento flojo de 21 km/h y cielos completamente limpios.</p>
+      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">17°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe lo de Villalpando por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
