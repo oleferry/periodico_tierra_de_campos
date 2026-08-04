@@ -1,0 +1,71 @@
+# Publica en Instagram (@elterracampino) el artículo del blog más reciente que
+# tenga imagen y no se haya publicado aún. Una publicación por ejecución.
+#
+# El registro de lo ya publicado vive en scripts/instagram-posted.json (array de
+# slugs) y se commitea aquí mismo; sin él se republicaría lo mismo.
+#
+# Secrets necesarios (Settings -> Secrets and variables -> Actions):
+#   META_IG_USER_ID       ID numérico de la cuenta de Instagram de este negocio
+#   META_IG_ACCESS_TOKEN  token de Usuario del Sistema (no caduca) con instagram_content_publish
+#
+# NOTA sobre la hora: GitHub programa el cron en UTC. España va en UTC+2 en
+# verano y UTC+1 en invierno, así que la hora local de este cron se desplaza una
+# hora entre estaciones. El valor de abajo (08:15 UTC, lunes) equivale a ~10:15
+# en verano y ~09:15 en invierno, ya pasado el build diario (06:10 UTC) para que
+# la imagen del artículo esté publicada en la web. Dime el día/hora local que
+# quieras y ajusto el cron.
+
+name: Instagram (mjs)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Solo enseñar qué publicaría, sin publicar"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "15 8 * * 1" # lunes 08:15 UTC (~10:15 verano / ~09:15 invierno)
+
+concurrency:
+  group: instagram-publish
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # para commitear el registro de publicados
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publicar en Instagram
+        id: publish
+        env:
+          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+          META_IG_ACCESS_TOKEN: ${{ secrets.META_IG_ACCESS_TOKEN }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node scripts/publish-instagram.mjs --dry-run
+          else
+            node scripts/publish-instagram.mjs
+          fi
+
+      - name: Commit del registro si hubo publicación
+        if: ${{ inputs.dry_run != true && steps.publish.outputs.slug != '' }}
+        run: |
+          git config user.name "El Terracampino (bot)"
+          git config user.email "bot@users.noreply.github.com"
+          git add scripts/instagram-posted.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el registro."
+          else
+            git commit -m "Instagram: registra ${{ steps.publish.outputs.slug }}"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push
+          fi
