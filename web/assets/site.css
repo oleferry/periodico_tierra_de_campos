@@ -125,6 +125,10 @@
 
 .tc-nav a:hover { border-bottom-color: var(--tc-azul-bop); }
 
+/* Botón de menú: solo existe en móvil (ver el bloque responsive). En escritorio
+   el menú se ve entero y este botón sobra. */
+.tc-nav-toggle { display: none; }
+
 /* Selector de municipio */
 
 .tc-muni-select {
@@ -224,6 +228,11 @@
 .tc-blog-tarjeta .tc-news-titular, .tc-blog-tarjeta .tc-news-entradilla { padding: 0 14px; }
 .tc-blog-tarjeta .tc-news-entradilla { padding-bottom: 14px; }
 .tc-blog-tarjeta:hover { background: var(--tc-linea-suave); }
+
+/* Cada tarjeta con su altura natural: al estirarlas todas por igual, la que no
+   lleva imagen (el homenaje a Mariano Haro, publicado sin foto a propósito)
+   quedaba alta y medio vacía al lado de las ilustradas. */
+.tc-blog-grid { align-items: start; }
 
 .tc-muni-tag {
   font-family: var(--tc-font-data);
@@ -337,19 +346,37 @@
 .tc-popup h2 { font-size: 1.2rem; margin: 0 0 8px; }
 .tc-popup p { font-size: .9rem; color: var(--tc-texto-secundario); margin: 0 0 var(--tc-space-3); }
 .tc-popup .tc-form { flex-wrap: wrap; }
-.tc-popup .tc-input { flex: 1 1 200px; }
+
+/* `flex: 1 1 200px` sobre un contenedor en columna hacía que en móvil el campo
+   del correo se estirara a ~200 px DE ALTO: un cuadrado enorme y vacío que
+   parecía un fallo. La base flexible va solo en el eje horizontal. */
+.tc-popup .tc-input { flex: 1 1 200px; min-width: 0; height: auto; }
+
+/* 16px es el mínimo: por debajo, Safari en iPhone amplía la página sola al
+   tocar el campo y no la devuelve a su sitio. Aplica a TODOS los formularios
+   (esquela, archivo, chivatazo), no solo al popup. */
+.tc-input, .tc-form input, .tc-form select, .tc-form textarea,
+input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+  font-size: 16px;
+  min-height: 44px;
+}
+
+textarea { min-height: 96px; }
 
 .tc-popup-close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 4px;
+  right: 4px;
   border: none;
   background: transparent;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
   color: var(--tc-texto-secundario);
-  padding: 4px 8px;
+  /* 44x44 es el área táctil recomendada: la anterior de 29x30 se le escapaba
+     al dedo de una persona mayor, que se quedaba encerrada en el cartel. */
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .tc-popup-close:hover { color: var(--tc-tinta-tierra); }
@@ -619,6 +646,9 @@
 .tc-news-entradilla {
   font-size: .92rem; color: var(--tc-texto-secundario); line-height: 1.45;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  /* Sin este tope exacto (2 líneas × 1.45) asomaba media línea de letras
+     cortadas por debajo del borde de la tarjeta, y parecía la página rota. */
+  max-height: 2.9em;
 }
 .tc-news-more { font-family: var(--tc-font-data); font-size: .75rem; color: var(--tc-azul-bop); margin-top: 2px; }
 
@@ -637,19 +667,72 @@
 @media (max-width: 720px) {
   .tc-wrap { padding: 0 var(--tc-space-2); }
   .tc-header-inner { flex-wrap: nowrap; gap: 10px; }
-  .tc-nav {
-    gap: var(--tc-space-3);
-    font-size: .9rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+
+  /* MENÚ MÓVIL. Antes el menú era una tira con scroll lateral SIN ninguna pista
+     visual de que se podía deslizar: 7 de las 10 secciones (entre ellas Esquelas
+     y Acompañar, las dos que más busca el público mayor) eran invisibles en la
+     práctica. Ahora es un botón de tres rayas que despliega todo a pantalla
+     completa, con letra grande y áreas de toque de 44 px. */
+  .tc-nav-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 12px;
+    background: transparent;
+    border: 1px solid var(--tc-linea);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--tc-tinta-tierra);
+    cursor: pointer;
   }
-  .tc-nav::-webkit-scrollbar { display: none; }
-  .tc-nav a { white-space: nowrap; }
+
+  .tc-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    background: var(--tc-papel-crudo);
+    flex-direction: column;
+    gap: 0;
+    padding: 72px var(--tc-space-3) var(--tc-space-4);
+    overflow-y: auto;
+  }
+
+  .tc-nav--abierto { display: flex; }
+
+  .tc-nav a {
+    font-size: 1.15rem;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--tc-linea);
+    padding: 4px 0;
+    white-space: nowrap;
+  }
+
+  /* Cerrar el menú desplegado */
+  .tc-nav-cerrar {
+    position: absolute;
+    top: 14px;
+    right: var(--tc-space-3);
+    min-width: 44px;
+    min-height: 44px;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: var(--tc-tinta-tierra);
+    cursor: pointer;
+  }
   .tc-masthead { padding: var(--tc-space-4) 0 var(--tc-space-3); }
   .tc-masthead h1 { font-size: 1.7rem; }
-  .tc-weather-summary { flex-direction: column; align-items: stretch; }
+  /* En móvil dejaba ~340 px de vacío (media pantalla) entre la frase del tiempo
+     y el desplegable: era el hueco de la segunda columna del escritorio, que
+     aquí ya no existe. Parecía que faltaba algo por cargar. */
+  .tc-weather-summary { flex-direction: column; align-items: stretch; gap: var(--tc-space-2); }
+  .tc-weather-summary-txt, .tc-weather-summary-pick { min-height: 0; }
   .tc-weather-summary-txt p { font-size: 1.05rem; }
   .tc-muni-select, .tc-weather-summary-pick .tc-muni-select { width: 100%; min-width: 0; }
   .tc-news-grid { grid-template-columns: 1fr; }
@@ -661,7 +744,11 @@
   .tc-day:last-child { border-bottom: none; }
   .tc-weather-big { font-size: 2.6rem; }
   .tc-newsletter-inner { flex-direction: column; align-items: stretch; }
+  /* En columna, el eje principal es el VERTICAL: el `flex: 1 1 200px` del campo
+     del correo se convertía en 200 px DE ALTO — un cuadrado enorme y vacío que
+     parecía un fallo, justo en el popup que ve todo el mundo. */
   .tc-form { flex-direction: column; }
+  .tc-form .tc-input, .tc-popup .tc-input { flex: 0 0 auto; width: 100%; }
   .tc-input { min-width: 0; width: 100%; }
 }
 

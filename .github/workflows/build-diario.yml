@@ -106,10 +106,26 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "Sin cambios que publicar."
-          else
-            git commit -m "Actualización diaria automática"
-            # Por si alguien (o el build local) empujó algo entretanto: se
-            # reintegra antes de empujar, para no fallar por un push desfasado.
-            git pull --rebase origin main || true
-            git push
+            exit 0
           fi
+          git commit -m "Actualización diaria automática"
+          # Reintegrar lo que haya entrado mientras compilábamos (un build tarda
+          # ~15 min: da tiempo de sobra a que alguien empuje).
+          #
+          # Antes esto era `git pull --rebase || true`, y ese `|| true` era una
+          # trampa: al chocar dejaba el repo A MEDIO REBASE, en detached HEAD, y
+          # el push moría con "You are not currently on a branch" — build en rojo
+          # y web sin publicar. Pasó el 2026-08-04.
+          git fetch origin main
+          if ! git rebase origin/main; then
+            # Los conflictos solo pueden estar en ficheros GENERADOS (web/, data/),
+            # que este build acaba de rehacer enteros: vale nuestra versión.
+            # OJO con la inversión de git: durante un rebase, --theirs es el commit
+            # que se está aplicando (el nuestro), no el de origin.
+            git checkout --theirs -- web/ data/ 2>/dev/null || true
+            git add -A
+            # Si el conflicto NO era de ficheros generados, esto falla a
+            # propósito: un choque de código de verdad tiene que verse.
+            GIT_EDITOR=true git rebase --continue || { git rebase --abort; exit 1; }
+          fi
+          git push

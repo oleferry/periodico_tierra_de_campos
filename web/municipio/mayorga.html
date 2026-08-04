@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mayorga — El Terracampino</title>
-<meta name="description" content="Hoy en Mayorga hace bueno: ahora mismo estamos en 28 grados y sin una nube, con un viento flojo de 11 kilómetros por hora. La máxima no llegará a los ">
+<meta name="description" content="Mayorga está ahora a 29 grados y con el cielo limpio. Hoy subirá poco, hasta los 30, y corre viento de 17 kilómetros por hora, pero sin lluvia a la vi">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Mayorga</h1>
@@ -45,10 +65,10 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Mayorga: 28° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Mayorga: 29° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
       <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
       <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
@@ -73,28 +93,29 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">Hoy en Mayorga hace bueno: ahora mismo estamos en 28 grados y sin una nube, con un viento flojo de 11 kilómetros por hora. La máxima no llegará a los 31, y la noche bajará bastante, hasta los 17. Mañana seguiremos con buen tiempo y subirá un poco más, hasta los 32.</p>
+    <p class="tc-weather-article">Mayorga está ahora a 29 grados y con el cielo limpio. Hoy subirá poco, hasta los 30, y corre viento de 17 kilómetros por hora, pero sin lluvia a la vista. Mañana sigue despejado y sube más, hasta los 32. La noche será fresca, ronda los 17 grados.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 32° y mínima de 16°, con despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Miércoles despejado y ventoso</h4>
+      <p class="tc-day-texto">Máxima de 32° con cielo limpio, pero el viento rondará los 30 km/h durante todo el día. Mínima de 16° al amanecer sin lluvia a la vista.</p>
       <span class="tc-day-temp tc-data">32° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves de sol</h4>
-      <p class="tc-day-texto">Máxima de 31° y mínima de 16°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Jueves con más viento aún</h4>
+      <p class="tc-day-texto">Se mantiene despejado con máxima de 31°, aunque el viento arreciará hasta 34 km/h. Noche fresca con mínima de 16° y cielo sin nubes.</p>
       <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 33° y mínima de 19°, con nubes y claros. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Viernes con nubes y calor</h4>
+      <p class="tc-day-texto">Entrada de nubes pero sin lluvia, con máxima que roza los 33°. Viento de 30 km/h y mínima de 19°, la más alta de los tres días.</p>
       <span class="tc-day-temp tc-data">33° <span class="tc-day-min">19°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Mayorga por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Mayorga incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     <h2 class="tc-block-title">Lo que pasa en Mayorga</h2>
@@ -108,72 +129,72 @@
       <div class="tc-news-grid"><a class="tc-news" href="../noticia/e69a8845bacccff1.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-07-13</span>
       <span class="tc-news-titular">Mayorga aprueba rehabilitar la iglesia de Santa María como centro cultural por 157.900 euros</span>
-      <span class="tc-news-entradilla">El pleno dio luz verde al proyecto de reforma interior del templo, incluido en el Plan Bienal de la Diputación, y avanzó también en la venta de una parcela municipal.</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde al proyecto de rehabilitación interior del templo, financiado con el Plan Bienal 2026-2027 de la Diputación de Valladolid, y acordó seguir adelante con la venta de una parcela municipal.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/71065580a8b2a99d.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-06-25</span>
-      <span class="tc-news-titular">Mayorga reorganiza sus concejalías y aprueba la cuenta general de 2025</span>
-      <span class="tc-news-entradilla">El pleno extraordinario del 18 de junio dio luz verde definitiva a las cuentas del año pasado y remodeló el reparto de áreas de gobierno, con nuevo primer teniente de alcalde.</span>
+      <span class="tc-news-titular">Mayorga reparte competencias y aprueba la cuenta general de 2025 en un pleno extraordinario</span>
+      <span class="tc-news-entradilla">El Ayuntamiento cerró definitivamente las cuentas del ejercicio pasado y reorganizó las concejalías, entre ellas la primera tenencia de alcaldía, en una sesión con dos de los nueve concejales ausentes.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/7aa3c66693c4cdea.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-03-24</span>
-      <span class="tc-news-titular">Mayorga suprime el puesto de alguacil auxiliar administrativo y crea uno nuevo de alguacil</span>
-      <span class="tc-news-entradilla">El pleno aprobó por unanimidad modificar la relación de puestos de trabajo y contratar de forma provisional a Silvia Fernández Santervás como alguacil hasta que la plaza se cubra en propiedad.</span>
+      <span class="tc-news-titular">Mayorga suprime el puesto de alguacil auxiliar administrativo y crea una plaza de alguacil</span>
+      <span class="tc-news-entradilla">El pleno modificó la relación de puestos de trabajo y aprobó la contratación temporal de una nueva alguacil hasta que la plaza se cubra de forma definitiva.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/9772e0da004c46f8.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-02-24</span>
       <span class="tc-news-titular">Mayorga aprueba definitivamente el presupuesto de 2026 sin alegaciones</span>
-      <span class="tc-news-entradilla">El pleno confirmó las cuentas municipales tras el periodo de exposición pública y afrontó dos peticiones vecinales: la ubicación de la Plaza Mayor y las futuras viviendas de protección.</span>
+      <span class="tc-news-entradilla">El pleno elevó a definitivo el presupuesto municipal tras el periodo de exposición pública. En ruegos y preguntas se abrió el debate sobre la ubicación de la Plaza Mayor y el estado de las viviendas de protección.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/a4cfdab19e6b0782.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-02-24</span>
-      <span class="tc-news-titular">Mayorga pide 157.800 euros para convertir la iglesia de Santa María en centro cultural</span>
-      <span class="tc-news-entradilla">El pleno de enero aprobó por unanimidad solicitar esa obra al Plan Bienal de la Diputación y, en la misma sesión, subió la tasa de alta de los vados permanentes de 12 a 25 euros.</span>
+      <span class="tc-news-titular">Mayorga pide 157.800 euros para convertir la iglesia de santa maría en centro cultural</span>
+      <span class="tc-news-entradilla">El pleno solicitó la inclusión de la restauración del interior de la iglesia de Santa María en el Plan Bienal de Cooperación 2026-2027 y aprobó subir la tasa de alta de vados de 12 a 25 euros.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/452d4ea1b72d3c48.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-10-10</span>
-      <span class="tc-news-titular">Mayorga da luz verde a varias facturas de caminos y al arreglo de un tramo hundido en Escuelas Viejas</span>
-      <span class="tc-news-entradilla">El pleno aprobó por unanimidad un paquete de facturas centrado en el arreglo de caminos y de un tramo de calzada hundido, además de una modificación en la relación de puestos de trabajo.</span>
+      <span class="tc-news-titular">Mayorga aprueba facturas de arreglo de caminos y de un tramo hundido en la calle Escuelas Viejas</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde a varias facturas de obras y gastos, además de una modificación en la relación de puestos de trabajo del Ayuntamiento. Todo salió adelante por unanimidad.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/f8fe47d814a76da1.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">El pleno de Mayorga se queda en trámite, con debate sobre la compra de los corrales</span>
-      <span class="tc-news-entradilla">La sesión, de apenas diecinueve minutos, no dejó acuerdos de fondo, pero sí un rifirrafe sobre cómo se pagó la compra de los corrales que se cerró el pasado 30 de diciembre.</span>
+      <span class="tc-news-titular">La oposición pregunta en Mayorga por la compra de unos corrales pagada con remanente</span>
+      <span class="tc-news-entradilla">El pleno de enero apenas tuvo sustancia: se limitó a trámites internos y solo en ruegos y preguntas surgió el debate sobre cómo se financió la compra de unos corrales a finales de diciembre.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/710404cc976c27bb.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
       <span class="tc-news-titular">Mayorga aprueba por unanimidad el presupuesto municipal de 2025</span>
-      <span class="tc-news-entradilla">El pleno extraordinario dio luz verde a las cuentas del ejercicio 2025 sin ningún voto en contra, en una sesión que apenas duró ocho minutos.</span>
+      <span class="tc-news-entradilla">El pleno extraordinario dio luz verde a las cuentas del ejercicio 2025, que ahora se exponen al público durante quince días para posibles reclamaciones.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/9d36138fee4b6e6e.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga asfaltará nueve calles con contribuciones especiales que pagarán los vecinos afectados</span>
-      <span class="tc-news-entradilla">El Ayuntamiento aprobó por mayoría cargar el 90% del coste de las obras a los propietarios de las calles afectadas, con el PSOE en contra. La inversión prevista ronda los 140.000 euros.</span>
+      <span class="tc-news-titular">Mayorga aprueba asfaltar nueve calles por 140.000 euros con contribuciones especiales al 90%</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde al proyecto de asfaltado de nueve calles del casco urbano y a repartir el 90% del coste entre los propietarios afectados. El PSOE votó en contra de las contribuciones especiales.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/6f11ad013f00e20c.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga cede la cubierta del colegio San Francisco para placas solares de una comunidad energética</span>
-      <span class="tc-news-entradilla">El pleno aprobó ceder gratis y de forma directa el tejado del colegio a CEL Toda Valladolid para instalar paneles fotovoltaicos, además de sacar adelante el presupuesto de 2025 y pedir que la Trovada de Habaneras sea declarada fiesta de interés turístico.</span>
+      <span class="tc-news-titular">Mayorga aprueba el presupuesto de 2025 y cede la cubierta del colegio para placas solares</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde al presupuesto municipal de 2025 y a la instalación de placas fotovoltaicas en el tejado del colegio San Francisco para una comunidad energética. También pedirá que la Trovada de Habaneras sea declarada Fiesta de Interés Turístico.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/7f1dc5b733396b99.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga cede una superficie municipal para placas solares de una comunidad energética local</span>
-      <span class="tc-news-entradilla">El pleno dio luz verde a instalar placas fotovoltaicas en un inmueble del Ayuntamiento y a sumarse al autoconsumo dentro de la comunidad energética CEL Toda Valladolid. Ambos acuerdos salieron adelante por unanimidad.</span>
+      <span class="tc-news-titular">Mayorga cede una superficie municipal para placas solares de una comunidad energética</span>
+      <span class="tc-news-entradilla">El pleno aprobó por unanimidad ceder espacio en un inmueble municipal para instalar placas fotovoltaicas destinadas a una comunidad energética local, además de sumarse al autoconsumo de la asociación CEL Toda Valladolid.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/e83351979bf8bacd.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga aprobará el asfaltado de diez calles con contribuciones especiales por 148.000 euros</span>
-      <span class="tc-news-entradilla">El Ayuntamiento asumirá el 55,78% del coste de la obra y los vecinos pagarán el 44,22% restante. La oposición votó en contra al defender que el consistorio debería cubrir una parte mayor.</span>
+      <span class="tc-news-titular">Mayorga saca adelante el asfaltado de diez calles con contribuciones especiales y el voto en contra de la oposición</span>
+      <span class="tc-news-entradilla">El Ayuntamiento asumirá el 55,78% del coste de una obra de casi 148.000 euros y los vecinos afectados pagarán el resto. La propuesta salió por 5 votos a favor y 2 en contra.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/06/03/html/BOCYL-D-03062026-105-44.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/06/03/html/BOCYL-D-03062026-105-44.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-06-03</span>
-      <span class="tc-news-titular">Mayorga saca a información pública un estudio de detalle para el Corrillo del Templo</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado inicialmente un estudio de detalle para las parcelas 1, 2 y 3 del Corrillo del Templo. Ahora está en información pública para quien quiera consultarlo o presentar alegaciones antes de la aprobación definitiva.</span>
+      <span class="tc-news-titular">Mayorga saca a información pública el estudio de detalle del Corrillo del Templo</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado inicialmente el estudio de detalle para las parcelas del Corrillo del Templo 1, 2 y 3. Está en información pública para quien quiera consultarlo o presentar alegaciones antes de la aprobación definitiva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/06/02/html/BOCYL-D-02062026-104-27.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/06/02/html/BOCYL-D-02062026-104-27.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-06-02</span>
-      <span class="tc-news-titular">Mayorga saca a concurso una plaza de alguacil</span>
+      <span class="tc-news-titular">Mayorga saca a concurso una plaza de alguacil para el Ayuntamiento</span>
       <span class="tc-news-entradilla">El Ayuntamiento ha aprobado las bases para cubrir una plaza de alguacil por concurso-oposición. Quien quiera presentarse tendrá que estar atento al plazo de solicitudes.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
@@ -215,11 +236,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -238,7 +282,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -258,11 +305,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mayorga cede la cubierta del colegio San Francisco para placas solares de una comunidad energética — El Terracampino</title>
-<meta name="description" content="El pleno aprobó ceder gratis y de forma directa el tejado del colegio a CEL Toda Valladolid para instalar paneles fotovoltaicos, además de sacar adela">
+<title>Castrobol — El Terracampino</title>
+<meta name="description" content="En Castrobol ahora mismo estamos en 28 grados y despejado, con un poco de viento de 15 km/h. Hoy subirá hasta los 30, bajará a 17 de noche, y no hay p">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,17 +50,103 @@
   document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
 })();
 </script></header>
-<article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Acta de pleno · Mayorga · 2025-07-28</span>
-  <h1>Mayorga cede la cubierta del colegio San Francisco para placas solares de una comunidad energética</h1>
-  <p class="tc-articulo-entradilla">El pleno aprobó ceder gratis y de forma directa el tejado del colegio a CEL Toda Valladolid para instalar paneles fotovoltaicos, además de sacar adelante el presupuesto de 2025 y pedir que la Trovada de Habaneras sea declarada fiesta de interés turístico.</p>
-  <p class="tc-articulo-parrafo">El acuerdo con más recorrido del pleno fue la concesión demanial del uso de la cubierta del Colegio San Francisco a la comunidad energética local CEL Toda Valladolid, que instalará allí la infraestructura fotovoltaica para generar energía. La cesión se aprobó por unanimidad, de forma gratuita y directa, amparándose en el artículo 137.4.c de la Ley 33/2003 del Patrimonio de las Administraciones Públicas, al tratarse de un bien de dominio público.</p><p class="tc-articulo-parrafo">En materia económica, el pleno aprobó de forma definitiva el presupuesto municipal de 2025, tras la explicación de su contenido por parte del alcalde, David de la Viuda, y también por unanimidad. La corporación quedó además enterada de la liquidación del presupuesto de 2024. Antes se había ratificado la resolución de Alcaldía que aprobaba el plan presupuestario a medio plazo para 2026-2028.</p><p class="tc-articulo-parrafo">Otro de los acuerdos fue solicitar a la Junta de Castilla y León que declare la Trovada de Habaneras de Mayorga como fiesta de interés turístico, punto que también salió adelante sin votos en contra.</p><p class="tc-articulo-parrafo">El resto de la sesión se dedicó a trámites: la aprobación del acta anterior, la dación de cuenta de los decretos de Alcaldía del 2025-14 al 2025-28 y el informe de Secretaría sobre la modificación del contrato con Zajolse, que queda listo para su ejecución. Faltaron a la sesión los concejales Ruth Vilanova, por motivos laborales, y Jesús Castañeda, por problemas de salud.</p>
-  <div class="tc-source-box">
-    <strong>Fuente oficial:</strong> acta de la sesión plenaria del Ayuntamiento de Mayorga.
-    <a href="https://mayorga.sedelectronica.es/preview-document/4e5198bc-a47a-4676-aaf8-b2498f108211" target="_blank" rel="noopener">Ver el documento original (PDF) →</a>
+<section class="tc-muni-hero"><div class="tc-wrap">
+  <span class="tc-section-label">Tu pueblo</span>
+  <h1>Castrobol</h1>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 4/08/2026</span></div>
+  
+</div></section>
+
+
+
+<div class="tc-wrap tc-muni-grid">
+  <main class="tc-muni-main">
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Castrobol: 28° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.13717&longitude=-5.31423&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Castrobol ahora mismo estamos en 28 grados y despejado, con un poco de viento de 15 km/h. Hoy subirá hasta los 30, bajará a 17 de noche, y no hay probabilidad de lluvia. Mañana seguiremos sin nubes y subirá más aún, hasta los 32 grados.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles despejado y ventoso</h4>
+      <p class="tc-day-texto">Jornada de cielo limpio con máxima de 32° y mínima de 17°. El viento sopla fuerte a 32 km/h, así que abrígate si sales a la calle.</p>
+      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">17°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves sin nubes pero con rachas</h4>
+      <p class="tc-day-texto">Tiempo casi despejado, máxima de 31° y mínima de 16°. El viento se refuerza hasta 37 km/h, los más ventosos de estos días.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes con alternancia y calidez</h4>
+      <p class="tc-day-texto">Nubes y claros dominan el cielo con máxima de 34°, la más alta de la racha. Mínima de 19° y viento de 34 km/h.</p>
+      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">19°</span></span>
+    </article></div>
   </div>
-  <p class="tc-item-meta"><a href="../municipio/mayorga.html">← Volver a Mayorga</a></p>
-</div></article>
+    <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Castrobol incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
+      <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
+    </div></div>
+    
+    <h2 class="tc-block-title">Otros anuncios oficiales</h2>
+      <div class="tc-news-grid"><a class="tc-news" href="https://bop.sede.diputaciondevalladolid.es/boletines/2026/agosto/04/BOPVA-A-2026-02333.pdf" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOP Valladolid · 2026-08-04</span>
+      <span class="tc-news-titular">Castrobol saca a información pública el asfaltado de las calles Caño y Camino Hondo</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha puesto en exposición pública el proyecto para reforzar y asfaltar estas dos calles. Ahora se puede consultar antes de seguir adelante con la obra.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/12/04/html/BOCYL-D-04122024-17.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2024-12-04</span>
+      <span class="tc-news-titular">Caduca el permiso ambiental para ampliar la granja de cerdos de Castrobol</span>
+      <span class="tc-news-entradilla">La Junta ha declarado caducada la autorización ambiental que se concedió en 2018 para ampliar una explotación porcina en el pueblo. Sin ese permiso, la ampliación no puede seguir adelante.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a></div>
+    
+    
+    <div class="tc-card"><h3>Fotos de Castrobol</h3>
+      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Castrobol.</p>
+      <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
+      <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
+    
+    
+    <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
+      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Castrobol. Todavía no hay anuncios publicados.</p>
+      <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
+      <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>
+  </main>
+  <aside class="tc-muni-side">
+    
+    
+    <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list"><li>Enlaces oficiales pendientes de verificar</li></ul></div>
+    <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda"><li>Sin fiestas registradas todavía. ¿Falta alguna? Escríbenos.</li></ul></div>
+  </aside>
+</div>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
   <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>

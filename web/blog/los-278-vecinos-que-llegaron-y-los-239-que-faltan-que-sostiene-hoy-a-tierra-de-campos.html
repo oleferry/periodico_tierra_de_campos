@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -25,8 +27,29 @@
     <a href="../huerta.html">Huerta</a>
     <a href="../campo.html">El campo</a>
     <a href="../leyendas.html">Leyendas</a>
+    <a href="../esquelas.html">Esquelas</a>
+    <a href="../acompanar.html">Acompañar</a>
+    <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
   <span class="tc-section-label" style="color:var(--tc-azul-bop);">Investigación · migraciones</span>
   <h1>Los 278 vecinos que llegaron y los 239 que faltan: qué sostiene hoy a Tierra de Campos</h1>
@@ -37,21 +60,52 @@
     <strong>Fuentes:</strong>
     <ul class="tc-links-list"><li>INE, Estadística de Migraciones y Cambios de Residencia (operación 455, tabla 69767), saldos migratorios por municipio, 2024</li><li>INE, Cifras Oficiales de Población (revisión del Padrón Municipal), series 1996-2025, comparación 2024-2025</li><li>Cálculo propio de El Terracampino: diferencia entre saldo migratorio y cambio de padrón por municipio</li></ul>
   </div>
+  <div class="tc-compartir">
+    <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">¿Te ha parecido interesante?</span>
+    <p class="tc-pieza-cuerpo">Mándaselo a quien creas que le va a interesar.</p>
+    <p><a class="tc-button" href="https://wa.me/?text=Los%20278%20vecinos%20que%20llegaron%20y%20los%20239%20que%20faltan%3A%20qu%C3%A9%20sostiene%20hoy%20a%20Tierra%20de%20Campos%20%E2%80%94%20https%3A//elterracampino.es/blog/los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos.html" target="_blank" rel="noopener">Compartir por WhatsApp</a>
+    <button class="tc-button tc-button--sec" type="button" onclick="navigator.clipboard&amp;&amp;navigator.clipboard.writeText('https://elterracampino.es/blog/los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos.html').then(function(){this.textContent='¡Enlace copiado!';}.bind(this));">Copiar el enlace</button></p>
+  </div>
   <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
 </div></article>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+  <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="../aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
 <div class="tc-popup-overlay" id="tc-popup-overlay">
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -70,7 +124,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -90,11 +147,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villada da ayudas por nacimiento de hijo en 2026 para las familias del pueblo — El Terracampino</title>
-<meta name="description" content="El Ayuntamiento de Villada reparte 3.000 euros en total para fomentar la natalidad, con ayudas por cada hijo que nazca durante 2026. El plazo va del 1">
+<title>Villada ayuda a las familias con una subvención por nacimiento de hijo en 2026 — El Terracampino</title>
+<meta name="description" content="El Ayuntamiento de Villada reparte una ayuda a las familias por el nacimiento de un hijo durante 2026, con un presupuesto total de 3.000 euros. El pla">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,12 +31,30 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
   <span class="tc-section-label" style="color:var(--tc-azul-bop);">Ayudas y subvenciones · Villada · 2026-02-04</span>
-  <h1>Villada da ayudas por nacimiento de hijo en 2026 para las familias del pueblo</h1>
-  <p class="tc-articulo-entradilla">El Ayuntamiento de Villada reparte 3.000 euros en total para fomentar la natalidad, con ayudas por cada hijo que nazca durante 2026. El plazo va del 1 de enero al 31 de diciembre.</p>
-  <p class="tc-articulo-parrafo">Esta sí es una ayuda a la que puedes optar directamente: está dirigida a personas físicas que no desarrollan actividad económica, es decir, a los vecinos de a pie que tengan un hijo durante este año. Se trata de un empujón para las familias por cada nacimiento.</p><p class="tc-articulo-parrafo">El presupuesto para toda la convocatoria es de 3.000 euros. No se detalla en los datos oficiales cuánto corresponde exactamente por cada nacimiento, así que ese punto conviene consultarlo directamente en el Ayuntamiento. La solicitud se rige por la Ordenanza General Reguladora de la Concesión de Subvenciones del municipio.</p><p class="tc-articulo-parrafo">Ojo con las fechas: aunque el plazo abarca todo 2026, del 1 de enero al 31 de diciembre, según los datos figura como no abierto en este momento, de modo que lo mejor es acercarse al Ayuntamiento a preguntar cómo y cuándo presentar los papeles antes de dar nada por hecho.</p>
+  <h1>Villada ayuda a las familias con una subvención por nacimiento de hijo en 2026</h1>
+  <p class="tc-articulo-entradilla">El Ayuntamiento de Villada reparte una ayuda a las familias por el nacimiento de un hijo durante 2026, con un presupuesto total de 3.000 euros. El plazo va del 1 de enero al 31 de diciembre de 2026.</p>
+  <p class="tc-articulo-parrafo">La ayuda está pensada para personas físicas que no desarrollen actividad económica, es decir, para las familias del pueblo directamente. Es de las que puede pedir un vecino a título particular, no una entrega de dinero a una entidad.</p><p class="tc-articulo-parrafo">El presupuesto que ha destinado el Ayuntamiento a esta convocatoria es de 3.000 euros en total para todo el año. La cuantía concreta que corresponde por cada nacimiento no aparece en los datos de la convocatoria, así que habrá que consultarla en el propio Ayuntamiento.</p><p class="tc-articulo-parrafo">La solicitud puede presentarse a lo largo de todo el año 2026, del 1 de enero al 31 de diciembre. Se rige por la Ordenanza General Reguladora de la Concesión de Subvenciones del Ayuntamiento de Villada, donde estarán los requisitos y la documentación que hay que aportar. Conviene pasarse por el consistorio para pedir el impreso y saber qué papeles llevar.</p>
   <div class="tc-source-box">
     <strong>Fuente oficial:</strong> convocatoria oficial de Villada, registrada en la Base de Datos Nacional de Subvenciones (BDNS).
     <a href="https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/1086692" target="_blank" rel="noopener">Ver la convocatoria oficial →</a>
@@ -51,11 +71,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -74,7 +117,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -94,11 +140,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

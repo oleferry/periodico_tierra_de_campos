@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El Burgo Ranero — El Terracampino</title>
-<meta name="description" content="En El Burgo Ranero tenemos ahora 28 grados y cielo limpio. Subirá poco más antes de que baje la noche hasta los 17, con viento moderado que va a estar">
+<meta name="description" content="En el Burgo Ranero ahora mismo estamos en 28 grados y el cielo está limpio. Hoy subirá poco, hasta los 30, con un viento moderado de 16 kilómetros por">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>El Burgo Ranero</h1>
@@ -73,28 +93,29 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En El Burgo Ranero tenemos ahora 28 grados y cielo limpio. Subirá poco más antes de que baje la noche hasta los 17, con viento moderado que va a estar presente a lo largo del día. Mañana se nublará pero seguirá siendo un día templado, con máxima en los 31.</p>
+    <p class="tc-weather-article">En el Burgo Ranero ahora mismo estamos en 28 grados y el cielo está limpio. Hoy subirá poco, hasta los 30, con un viento moderado de 16 kilómetros por hora y sin rastro de lluvia. Por la noche bajará a 17. Mañana se nublará y apretará un poco más el calor, con máxima de 31.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 31° y mínima de 17°, con nublado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Miércoles nublado y ventoso</h4>
+      <p class="tc-day-texto">La jornada transcurrirá bajo nubes con máxima de 31° y mínima de 17°. El viento soplará fuerte a 31 km/h, sin posibilidad de lluvia.</p>
       <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves de sol</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 16°, con despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Jueves despejado y fresco</h4>
+      <p class="tc-day-texto">Cielos claros con temperaturas entre 16° y 30°. Seguirá soplando viento a 33 km/h, prácticamente sin probabilidad de precipitación.</p>
       <span class="tc-day-temp tc-data">30° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 33° y mínima de 18°, con nublado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Viernes nublado y cálido</h4>
+      <p class="tc-day-texto">La nubosidad regresará con una máxima de 33°, la más alta de los tres días. Viento moderado de 29 km/h y sin lluvia a la vista.</p>
       <span class="tc-day-temp tc-data">33° <span class="tc-day-min">18°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de El Burgo Ranero por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —El Burgo Ranero incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     <h2 class="tc-block-title">Lo que pasa en El Burgo Ranero</h2>
@@ -105,30 +126,30 @@
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div>
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
       <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará El Burgo Ranero para evacuar los parques eólicos</span>
-      <span class="tc-news-entradilla">Se tramita el proyecto de las infraestructuras que llevarán la corriente de los parques eólicos hasta la subestación, pasando por El Burgo Ranero y otros municipios de León y Palencia. Está abierto el plazo de alegaciones antes de que se autorice.</span>
+      <span class="tc-news-entradilla">Es el trazado que llevará la corriente desde los parques eólicos del Nudo Luengos hasta la subestación, pasando por El Burgo Ranero y una veintena de municipios más de León y Palencia. Está en información pública para presentar alegaciones antes de que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-21.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-21.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-12</span>
-      <span class="tc-news-titular">Vía libre ambiental a una granja porcina de 2.640 cerdas en El Burgo Ranero</span>
-      <span class="tc-news-entradilla">La empresa Danakil Studios y Proyectos, S.L. ha recibido la declaración de impacto ambiental para montar una explotación porcina en el polígono 902 con 2.640 cerdas madre, 500 de reposición y 6 verracos. Es el paso previo; queda que la granja se construya.</span>
+      <span class="tc-news-titular">Vía libre ambiental a una granja de 2.640 cerdas en El Burgo Ranero</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha dado la declaración de impacto ambiental al proyecto de la empresa Danakil Studios y Proyectos, S.L. para una explotación porcina de multiplicación con 2.640 cerdas, 500 de reposición y 6 verracos en el polígono 902. Es un paso previo; falta que la granja se ponga en marcha.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/27/html/BOCYL-D-27022026-40-18.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/27/html/BOCYL-D-27022026-40-18.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-27</span>
-      <span class="tc-news-titular">Aprobado un sondeo para sacar agua de riego en una finca de El Burgo Ranero</span>
-      <span class="tc-news-entradilla">Se ha dado el visto bueno al proyecto para perforar un pozo de aguas subterráneas destinado al riego agrícola, en la parcela 34 del polígono 113 del término municipal.</span>
+      <span class="tc-news-titular">Aprobado un sondeo para sacar agua de riego en una parcela de El Burgo Ranero</span>
+      <span class="tc-news-entradilla">Industria ha dado el visto bueno al proyecto para hacer un pozo que capte agua subterránea destinada al riego agrícola. Está en la parcela 34 del polígono 113.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/01/27/html/BOCYL-D-27012026-17-47.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/01/27/html/BOCYL-D-27012026-17-47.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-01-27</span>
-      <span class="tc-news-titular">El Burgo Ranero convoca una plaza de auxiliar administrativo por oposición</span>
-      <span class="tc-news-entradilla">El Ayuntamiento saca a concurso una plaza de Auxiliar Administrativo por turno libre y sistema de oposición. Ya están publicadas las bases para quien quiera presentarse.</span>
+      <span class="tc-news-titular">El Burgo Ranero saca una plaza de auxiliar administrativo por oposición libre</span>
+      <span class="tc-news-entradilla">El Ayuntamiento convoca una oposición de turno libre para cubrir una plaza de auxiliar administrativo. Ya están publicadas las bases y la convocatoria para quien quiera presentarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/14/html/BOCYL-D-14072026-134-47.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/07/14/html/BOCYL-D-14072026-134-47.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-14</span>
-      <span class="tc-news-titular">El Burgo Ranero empieza a tramitar la ruina de una casa de la calle Real 62</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha abierto el expediente para declarar en ruina el inmueble del número 62 de la calle Real. Está en información pública antes de resolverse.</span>
+      <span class="tc-news-titular">El Ayuntamiento de El Burgo Ranero abre expediente de ruina para una casa de la calle Real</span>
+      <span class="tc-news-entradilla">Se ha iniciado el trámite para declarar en ruina el inmueble de la calle Real n.º 62. Está en información pública antes de que se decida nada en firme.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
@@ -161,11 +182,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -184,7 +228,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -204,11 +251,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

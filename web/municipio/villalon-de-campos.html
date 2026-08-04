@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalón de Campos — El Terracampino</title>
-<meta name="description" content="En Villalón ahora mismo estamos en 28 grados y casi sin nubes. La máxima no subirá mucho, apenas a los 29, y corre un poco de viento flojo desde el no">
+<meta name="description" content="En Villalón tenemos ahora 28 grados y cielo casi limpio. La máxima no subirá mucho, rondará los 29, y la mínima bajará a 17 por la noche; sopla un poc">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalón de Campos</h1>
@@ -73,57 +93,58 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Villalón ahora mismo estamos en 28 grados y casi sin nubes. La máxima no subirá mucho, apenas a los 29, y corre un poco de viento flojo desde el norte. No hay pinta de lluvia hoy ni mañana, que seguirá así de despejado y rondará los 30 grados.</p>
+    <p class="tc-weather-article">En Villalón tenemos ahora 28 grados y cielo casi limpio. La máxima no subirá mucho, rondará los 29, y la mínima bajará a 17 por la noche; sopla un poco de viento a 14 kilómetros por hora, nada que te cierre el día. Sin lluvia a la vista. Mañana seguirá el buen tiempo, casi despejado y rozando los 30 grados.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 17°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Miércoles con viento y despejado</h4>
+      <p class="tc-day-texto">Máxima de 30° con cielo casi despejado y viento de 27 km/h que será lo más notable del día. Mínima de 17° por la noche sin posibilidad de lluvia.</p>
       <span class="tc-day-temp tc-data">30° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 29° y mínima de 17°, con nubes y claros. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Jueves entre nubes y viento</h4>
+      <p class="tc-day-texto">Nubes y claros alternados con máxima de 29° y mínima de 17°, con viento de 27 km/h. La probabilidad de lluvia es mínima, apenas del 3%.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 33° y mínima de 16°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Viernes caluroso y seco</h4>
+      <p class="tc-day-texto">Máxima de 33° con cielo casi despejado, la más alta de los tres días. Viento moderado de 25 km/h y mínima de 16° sin lluvia prevista.</p>
       <span class="tc-day-temp tc-data">33° <span class="tc-day-min">16°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Villalón de Campos por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villalón de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/15/html/BOCYL-D-15052026-91-37.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/05/15/html/BOCYL-D-15052026-91-37.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-15</span>
-      <span class="tc-news-titular">Villalón de Campos empieza a revisar su Plan General de Ordenación Urbana</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha sacado a información pública el primer documento del nuevo plan urbanístico del pueblo, que marcará qué se puede construir y dónde. Es solo el arranque del trámite; queda todo el proceso por delante.</span>
+      <span class="tc-news-titular">Villalón de Campos empieza a preparar su nuevo Plan General de Ordenación Urbana</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado el primer documento del nuevo plan que ordenará cómo se puede construir y usar el suelo en el pueblo. Está en información pública; es solo el arranque del proceso.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/01/27/html/BOCYL-D-27012025-42.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/01/27/html/BOCYL-D-27012025-42.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-01-27</span>
-      <span class="tc-news-titular">Comcertrans quiere montar un centro de selección de cereal y legumbres en Villalón de Campos</span>
-      <span class="tc-news-entradilla">La empresa Comcertrans, S.L. pide permiso para instalar un centro básico de clasificación de cereal y legumbres en suelo rústico, en la parcela 27 del polígono 401. Está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-titular">Villalón estudia un centro de selección de cereal y legumbres en suelo rústico</span>
+      <span class="tc-news-entradilla">La empresa Comcertrans, S.L. quiere instalar en la parcela 27 del polígono 401 un centro para seleccionar y clasificar cereal y legumbres. Al ser suelo rústico, necesita un permiso excepcional y está en información pública antes de decidirse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/02/25/html/BOCYL-D-25022025-22.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/02/25/html/BOCYL-D-25022025-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-02-25</span>
-      <span class="tc-news-titular">Autorizada una nueva línea de distribución eléctrica en Villalón de Campos</span>
-      <span class="tc-news-entradilla">Industria ha dado el visto bueno para construir una instalación de distribución de electricidad en el término municipal. Ya tiene el permiso previo y el de construcción; falta que se ejecute la obra.</span>
+      <span class="tc-news-titular">Villalón de Campos tendrá una nueva red de distribución eléctrica</span>
+      <span class="tc-news-entradilla">Industria ha dado el permiso para levantar una instalación de distribución de electricidad en el término municipal. Con la autorización concedida, falta que se construya.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/05/15/html/BOCYL-D-15052025-10.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/05/15/html/BOCYL-D-15052025-10.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-05-15</span>
-      <span class="tc-news-titular">Retiran el permiso ambiental a una granja de cerdos en Villalón de Campos</span>
-      <span class="tc-news-entradilla">La Junta ha declarado caducada la autorización ambiental que tenía desde 2009 una explotación porcina del municipio. Con esto pierde el visto bueno para funcionar en las condiciones que tenía concedidas.</span>
+      <span class="tc-news-titular">Anulada la autorización ambiental de una granja de cerdos en Villalón de Campos</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha declarado caducado el permiso que tenía desde 2009 una explotación porcina del municipio. Sin esa autorización, la granja pierde la cobertura ambiental que le permitía funcionar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/02/26/html/BOCYL-D-26022025-15.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/02/26/html/BOCYL-D-26022025-15.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-02-26</span>
-      <span class="tc-news-titular">Piden ocupar temporalmente terrenos de la cañada Colada de Villabaruz en Villalón de Campos</span>
-      <span class="tc-news-entradilla">Se ha solicitado usar por un tiempo parte de esta vía pecuaria del término municipal. El expediente está en información pública por si alguien quiere alegar antes de que se resuelva.</span>
+      <span class="tc-news-titular">Piden ocupar temporalmente terreno de la vía pecuaria Colada de Villabaruz en Villalón de Campos</span>
+      <span class="tc-news-entradilla">Hay una solicitud para usar de forma temporal parte de esta vía pecuaria del término municipal. Está en información pública, así que se pueden presentar alegaciones antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
@@ -164,11 +185,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -187,7 +231,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -207,11 +254,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

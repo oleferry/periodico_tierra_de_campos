@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrión de los Condes — El Terracampino</title>
-<meta name="description" content="En Carrión ahora mismo tenemos 28 grados y cielo limpio. Subirá poco más hoy, hasta los 30, con ese viento de 15 que no da tregua. No llueve ni hoy ni">
+<meta name="description" content="En Carrión estamos ahora a 28 grados y el cielo limpio. Subirá poco más, hasta los 30, y ese viento de 14 que sopla se quedará en eso — no hay lluvia ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Carrión de los Condes</h1>
@@ -73,123 +93,124 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Carrión ahora mismo tenemos 28 grados y cielo limpio. Subirá poco más hoy, hasta los 30, con ese viento de 15 que no da tregua. No llueve ni hoy ni mañana, y mañana seguirá despejado aunque algo más fresco, hasta los 29. Si riegas, mejor a primera hora o entrada la tarde — con este aire se seca todo deprisa.</p>
+    <p class="tc-weather-article">En Carrión estamos ahora a 28 grados y el cielo limpio. Subirá poco más, hasta los 30, y ese viento de 14 que sopla se quedará en eso — no hay lluvia a la vista. Mañana seguirá en la misma línea: despejado y rondando los 29.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles despejado con viento fuerte</h4>
-      <p class="tc-day-texto">Cielos limpios y temperaturas cálidas, con máxima de 29° y mínima de 16°. El viento soplará con fuerza, rondando los 35 km/h, sin posibilidad de lluvia.</p>
+      <h4 class="tc-day-titular">Miércoles despejado con buen viento</h4>
+      <p class="tc-day-texto">Jornada clara y cálida con máxima de 29° y mínima de 16°. El viento ronda los 35 km/h, así que abriga si sales a la calle.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves nublado y ventoso</h4>
-      <p class="tc-day-texto">La nubosidad aumentará aunque sin amenaza real de lluvia. Máxima de 29° y mínima de 16°, con vientos de 36 km/h que seguirán siendo protagonistas del día.</p>
+      <h4 class="tc-day-titular">Jueves nublado sin cambios sustanciales</h4>
+      <p class="tc-day-texto">Cielo nuboso pero sin lluvia a la vista, con máximas similares al día anterior (29°) y vientos de 36 km/h que siguen dándose notar.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes casi despejado y cálido</h4>
-      <p class="tc-day-texto">El cielo se despejará prácticamente y las temperaturas subirán, alcanzando los 33° de máxima con mínima de 17°. El viento moderará ligeramente, en torno a 30 km/h, sin lluvia a la vista.</p>
+      <h4 class="tc-day-titular">Viernes más cálido y despejado</h4>
+      <p class="tc-day-texto">La máxima sube a 33° mientras el cielo se abre, con mínima de 17° y vientos que bajan ligeramente a 30 km/h. Buen día para estar fuera.</p>
       <span class="tc-day-temp tc-data">33° <span class="tc-day-min">17°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Carrión de los Condes por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Carrión de los Condes incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/07/24/html/BOCYL-D-24072026-142-22.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-24</span>
-      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Carrión de los Condes</span>
-      <span class="tc-news-entradilla">Se pide permiso para construir una línea de evacuación de la energía de varios parques eólicos, que pasaría por Carrión de los Condes y otros muchos pueblos de Palencia y León. Está en fase de información pública, así que aún se pueden presentar alegaciones.</span>
+      <span class="tc-news-titular">A información pública la línea eléctrica de 132 kV que cruzará Carrión de los Condes y media comarca</span>
+      <span class="tc-news-entradilla">Se plantea tender una línea para evacuar la corriente de varios parques eólicos, que pasaría por Carrión de los Condes y otros muchos pueblos de Palencia y León. Está en información pública, así que quien tenga terrenos afectados o alegaciones puede presentarlas antes de que se autorice.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/06/09/html/BOCYL-D-09062026-109-28.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/06/09/html/BOCYL-D-09062026-109-28.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-06-09</span>
       <span class="tc-news-titular">Agrocali 34 quiere montar un almacén de insumos agrícolas en suelo rústico de Carrión de los Condes</span>
-      <span class="tc-news-entradilla">La empresa Agrocali 34, S.L. ha pedido permiso para una actividad agroindustrial y de venta de productos agrícolas en la parcela 63 del polígono 517. Al ser suelo rústico, está en información pública antes de que se autorice.</span>
+      <span class="tc-news-entradilla">La empresa Agrocali 34, S.L. ha pedido permiso para una actividad agroindustrial y de venta ligada a un almacén de insumos agrícolas en una parcela del polígono 517. Está en información pública antes de que se decida si se autoriza.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/la-xxxiv-feria-de-turismo-y-artesania-del-camino-de-santiago-convierte-a-carrion-de-los-condes-en-el-epicentro-cultural-y-turistico-de-la-comarca/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-03</span>
-      <span class="tc-news-titular">Carrión de los Condes celebra la 34ª Feria de Turismo y Artesanía del Camino de Santiago</span>
-      <span class="tc-news-entradilla">Vuelve la feria que reúne turismo y artesanía ligados al Camino de Santiago en el pueblo. Es la edición número 34.</span>
+      <span class="tc-news-titular">Carrión de los Condes celebra la XXXIV Feria de Turismo y Artesanía del Camino de Santiago</span>
+      <span class="tc-news-entradilla">El pueblo acoge una nueva edición de esta feria dedicada al turismo y la artesanía ligados al Camino de Santiago. Es la número 34.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/copa-diputacion-de-palencia-de-bolos-femeninos-2026/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
       <span class="tc-news-titular">Carrión de los Condes acoge la Copa Diputación de Palencia de bolos femeninos 2026</span>
-      <span class="tc-news-entradilla">La cita de bolos femeninos organizada por la Diputación de Palencia se celebra este año en Carrión de los Condes.</span>
+      <span class="tc-news-entradilla">La localidad será sede de esta competición provincial de bolos femeninos. Se celebra en 2026.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/torneos-provinciales-de-futbol-sala-2026-27-de-la-diputacion-de-palencia-%f0%9f%8f%86/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
-      <span class="tc-news-titular">Carrión de los Condes participará en los Torneos Provinciales de Fútbol Sala 2026-27</span>
-      <span class="tc-news-entradilla">La Diputación de Palencia organiza los torneos provinciales de fútbol sala para la temporada 2026-27. El Ayuntamiento ya ha dado a conocer la convocatoria.</span>
+      <span class="tc-news-titular">Carrión de los Condes participa en los Torneos Provinciales de Fútbol Sala 2026-27</span>
+      <span class="tc-news-entradilla">La Diputación de Palencia organiza estos torneos de fútbol sala para la temporada 2026-27. El Ayuntamiento lo ha anunciado en su web.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/abiertas-las-inscripciones-para-el-xii-torneo-de-padel-san-zoilo-2026/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
       <span class="tc-news-titular">Abiertas las inscripciones para el XII Torneo de Pádel San Zoilo en Carrión de los Condes</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ya admite apuntarse a la duodécima edición del torneo de pádel San Zoilo de este 2026. Quien quiera jugar, tiene abierto el plazo de inscripción.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ya ha abierto el plazo para apuntarse a la edición número doce del torneo de pádel San Zoilo 2026. Quien quiera participar tiene que inscribirse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/programa-de-dinamizacion-juvenil-casa-de-jovenes/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-03</span>
-      <span class="tc-news-titular">Carrión de los Condes pone en marcha un programa para animar a la gente joven</span>
-      <span class="tc-news-entradilla">El Ayuntamiento arranca un plan de dinamización juvenil a través de la Casa de Jóvenes. Está pensado para las actividades dirigidas a los jóvenes del municipio.</span>
+      <span class="tc-news-titular">Carrión de los Condes pone en marcha un programa de actividades para jóvenes en la Casa de Jóvenes</span>
+      <span class="tc-news-entradilla">El Ayuntamiento arranca un programa de dinamización juvenil con actividades en la Casa de Jóvenes del pueblo.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/sesion-informativa-programa-salvia-rural/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-07-31</span>
-      <span class="tc-news-titular">Sesión informativa sobre el programa Salvia Rural en Carrión de los Condes</span>
-      <span class="tc-news-entradilla">El Ayuntamiento organiza una charla para explicar en qué consiste el programa Salvia Rural. No se han detallado más datos sobre fecha y lugar.</span>
+      <span class="tc-news-titular">Carrión de los Condes convoca una sesión informativa sobre el programa Salvia Rural</span>
+      <span class="tc-news-entradilla">El Ayuntamiento organiza una reunión para explicar el programa Salvia Rural a quien esté interesado. No se ha detallado en el aviso ni la hora ni el lugar, así que conviene estar atento.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/ya-esta-aqui-el-programa-del-verano-cultural-2026-%f0%9f%8f%9b%ef%b8%8f%e2%9c%a8/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-07-30</span>
-      <span class="tc-news-titular">Ya está el programa del Verano Cultural 2026 en Carrión de los Condes</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha publicado la agenda de actividades culturales para este verano. Se puede consultar en la web oficial del municipio.</span>
+      <span class="tc-news-titular">Carrión de los Condes presenta su programa de Verano Cultural 2026</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ya ha publicado las actividades culturales previstas para este verano. El programa está disponible en la web oficial del consistorio.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/%f0%9f%8e%89-arranca-el-finde-de-diversion-total-en-la-casa-de-jovenes-%f0%9f%8e%89/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-07-30</span>
-      <span class="tc-news-titular">Fin de semana de actividades en la Casa de Jóvenes de Carrión de los Condes</span>
-      <span class="tc-news-entradilla">La Casa de Jóvenes organiza un fin de semana de actividades. El Ayuntamiento no ha detallado el programa concreto ni los horarios.</span>
+      <span class="tc-news-titular">Empieza el fin de semana de actividades en la Casa de Jóvenes de Carrión de los Condes</span>
+      <span class="tc-news-entradilla">El Ayuntamiento organiza un fin de semana de actividades en la Casa de Jóvenes. No se detallan por ahora el programa ni los horarios.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/%e2%9a%94%ef%b8%8f-representacion-de-esgrima-escenografica-%f0%9f%9b%a1%ef%b8%8f/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-07-29</span>
       <span class="tc-news-titular">Habrá una representación de esgrima escenográfica en Carrión de los Condes</span>
-      <span class="tc-news-entradilla">El Ayuntamiento anuncia un espectáculo de esgrima escenificada. Aún no se conocen la fecha ni el lugar exactos.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento anuncia una exhibición de esgrima escénica en el pueblo. Por ahora no se han dado más detalles de fecha ni lugar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/presentacion-y-firma-del-peregrinaje-explosivo/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-07-29</span>
       <span class="tc-news-titular">Carrión de los Condes presenta y firma el libro «Peregrinaje explosivo»</span>
-      <span class="tc-news-entradilla">El Ayuntamiento organiza la presentación y firma del libro «Peregrinaje explosivo». Está abierta al público.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento organiza un acto de presentación y firma del libro «Peregrinaje explosivo». No se indica más detalle sobre horario ni autor.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-43.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-43.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-12</span>
-      <span class="tc-news-titular">Carrión de los Condes convoca una plaza de auxiliar administrativo por oposición libre</span>
-      <span class="tc-news-entradilla">El Ayuntamiento saca a concurso una plaza de auxiliar administrativo como funcionario, por el sistema de oposición y turno libre. Ya están publicadas las bases y la convocatoria para quien quiera presentarse.</span>
+      <span class="tc-news-titular">Carrión de los Condes convoca una plaza de Auxiliar Administrativo por oposición libre</span>
+      <span class="tc-news-entradilla">El Ayuntamiento saca a oposición libre una plaza de Auxiliar Administrativo para cubrir como funcionario. Ya están publicadas las bases y la convocatoria; falta que se abra el plazo para presentarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/18/html/BOCYL-D-18052026-92-38.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/05/18/html/BOCYL-D-18052026-92-38.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-18</span>
-      <span class="tc-news-titular">El Ayuntamiento de Carrión de los Condes tramita la declaración de ruina de una casa en la calle Fernán Gómez</span>
-      <span class="tc-news-entradilla">Se ha abierto el expediente para declarar en ruina el inmueble del número 19 de la calle Fernán Gómez. Está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-titular">El Ayuntamiento de Carrión de los Condes abre expediente de ruina para una casa de la calle Fernán Gómez</span>
+      <span class="tc-news-entradilla">Se trata del inmueble del número 19 de esa calle. Está en información pública mientras se tramita la declaración de ruina; falta que se resuelva el expediente.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-53.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/12/html/BOCYL-D-12022026-29-53.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-12</span>
-      <span class="tc-news-titular">Carrión de los Condes abre expediente de ruina para el edificio de la Travesía San Bartolomé 14</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha iniciado los trámites para declarar en ruina ese inmueble. Está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-titular">El Ayuntamiento de Carrión de los Condes empieza a tramitar la ruina de un edificio en Tr. San Bartolomé, 14</span>
+      <span class="tc-news-entradilla">Se ha abierto expediente para declarar en ruina el inmueble del número 14 de la travesía de San Bartolomé. Está en información pública antes de que se decida.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     <h2 class="tc-block-title">Ayudas y subvenciones</h2>
       <div class="tc-news-grid"><a class="tc-news" href="../noticia/0b1b4c3de1cf378d.html" target="_self">
       <span class="tc-news-kicker">Ayudas y subvenciones · 2026-03-31</span>
-      <span class="tc-news-titular">Grupos de teatro aficionado pueden concursar en el certamen del camino de santiago de carrión</span>
-      <span class="tc-news-entradilla">El Ayuntamiento de Carrión de los Condes convoca la XXXI edición de su Certamen Nacional de Teatro Aficionado, con un presupuesto total de 3.700 euros. El plazo para inscribirse va del 6 al 24 de abril de 2026.</span>
+      <span class="tc-news-titular">Grupos de teatro aficionado ya pueden apuntarse al certamen de Carrión de los Condes</span>
+      <span class="tc-news-entradilla">El Ayuntamiento de Carrión de los Condes abre la trigésimo primera edición de su Certamen Nacional de Teatro Aficionado del Camino de Santiago, con un presupuesto de 3.700 euros y plazo del 6 al 24 de abril de 2026.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/f2e70f334f0fd573.html" target="_self">
       <span class="tc-news-kicker">Ayudas y subvenciones · 2026-03-06</span>
-      <span class="tc-news-titular">Concurso de pintura rápida en Carrión de los Condes, con premios para adultos y niños</span>
-      <span class="tc-news-entradilla">El Ayuntamiento de Carrión de los Condes convoca su concurso de pintura rápida en categoría adulta e infantil, con un total de 3.400 euros en premios. El plazo va del 9 de marzo al 4 de julio de 2026.</span>
+      <span class="tc-news-titular">Carrión convoca su concurso de pintura rápida para adultos e infantil con 3.400 euros en premios</span>
+      <span class="tc-news-entradilla">El Ayuntamiento de Carrión de los Condes organiza el concurso de pintura rápida &quot;Ciudad Carrión de los Condes del Camino de Santiago&quot;, con premios que suman 3.400 euros y participación abierta a personas particulares. El plazo va del 9 de marzo al 4 de julio de 2026.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/cf2d2ccfab89a862.html" target="_self">
       <span class="tc-news-kicker">Ayudas y subvenciones · 2026-03-06</span>
-      <span class="tc-news-titular">Ayudas por natalidad en carrión de los condes para las familias que tengan un hijo en 2026</span>
-      <span class="tc-news-entradilla">El Ayuntamiento de Carrión de los Condes reparte 6.000 euros en ayudas para fomentar la natalidad y el empadronamiento en el municipio durante 2026. El plazo va del 9 de marzo al 31 de diciembre de 2026.</span>
+      <span class="tc-news-titular">Ayudas por natalidad en carrión: si has tenido un hijo y estás empadronado, puedes pedirla</span>
+      <span class="tc-news-entradilla">El Ayuntamiento de Carrión de los Condes reparte 6.000 euros en ayudas para fomentar la natalidad y el empadronamiento durante 2026. El plazo va del 9 de marzo al 31 de diciembre de 2026.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div>
     
@@ -229,11 +250,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -252,7 +296,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -272,11 +319,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

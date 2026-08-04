@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villarramiel — El Terracampino</title>
-<meta name="description" content="En Villarramiel ahora mismo tenemos 28 grados y casi despejado, con algo de viento que ronda los 16 kilómetros por hora. La máxima no subirá mucho más">
+<meta name="description" content="En Villarramiel estamos ahora en 28 grados y casi sin nubes. La máxima no subirá mucho, a unos 29, pero bajará bien de noche hasta los 17. Sopla un po">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villarramiel</h1>
@@ -73,56 +93,57 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Villarramiel ahora mismo tenemos 28 grados y casi despejado, con algo de viento que ronda los 16 kilómetros por hora. La máxima no subirá mucho más, hasta los 29, y la noche será fresca, bajando a 17. No hay riesgo de lluvia. Mañana seguirá parecido pero algo más caluroso, llegando a los 31 grados.</p>
+    <p class="tc-weather-article">En Villarramiel estamos ahora en 28 grados y casi sin nubes. La máxima no subirá mucho, a unos 29, pero bajará bien de noche hasta los 17. Sopla un poco de viento, 16 kilómetros la hora, y no hay riesgo de lluvia. Mañana sigue el buen tiempo, casi despejado y algo más caluroso, hasta 31 grados.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 31° y mínima de 16°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Miércoles con viento pero despejado</h4>
+      <p class="tc-day-texto">Cielo casi sin nubes y máxima de 31 grados, aunque el viento rondará los 27 km/h. Mínima de 16 grados sin posibilidad de lluvia.</p>
       <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 29° y mínima de 17°, con nubes y claros. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Jueves templado y nuboso</h4>
+      <p class="tc-day-texto">Nubes y claros alternándose con máxima de 29 grados y viento similar al día anterior. Mínima de 17 grados sin riesgo de precipitaciones.</p>
       <span class="tc-day-temp tc-data">29° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, sube el calor</h4>
-      <p class="tc-day-texto">Máxima de 33° y mínima de 16°, con casi despejado.</p>
+      <h4 class="tc-day-titular">Viernes cálido y soleado</h4>
+      <p class="tc-day-texto">Cielo casi despejado con máxima de 33 grados, la más alta de los tres días, y viento moderado de 24 km/h. Mínima de 16 grados sin lluvia.</p>
       <span class="tc-day-temp tc-data">33° <span class="tc-day-min">16°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Villarramiel por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villarramiel incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/02/24/html/BOCYL-D-24022026-37-40.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/24/html/BOCYL-D-24022026-37-40.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-02-24</span>
-      <span class="tc-news-titular">Avatel quiere llevar fibra óptica soterrada por Villarramiel</span>
-      <span class="tc-news-entradilla">La empresa Avatel Telecom, S.A. ha pedido permiso para desplegar fibra óptica bajo tierra por suelo rústico y urbano del pueblo. El expediente está en información pública antes de que se autorice.</span>
+      <span class="tc-news-titular">Avatel quiere llevar fibra óptica bajo tierra por Villarramiel</span>
+      <span class="tc-news-entradilla">La empresa Avatel Telecom, S.A. ha pedido permiso para instalar fibra óptica subterránea por suelo rústico y urbano del municipio. El expediente está en información pública antes de que se decida.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2024/06/21/html/BOCYL-D-21062024-39.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/06/21/html/BOCYL-D-21062024-39.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2024-06-21</span>
-      <span class="tc-news-titular">Telefónica quiere llevar fibra óptica soterrada junto a la P-922 en Villarramiel</span>
-      <span class="tc-news-entradilla">La empresa ha pedido permiso para meter cable de fibra bajo tierra y seis arquetas en suelo rústico y urbano, en paralelo a la carretera P-922. El proyecto está en información pública antes de que se autorice.</span>
+      <span class="tc-news-titular">Telefónica pide permiso para llevar fibra óptica soterrada junto a la P-922 en Villarramiel</span>
+      <span class="tc-news-entradilla">Telefónica de España, S.A.U. quiere instalar una infraestructura subterránea de fibra óptica y 6 arquetas paralela a la carretera P-922, parte en suelo rústico. Como el suelo rústico necesita autorización especial, ahora está en información pública antes de decidirse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/01/30/html/BOCYL-D-30012025-21.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/01/30/html/BOCYL-D-30012025-21.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-01-30</span>
       <span class="tc-news-titular">A información pública la ocupación de varias vías pecuarias en Villarramiel y otros tres pueblos</span>
-      <span class="tc-news-entradilla">Se abre el plazo para consultar el expediente que afecta a terrenos de vías pecuarias en Villarramiel, Autilla del Pino, Mazariegos y Villamartín de Campos. Quien quiera revisarlo o alegar puede hacerlo antes de que se resuelva.</span>
+      <span class="tc-news-entradilla">Se propone ocupar terrenos de caminos ganaderos en Autilla del Pino, Mazariegos, Villamartín de Campos y Villarramiel. Está abierto el plazo para que quien quiera pueda consultarlo y presentar alegaciones antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/09/html/BOCYL-D-09122025-49.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/12/09/html/BOCYL-D-09122025-49.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-09</span>
       <span class="tc-news-titular">El Ayuntamiento de Villarramiel arranca el expediente para declarar en ruina una casa de la calle Salvador</span>
       <span class="tc-news-entradilla">Se ha iniciado el procedimiento para declarar en ruina el inmueble del número 47 de la calle Salvador. Está en información pública antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/12/01/html/BOCYL-D-01122025-48.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/12/01/html/BOCYL-D-01122025-48.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-12-01</span>
-      <span class="tc-news-titular">Villarramiel abre expediente para declarar en ruina la casa del número 25 de la calle Mayor</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha empezado los trámites para declarar en ruina el inmueble de la calle Mayor n.º 25. Está en información pública antes de que se resuelva.</span>
+      <span class="tc-news-titular">Se pone en marcha el expediente para declarar en ruina un edificio de la calle Mayor de Villarramiel</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha iniciado los trámites para declarar la ruina ordinaria del inmueble en el número 25 de la calle Mayor. Está en información pública, así que aún falta que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
@@ -163,11 +184,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -186,7 +230,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -206,11 +253,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

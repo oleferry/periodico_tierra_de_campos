@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalpando — El Terracampino</title>
-<meta name="description" content="En Villalpando ahora mismo estamos en 29 grados con el cielo casi limpio. Subirá poco más, a los 30 como mucho, y el viento sopla flojo desde media ma">
+<meta name="description" content="En Villalpando ahora tenemos 29 grados y apenas una nube. La máxima no llegará a los 30, con un viento flojo de 13 kilómetros por hora, y sin visos de">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalpando</h1>
@@ -73,52 +93,53 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Villalpando ahora mismo estamos en 29 grados con el cielo casi limpio. Subirá poco más, a los 30 como mucho, y el viento sopla flojo desde media mañana. No hay rastro de lluvia hoy ni mañana, que además se espera un poco más cálido, rondando los 31.</p>
+    <p class="tc-weather-article">En Villalpando ahora tenemos 29 grados y apenas una nube. La máxima no llegará a los 30, con un viento flojo de 13 kilómetros por hora, y sin visos de lluvia. Mañana subirá un poco más, hasta los 31, y seguirá despejado. Es tiempo para trabajar en el campo tranquilo, sin sorpresas.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 31° y mínima de 17°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Miércoles casi despejado</h4>
+      <p class="tc-day-texto">El sol domina con poco obstáculo. Máxima de 31 grados y mínima de 17, con viento de 26 km/h que templará algo el calor diurno.</p>
       <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 32° y mínima de 17°, con nubes y claros.</p>
+      <h4 class="tc-day-titular">Jueves con nubes pasajeras</h4>
+      <p class="tc-day-texto">Algunas nubes cruzarán el cielo sin mayores consecuencias. Suben las temperaturas hasta los 32 grados de máxima y el viento sigue rondando los 24 km/h.</p>
       <span class="tc-day-temp tc-data">32° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes de sol</h4>
-      <p class="tc-day-texto">Máxima de 34° y mínima de 17°, con despejado.</p>
+      <h4 class="tc-day-titular">Viernes despejado y cálido</h4>
+      <p class="tc-day-texto">El anticiclón se afirma con cielos limpios. Se alcanza la máxima del período con 34 grados mientras el viento cede a 21 km/h.</p>
       <span class="tc-day-temp tc-data">34° <span class="tc-day-min">17°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Villalpando por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villalpando incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/06/13/html/BOCYL-D-13062025-27.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/06/13/html/BOCYL-D-13062025-27.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-06-13</span>
-      <span class="tc-news-titular">Villalpando saca oferta de empleo público para este 2025</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ha aprobado su oferta de empleo público para 2025. Habrá que estar atento a las bases y plazos de las plazas que se convoquen.</span>
+      <span class="tc-news-titular">Villalpando aprueba su oferta de empleo público para 2025</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha dado el visto bueno a las plazas que se convocarán este año. Falta que salgan las bases con los detalles de cada puesto.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/05/27/html/BOCYL-D-27052026-99-29.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/05/27/html/BOCYL-D-27052026-99-29.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-27</span>
-      <span class="tc-news-titular">Villalpando restaura su escudo y estrena bandera municipal</span>
-      <span class="tc-news-entradilla">El Pleno del Ayuntamiento ha aprobado recuperar el escudo del pueblo y adoptar una bandera municipal propia.</span>
+      <span class="tc-news-titular">Villalpando recupera su escudo y estrena bandera municipal</span>
+      <span class="tc-news-entradilla">El Pleno del Ayuntamiento ha aprobado rehabilitar el escudo del municipio y adoptar una bandera propia. El acuerdo se tomó el 12 de mayo.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2025/07/10/html/BOCYL-D-10072025-23.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/07/10/html/BOCYL-D-10072025-23.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-07-10</span>
-      <span class="tc-news-titular">Piden permiso para hacer un aparcamiento vigilado de camiones en Villalpando</span>
-      <span class="tc-news-entradilla">La empresa Alvarezherrero NG, S.L. quiere construir un área vigilada de camiones en una parcela de suelo rústico del polígono 1. Está en información pública antes de que se autorice.</span>
+      <span class="tc-news-titular">Villalpando estudia un aparcamiento vigilado de camiones en suelo rústico</span>
+      <span class="tc-news-entradilla">La empresa Alvarezherrero NG, S.L. ha pedido permiso para construir un área vigilada de camiones en una parcela del polígono 1. La solicitud está en información pública antes de que se resuelva.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2026/07/21/html/BOCYL-D-21072026-139-25.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/07/21/html/BOCYL-D-21072026-139-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-21</span>
       <span class="tc-news-titular">Aprobado el nuevo plan de gestión del monte Raso de Villalpando</span>
-      <span class="tc-news-entradilla">Medio Ambiente ha dado el visto bueno a la segunda revisión del plan dasocrático del monte de utilidad pública nº 214, que gestiona la Mancomunidad de Raso de Villalpando. Es el documento que marca cómo se cuida y aprovecha el monte los próximos años.</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha dado luz verde a la segunda revisión del plan dasocrático del monte de utilidad pública número 214, que es de la Mancomunidad Intermunicipal de Raso de Villalpando. Es el documento que marca cómo se gestiona y aprovecha ese monte durante los próximos años.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
@@ -159,11 +180,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -182,7 +226,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -202,11 +249,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

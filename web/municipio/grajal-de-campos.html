@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grajal de Campos — El Terracampino</title>
-<meta name="description" content="En Grajal de Campos ahora mismo tenemos 28 grados y cielo limpio. A lo largo del día subirá un poco más, hasta los 30, con viento flojo de 12 kilómetr">
+<meta name="description" content="En Grajal ahora mismo tenemos 29 grados y cielo limpio. Subirá poco, hasta los 30, y el viento sopla flojo desde el sur — nada que le dé importancia. ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,7 +31,25 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Grajal de Campos</h1>
@@ -45,10 +65,10 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Grajal de Campos: 28° y despejado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Grajal de Campos: 29° y despejado</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">29°</span>
       <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
       <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
@@ -73,28 +93,29 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Grajal de Campos ahora mismo tenemos 28 grados y cielo limpio. A lo largo del día subirá un poco más, hasta los 30, con viento flojo de 12 kilómetros por hora y sin asomo de lluvia. Mañana casi no hay cambio: sigue despejado y sube un poco más, hasta los 32. Son días de tiempo seco y templado.</p>
+    <p class="tc-weather-article">En Grajal ahora mismo tenemos 29 grados y cielo limpio. Subirá poco, hasta los 30, y el viento sopla flojo desde el sur — nada que le dé importancia. No llueve ni hoy ni mañana; mañana incluso hace más calor, rondará los 32. Con esta sequía, si riegas, hazlo temprano o cuando caiga el sol.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles de sol</h4>
-      <p class="tc-day-texto">Máxima de 32° y mínima de 17°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Miércoles soleado y ventoso</h4>
+      <p class="tc-day-texto">Cielo casi despejado con máxima de 32° y mínima de 17°. El viento sopla fuerte a 34 km/h, así que conviene asegurar lo que pueda moverse.</p>
       <span class="tc-day-temp tc-data">32° <span class="tc-day-min">17°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves de sol</h4>
-      <p class="tc-day-texto">Máxima de 30° y mínima de 16°, con casi despejado. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Jueves sin cambios en lo esencial</h4>
+      <p class="tc-day-texto">Se mantiene el cielo casi despejado y la temperatura baja ligeramente hasta 30°. El viento repunta a 37 km/h, sin rastro de lluvia.</p>
       <span class="tc-day-temp tc-data">30° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes, tiempo tranquilo</h4>
-      <p class="tc-day-texto">Máxima de 33° y mínima de 18°, con nubes y claros. Sopla viento fuerte.</p>
+      <h4 class="tc-day-titular">Viernes nublado pero seco</h4>
+      <p class="tc-day-texto">Las nubes se asoman entre los claros, con máxima de 33° y mínima de 18°. El viento sigue fuerte en torno a 36 km/h y no hay amenaza de lluvia.</p>
       <span class="tc-day-temp tc-data">33° <span class="tc-day-min">18°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de Grajal de Campos por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Grajal de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     <h2 class="tc-block-title">Lo que pasa en Grajal de Campos</h2>
@@ -105,20 +126,20 @@
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div>
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/11/14/html/BOCYL-D-14112022-37.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2022/11/14/html/BOCYL-D-14112022-37.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-11-14</span>
-      <span class="tc-news-titular">Adamo pide ocupar varias vías pecuarias en Grajal de Campos y pueblos vecinos para su red</span>
-      <span class="tc-news-entradilla">La empresa Adamo Telecom Iberia quiere usar terrenos de siete caminos ganaderos que cruzan Grajal de Campos, Sahagún, Gordaliza del Pino y otros municipios de la zona. Está en información pública por si alguien quiere alegar antes de que se autorice.</span>
+      <span class="tc-news-titular">Adamo pide ocupar varias vías pecuarias para pasar su red por Grajal de Campos y otros seis pueblos</span>
+      <span class="tc-news-entradilla">La empresa Adamo Telecom Iberia, S.A.U. quiere ocupar terrenos de siete cañadas y coladas que cruzan Grajal de Campos, Sahagún, Bercianos del Real Camino y otros municipios de León. El expediente está en información pública por si alguien quiere alegar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2023/12/21/html/BOCYL-D-21122023-25.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2023/12/21/html/BOCYL-D-21122023-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2023-12-21</span>
-      <span class="tc-news-titular">La concentración parcelaria de Grajal, Escobar y Sahagún pasa el filtro ambiental</span>
-      <span class="tc-news-entradilla">La reordenación de fincas en los términos de Grajal de Campos, Escobar de Campos y Sahagún ya cuenta con su informe de impacto ambiental. Es un paso previo antes de seguir adelante con el proceso.</span>
+      <span class="tc-news-titular">La concentración parcelaria de Grajal, Escobar y Sahagún ya tiene su informe ambiental</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha hecho público el informe de impacto ambiental de la reordenación de fincas que afecta a los términos de Grajal de Campos, Escobar de Campos y Sahagún. Es un paso previo dentro del proceso de concentración parcelaria.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="http://bocyl.jcyl.es/html/2022/04/12/html/BOCYL-D-12042022-28.do" target="_blank" rel="noopener">
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2022/04/12/html/BOCYL-D-12042022-28.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2022-04-12</span>
-      <span class="tc-news-titular">Se disuelven los grupos de trabajo de la concentración parcelaria en Grajal y su entorno</span>
-      <span class="tc-news-entradilla">La Junta ha disuelto los grupos auxiliares y deja sin efecto la elección de los miembros que iban a formar la comisión local en Santervás de Campos, Zorita de la Loma y Villacreces, dentro de la concentración parcelaria de Grajal, Escobar, Sahagún y Santervás de Campos.</span>
+      <span class="tc-news-titular">Se echa atrás la concentración parcelaria en Santervás de Campos, Zorita de la Loma y Villacreces</span>
+      <span class="tc-news-entradilla">La Junta disuelve los grupos de trabajo y anula la elección de los miembros que iban a formar la comisión local en esas entidades, dentro de la concentración parcelaria de Grajal, Escobar, Sahagún y Santervás de Campos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
@@ -151,11 +172,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -174,7 +218,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -194,11 +241,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>

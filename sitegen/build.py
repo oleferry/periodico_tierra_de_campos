@@ -116,6 +116,16 @@ def dec(n, decimales: int = 1) -> str:
     return f"{n:.{decimales}f}".replace(".", ",")
 
 
+def url_segura(url: str) -> str:
+    """Sube a https los enlaces de fuentes oficiales que lo admiten. El BOCyL los
+    publica en http y el navegador puede avisar de "sitio no seguro" justo cuando
+    el lector va a comprobar la fuente — que es de lo que presume el periódico.
+    Verificado que las URLs de documento del BOCyL responden 200 por https."""
+    if url.startswith("http://bocyl.jcyl.es"):
+        return "https://" + url[len("http://"):]
+    return url
+
+
 def fuente_label(d: dict) -> str:
     if d.get("source_type") == "bop":
         return "BOP Valladolid"
@@ -144,7 +154,7 @@ def doc_row(d: dict, *, show_muni: bool, depth: int) -> str:
         href, target = f"{up}{articulo_path(d)}", "_self"
         more = "Leer la noticia completa →"
     else:
-        href, target = d["url_original"], "_blank"
+        href, target = url_segura(d["url_original"]), "_blank"
         more = "Leer en la fuente oficial →"
     rel = ' rel="noopener"' if target == "_blank" else ""
     return f"""<a class="tc-news" href="{E(href)}" target="{target}"{rel}>
@@ -184,7 +194,7 @@ def render_articulo(d: dict, r: dict) -> str:
   {cuerpo_html}
   <div class="tc-source-box">
     <strong>Fuente oficial:</strong> {E(fuente_txt)}
-    <a href="{E(d['url_original'])}" target="_blank" rel="noopener">{E(fuente_cta)}</a>
+    <a href="{E(url_segura(d['url_original']))}" target="_blank" rel="noopener">{E(fuente_cta)}</a>
   </div>
   <p class="tc-item-meta"><a href="{E(volver_href)}">← {E(volver_txt)}</a></p>
 </div></article>"""
@@ -222,9 +232,24 @@ def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool)
     <strong>Fuentes:</strong>
     <ul class="tc-links-list">{fuentes_html}</ul>
   </div>
+  {bloque_compartir(f"https://elterracampino.es/blog/{slug}.html", art['titular'])}
   <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
 </div></article>"""
     return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150])
+
+
+def bloque_compartir(url: str, titulo: str) -> str:
+    """Botón de compartir al final de una pieza. En un periódico de pueblo todo
+    circula por el grupo de WhatsApp de la familia: sin esto se renuncia a la
+    vía por la que de verdad llegan lectores nuevos."""
+    from urllib.parse import quote
+    texto = quote(f"{titulo} — {url}")
+    return f"""<div class="tc-compartir">
+    <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">¿Te ha parecido interesante?</span>
+    <p class="tc-pieza-cuerpo">Mándaselo a quien creas que le va a interesar.</p>
+    <p><a class="tc-button" href="https://wa.me/?text={texto}" target="_blank" rel="noopener">Compartir por WhatsApp</a>
+    <button class="tc-button tc-button--sec" type="button" onclick="navigator.clipboard&amp;&amp;navigator.clipboard.writeText('{url}').then(function(){{this.textContent='¡Enlace copiado!';}}.bind(this));">Copiar el enlace</button></p>
+  </div>"""
 
 
 def load_municipios() -> dict[str, dict]:
@@ -522,11 +547,17 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 
 
 def header(depth: int) -> str:
+    """Cabecera con menú. En móvil el menú se despliega a pantalla completa desde
+    un botón de tres rayas: antes era una tira con scroll lateral sin ninguna
+    pista de que se podía deslizar, así que 7 de las 10 secciones —entre ellas
+    Esquelas y Acompañar, las que más busca el público mayor— eran invisibles."""
     up = "../" * depth
     home = up + "index.html"
     return f"""<header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="{home}" class="tc-logo"><img src="{up}assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="{home}">Portada</a>
     <a href="{home}#pueblos">Elige tu pueblo</a>
     <a href="{home}#comarca">La comarca</a>
@@ -538,7 +569,25 @@ def header(depth: int) -> str:
     <a href="{up}acompanar.html">Acompañar</a>
     <a href="{up}archivo.html">Archivo</a>
   </nav>
-</div></header>"""
+</div>
+<script>
+(function() {{
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {{
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }}
+  b.addEventListener("click", function() {{ abrir(!n.classList.contains("tc-nav--abierto")); }});
+  if (c) c.addEventListener("click", function() {{ abrir(false); }});
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) {{ if (e.target.tagName === "A") abrir(false); }});
+  document.addEventListener("keydown", function(e) {{ if (e.key === "Escape") abrir(false); }});
+}})();
+</script></header>"""
 
 
 def newsletter_popup(depth: int) -> str:
@@ -553,11 +602,34 @@ def newsletter_popup(depth: int) -> str:
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {{
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}}
+document.addEventListener("DOMContentLoaded", function() {{
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {{
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {{
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    }});
+  }});
+}});
 (function() {{
   var API = "{up}api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -576,7 +648,10 @@ def newsletter_popup(depth: int) -> str:
       }}).then(function(r) {{ return r.json().then(function(d) {{ return {{ ok: r.ok, d: d }}; }}); }})
         .then(function(res) {{
           if (res.ok) {{
-            form.innerHTML = "<p class=\\"tc-form-ok\\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\\"tc-form-ok\\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           }} else {{
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -596,11 +671,26 @@ def newsletter_popup(depth: int) -> str:
   var close = document.getElementById("tc-popup-close");
   function ocultar() {{
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }}
-  setTimeout(function() {{ overlay.classList.add("tc-popup-overlay--visible"); }}, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {{
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }}, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) {{ if (e.target === overlay) ocultar(); }});
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {{
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  }});
 }})();
 </script>"""
 
@@ -772,7 +862,10 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
     # Resumen del tiempo de la comarca (una línea, no 12 tarjetas).
     r = resumen_tiempo(built)
     if r:
-        tiempo_html = f"""<div class="tc-weather-summary">
+        # id="pueblos": el enlace "Elige tu pueblo" del menú apunta aquí. Antes no
+        # existía ningún elemento con ese id, así que desde la portada el enlace
+        # más importante del menú no hacía absolutamente nada.
+        tiempo_html = f"""<div class="tc-weather-summary" id="pueblos">
       <div class="tc-weather-summary-txt">
         <span class="tc-section-label" style="color:var(--tc-azul-bop);">El tiempo en la comarca</span>
         <p>Hoy en Tierra de Campos, <strong>{E(r['desc'])}</strong> y entre <strong>{r['tmin']}°</strong> y <strong>{r['tmax']}°</strong>. El pueblo más caluroso ahora es {E(r['hot_name'])}, con {r['hot_t']}°.</p>
@@ -780,7 +873,11 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
       <div class="tc-weather-summary-pick">{selector(built, 0)}</div>
     </div>"""
     else:
-        tiempo_html = ""
+        # Sin datos de tiempo el selector de pueblo NO puede desaparecer: es la
+        # mejor entrada del sitio y el ancla del menú.
+        tiempo_html = f"""<div class="tc-weather-summary" id="pueblos">
+      <div class="tc-weather-summary-pick">{selector(built, 0)}</div>
+    </div>"""
 
     # Blog / investigaciones: piezas largas, generadas aparte (scripts/generar_articulo_blog.py),
     # no en cada build. Se listan aquí si hay alguna publicada.
@@ -903,7 +1000,15 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
 def weather_block(m: dict) -> str:
     w = m.get("weather")
     if not w:
-        return ""
+        # NUNCA devolver "" aquí. Si Open-Meteo falla para un pueblo, la sección
+        # entera desaparecía sin decir nada y la ficha empezaba por la caja de
+        # Telegram — justo lo que promete el titular de la portada ("el tiempo de
+        # tu pueblo") evaporado en silencio. Mejor decir que ahora no se puede.
+        return f"""<section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en {E(m['name'])}</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de {E(m['name'])}: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>"""
     dias = "".join(f"""<article class="tc-day">
       <span class="tc-day-name">{E(d['dia'].capitalize())}</span>
       <h4 class="tc-day-titular">{E(d['titular'])}</h4>
@@ -1145,8 +1250,9 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
     <h2 class="tc-block-title">A ras de tierra — {tiempo_titular}</h2>
     {weather_block(m)}
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe lo de {E(m['name'])} por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">El tiempo cada mañana, las noticias del pueblo, la agenda, alguna historia de aquí y una foto de vez en cuando.</p></div>
+      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —{E(m['name'])} incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     {propias_html}
@@ -1310,21 +1416,27 @@ def render_chivatazo(built: list[dict]) -> str:
   <span class="tc-section-label" style="color:var(--tc-tinta-tierra);">Buzón</span>
   <h1>¿Sabes algo? Cuéntanoslo</h1>
   <p class="tc-articulo-entradilla">Una obra rara, una subvención que no cuadra, algo de un pleno que no
-  se explicó bien... Si tienes una pista de la comarca, mándala aquí. Es anónimo de verdad: no pedimos tu
-  nombre, ni tu correo, ni guardamos ningún dato tuyo — solo el texto que escribas.</p>
+  se explicó bien... Si tienes una pista de la comarca, mándala aquí. <strong>No te pedimos el nombre ni el
+  correo</strong>: guardamos solo el texto que escribas y el pueblo, si lo indicas.</p>
+  <p class="tc-item-meta">Para ser exactos: como en cualquier web, el servidor que recibe el formulario ve tu
+  dirección IP de forma momentánea, y esta página carga una medición de visitas. No lo usamos para saber quién
+  eres ni lo guardamos junto a tu aviso, pero no podemos prometerte un anonimato absoluto. Si lo que tienes
+  entre manos es delicado de verdad, mejor cuéntanoslo en persona.</p>
 
   <div class="tc-card">
     <form id="tc-chivatazo-form">
       <p style="margin:0 0 6px;"><label for="tc-chiv-pueblo" style="font-weight:700; font-size:.9rem;">Pueblo (opcional)</label></p>
       <select id="tc-chiv-pueblo" name="pueblo" class="tc-muni-select" style="margin-bottom:14px;">
-        <option value="">No lo sé / es de toda la comarca</option>{opciones_pueblo}
+        <option value="">No lo sé / es de toda la comarca</option>{opciones_pueblo}<option value="_otro">Otro pueblo de la comarca…</option>
       </select>
+      <input id="tc-chiv-pueblo-otro" class="tc-input" placeholder="Escribe el nombre del pueblo" maxlength="80" hidden style="width:100%; box-sizing:border-box; margin:-6px 0 14px;" aria-label="Nombre del pueblo">
       <p style="margin:0 0 6px;"><label for="tc-chiv-texto" style="font-weight:700; font-size:.9rem;">Cuéntanoslo</label></p>
       <textarea id="tc-chiv-texto" name="texto" class="tc-input" rows="6" required minlength="20" maxlength="4000"
         placeholder="Cuanto más concreto (dónde, cuándo, qué has visto), más fácil es comprobarlo."
         style="width:100%; box-sizing:border-box; font-family:inherit; resize:vertical;"></textarea>
       <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
       <p style="margin:14px 0 0;"><button class="tc-button" type="submit">Enviar de forma anónima</button></p>
+      <p class="tc-item-meta" style="margin:10px 0 0;">Al enviarlo aceptas que tratemos estos datos para publicar la pista si se confirma. Cómo lo hacemos y cómo pedir que se borren, en el <a href="aviso-legal.html#privacidad">aviso legal</a>.</p>
       <p id="tc-chiv-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
     </form>
   </div>
@@ -1341,7 +1453,7 @@ def render_chivatazo(built: list[dict]) -> str:
   form.addEventListener("submit", function(e) {{
     e.preventDefault();
     var texto = document.getElementById("tc-chiv-texto").value;
-    var pueblo = document.getElementById("tc-chiv-pueblo").value;
+    var pueblo = puebloElegido("tc-chiv-pueblo", "tc-chiv-pueblo-otro");
     var honey = form.querySelector('input[name="web"]');
     var resultado = document.getElementById("tc-chiv-resultado");
     var btn = form.querySelector("button");
@@ -1740,8 +1852,9 @@ def render_esquela_form(built: list[dict]) -> str:
     <form id="tc-esquela-form">
       <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Nombre de la persona fallecida *</label></p>
       <input id="es-nombre" name="nombre" class="tc-input" required maxlength="120" style="width:100%; box-sizing:border-box;">
-      <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
-      <select id="es-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option>{opciones}</select>
+      <p style="margin:12px 0 6px;"><label for="es-pueblo" style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
+      <select id="es-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option>{opciones}<option value="_otro">Otro pueblo de la comarca…</option></select>
+      <input id="es-pueblo-otro" class="tc-input" placeholder="Escribe el nombre del pueblo" maxlength="80" hidden style="width:100%; box-sizing:border-box; margin-top:8px;" aria-label="Nombre del pueblo">
       <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Edad (opcional)</label></p>
       <input id="es-edad" name="edad" class="tc-input" inputmode="numeric" maxlength="3" style="width:120px;">
       <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Fecha del fallecimiento (opcional)</label></p>
@@ -1757,6 +1870,7 @@ def render_esquela_form(built: list[dict]) -> str:
       <p class="tc-item-meta">Tu contacto es solo para que podamos verificar el aviso contigo. No se publica.</p>
       <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
       <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar</button></p>
+      <p class="tc-item-meta" style="margin:10px 0 0;">Al enviarlo aceptas que tratemos estos datos para revisar y publicar la esquela. Cómo lo hacemos y cómo pedir que se borren, en el <a href="aviso-legal.html#privacidad">aviso legal</a>.</p>
       <p id="es-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
     </form>
   </div>
@@ -1799,7 +1913,7 @@ def render_esquela_form(built: list[dict]) -> str:
         headers: {{ "Content-Type": "application/json" }},
         body: JSON.stringify({{
           nombre: document.getElementById("es-nombre").value,
-          pueblo: document.getElementById("es-pueblo").value,
+          pueblo: puebloElegido("es-pueblo", "es-pueblo-otro"),
           edad: document.getElementById("es-edad").value,
           fecha_fallecimiento: document.getElementById("es-fecha").value,
           funeral: document.getElementById("es-funeral").value,
@@ -1898,7 +2012,8 @@ def render_archivo_form(built: list[dict]) -> str:
   <div class="tc-card">
     <form id="tc-archivo-form">
       <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
-      <select id="ar-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option>{opciones}</select>
+      <select id="ar-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option>{opciones}<option value="_otro">Otro pueblo de la comarca…</option></select>
+      <input id="ar-pueblo-otro" class="tc-input" placeholder="Escribe el nombre del pueblo" maxlength="80" hidden style="width:100%; box-sizing:border-box; margin-top:8px;" aria-label="Nombre del pueblo">
       <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Año aproximado</label></p>
       <input id="ar-anio" name="anio" class="tc-input" maxlength="30" placeholder="p. ej. 1965, o 'años 70'" style="width:260px;">
       <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">¿Qué es o quién sale?</label></p>
@@ -1911,6 +2026,7 @@ def render_archivo_form(built: list[dict]) -> str:
       <input id="ar-contacto" name="contacto" class="tc-input" maxlength="200" style="width:100%; box-sizing:border-box;">
       <input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true">
       <p style="margin:16px 0 0;"><button class="tc-button" type="submit">Enviar la foto</button></p>
+      <p class="tc-item-meta" style="margin:10px 0 0;">Al enviarlo aceptas que tratemos estos datos para revisar y publicar la foto con tu nombre como autor. Cómo lo hacemos y cómo pedir que se borren, en el <a href="aviso-legal.html#privacidad">aviso legal</a>.</p>
       <p id="ar-resultado" class="tc-item-meta" style="margin-top:10px;"></p>
     </form>
   </div>
@@ -1949,7 +2065,7 @@ def render_archivo_form(built: list[dict]) -> str:
       return fetch("api/archivo", {{
         method: "POST", headers: {{ "Content-Type": "application/json" }},
         body: JSON.stringify({{
-          pueblo: document.getElementById("ar-pueblo").value,
+          pueblo: puebloElegido("ar-pueblo", "ar-pueblo-otro"),
           anio: document.getElementById("ar-anio").value,
           descripcion: document.getElementById("ar-desc").value,
           autor: document.getElementById("ar-autor").value,
@@ -2170,7 +2286,9 @@ def render_acompanar_hoja() -> str:
 </head>
 <body>
 <div class="hoja">
-  <p class="no-print volver"><a href="acompanar.html">← Volver</a> · Imprime esta página (Archivo → Imprimir) y cuélgala donde pueda verla quien la necesite.</p>
+  <p class="no-print volver"><a href="acompanar.html">← Volver</a> ·
+  <button type="button" onclick="window.print()" style="font:inherit; padding:6px 12px; min-height:44px; cursor:pointer;">Imprimir esta hoja</button>
+  y cuélgala donde pueda verla quien la necesite.</p>
   <h1>¿Te sientes solo?<br>No estás solo.</h1>
   <p class="sub">Llamar es gratis. Al otro lado hay alguien que escucha.</p>
 
@@ -2227,6 +2345,29 @@ def render_aviso_legal() -> str:
   <h2 class="tc-blog-subtitulo">Contacto</h2>
   <p class="tc-articulo-parrafo">Para cualquier consulta, corrección o solicitud relacionada con los contenidos puedes escribirnos por WhatsApp al <a href="https://wa.me/34695645395" target="_blank" rel="noopener">695 645 395</a> o a través del <a href="chivatazo.html">formulario de contacto</a>.</p>
 
+  <h2 class="tc-blog-subtitulo" id="privacidad">Privacidad: qué datos recogemos y para qué</h2>
+  <p class="tc-articulo-parrafo">Responsable del tratamiento: <strong>María Vega Blanco</strong> (ver arriba).
+  Solo pedimos datos cuando tú decides enviarlos, y siempre para lo mínimo:</p>
+  <ul class="tc-links-list">
+    <li><strong>Newsletter</strong>: tu correo, para mandarte el boletín. Base legal: tu consentimiento, que
+    confirmas pinchando el enlace del primer correo. Se gestiona con MailerLite. Puedes darte de baja desde
+    cualquier envío, y con eso se borra.</li>
+    <li><strong>Esquelas</strong>: el nombre de la persona fallecida y los datos del aviso, más un teléfono o
+    correo de contacto que usamos <em>solo</em> para verificar contigo que el aviso es real. El contacto no se
+    publica nunca. Base legal: tu consentimiento al enviarlo.</li>
+    <li><strong>Archivo de fotos</strong>: la foto, su descripción y el nombre de quien la aporta, que sí se
+    publica como crédito de autoría (por eso te lo pedimos).</li>
+    <li><strong>Chivatazos</strong>: solo el texto y el pueblo. No pedimos identidad.</li>
+    <li><strong>Visitas</strong>: una medición agregada de páginas vistas (Vercel Analytics), sin perfiles ni
+    seguimiento entre webs.</li>
+  </ul>
+  <p class="tc-articulo-parrafo">Lo que nos envías se guarda en almacenamiento privado (Supabase) y no se
+  cede a terceros ni se usa con fines comerciales. Puedes pedirnos acceder, corregir o borrar tus datos —o
+  retirar tu consentimiento— escribiendo por
+  <a href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp al 695 645 395</a>;
+  atendemos la petición sin más trámite. Si no quedas conforme, puedes reclamar ante la Agencia Española de
+  Protección de Datos (aepd.es).</p>
+
   <h2 class="tc-blog-subtitulo">Sobre los contenidos</h2>
   <p class="tc-articulo-parrafo">Este medio resume y enlaza información pública procedente de fuentes oficiales y abiertas (boletines oficiales, portales de transparencia, organismos públicos). Los resúmenes no sustituyen al documento original: ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada. Si detectas un error, dínoslo y lo corregimos.</p>
 
@@ -2264,6 +2405,18 @@ def render_404() -> str:
   <p style="margin-top:18px;">
     <a class="tc-button" href="/">Portada</a>
     <a class="tc-button tc-button--ghost" href="/index.html#pueblos">Elige tu pueblo</a>
+  </p>
+  <!-- Sin el menú de siempre, esta página dejaba al visitante en un callejón con
+       dos salidas en vez de diez. Rutas absolutas porque Vercel sirve este mismo
+       fichero para cualquier ruta rota, a cualquier profundidad. -->
+  <p style="margin-top:22px; font-size:.95rem;">O ve directamente a:
+    <a href="/esquelas.html">Esquelas</a> ·
+    <a href="/acompanar.html">Acompañar</a> ·
+    <a href="/huerta.html">Huerta</a> ·
+    <a href="/campo.html">El campo</a> ·
+    <a href="/leyendas.html">Leyendas</a> ·
+    <a href="/archivo.html">Archivo</a> ·
+    <a href="/gente.html">Gente de Campos</a>
   </p>
 </div></section>
 </body>

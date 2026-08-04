@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Medina de Rioseco convoca ayudas para asociaciones de cultura, deporte, juventud y servicios sociales — El Terracampino</title>
-<meta name="description" content="El Ayuntamiento reparte 11.000 euros entre entidades sin ánimo de lucro para actividades de cultura, deportes, juventud y servicios sociales durante 2">
+<title>Medina de rioseco abre ayudas de 11.000 euros para asociaciones de cultura, deporte y juventud — El Terracampino</title>
+<meta name="description" content="El Ayuntamiento de Medina de Rioseco ha convocado subvenciones en materia de cultura, deportes, juventud y servicios sociales para 2026, con un presup">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,9 @@
 <body class="tc-furrows">
 <header class="tc-header"><div class="tc-wrap tc-header-inner">
   <a href="../index.html" class="tc-logo"><img src="../assets/logo.png" alt="El Terracampino" height="52"></a>
-  <nav class="tc-nav">
+  <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
+  <nav class="tc-nav" id="tc-nav">
+    <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="../index.html">Portada</a>
     <a href="../index.html#pueblos">Elige tu pueblo</a>
     <a href="../index.html#comarca">La comarca</a>
@@ -29,12 +31,30 @@
     <a href="../acompanar.html">Acompañar</a>
     <a href="../archivo.html">Archivo</a>
   </nav>
-</div></header>
+</div>
+<script>
+(function() {
+  var b = document.getElementById("tc-nav-toggle"), n = document.getElementById("tc-nav"),
+      c = document.getElementById("tc-nav-cerrar");
+  if (!b || !n) return;
+  function abrir(v) {
+    n.classList.toggle("tc-nav--abierto", v);
+    b.setAttribute("aria-expanded", v ? "true" : "false");
+    document.body.style.overflow = v ? "hidden" : "";
+  }
+  b.addEventListener("click", function() { abrir(!n.classList.contains("tc-nav--abierto")); });
+  if (c) c.addEventListener("click", function() { abrir(false); });
+  // Al tocar una sección se cierra solo: si no, el menú tapaba la página a la
+  // que acabas de saltar cuando el destino está en la misma página (#pueblos).
+  n.addEventListener("click", function(e) { if (e.target.tagName === "A") abrir(false); });
+  document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
+})();
+</script></header>
 <article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
   <span class="tc-section-label" style="color:var(--tc-azul-bop);">Ayudas y subvenciones · Medina de Rioseco · 2026-06-02</span>
-  <h1>Medina de Rioseco convoca ayudas para asociaciones de cultura, deporte, juventud y servicios sociales</h1>
-  <p class="tc-articulo-entradilla">El Ayuntamiento reparte 11.000 euros entre entidades sin ánimo de lucro para actividades de cultura, deportes, juventud y servicios sociales durante 2026. El plazo ya está cerrado.</p>
-  <p class="tc-articulo-parrafo">Esta convocatoria no es para vecinos a título individual: pueden pedirla las personas jurídicas que no desarrollan actividad económica, es decir, asociaciones y entidades sin ánimo de lucro del municipio. Si formas parte de un club o asociación cultural, deportiva, juvenil o de servicios sociales, esta es la línea que os corresponde.</p><p class="tc-articulo-parrafo">El presupuesto total es de 11.000 euros, repartidos para financiar actividades en esas cuatro áreas a lo largo del ejercicio 2026. Las ayudas se rigen por la Ordenanza General Reguladora de la Concesión de Subvenciones del Ayuntamiento de Medina de Rioseco, donde se recogen los requisitos y el modo de justificar el gasto.</p><p class="tc-articulo-parrafo">Conviene tener en cuenta que el plazo de solicitud ya no está abierto. Si tu entidad no llegó a tiempo esta vez, lo suyo es estar atento a la convocatoria del año que viene y preparar la documentación con antelación.</p>
+  <h1>Medina de rioseco abre ayudas de 11.000 euros para asociaciones de cultura, deporte y juventud</h1>
+  <p class="tc-articulo-entradilla">El Ayuntamiento de Medina de Rioseco ha convocado subvenciones en materia de cultura, deportes, juventud y servicios sociales para 2026, con un presupuesto total de 11.000 euros. El plazo ya no está abierto en este momento.</p>
+  <p class="tc-articulo-parrafo">Aquí conviene tener claro a quién va dirigido esto: no es una ayuda para un vecino a título individual, sino para personas jurídicas que no desarrollan actividad económica. Es decir, asociaciones, clubes y entidades sin ánimo de lucro del municipio que trabajan en cultura, deporte, juventud o servicios sociales. Si formas parte de alguna de esas entidades, es a vosotros a quienes os interesa.</p><p class="tc-articulo-parrafo">El dinero que reparte esta convocatoria son 11.000 euros en total para el ejercicio 2026. Se rige por la Ordenanza General reguladora de la concesión de subvenciones del propio Ayuntamiento de Medina de Rioseco, que es donde vienen las condiciones y los requisitos concretos.</p><p class="tc-articulo-parrafo">Un aviso importante sobre las fechas: aunque la convocatoria se publicó el 2 de junio de 2026, ahora mismo no figura como abierta, así que el plazo de presentación de solicitudes no está disponible en este momento. Si tu asociación quiere optar en próximas ediciones, lo mejor es estar pendiente de nuevas convocatorias del Ayuntamiento.</p>
   <div class="tc-source-box">
     <strong>Fuente oficial:</strong> convocatoria oficial de Medina de Rioseco, registrada en la Base de Datos Nacional de Subvenciones (BDNS).
     <a href="https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/1111593" target="_blank" rel="noopener">Ver la convocatoria oficial →</a>
@@ -51,11 +71,34 @@
   <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
     <h2>La semana terracampina</h2>
-    <p>Un correo, una vez por semana. Lo que pasa cerca, contado claro. Al suscribirte te mandamos también, uno a uno, los reportajes que ya hemos publicado, empezando por el primero.</p>
+    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
     <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
   </div>
 </div>
 <script>
+// "Otro pueblo…" en los formularios. La comarca tiene 178 municipios y el sitio
+// solo hace ficha de unos 20: sin esto, una familia de Cuenca de Campos o de
+// Castromocho no podía publicar la esquela de su madre porque, literalmente, no
+// había opción que marcar. El pueblo escrito a mano llega en el mismo campo y
+// lo ve el revisor humano, que es quien decide.
+function puebloElegido(idSelect, idOtro) {
+  var s = document.getElementById(idSelect), o = document.getElementById(idOtro);
+  if (s && s.value === "_otro" && o) return (o.value || "").trim();
+  return s ? s.value : "";
+}
+document.addEventListener("DOMContentLoaded", function() {
+  [["es-pueblo", "es-pueblo-otro"], ["ar-pueblo", "ar-pueblo-otro"],
+   ["tc-chiv-pueblo", "tc-chiv-pueblo-otro"]].forEach(function(par) {
+    var s = document.getElementById(par[0]), o = document.getElementById(par[1]);
+    if (!s || !o) return;
+    s.addEventListener("change", function() {
+      var otro = s.value === "_otro";
+      o.hidden = !otro;
+      o.required = otro;
+      if (otro) o.focus();
+    });
+  });
+});
 (function() {
   var API = "../api/suscribir";
   // Todos los formularios de suscripción de la página (popup + pie) van al
@@ -74,7 +117,10 @@
       }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, d: d }; }); })
         .then(function(res) {
           if (res.ok) {
-            form.innerHTML = "<p class=\"tc-form-ok\">Hecho. Revisa tu correo — bienvenido.</p>";
+            // Con doble confirmación, un "bienvenido" a secas hacía que la gente
+            // diera por hecho que ya estaba y no confirmara nunca. Hay que decir
+            // exactamente qué tiene que hacer ahora.
+            form.innerHTML = "<p class=\"tc-form-ok\">Casi está. Te hemos mandado un correo: <strong>ábrelo y pulsa el enlace para confirmar</strong>. Si no lo ves en unos minutos, mira en la carpeta de spam o correo no deseado.</p>";
             localStorage.setItem("tc_newsletter_popup_visto", "1");
           } else {
             btn.disabled = false; btn.textContent = "Suscribirme";
@@ -94,11 +140,26 @@
   var close = document.getElementById("tc-popup-close");
   function ocultar() {
     overlay.classList.remove("tc-popup-overlay--visible");
+    document.body.style.overflow = "";
     localStorage.setItem(KEY, "1");
   }
-  setTimeout(function() { overlay.classList.add("tc-popup-overlay--visible"); }, 3000);
+  // No se lanza encima de un reportaje: es justo el momento en que el lector
+  // decide si se queda, y taparle el titular antes de haber leído tres frases
+  // es pedirle el correo antes de haberle dado nada.
+  if (document.querySelector(".tc-blog-articulo")) return;
+  setTimeout(function() {
+    overlay.classList.add("tc-popup-overlay--visible");
+    // Bloquear el scroll de detrás: si no, la página se movía por debajo del
+    // cartel y se podía mover pero no leer.
+    document.body.style.overflow = "hidden";
+  }, 3000);
   close.addEventListener("click", ocultar);
   overlay.addEventListener("click", function(e) { if (e.target === overlay) ocultar(); });
+  // Escape y tocar fuera: antes la ÚNICA salida era una "×" diminuta, y quien
+  // no la acertaba se quedaba encerrado en el cartel.
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && overlay.classList.contains("tc-popup-overlay--visible")) ocultar();
+  });
 })();
 </script>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
