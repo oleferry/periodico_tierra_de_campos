@@ -2158,8 +2158,24 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
     ordenadas = sorted(por_hash.values(),
                        key=lambda e: (e["doc"].get("published_at") or "", relevancia(e["doc"])),
                        reverse=True)
+    # Tope por pueblo: una web municipal que publica cinco cosas el mismo día
+    # copaba el boletín entero (pasó con Carrión el 2026-08-05) y a un vecino de
+    # Villalón le llegaba un boletín sobre otro pueblo. Es un periódico comarcal:
+    # mejor repartir.
+    MAX_POR_PUEBLO = 2
+    por_pueblo: dict[str, int] = {}
+    seleccion = []
+    for e in ordenadas:
+        clave = e["municipios"][0] if len(e["municipios"]) == 1 else "_comarcal"
+        if clave != "_comarcal" and por_pueblo.get(clave, 0) >= MAX_POR_PUEBLO:
+            continue
+        por_pueblo[clave] = por_pueblo.get(clave, 0) + 1
+        seleccion.append(e)
+        if len(seleccion) >= 8:
+            break
+
     noticias = []
-    for e in ordenadas[:8]:
+    for e in seleccion:
         d = e["doc"]
         red = redactar(d)
         munis = e["municipios"]
