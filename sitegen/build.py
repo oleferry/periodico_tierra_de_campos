@@ -2136,17 +2136,44 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
     no puede introducir texto nuevo ni inventar."""
     base = "https://elterracampino.es"
     r = resumen_tiempo(built)
-    # Las noticias del día, ya ordenadas por relevancia como en portada.
-    ordenadas = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
+
+    # Una misma resolución del BOCyL puede afectar a varios municipios y aparece
+    # UNA VEZ POR CADA UNO en el feed. Sin agrupar, el boletín repetía cinco
+    # veces seguidas el anuncio de la línea de 132 kV: de 8 "noticias", 3
+    # distintas.
+    por_hash: dict[str, dict] = {}
+    for d in feed:
+        e = por_hash.get(d["hash"])
+        if e:
+            if d.get("municipality_name") and d["municipality_name"] not in e["municipios"]:
+                e["municipios"].append(d["municipality_name"])
+        else:
+            por_hash[d["hash"]] = {"doc": d,
+                                   "municipios": [d["municipality_name"]] if d.get("municipality_name") else []}
+
+    # Lo NUEVO primero. Antes esto se ordenaba por relevancia, que puntúa por
+    # palabras clave y NO mira la fecha: un anuncio jugoso de hace semanas ganaba
+    # siempre, así que el boletín mandaba día tras día las mismas noticias en vez
+    # de las últimas. La relevancia queda solo para desempatar dentro del día.
+    ordenadas = sorted(por_hash.values(),
+                       key=lambda e: (e["doc"].get("published_at") or "", relevancia(e["doc"])),
+                       reverse=True)
     noticias = []
-    for d in ordenadas[:8]:
+    for e in ordenadas[:8]:
+        d = e["doc"]
         red = redactar(d)
+        munis = e["municipios"]
+        if len(munis) > 2:
+            donde = f"{len(munis)} pueblos de la comarca"
+        else:
+            donde = " y ".join(munis)
         noticias.append({
             "hash": d["hash"],
             "titular": red["titular"],
-            "municipio": d.get("municipality_name", ""),
+            "municipio": donde,
+            "fecha": d.get("published_at", ""),
             "fuente": fuente_label(d),
-            "url": f"{base}/{articulo_path(d)}" if red.get("cuerpo") else d.get("url_original", ""),
+            "url": f"{base}/{articulo_path(d)}" if red.get("cuerpo") else url_segura(d.get("url_original", "")),
         })
     datos = {
         "fecha": hoy.isoformat(),
