@@ -1,8 +1,9 @@
-# Publica en Instagram (@elterracampino) el artículo del blog más reciente que
+# Publica en Instagram (@elterracampino) la entrada más reciente del feed RSS que
 # tenga imagen y no se haya publicado aún. Una publicación por ejecución.
 #
+# Usa el script genérico scripts/publish-instagram.mjs, configurado por entorno.
 # El registro de lo ya publicado vive en scripts/instagram-posted.json (array de
-# slugs) y se commitea aquí mismo; sin él se republicaría lo mismo.
+# guids) y se commitea aquí mismo; sin él se republicaría lo mismo.
 #
 # Secrets necesarios (Settings -> Secrets and variables -> Actions):
 #   META_IG_USER_ID       ID numérico de la cuenta de Instagram de este negocio
@@ -10,10 +11,8 @@
 #
 # NOTA sobre la hora: GitHub programa el cron en UTC. España va en UTC+2 en
 # verano y UTC+1 en invierno, así que la hora local de este cron se desplaza una
-# hora entre estaciones. El valor de abajo (08:15 UTC, lunes) equivale a ~10:15
-# en verano y ~09:15 en invierno, ya pasado el build diario (06:10 UTC) para que
-# la imagen del artículo esté publicada en la web. Dime el día/hora local que
-# quieras y ajusto el cron.
+# hora entre estaciones. 08:15 UTC (lunes) ≈ 10:15 verano / 09:15 invierno, ya
+# pasado el build diario (06:10 UTC). Dime el día/hora local que quieras y ajusto.
 
 name: Instagram (mjs)
 
@@ -47,8 +46,15 @@ jobs:
       - name: Publicar en Instagram
         id: publish
         env:
-          META_IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
-          META_IG_ACCESS_TOKEN: ${{ secrets.META_IG_ACCESS_TOKEN }}
+          # --- credenciales de ESTE sitio (mapeo de secrets a nombres del script) ---
+          IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.META_IG_ACCESS_TOKEN }}
+          # --- configuración del sitio ---
+          FEED_URL: "https://elterracampino.es/feed.xml"
+          IG_IMAGE_MODE: "template"
+          IG_IMAGE_REPLACEMENTS: '[["/blog/","/assets/blog/"],[".html",".jpg"]]'
+          IG_CTA: "Lo contamos entero en elterracampino.es — enlace en la bio."
+          IG_HASHTAGS: "#TierraDeCampos #Palencia #Valladolid #León #Zamora #EspañaVaciada #PueblosDeEspaña"
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             node scripts/publish-instagram.mjs --dry-run
@@ -57,7 +63,7 @@ jobs:
           fi
 
       - name: Commit del registro si hubo publicación
-        if: ${{ inputs.dry_run != true && steps.publish.outputs.slug != '' }}
+        if: ${{ inputs.dry_run != true && steps.publish.outputs.guid != '' }}
         run: |
           git config user.name "El Terracampino (bot)"
           git config user.email "bot@users.noreply.github.com"
@@ -65,7 +71,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Sin cambios en el registro."
           else
-            git commit -m "Instagram: registra ${{ steps.publish.outputs.slug }}"
+            git commit -m "Instagram: registra publicación (${{ steps.publish.outputs.published_id }})"
             git pull --rebase origin "${GITHUB_REF_NAME}" || true
             git push
           fi
