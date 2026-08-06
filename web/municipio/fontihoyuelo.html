@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fontihoyuelo — El Terracampino</title>
-<meta name="description" content="Ahora mismo en Fontihoyuelo estamos en 16 grados y el cielo está limpio. La máxima llegará a los 32 hoy, con un viento flojo de 14 km/h y sin rastro d">
+<meta name="description" content="Noticias y tiempo de Fontihoyuelo, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,53 +65,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Fontihoyuelo: 16° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">16°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.16192&longitude=-5.05791&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Ahora mismo en Fontihoyuelo estamos en 16 grados y el cielo está limpio. La máxima llegará a los 32 hoy, con un viento flojo de 14 km/h y sin rastro de lluvia. Mañana sube un poco más — hasta 34 — y continúa sin nubes. Es tiempo seco y caluroso, que lo tengas en cuenta si trabajas en el campo.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes despejado y ventoso</h4>
-      <p class="tc-day-texto">Cielo limpio con máximas de 34° y mínimas de 17°. El viento sopla con ganas, rondando los 34 km/h, así que no será un día para estar tranquilo al aire libre.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">17°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado con llovizna tímida</h4>
-      <p class="tc-day-texto">Probabilidad baja de lluvia, aunque puede caer una llovizna débil de apenas 0.3 mm. Máxima de 34° y mínima de 22°, con viento moderado de 28 km/h.</p>
-      <span class="tc-day-temp tc-data">34° <span class="tc-day-min">22°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo nublado y suave</h4>
-      <p class="tc-day-texto">Nubosidad sin precipitaciones significativas, con máxima de 33° y mínima de 22°. El viento calmará un poco respecto al fin de semana, con 23 km/h.</p>
-      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">22°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Fontihoyuelo</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Fontihoyuelo</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Fontihoyuelo: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Fontihoyuelo incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
