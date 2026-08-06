@@ -6,6 +6,11 @@ El Terracampino: periódico digital de la comarca de Tierra de Campos (Palencia,
 Valladolid, León y Zamora). Genera un sitio estático a partir de fuentes
 oficiales, redactando con IA bajo reglas editoriales estrictas.
 
+Todo el generador es Python, **salvo el publicador de Instagram**
+(`scripts/publish-instagram.mjs`, Node — ver `docs/instagram.md`): es
+deliberadamente genérico y dirigido por RSS para poder reutilizarse en otros
+sitios sin tocar código específico de este proyecto.
+
 ## Reglas editoriales (no negociables)
 
 - **Nunca inventar** personas, declaraciones, muertes ni el estado de un
@@ -42,7 +47,7 @@ Contenido y análisis:
 python -m scripts.generar_articulo_blog --tema <tema>   # investigación larga
 python -m scripts.desarrollar_pista --listar            # pistas del radar
 python -m scripts.detectar_anomalias                    # datos que se salen de su media
-python -m scripts.publicar_instagram --dry-run
+node scripts/publish-instagram.mjs --dry-run  # ver docs/instagram.md
 ```
 
 **No hay suite de tests.** La verificación es: `--dry-run` del scraper tocado,
