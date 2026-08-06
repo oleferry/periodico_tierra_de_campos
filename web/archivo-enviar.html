@@ -59,7 +59,7 @@
   <div class="tc-card">
     <form id="tc-archivo-form">
       <p style="margin:0 0 6px;"><label style="font-weight:700; font-size:.9rem;">Pueblo *</label></p>
-      <select id="ar-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option><option value="medina-de-rioseco">Medina de Rioseco</option><option value="sahagun">Sahagún</option><option value="carrion-de-los-condes">Carrión de los Condes</option><option value="paredes-de-nava">Paredes de Nava</option><option value="valderas">Valderas</option><option value="villalon-de-campos">Villalón de Campos</option><option value="villalpando">Villalpando</option><option value="mayorga">Mayorga</option><option value="villada">Villada</option><option value="villarramiel">Villarramiel</option><option value="becerril-de-campos">Becerril de Campos</option><option value="fuentes-de-nava">Fuentes de Nava</option><option value="almanza">Almanza</option><option value="bustillo-de-chaves">Bustillo de Chaves</option><option value="cabezon-de-valderaduey">Cabezón de Valderaduey</option><option value="castrobol">Castrobol</option><option value="cea">Cea</option><option value="ceinos-de-campos">Ceinos de Campos</option><option value="el-burgo-ranero">El Burgo Ranero</option><option value="fontihoyuelo">Fontihoyuelo</option><option value="gordaliza-del-pino">Gordaliza del Pino</option><option value="grajal-de-campos">Grajal de Campos</option><option value="herrin-de-campos">Herrín de Campos</option><option value="morales-de-campos">Morales de Campos</option><option value="palazuelo-de-vedija">Palazuelo de Vedija</option><option value="valdunquillo">Valdunquillo</option><option value="valverde-de-campos">Valverde de Campos</option><option value="villagarcia-de-campos">Villagarcía de Campos</option><option value="villanueva-de-la-condesa">Villanueva de la Condesa</option><option value="villanueva-de-los-caballeros">Villanueva de los Caballeros</option><option value="_otro">Otro pueblo de la comarca…</option></select>
+      <select id="ar-pueblo" name="pueblo" class="tc-muni-select" required><option value="">Elige el pueblo…</option><option value="medina-de-rioseco">Medina de Rioseco</option><option value="sahagun">Sahagún</option><option value="carrion-de-los-condes">Carrión de los Condes</option><option value="paredes-de-nava">Paredes de Nava</option><option value="valderas">Valderas</option><option value="villalon-de-campos">Villalón de Campos</option><option value="villalpando">Villalpando</option><option value="mayorga">Mayorga</option><option value="villada">Villada</option><option value="villarramiel">Villarramiel</option><option value="becerril-de-campos">Becerril de Campos</option><option value="fuentes-de-nava">Fuentes de Nava</option><option value="almanza">Almanza</option><option value="bustillo-de-chaves">Bustillo de Chaves</option><option value="cabezon-de-valderaduey">Cabezón de Valderaduey</option><option value="castrobol">Castrobol</option><option value="castroponce-de-valderaduey">Castroponce de Valderaduey</option><option value="cea">Cea</option><option value="ceinos-de-campos">Ceinos de Campos</option><option value="el-burgo-ranero">El Burgo Ranero</option><option value="fontihoyuelo">Fontihoyuelo</option><option value="gordaliza-del-pino">Gordaliza del Pino</option><option value="grajal-de-campos">Grajal de Campos</option><option value="herrin-de-campos">Herrín de Campos</option><option value="morales-de-campos">Morales de Campos</option><option value="palazuelo-de-vedija">Palazuelo de Vedija</option><option value="valdunquillo">Valdunquillo</option><option value="valverde-de-campos">Valverde de Campos</option><option value="villagarcia-de-campos">Villagarcía de Campos</option><option value="villanueva-de-la-condesa">Villanueva de la Condesa</option><option value="villanueva-de-los-caballeros">Villanueva de los Caballeros</option><option value="_otro">Otro pueblo de la comarca…</option></select>
       <input id="ar-pueblo-otro" class="tc-input" placeholder="Escribe el nombre del pueblo" maxlength="80" hidden style="width:100%; box-sizing:border-box; margin-top:8px;" aria-label="Nombre del pueblo">
       <p style="margin:12px 0 6px;"><label style="font-weight:700; font-size:.9rem;">Año aproximado</label></p>
       <input id="ar-anio" name="anio" class="tc-input" maxlength="30" placeholder="p. ej. 1965, o 'años 70'" style="width:260px;">
@@ -137,11 +137,20 @@
   <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
 <div class="tc-popup-overlay" id="tc-popup-overlay">
-  <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
+  <div class="tc-popup" role="dialog" aria-label="Recibe El Terracampino">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
-    <h2>La semana terracampina</h2>
-    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
-    <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+    <h2>No te pierdas lo de tu pueblo</h2>
+    <p>Elige cómo prefieres recibirlo — puedes con los dos.</p>
+    <div class="tc-popup-opcion">
+      <p class="tc-popup-opcion-titulo">📧 Un correo a la semana</p>
+      <p class="tc-popup-opcion-texto">Lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
+      <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+    </div>
+    <div class="tc-popup-opcion">
+      <p class="tc-popup-opcion-titulo">💬 Telegram, al momento</p>
+      <p class="tc-popup-opcion-texto">Un mensaje cuando hay algo que contar de verdad: el tiempo con la noticia del día, o un aviso importante. Telegram es una app gratuita, parecida a WhatsApp.</p>
+      <p><a class="tc-button tc-button--ghost" href="https://t.me/elterracampino" target="_blank" rel="noopener">Unirme al canal de Telegram</a></p>
+    </div>
   </div>
 </div>
 <script>

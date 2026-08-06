@@ -338,14 +338,36 @@
   position: relative;
   background: var(--tc-papel-crudo);
   border: 1px solid var(--tc-linea);
-  max-width: 420px;
+  max-width: 440px;
   width: 100%;
   padding: var(--tc-space-4);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.tc-popup h2 { font-size: 1.2rem; margin: 0 0 8px; }
-.tc-popup p { font-size: .9rem; color: var(--tc-texto-secundario); margin: 0 0 var(--tc-space-3); }
+.tc-popup h2 { font-size: 1.2rem; margin: 0 0 4px; }
+.tc-popup > p { font-size: .9rem; color: var(--tc-texto-secundario); margin: 0 0 var(--tc-space-3); }
 .tc-popup .tc-form { flex-wrap: wrap; }
+
+/* Las dos vías de suscripción (correo + Telegram), una debajo de otra dentro
+   del mismo popup, separadas por una línea fina para que se lean como dos
+   opciones y no como un único formulario largo. */
+.tc-popup-opcion {
+  padding: var(--tc-space-3) 0;
+  border-top: 1px solid var(--tc-linea);
+}
+
+.tc-popup-opcion:first-of-type { border-top: none; padding-top: 0; }
+
+.tc-popup-opcion-titulo { font-weight: 700; margin: 0 0 4px; font-size: 1rem; }
+.tc-popup-opcion-texto { font-size: .85rem; color: var(--tc-texto-secundario); margin: 0 0 10px; line-height: 1.4; }
+
+.tc-popup .tc-button--ghost {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid var(--tc-tinta-tierra);
+  color: var(--tc-tinta-tierra);
+}
 
 /* `flex: 1 1 200px` sobre un contenedor en columna hacía que en móvil el campo
    del correo se estirara a ~200 px DE ALTO: un cuadrado enorme y vacío que

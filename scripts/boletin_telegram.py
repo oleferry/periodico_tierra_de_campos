@@ -2,7 +2,12 @@
 
 Hasta ahora el canal solo recibía avisos de AEMET, que en una semana tranquila
 son cero: el canal se quedaba mudo días enteros aunque el periódico publicara.
-Esto manda un mensaje al día con el tiempo de la comarca y las noticias nuevas.
+
+Esto manda un boletín SOLO cuando hay algo real que contar (noticias nuevas o
+un aviso meteorológico vigente) — el tiempo NUNCA se manda solo, va siempre
+acompañando a una noticia o a un aviso. Un día tranquilo sin nada nuevo, el
+canal calla: es mejor silencio honesto que un mensaje de relleno diario que la
+gente acabe silenciando.
 
 De dónde salen los datos: de `data/boletin_hoy.json`, que escribe el build
 (sitegen/build.py:escribir_resumen_dia) con los titulares YA redactados y

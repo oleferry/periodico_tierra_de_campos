@@ -595,15 +595,30 @@ def newsletter_popup(depth: int) -> str:
     página contra /api/suscribir (web/api/suscribir.js, función de Vercel que
     habla con MailerLite en servidor — la clave nunca toca el navegador).
 
+    Ofrece las DOS vías de suscripción (correo semanal + Telegram diario) en el
+    mismo popup, en vez de un segundo popup aparte: antes vivían solo en el pie
+    de página, donde casi nadie llega a verlas, y añadir una segunda ventana
+    emergente habría sido más intrusivo, justo lo contrario de lo que se acaba
+    de arreglar en la revisión de usabilidad.
+
     El popup sale una sola vez por visitante (localStorage), a los 3s, y no
     vuelve a molestar ni aunque cierre sin suscribirse."""
     up = "../" * depth
     return f"""<div class="tc-popup-overlay" id="tc-popup-overlay">
-  <div class="tc-popup" role="dialog" aria-label="Suscripción a la newsletter">
+  <div class="tc-popup" role="dialog" aria-label="Recibe El Terracampino">
     <button class="tc-popup-close" id="tc-popup-close" aria-label="Cerrar">×</button>
-    <h2>La semana terracampina</h2>
-    <p>Un correo a la semana con lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
-    <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+    <h2>No te pierdas lo de tu pueblo</h2>
+    <p>Elige cómo prefieres recibirlo — puedes con los dos.</p>
+    <div class="tc-popup-opcion">
+      <p class="tc-popup-opcion-titulo">📧 Un correo a la semana</p>
+      <p class="tc-popup-opcion-texto">Lo que pasa cerca, contado claro. Al apuntarte te mandamos además los cinco reportajes que ya hemos publicado, uno por semana.</p>
+      <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
+    </div>
+    <div class="tc-popup-opcion">
+      <p class="tc-popup-opcion-titulo">💬 Telegram, al momento</p>
+      <p class="tc-popup-opcion-texto">Un mensaje cuando hay algo que contar de verdad: el tiempo con la noticia del día, o un aviso importante. Telegram es una app gratuita, parecida a WhatsApp.</p>
+      <p><a class="tc-button tc-button--ghost" href="https://t.me/elterracampino" target="_blank" rel="noopener">Unirme al canal de Telegram</a></p>
+    </div>
   </div>
 </div>
 <script>
