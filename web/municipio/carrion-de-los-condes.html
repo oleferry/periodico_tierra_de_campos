@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Carrión de los Condes — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Carrión de los Condes, Tierra de Campos.">
+<meta name="description" content="En Carrión de los Condes ahora mismo tenemos 19 grados y el cielo limpio. La máxima llegará a 32, con un viento flojo de 16 kilómetros por hora y sin ">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,7 +53,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Carrión de los Condes</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.997 habitantes</span><span>Actualizado: 9/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.997 habitantes</span><span>Actualizado: 10/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/carrion-de-los-condes.jpg" alt="Carrión de los Condes" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Carrión_de_los_Condes_-_Inmediaciones_del_Monasterio_de_San_Zoilo_1.jpg" target="_blank" rel="noopener">Zarateman</a>,
@@ -65,12 +65,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Carrión de los Condes</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Carrión de los Condes</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Carrión de los Condes: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Carrión de los Condes: 19° y despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">19°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.338889&longitude=-4.601944&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Carrión de los Condes ahora mismo tenemos 19 grados y el cielo limpio. La máxima llegará a 32, con un viento flojo de 16 kilómetros por hora y sin visos de lluvia. Mañana seguirá despejado y subirá un poco más, hasta los 33. Son días de buen tiempo, secos de momento.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Martes</span>
+      <h4 class="tc-day-titular">Martes soleado y con aire</h4>
+      <p class="tc-day-texto">Máxima de 33° y mínima de 19° con cielos despejados. El viento sopla a 26 km/h sin asomo de lluvia.</p>
+      <span class="tc-day-temp tc-data">33° <span class="tc-day-min">19°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles caluroso y ventoso</h4>
+      <p class="tc-day-texto">La temperatura sube a 36° con mínima de 22° y vientos de 30 km/h que ganarán intensidad. Cielos casi despejados sin lluvia.</p>
+      <span class="tc-day-temp tc-data">36° <span class="tc-day-min">22°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves en lo más caliente</h4>
+      <p class="tc-day-texto">Alcanzamos los 37° en máxima con mínima de 24° y vientos de 26 km/h. Despejado de principio a fin.</p>
+      <span class="tc-day-temp tc-data">37° <span class="tc-day-min">24°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Carrión de los Condes incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -93,6 +134,11 @@
       <span class="tc-news-kicker">BOCyL · 2026-06-09</span>
       <span class="tc-news-titular">Agrocali 34 quiere montar un almacén de insumos agrícolas en suelo rústico de Carrión de los Condes</span>
       <span class="tc-news-entradilla">La empresa Agrocali 34, S.L. ha pedido permiso para una actividad agroindustrial y de venta de productos agrícolas en la parcela 63 del polígono 517. Al ser suelo rústico, está en información pública antes de que se autorice.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://www.carriondeloscondes.org/carrion-de-los-condes-ya-cuenta-con-el-nuevo-sello-del-camino-de-santiago/" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">Web municipal · 2026-08-09</span>
+      <span class="tc-news-titular">Carrión de los Condes estrena el nuevo sello del Camino de Santiago</span>
+      <span class="tc-news-entradilla">El municipio ya dispone del nuevo sello para los peregrinos que hacen el Camino de Santiago a su paso por la localidad.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://www.carriondeloscondes.org/concierto-de-alumnos-musicamp/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-08-08</span>
@@ -138,11 +184,6 @@
       <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
       <span class="tc-news-titular">Carrión de los Condes participará en los Torneos Provinciales de Fútbol Sala 2026-27</span>
       <span class="tc-news-entradilla">La Diputación de Palencia organiza los torneos provinciales de fútbol sala para la temporada 2026-27. El Ayuntamiento ya ha dado a conocer la convocatoria.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://www.carriondeloscondes.org/abiertas-las-inscripciones-para-el-xii-torneo-de-padel-san-zoilo-2026/" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Web municipal · 2026-08-04</span>
-      <span class="tc-news-titular">Abiertas las inscripciones para el XII Torneo de Pádel San Zoilo en Carrión de los Condes</span>
-      <span class="tc-news-entradilla">El Ayuntamiento ya admite apuntarse a la duodécima edición del torneo de pádel San Zoilo de este 2026. Quien quiera jugar, tiene abierto el plazo de inscripción.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/05/18/html/BOCYL-D-18052026-92-38.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-05-18</span>
