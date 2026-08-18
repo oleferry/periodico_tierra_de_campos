@@ -1,5 +1,33 @@
 [
   {
+    "municipality_slug": "pina-de-campos",
+    "municipality_name": "Piña de Campos",
+    "title": "Obligan a Adif a pagar casi cuatro veces más por una parcela expropiada en Piña de Campos para las obras del Ave",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/obligan-adif-pagar-cuatro-veces-parcela-expropiada-20260718155548-nt.html",
+    "published_at": "2026-07-18",
+    "detected_at": "2026-08-18T14:23:20.167903+00:00",
+    "hash": "0d913c912dddc3343c574ae9af01f7aa8e638114b8c87c916d339b0dae3db72d",
+    "confidence": "medium",
+    "requires_review": true,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El TSJ eleva a 222.815 euros el justiprecio por la expropiación de una parcela en Piña de Campos para el AVE",
+      "entradilla": "El Tribunal Superior de Justicia de Castilla y León ha estimado en parte el recurso de una cooperativa agropecuaria de Piña de Campos y cuadruplica la cantidad que había fijado el Jurado Provincial de Expropiación de Palencia.",
+      "cuerpo": [
+        "La Sala de lo Contencioso Administrativo del Tribunal Superior de Justicia de Castilla y León, con sede en Valladolid, ha dado la razón en parte a la empresa Líder Sociedad Cooperativa, de Piña de Campos, en su pleito por lo que le corresponde cobrar por unos terrenos expropiados para la línea de alta velocidad Palencia-Aguilar de Campoo, en el tramo Amusco-Osorno. Así lo recoge El Norte de Castilla.",
+        "La expropiación afectó a la parcela 59 del polígono 402 del término municipal de Piña de Campos, de la que se expropiaron parcialmente 11.987 metros cuadrados, algo más del 45% de su superficie total. La beneficiaria de la operación era la entidad pública Adif-Alta Velocidad.",
+        "El Jurado Provincial de Expropiación Forzosa de Palencia había fijado en septiembre de 2022 un justiprecio de 56.632,79 euros. El TSJ ha anulado esa resolución y ha establecido en su lugar 222.815,84 euros, cantidad que incluye el premio de afección. Adif deberá abonar además el interés legal desde el 23 de junio de 2021 hasta que se complete el pago.",
+        "La sentencia no impone las costas a ninguna de las partes y no es firme: contra ella cabe recurso de casación."
+      ]
+    }
+  },
+  {
     "municipality_slug": "mayorga",
     "municipality_name": "Mayorga",
     "title": "Mayorga reúne en una exposición sus imágenes devocionales",

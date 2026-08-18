@@ -11,11 +11,9 @@ Reparto (lo que pidió el usuario el 2026-07-17): cada noticia vive en la ficha
 de su pueblo, no en la portada — a un vecino de Villada no le interesa mucho lo
 que pasa en Sahagún, y la portada no debe convertirse en un cajón de sastre.
 
-Nada se publica solo:
-  · el resultado se guarda con estado 'borrador' en data/noticias/propias.json;
-  · solo aparece en la web cuando se marca 'publicado' (--publicar);
-  · la política editorial (editorial/politica_editorial.md) prohíbe publicar
-    sucesos automáticamente, y buena parte del radar son sucesos.
+Publicación (decisión del usuario, 2026-08-18): --indice publica directamente,
+sin paso manual de revisión. --publicar se conserva por compatibilidad con
+piezas antiguas que hayan quedado en estado 'borrador'.
 
 A diferencia de la cola de pistas (data/radar/, en .gitignore por ser texto
 ajeno), este fichero SÍ se versiona: es contenido nuestro.
@@ -123,9 +121,9 @@ def desarrollar(pista: dict) -> dict:
         "detected_at": datetime.now(timezone.utc).isoformat(),
         "pista_texto": texto,
         "hash": sha256(f"propia-{pista['url_original']}"),
-        "confidence": "medium",            # material de terceros: siempre revisar
-        "requires_review": True,
-        "estado": "borrador",
+        "confidence": "medium",            # material de terceros, sin revisión humana
+        "requires_review": False,
+        "estado": "publicado",
         "metadata": {"fuente": pista["fuente"], "fuente_slug": pista["fuente_slug"],
                      "scraper": "SCR-016"},
     }
@@ -201,8 +199,8 @@ def main() -> int:
     for parrafo in r["cuerpo"]:
         print(f"{parrafo}\n")
     print(f"Fuente citada: {doc['metadata']['fuente']} — {doc['url_original']}")
-    print(f"\nGuardado como BORRADOR (no está en la web). Revísalo y, si vale:")
-    print(f"  python -m scripts.desarrollar_pista --publicar {doc['hash'][:12]}")
+    print(f"\nPublicada. Aparecerá en la ficha de {doc['municipality_name']}",
+          "en el próximo `python -m sitegen.build`.")
     return 0
 
 
