@@ -2372,6 +2372,8 @@ def render_acompanar_hoja() -> str:
   por los Servicios Sociales (CEAS) de tu zona.</p>
   <p class="pie" style="border:0;padding-top:.3rem;"><strong>El Terracampino</strong> · el periódico de los pueblos de Tierra de Campos · elterracampino.es</p>
 </div>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
 """
@@ -2477,6 +2479,8 @@ def render_404() -> str:
     <a href="/gente.html">Gente de Campos</a>
   </p>
 </div></section>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
 """
