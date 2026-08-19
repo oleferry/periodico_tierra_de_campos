@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Villada — El Terracampino</title>
-<meta name="description" content="En Villada ahora mismo estamos en 21 grados y el cielo nublado. La temperatura va a subir bastante — llegaremos a los 35 — pero sin lluvia de verdad, ">
+<title>Piña de Campos — El Terracampino</title>
+<meta name="description" content="En Piña de Campos ahora hay nubes y claros con 18 grados. Hoy subirá bastante, hasta los 35, y la mínima no bajará de los 16. El viento será flojo y l">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,13 +52,9 @@
 </script></header>
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
-  <h1>Villada</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>863 habitantes</span><span>Actualizado: 19/08/2026</span></div>
-  <div class="tc-muni-hero-foto">
-    <img src="../assets/fotos-libres/villada.jpg" alt="Villada" loading="lazy">
-    <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Villada,_plaza_Mayor.jpg" target="_blank" rel="noopener">Rodelar</a>,
-      <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, vía Wikimedia Commons</p>
-  </div>
+  <h1>Piña de Campos</h1>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>Actualizado: 19/08/2026</span></div>
+  
 </div></section>
 
 <section class="tc-wrap"><div class="tc-card" style="border-left:5px solid #C9A227;">
@@ -70,11 +66,11 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villada: 21° y nublado</h2>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Piña de Campos: 18° y nubes y claros</h2>
     <div class="tc-weather-hero">
     <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">21°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">18°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nubes y claros</span>
       <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
     </div>
     <script>
@@ -84,7 +80,7 @@
     66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
     80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
     95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.25056&longitude=-4.96694&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.21326&longitude=-4.43657&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(d) {
       if (!d || !d.current) return;
@@ -98,96 +94,78 @@
     .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
 })();
 </script>
-    <p class="tc-weather-article">En Villada ahora mismo estamos en 21 grados y el cielo nublado. La temperatura va a subir bastante — llegaremos a los 35 — pero sin lluvia de verdad, solo una probabilidad baja. El viento sopla flojo. Mañana cambia la cosa: vienen chubascos fuertes y baja mucho, hasta los 25. Si tienes plantas, riega hoy a primera hora o cuando se ponga el sol, no al mediodía con este calor.</p>
+    <p class="tc-weather-article">En Piña de Campos ahora hay nubes y claros con 18 grados. Hoy subirá bastante, hasta los 35, y la mínima no bajará de los 16. El viento será flojo y lluvia no esperes, aunque hay un 33% de probabilidad. Mañana cambia: lloverá con debilidad y las temperaturas bajarán hasta los 25. Si tienes riego, hazlo a primera hora o al caer la tarde — con este calor, regar al mediodía es tirar agua.</p>
     <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
     <div class="tc-days"><article class="tc-day">
       <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves con chubascos fuertes</h4>
-      <p class="tc-day-texto">Los chubascos llegarán con probabilidad alta y dejarán unos 12 milímetros de agua. Temperaturas entre 16 y 25 grados, con viento moderado de 18 kilómetros por hora.</p>
+      <h4 class="tc-day-titular">Jueves con llovizna y viento</h4>
+      <p class="tc-day-texto">Jornada de llovizna débil con máxima de 25° y mínima de 16°. El viento rondará los 29 km/h, así que conviene abrigarse bien si sales a la calle.</p>
       <span class="tc-day-temp tc-data">25° <span class="tc-day-min">16°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes nublado y ventoso</h4>
-      <p class="tc-day-texto">El cielo seguirá cubierto pero sin lluvia segura, apenas un 40 por ciento de probabilidad. Máximas de 22 grados y viento que se intensificará hasta los 30 kilómetros por hora.</p>
-      <span class="tc-day-temp tc-data">22° <span class="tc-day-min">12°</span></span>
+      <h4 class="tc-day-titular">Viernes nublado pero seco</h4>
+      <p class="tc-day-texto">Cielos cubiertos pero sin lluvia a la vista, con máxima de 23° y mínima de 14°. El viento se mantiene en torno a los 28 km/h.</p>
+      <span class="tc-day-temp tc-data">23° <span class="tc-day-min">14°</span></span>
     </article><article class="tc-day">
       <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado nublado con rachas fuertes</h4>
-      <p class="tc-day-texto">Nubes sin lluvia esperada, con solo un 28 por ciento de probabilidad de precipitaciones. El viento será lo más notable, alcanzando 36 kilómetros por hora, mientras las temperaturas suben hasta 26 grados.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">14°</span></span>
+      <h4 class="tc-day-titular">Sábado nublado y templado</h4>
+      <p class="tc-day-texto">Día nublado sin lluvia, con máxima de 27° y mínima de 14°. Viento de 29 km/h que acompañará la jornada.</p>
+      <span class="tc-day-temp tc-data">27° <span class="tc-day-min">14°</span></span>
     </article></div>
   </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villada incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
+      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Piña de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
       <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
-    <h2 class="tc-block-title">Lo que pasa en Villada</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="../noticia/4db00654e8d4dae1.html" target="_self">
-      <span class="tc-news-kicker">BOCyL · 2026-07-17</span>
-      <span class="tc-news-titular">Un incendio que arrancó en Codornillos ha llegado hasta Villada</span>
-      <span class="tc-news-entradilla">El fuego se ha extendido desde la zona de Codornillos hasta Villada y mantiene en alerta a toda la comarca de Sahagún, con varios focos activos.</span>
-      <span class="tc-news-more">Leer la noticia completa →</span>
-    </a><a class="tc-news" href="../noticia/733fc993a8ecf765.html" target="_self">
-      <span class="tc-news-kicker">BOCyL · 2026-07-16</span>
-      <span class="tc-news-titular">El PipaFest vuelve a Villada los días 24 y 25 de julio</span>
-      <span class="tc-news-entradilla">El festival, nacido en 2019 de la mano de la Asociación Camposadda, llega a su nueva edición con música, gastronomía y actividades para todas las edades en Villada.</span>
+    <h2 class="tc-block-title">Lo que pasa en Piña de Campos</h2>
+      <div class="tc-news-grid"><a class="tc-news" href="../noticia/0d913c912dddc334.html" target="_self">
+      <span class="tc-news-kicker">BOCyL · 2026-07-18</span>
+      <span class="tc-news-titular">El TSJ eleva a 222.815 euros el justiprecio por la expropiación de una parcela en Piña de Campos para el AVE</span>
+      <span class="tc-news-entradilla">El Tribunal Superior de Justicia de Castilla y León ha estimado en parte el recurso de una cooperativa agropecuaria de Piña de Campos y cuadruplica la cantidad que había fijado el Jurado Provincial de Expropiación de Palencia.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div>
     <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/04/html/BOCYL-D-04022026-23-24.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-02-04</span>
-      <span class="tc-news-titular">Villada quiere permitir construir más en el suelo rústico del municipio</span>
-      <span class="tc-news-entradilla">El Ayuntamiento propone cambiar sus normas urbanísticas para aumentar lo que se puede edificar en suelo rústico. Está en información pública antes de aprobarse, así que se pueden presentar alegaciones.</span>
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2022/12/23/html/BOCYL-D-23122022-79.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2022-12-23</span>
+      <span class="tc-news-titular">Piña de Campos saca una plaza fija de peón de servicios múltiples</span>
+      <span class="tc-news-entradilla">El Ayuntamiento convoca por concurso de méritos y turno libre una plaza de peón de servicios múltiples como personal laboral fijo. Ya están publicadas las bases para presentarse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/11/20/html/BOCYL-D-20112025-47.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2025-11-20</span>
-      <span class="tc-news-titular">Villada saca una plaza de auxiliar administrativo para funcionario de carrera</span>
-      <span class="tc-news-entradilla">El Ayuntamiento convoca una plaza de auxiliar administrativo por oposición, con contrato fijo como funcionario de carrera. Ya están publicadas las bases para quien quiera presentarse.</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/07/08/html/BOCYL-D-08072025-18.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2025-07-08</span>
+      <span class="tc-news-titular">Se anula el permiso ambiental de la fábrica de cerámica de Piña de Campos</span>
+      <span class="tc-news-entradilla">Medio Ambiente ha dado por extinguida la autorización que tenía Cerámica Piña, S.L. desde 2007 para fabricar productos cerámicos en el pueblo. Esa licencia queda ya sin efecto.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/07/06/html/BOCYL-D-06072026-128-25.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-07-06</span>
-      <span class="tc-news-titular">Piden permiso para una granja de gallinas camperas en el polígono 11 de Villada</span>
-      <span class="tc-news-entradilla">Alguien ha solicitado autorización para montar una explotación de gallinas camperas en la parcela 10 del polígono 11, en suelo rústico. Está en información pública, así que se pueden presentar alegaciones antes de que se decida.</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/07/01/html/BOCYL-D-01072024-12.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2024-07-01</span>
+      <span class="tc-news-titular">Modifican una línea eléctrica en Piña para que no choque con el trazado del AVE Palencia-Aguilar</span>
+      <span class="tc-news-entradilla">Han autorizado cambiar unos tramos de la línea de alta tensión «01-Piña» donde se cruza con la nueva vía del AVE Palencia-Aguilar de Campoo. Ya tiene el visto bueno para construirse.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/02/13/html/BOCYL-D-13022026-30-50.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-02-13</span>
-      <span class="tc-news-titular">Piden permiso para levantar un almacén agrícola en el campo de Villada</span>
-      <span class="tc-news-entradilla">Alguien quiere construir una nave para almacén agrícola en suelo rústico, en la parcela 65 del polígono 19. Como es terreno del campo, hace falta un permiso especial y ahora está en información pública por si alguien quiere alegar.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/04/30/html/BOCYL-D-30042025-27.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2025-04-30</span>
-      <span class="tc-news-titular">Piden permiso para vallar una finca rústica protegida en Villada</span>
-      <span class="tc-news-entradilla">Un particular ha solicitado autorización para poner un vallado metálico en una finca de suelo rústico con protección de espacio natural. La solicitud está en información pública antes de que se resuelva.</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2023/10/18/html/BOCYL-D-18102023-36.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2023-10-18</span>
+      <span class="tc-news-titular">La cooperativa Líder quiere ampliar dos naves ganaderas en Piña de Campos</span>
+      <span class="tc-news-entradilla">La cooperativa Líder S. Coop. ha pedido permiso para ampliar dos naves ganaderas que ya tiene en la parcela 53 del polígono 403. El expediente está en información pública por si alguien quiere consultarlo o alegar.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div>
     
     
-    <div class="tc-card"><h3>Fotos de Villada</h3>
-      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Villada.</p>
+    <div class="tc-card"><h3>Fotos de Piña de Campos</h3>
+      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Piña de Campos.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
       <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
     
-    <div class="tc-card"><h3>Servicios y profesionales de Villada</h3>
-      <h4 style="margin:14px 0 4px;">Sanidad</h4><ul class="tc-links-list"><li><strong>Centro de Salud de Villada</strong> — <a href="tel:+34979847094">979 84 70 94</a> · Carlos Casado del Alisal, s/n</li></ul><h4 style="margin:14px 0 4px;">Alimentación</h4><ul class="tc-links-list"><li><strong>Carnicería Juan</strong> — <a href="tel:+34979844117">979 84 41 17</a> · Carlos Casado del Alisal, 4</li><li><strong>Pipas Facundo — frutos secos (dos puntos de venta)</strong> — <a href="tel:+34979844382">979 84 43 82</a> · Carretera Becilla, km 1</li></ul><h4 style="margin:14px 0 4px;">Hostelería y alojamiento</h4><ul class="tc-links-list"><li><strong>Hostal La Cárcel</strong> — <a href="tel:+34979844016">979 84 40 16</a> · Plaza Mayor, 6</li><li><strong>Albergue de Peregrinos de Villada</strong> — <a href="tel:+34979844005">979 84 40 05</a> · Ferial Nuevo, 10</li></ul><h4 style="margin:14px 0 4px;">Oficios y talleres</h4><ul class="tc-links-list"><li><strong>Ramiro Zorita Pérez — fontanería</strong> — <a href="tel:+34979844443">979 84 44 43</a> · Carlos Casado del Alisal, 59 bajo</li><li><strong>Auto Calle — taller mecánico</strong> — <a href="tel:+34979847053">979 84 70 53</a></li></ul>
-      <p class="tc-item-meta" style="margin-top:10px;">Datos verificados por última vez en julio de 2026 (Páginas Amarillas, web del
-      ayuntamiento, fichas de negocio) — pueden quedar desactualizados. ¿Ves un error, un negocio cerrado
-      o falta el tuyo? <a href="https://wa.me/34695645395" target="_blank" rel="noopener">Dínoslo por WhatsApp</a>.</p></div>
+    
     <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
-      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Villada. Todavía no hay anuncios publicados.</p>
+      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Piña de Campos. Todavía no hay anuncios publicados.</p>
       <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
       <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>
   </main>
   <aside class="tc-muni-side">
-    <div class="tc-side-block tc-sobre"><h3>Sobre Villada</h3>
-      <p style="font-size:.9rem;">Conocida por su Feria de la Matanza y su pasado ferroviario en el norte de la comarca.</p><p style="margin:8px 0 0; font-size:.88rem;"><strong>Deporte local:</strong> CD Villada (Primera División Provincial Palencia). El sábado 30 de mayo, el CD Villada ganó 8-2 en casa frente al ADC Dueñas. El próximo partido del CD Villada es el domingo 13 de septiembre, fuera, en campo del Atl Aguilar frente al Atl Aguilar.</p></div>
-    <div class="tc-side-block tc-leyenda"><h3>Leyendas e historias populares</h3>
-      <p class="tc-leyenda-titulo">El indiano que volvió pobre: la leyenda de Alonso de Villada</p>
-      <p style="font-size:.9rem;">Cuenta la tradición que Alonso, hijo de una familia humilde de Villada, se marchó de joven a hacer fortuna y volvió convertido en un hombre rico. Antes de darse a conocer quiso probar el cariño de los suyos: se presentó de noche, vestido con un pobre sayal y apoyado en una cayada, pidiendo hospitalidad en casa de sus parientes más cercanos, que lo tomaron por un mendigo y le cerraron la puerta. Solo una anciana que había sido su nodriza lo reconoció y lo acogió con cariño. Dolido por el desprecio de su familia, Alonso empleó gran parte de su fortuna en fundar una Obra Pía para socorrer a los pobres del pueblo, con préstamos a interés no superior al 3% para viudas, ancianos y labradores necesitados. La propia tradición local reconoce que no puede confirmarse cuánto hay de cierto en el relato, aunque el legado de Alonso —casas y viñas donadas a esa obra benéfica— sí quedó documentado.</p>
-      <p class="tc-item-meta">Fuente: tradición oral de Villada recogida por Salcedo en su Libro de Villada; portal oficial de turismo municipal (villadaturismo.com)</p></div>
-    <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list"><li><a href="https://villada.es/" target="_blank" rel="noopener">Web municipal</a></li><li><a href="https://villada.es/categoria/ayuntamiento/actas-de-pleno/" target="_blank" rel="noopener">Actas de pleno</a></li><li><a href="https://villada.sedelectronica.es/" target="_blank" rel="noopener">Sede electrónica</a></li></ul></div>
-    <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda"><li><strong>Noviembre</strong> — Feria de la Matanza</li></ul></div>
+    
+    
+    <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list"><li>Enlaces oficiales pendientes de verificar</li></ul></div>
+    <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda"><li>Sin fiestas registradas todavía. ¿Falta alguna? Escríbenos.</li></ul></div>
   </aside>
 </div>
 <footer class="tc-footer"><div class="tc-wrap">
