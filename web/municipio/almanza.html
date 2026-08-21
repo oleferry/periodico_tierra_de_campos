@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Almanza — El Terracampino</title>
-<meta name="description" content="En Almanza ahora mismo tenemos 21 grados y casi despejado. A lo largo del día subiremos bastante, hasta los 33, con poco viento y sin lluvia que sea d">
+<meta name="description" content="Noticias y tiempo de Almanza, Tierra de Campos.">
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,7 +53,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Almanza</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 19/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 21/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/almanza.jpg" alt="Almanza" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:2017_Puente_de_Almanza_sobre_el_río_Cea._León_(2).jpg" target="_blank" rel="noopener">LOBO QUIRCE</a>,
@@ -61,62 +61,16 @@
   </div>
 </div></section>
 
-<section class="tc-wrap"><div class="tc-card" style="border-left:5px solid #C9A227;">
-  <h3 style="margin-top:0;">Avisos de AEMET en tu zona</h3>
-  <ul class="tc-links-list"><li><strong>Aviso amarillo</strong> por lluvias · desde el jueves a las 12:00 hasta el jueves a las 21:59</li><li><strong>Aviso amarillo</strong> por tormentas · desde el jueves a las 12:00 hasta el jueves a las 21:59</li></ul>
-  <p class="tc-item-meta">Fuente: Agencia Estatal de Meteorología (Plan Meteoalerta) ·
-  <a href="https://www.aemet.es/es/eltiempo/prediccion/avisos" target="_blank" rel="noopener">ver el detalle en AEMET</a></p>
-</div></section>
+
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Almanza: 21° y casi despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">21°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.65825&longitude=-5.0362&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Almanza ahora mismo tenemos 21 grados y casi despejado. A lo largo del día subiremos bastante, hasta los 33, con poco viento y sin lluvia que sea de fiar — aunque hay un 38% de probabilidad, los datos dicen cero milímetros. Mañana cambia: entran chubascos y bajan las temperaturas hasta los 22 grados.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves con chubascos seguros</h4>
-      <p class="tc-day-texto">La lluvia llega con probabilidad alta y dejará algo de agua: casi 7 milímetros con rachas de viento de 17 km/h. Las temperaturas serán suaves, entre los 14 y 22 grados.</p>
-      <span class="tc-day-temp tc-data">22° <span class="tc-day-min">14°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes nublado y seco</h4>
-      <p class="tc-day-texto">El cielo se despeja de lluvia aunque siga nublado. Máximas de 22 grados y mínimas de 10, con viento flojo.</p>
-      <span class="tc-day-temp tc-data">22° <span class="tc-day-min">10°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado nublado al límite</h4>
-      <p class="tc-day-texto">Llega el fin de semana con incertidumbre: la lluvia ronda el 50% de probabilidad pero sin acumulación clara. Temperaturas algo más cálidas, hasta 24 grados.</p>
-      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">14°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Almanza</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Almanza</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Almanza: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Almanza incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
