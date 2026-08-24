@@ -392,10 +392,10 @@ def dossier_agua_villafafila() -> tuple[str, str]:
         "(fuente: El Salto, Climática, Xataka).",
         "· Las lagunas son estacionales y endorreicas; la CHD cita una "
         "precipitación media de 387 mm/año en la zona (fuente: Enfoque Diario de "
-        "Zamora, 2026-01-22).",
+        "Zamora, 2025-01-22).",
         "",
         "## La versión de la CHD (administración)",
-        "· 2026-01-22 (Enfoque Diario de Zamora), respuesta de la CHD a "
+        "· 2025-01-22 (Enfoque Diario de Zamora), respuesta de la CHD a "
         "Ecologistas Zamora: la extracción actual del acuífero ya representa un "
         "12% de sus recursos renovables anuales; la nueva concesión añade "
         "'menos del 0,1%, lo que se considera poco significativo'.",
@@ -404,8 +404,17 @@ def dossier_agua_villafafila() -> tuple[str, str]:
         "seis mediciones anuales de piezometría oficial y que 'los niveles no han "
         "sufrido descensos significativos'.",
         "· La captación está a más de 10 km de las lagunas, según la CHD.",
-        "· 2026-04-07 (Enfoque Diario de Zamora), cita textual de la CHD sobre el "
-        "procedimiento: 'Si se puede autorizar, se autoriza'.",
+        "· Cita textual de la CHD sobre el procedimiento: 'Si se puede autorizar, "
+        "se autoriza'; y sobre la evaluación ambiental: 'Se concluye que las "
+        "actuaciones proyectadas no supondrán afecciones significativas sobre los "
+        "citados valores naturales, siempre que se cumplan las medidas "
+        "ambientales propuestas'. OJO CON LA FECHA: estas dos citas aparecen en el "
+        "artículo de Enfoque Diario de Zamora del 2026-04-07, pero ese mismo "
+        "artículo las presenta como declaraciones anteriores que recuerda para "
+        "contextualizar la autorización de abril de 2026 — no son declaraciones "
+        "nuevas hechas en abril de 2026. No fechar estas citas como '2026-04-07' "
+        "en el texto; decir algo como 'la CHD ha defendido' o 'sostenía' sin fecha "
+        "exacta, o atribuirlas de forma genérica sin precisar el día.",
         "· La CHD se reserva la potestad de limitar la extracción en caso de "
         "sequía (fuente: El Salto, 2025-02-12).",
         "",
@@ -428,15 +437,33 @@ def dossier_agua_villafafila() -> tuple[str, str]:
         "de un espacio protegido, ¿de dónde no se va a sacar agua en Zamora?' y "
         "'En 10-15 años puede ser mayúscula. Es agua para usos lucrativos, es un "
         "expolio'.",
-        "· Javier Faúndez, presidente de la Diputación de Zamora (comunicado "
-        "oficial de la Diputación, diputaciondezamora.es, y declaraciones "
-        "recogidas en Enfoque Diario de Zamora el 2026-04-07): la Diputación "
-        "apoya la instalación de plantas de hidrógeno verde en la comarca pero se "
-        "manifiesta 'en contra de que para la producción de hidrógeno verde se "
-        "extraiga el agua del acuífero' de las Lagunas de Villafáfila.",
-        "· Antonio Rodríguez, alcalde de Villafáfila, citado en Enfoque Diario de "
-        "Zamora (2026-04-07): 'Se ha autorizado una captación en un sitio muy "
-        "comprometido y no sabemos lo que va a pasar'.",
+        "· Javier Faúndez, presidente de la Diputación de Zamora: declaración de "
+        "enero de 2025 (comunicado oficial de la Diputación, diputaciondezamora.es), "
+        "recogida de nuevo por Enfoque Diario de Zamora el 2026-04-07 al informar "
+        "de la segunda planta — NO es una declaración nueva de abril de 2026, no "
+        "fecharla como tal. Dice que la Diputación apoya la instalación de plantas "
+        "de hidrógeno verde en la comarca 'porque crea empleo y riqueza en el "
+        "medio rural', pero se manifiesta 'en contra de que para la producción de "
+        "hidrógeno verde se extraiga el agua del acuífero de la Reserva de Las "
+        "Lagunas de Villafáfila'.",
+        "· Antonio Rodríguez, alcalde de Villafáfila (partido Ahora Decide): "
+        "declaración de enero de 2025 (fuente original: Enfoque Diario de Zamora, "
+        "2025-01-21), recogida de nuevo el 2026-04-07 al informar de la segunda "
+        "planta — NO es una declaración nueva de abril de 2026. Dice: 'Se ha "
+        "autorizado una captación en un sitio muy comprometido y no sabemos lo "
+        "que va a pasar', y denuncia 'poca transparencia' en el proceso.",
+        "· MISMO alcalde, MISMA fecha (Enfoque Diario de Zamora, 2025-01-21, "
+        "artículo específico sobre consumo humano): alerta de que el acuífero del "
+        "que se extrae el agua para las plantas es EL MISMO del que bebe la "
+        "comarca (agua de consumo humano), y cuestiona la falta de transparencia "
+        "del proceso. Critica también que a los agricultores de la zona se les "
+        "restringe el acceso al agua de riego mientras a estas empresas se les "
+        "autoriza con rapidez: dice que la misma CHD 'que ahora ha acelerado "
+        "tanto los plazos' para conceder esta autorización es la que normalmente "
+        "'eterniza los procesos' con los agricultores. Este es un ángulo "
+        "importante para la pieza — no es solo un humedal protegido, es también "
+        "el agua de boca de la comarca y una comparación con el trato a los "
+        "agricultores locales.",
         "· Movilización ciudadana: manifestación en Zamora capital el 2025-02-23 "
         "contra la extracción (Enfoque Diario de Zamora); petición en Change.org "
         "con más de 7.000 firmas recogidas a mediados de febrero de 2025 (El "
