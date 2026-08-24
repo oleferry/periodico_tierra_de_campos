@@ -30,18 +30,19 @@ modelo) — no se escribe nada sin cifras verificables detrás.
 15. **Patrimonio que cuesta dinero y patrimonio que genera actividad** 🔴 — estudio de casos concretos, visitas.
 16. **¿Cuánto dinero contra la despoblación llega realmente?** 🟢 — **ya tenemos la fuente**: el scraper de BDNS (`scrapers/bdns.py`) que alimenta las fichas de ayudas por pueblo. Es la investigación más barata de montar: es extender lo que ya existe a un "observatorio" agregado en vez de piezas sueltas.
 17. **El agua también decide quién se queda** 🟡 — SIAR, AEMET, InfoRiego son públicos pero hay que scrapearlos, no los tenemos hoy. **Caso concreto detectado por el radar (2026-07-17)**: la CHD ha autorizado extraer ~117.000 m³/año del acuífero de las Lagunas de Villafáfila para una planta de hidrógeno verde en Granja de Moreruela (ambos pueblos de la comarca); Ecologistas Zamora habla de "ecocidio" y la CHD lo niega. Bien documentado en prensa (zamoranews, enfoquezamora, El Salto, Climática) y con documentos públicos de la CHD — da para dossier propio con las dos versiones.
-    ✅ **hecha (2026-08-24)**, con este caso concreto — no de SIAR/AEMET/InfoRiego,
-    sino de hemeroteca (`dossier_agua_villafafila()` en
+    ✅ **PUBLICADA (2026-08-24)**, con este caso concreto — no de
+    SIAR/AEMET/InfoRiego, sino de hemeroteca (`dossier_agua_villafafila()` en
     `scripts/generar_articulo_blog.py`, dossier de investigación de prensa, no de
     scraper propio). Al investigar se encontró que en abril de 2026 se autorizó
     una SEGUNDA planta (UTU Solar, además de Inari Solar), duplicando la cifra a
     223.920 m³/año — dato más reciente y relevante que el de julio de 2025.
-    Borrador en la rama `borrador/el-agua-de-villafafila-para-dos-plantas-de-hidrogeno-que-se-autorizo-y-que-se-discute`,
-    pendiente de revisión humana (ver puntos de revisión en el propio artículo:
-    estado de los recursos de reposición de UPL/Ecologistas Zamora, vigencia de
-    la segunda autorización, y la discrepancia de nombres de empresa entre
-    fuentes). SIAR/AEMET/InfoRiego siguen sin scrapear — sigue abierta esa vía
-    para una pieza distinta, más de datos que de caso concreto.
+    "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute".
+    En la revisión humana se corrigieron varias citas (CHD, alcalde de
+    Villafáfila, Diputación) que el primer borrador fechaba como declaraciones
+    nuevas de abril de 2026 cuando en realidad eran de enero de 2025 recogidas
+    de nuevo en ese artículo, y se añadió el ángulo del agua de consumo humano
+    de la comarca. SIAR/AEMET/InfoRiego siguen sin scrapear — sigue abierta esa
+    vía para una pieza distinta, más de datos que de caso concreto.
 18. **Servicios móviles frente a edificios vacíos** 🔴 — inventario que requiere contactar diputaciones/ayuntamientos.
 19. **El negocio que cierra sin que nadie lo continúe** 🔴 — más un "radar" vivo (necesita fuentes que avisen de traspasos) que un artículo puntual.
 20. **Cien años perdiendo habitantes** ✅ — **hecha (2026-07-22)**. La serie histórica 1900-1991 (operación 35 del INE, API Tempus, una tabla por provincia: León 3057, Palencia 3067, Valladolid 3080, Zamora 3082) ya está en `scripts/investigar_despoblacion.py` y combinada con la serie 1996-2025 en `dossier_cien_anos()`. Borrador en la rama `borrador/cien-anos-villarramiel`, pendiente de revisión.
