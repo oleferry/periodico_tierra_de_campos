@@ -1,0 +1,82 @@
+# Publica en la Página de Facebook la entrada más reciente del feed RSS que no
+# se haya publicado aún. Una publicación por ejecución. Mismo patrón que
+# instagram-publish.yml, pero con el token/página de Facebook.
+#
+# Usa el script genérico scripts/publish-facebook.mjs, configurado por entorno.
+# El registro de lo ya publicado vive en scripts/facebook-posted.json (array de
+# guids) y se commitea aquí mismo; sin él se republicaría lo mismo.
+#
+# Secrets necesarios (Settings -> Secrets and variables -> Actions):
+#   META_FB_PAGE_ID       ID numérico de la Página de Facebook de este negocio
+#   META_FB_ACCESS_TOKEN  Token de Página (Page Access Token) con pages_manage_posts
+#
+# ESTADO A 2026-08-24: estos dos secrets NO están configurados todavía (mismo
+# punto que bloquea hoy instagram-publish.yml) — el workflow fallará en el
+# paso de publicar hasta que se den de alta. El Usuario del Sistema de Meta
+# Business Suite que ya se está montando para Instagram puede llevar TAMBIÉN
+# el permiso pages_manage_posts sobre esta Página: no hace falta un token
+# aparte, solo añadir el permiso y la Página a ese mismo Usuario del Sistema.
+# Ver docs/instagram.md (credenciales) y docs/facebook.md.
+#
+# NOTA sobre la hora: igual que Instagram, cron en UTC. Se deja 15 minutos
+# después del de Instagram (08:30 UTC) para no lanzar los dos a la vez contra
+# la API de Meta, aunque son independientes y no comparten concurrency group.
+
+name: Facebook (mjs)
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Solo enseñar qué publicaría, sin publicar"
+        type: boolean
+        default: false
+  schedule:
+    - cron: "30 8 * * 1" # lunes 08:30 UTC (~10:30 verano / ~09:30 invierno)
+
+concurrency:
+  group: facebook-publish
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write # para commitear el registro de publicados
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publicar en Facebook
+        id: publish
+        env:
+          # --- credenciales de ESTE sitio (mapeo de secrets a nombres del script) ---
+          FB_PAGE_ID: ${{ secrets.META_FB_PAGE_ID }}
+          FB_ACCESS_TOKEN: ${{ secrets.META_FB_ACCESS_TOKEN }}
+          # --- configuración del sitio ---
+          FEED_URL: "https://elterracampino.es/feed.xml"
+          FB_CTA: "Lo contamos entero, con las fuentes, en elterracampino.es"
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node scripts/publish-facebook.mjs --dry-run
+          else
+            node scripts/publish-facebook.mjs
+          fi
+
+      - name: Commit del registro si hubo publicación
+        if: ${{ inputs.dry_run != true && steps.publish.outputs.guid != '' }}
+        run: |
+          git config user.name "El Terracampino (bot)"
+          git config user.email "bot@users.noreply.github.com"
+          git add scripts/facebook-posted.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el registro."
+          else
+            git commit -m "Facebook: registra publicación (${{ steps.publish.outputs.post_id }})"
+            git pull --rebase origin "${GITHUB_REF_NAME}" || true
+            git push
+          fi

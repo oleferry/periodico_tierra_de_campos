@@ -20,6 +20,8 @@ en todos los sitios de la columna "Dónde se configura".
 | `AEMET_API_KEY` | Datos de AEMET | `.env` local |
 | `TELEGRAM_BOT_TOKEN` | Bot de Telegram (fotos, esquelas, chivatazos) | Railway · `.env` |
 | `MAILERLITE_API_KEY` | Alta en la newsletter | Vercel · `.env` — **anota de qué cuenta de MailerLite es** |
+| `META_IG_ACCESS_TOKEN` | Publicador de Instagram (ver `docs/instagram.md`) | GitHub Actions — **sin configurar aún** |
+| `META_FB_ACCESS_TOKEN` | Publicador de Facebook (ver `docs/facebook.md`) | GitHub Actions — **sin configurar aún**. Mismo Usuario del Sistema de Meta que el de arriba, con permiso `pages_manage_posts` añadido |
 
 ## Configuración (no secreto, pero necesario)
 
@@ -28,6 +30,8 @@ en todos los sitios de la columna "Dónde se configura".
 | `SUPABASE_URL` | URL del proyecto Supabase | Vercel · GitHub Actions · Railway · `.env` |
 | `MAILERLITE_GROUP_ID` | Grupo donde entran los suscriptores (dispara la bienvenida) | Vercel |
 | `TELEGRAM_CHANNEL_ID` | Canal donde publica el bot | Railway · `.env` |
+| `META_IG_USER_ID` | Id de la cuenta de Instagram (ver `docs/instagram.md`) | GitHub Actions — **sin configurar aún** |
+| `META_FB_PAGE_ID` | Id de la Página de Facebook (ver `docs/facebook.md`) | GitHub Actions — **sin configurar aún** |
 | `ADMIN_TELEGRAM_ID` | Tu id de Telegram; habilita el bloc de notas privado del bot | Railway · `.env` |
 | `LLM_PROVIDER` / `LLM_MODEL` | Qué modelo de IA usar | GitHub Actions · `.env` |
 | `APP_TIMEZONE` · `SCRAPER_USER_AGENT` · `REVIEW_REQUIRED_BY_DEFAULT` | Ajustes del sitio | `.env` |

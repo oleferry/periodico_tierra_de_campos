@@ -235,7 +235,10 @@ def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool)
   {bloque_compartir(f"https://elterracampino.es/blog/{slug}.html", art['titular'])}
   <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150])
+    url = f"https://elterracampino.es/blog/{slug}.html"
+    image = f"https://elterracampino.es/assets/blog/{slug}.jpg" if tiene_imagen else ""
+    return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150],
+                 url=url, image=image, og_title=art["titular"])
 
 
 def bloque_compartir(url: str, titulo: str) -> str:
@@ -515,9 +518,30 @@ def render_feed_rss(articulos: list[dict]) -> str:
 
 # --------------------------------------------------------------- plantilla
 
-def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
+def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
+          image: str = "", og_title: str = "") -> str:
     up = "../" * depth  # dentro de web/
     meta_desc = f'<meta name="description" content="{E(desc)}">' if desc else ""
+    # Open Graph: solo se emite si el llamador pasa `url` (páginas pensadas para
+    # compartirse, como los artículos de blog). El resto de páginas se quedan
+    # igual que siempre — sin esto Facebook/WhatsApp no arman tarjeta de
+    # previsualización decente al compartir un enlace, y caen a un genérico sin
+    # imagen ni título propio.
+    meta_og = ""
+    if url:
+        og_partes = [
+            '<meta property="og:type" content="article">',
+            f'<meta property="og:title" content="{E(og_title or title)}">',
+            f'<meta property="og:url" content="{E(url)}">',
+        ]
+        if desc:
+            og_partes.append(f'<meta property="og:description" content="{E(desc)}">')
+        if image:
+            og_partes.append(f'<meta property="og:image" content="{E(image)}">')
+            og_partes.append('<meta name="twitter:card" content="summary_large_image">')
+        else:
+            og_partes.append('<meta name="twitter:card" content="summary">')
+        meta_og = "\n".join(og_partes)
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -525,6 +549,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "") -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{E(title)}</title>
 {meta_desc}
+{meta_og}
 <link rel="icon" href="{up}assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="{up}assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">

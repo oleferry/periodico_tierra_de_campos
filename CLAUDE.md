@@ -6,10 +6,11 @@ El Terracampino: periódico digital de la comarca de Tierra de Campos (Palencia,
 Valladolid, León y Zamora). Genera un sitio estático a partir de fuentes
 oficiales, redactando con IA bajo reglas editoriales estrictas.
 
-Todo el generador es Python, **salvo el publicador de Instagram**
-(`scripts/publish-instagram.mjs`, Node — ver `docs/instagram.md`): es
-deliberadamente genérico y dirigido por RSS para poder reutilizarse en otros
-sitios sin tocar código específico de este proyecto.
+Todo el generador es Python, **salvo los publicadores en redes**
+(`scripts/publish-instagram.mjs` y `scripts/publish-facebook.mjs`, Node — ver
+`docs/instagram.md` y `docs/facebook.md`): son deliberadamente genéricos y
+dirigidos por RSS para poder reutilizarse en otros sitios sin tocar código
+específico de este proyecto.
 
 ## Reglas editoriales (no negociables)
 
@@ -48,6 +49,7 @@ python -m scripts.generar_articulo_blog --tema <tema>   # investigación larga
 python -m scripts.desarrollar_pista --listar            # pistas del radar
 python -m scripts.detectar_anomalias                    # datos que se salen de su media
 node scripts/publish-instagram.mjs --dry-run  # ver docs/instagram.md
+node scripts/publish-facebook.mjs --dry-run   # ver docs/facebook.md
 ```
 
 **No hay suite de tests.** La verificación es: `--dry-run` del scraper tocado,
@@ -110,7 +112,7 @@ simultáneos se pisen). Nada es público hasta aprobarse.
 
 `README_PROYECTO.md` (planteamiento y municipios piloto) ·
 `docs/lanzamiento.md` (checklist) · `docs/newsletter.md` (MailerLite) ·
-`docs/costes-ia.md` · `docs/instagram.md` · `docs/acompanar.md` ·
+`docs/costes-ia.md` · `docs/instagram.md` · `docs/facebook.md` · `docs/acompanar.md` ·
 `docs/publicidad.md` · `docs/secretos.md` · `bot/README.md` ·
 `docs/ideas-*.md` (backlog).
 

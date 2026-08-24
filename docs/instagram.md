@@ -44,11 +44,12 @@ Graph API v21.0: 1) crear contenedor con image_url  2) media_publish
 | `META_IG_USER_ID` | Id de la cuenta de Instagram (se saca con `GET /{PAGE_ID}?fields=instagram_business_account`) |
 | `META_IG_ACCESS_TOKEN` | Token con permiso `instagram_content_publish` |
 
-**⚠️ Estado a 2026-08-06: estos dos secrets NO están configurados todavía.**
-Sin ellos el workflow falla en el paso de publicar (no en el de leer el feed).
-Requisitos de la cuenta: **Profesional** (Empresa o Creador) y **vinculada a la
-Página de Facebook**. Con la app de Meta en modo desarrollo basta, siempre que
-seas administrador de ambas — no hace falta revisión de Meta para publicar en
+**⚠️ Estado a 2026-08-24: estos dos secrets siguen sin configurar** (comprobado
+con `gh secret list` y con las ejecuciones en rojo de los lunes). Sin ellos el
+workflow falla en el paso de publicar (no en el de leer el feed). Requisitos
+de la cuenta: **Profesional** (Empresa o Creador) y **vinculada a la Página de
+Facebook**. Con la app de Meta en modo desarrollo basta, siempre que seas
+administrador de ambas — no hace falta revisión de Meta para publicar en
 cuentas propias.
 
 **Sobre la caducidad del token** (el fallo más típico de estas automatizaciones):
@@ -56,6 +57,12 @@ un token de Página de larga duración caduca a los ~60 días y entonces el Acti
 empieza a fallar en silencio salvo por la ejecución en rojo. Lo recomendable es
 un **token de Usuario del Sistema** (Meta Business Suite → Configuración →
 Usuarios del sistema), que no caduca.
+
+**Este mismo Usuario del Sistema sirve también para Facebook** (ver
+`docs/facebook.md`): al crearlo, dale de una vez los dos permisos
+(`instagram_content_publish` sobre esta cuenta de Instagram y
+`pages_manage_posts` sobre la Página de Facebook vinculada) para no tener que
+volver a este trámite dos veces.
 
 ## Configuración del sitio (bloque `env:` del workflow)
 
