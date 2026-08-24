@@ -331,11 +331,188 @@ def dossier_migraciones() -> tuple[str, str]:
     return "migraciones", "\n".join(lineas)
 
 
+def dossier_agua_villafafila() -> tuple[str, str]:
+    """Dossier del caso de extracción de agua del acuífero de Villafáfila para
+    dos plantas de hidrógeno verde en Granja de Moreruela (ambos municipios de
+    la comarca). No sale de un scraper propio ni de una API estadística: es
+    investigación de hemeroteca sobre un caso ya detectado por el radar el
+    2026-07-17 (ver docs/ideas-blog.md, idea #17), con cifras y citas tomadas
+    directamente de la cobertura de prensa local y especializada, cada una con
+    su fuente y fecha. Devuelve (tema, dossier)."""
+    lineas = [
+        "TEMA: el agua del acuífero de las Lagunas de Villafáfila autorizada para "
+        "dos plantas de hidrógeno verde en Granja de Moreruela (Zamora), y el "
+        "choque entre la administración autorizante y ecologistas/ayuntamiento/"
+        "diputación. Villafáfila y Granja de Moreruela son ambos municipios de "
+        "Tierra de Campos (comarca), aunque no están entre los 12 pilotos.",
+        "",
+        "Este dossier NO sale de un scraper ni de una API propia: es investigación "
+        "de hemeroteca sobre un caso público, con cada dato y cita atribuidos a su "
+        "medio y fecha de publicación. Verificar antes de publicar que ningún dato "
+        "haya cambiado desde la fecha de esta investigación (2026-08-24).",
+        "",
+        "## Qué se ha autorizado y cuándo",
+        "· 2025-01-08 (fuente: Enfoque Diario de Zamora, enfoquezamora.com): la "
+        "Confederación Hidrográfica del Duero (CHD) autoriza a Inari Solar, S.L. "
+        "(sede en Marbella) la extracción de hasta 117.000,7 m³ anuales del "
+        "acuífero de Villafáfila, con un caudal máximo de 3,8 l/s (medio de "
+        "3,71 l/s), concesión por 25 años. El agua es para una planta de "
+        "hidrógeno verde de 40 MW en Granja de Moreruela. El sondeo autorizado "
+        "tiene 70 metros de profundidad, 250 mm de diámetro (200 mm entubado), "
+        "en la parcela 882 del polígono 1 del término de Granja de Moreruela.",
+        "· Según el mismo artículo, el proceso de producción usa aproximadamente "
+        "la mitad del agua captada; la otra mitad se desecha por ósmosis inversa "
+        "y se vierte al arroyo Valdecoso.",
+        "· 2026-04-06/07 (fuente: Enfoque Diario de Zamora, 2026-04-07): la Junta "
+        "de Castilla y León (Consejería de Medio Ambiente) autoriza una SEGUNDA "
+        "planta de hidrógeno verde en el mismo entorno, promovida por UTU Solar, "
+        "con la MISMA cifra de extracción que la primera: 117.000 m³ anuales. "
+        "Sumadas las dos plantas (Inari Solar + UTU Solar), la extracción "
+        "autorizada del acuífero de Villafáfila asciende a 223.920 m³ anuales. "
+        "Es la actualización más reciente y relevante del caso: la cifra que "
+        "circuló en la prensa de enero de 2025 (117.000 m³/año) se ha duplicado.",
+        "",
+        "AVISO: hay una discrepancia de nombre de empresa entre fuentes que hay que "
+        "resolver o señalar con cautela en el texto — El Salto (2025-02-12/14) "
+        "atribuye la planta a 'UTU SOLAR SL'; Enfoque Diario de Zamora (2025-01-08) "
+        "y Climática (2025-02-24) atribuyen ESA MISMA primera autorización a "
+        "'Inari Solar S.L.'. La explicación más probable, confirmada por el propio "
+        "artículo de abril de 2026 de Enfoque Diario de Zamora, es que son DOS "
+        "empresas distintas con sendas plantas y sendas autorizaciones de "
+        "117.000 m³/año cada una (Inari Solar primero, UTU Solar después) — no "
+        "una confusión de nombre de una sola empresa. Conviene decirlo así en el "
+        "artículo: dos empresas, dos plantas, mismo acuífero.",
+        "",
+        "## La protección legal del entorno",
+        "· Reserva Natural de las Lagunas de Villafáfila (mayor humedal de "
+        "Castilla y León).",
+        "· ZEPA (Zona de Especial Protección para las Aves).",
+        "· Sitio Ramsar (Convenio de Humedales de Importancia Internacional).",
+        "· Refugio de aves migratorias y hábitat emblemático de la avutarda "
+        "(fuente: El Salto, Climática, Xataka).",
+        "· Las lagunas son estacionales y endorreicas; la CHD cita una "
+        "precipitación media de 387 mm/año en la zona (fuente: Enfoque Diario de "
+        "Zamora, 2025-01-22).",
+        "",
+        "## La versión de la CHD (administración)",
+        "· 2025-01-22 (Enfoque Diario de Zamora), respuesta de la CHD a "
+        "Ecologistas Zamora: la extracción actual del acuífero ya representa un "
+        "12% de sus recursos renovables anuales; la nueva concesión añade "
+        "'menos del 0,1%, lo que se considera poco significativo'.",
+        "· La CHD sostiene que 'el Plan Hidrológico no identifica la masa de agua "
+        "Villafáfila en mal estado cuantitativo', que monitoriza el acuífero con "
+        "seis mediciones anuales de piezometría oficial y que 'los niveles no han "
+        "sufrido descensos significativos'.",
+        "· La captación está a más de 10 km de las lagunas, según la CHD.",
+        "· Cita textual de la CHD sobre el procedimiento: 'Si se puede autorizar, "
+        "se autoriza'; y sobre la evaluación ambiental: 'Se concluye que las "
+        "actuaciones proyectadas no supondrán afecciones significativas sobre los "
+        "citados valores naturales, siempre que se cumplan las medidas "
+        "ambientales propuestas'. OJO CON LA FECHA: estas dos citas aparecen en el "
+        "artículo de Enfoque Diario de Zamora del 2026-04-07, pero ese mismo "
+        "artículo las presenta como declaraciones anteriores que recuerda para "
+        "contextualizar la autorización de abril de 2026 — no son declaraciones "
+        "nuevas hechas en abril de 2026. No fechar estas citas como '2026-04-07' "
+        "en el texto; decir algo como 'la CHD ha defendido' o 'sostenía' sin fecha "
+        "exacta, o atribuirlas de forma genérica sin precisar el día.",
+        "· La CHD se reserva la potestad de limitar la extracción en caso de "
+        "sequía (fuente: El Salto, 2025-02-12).",
+        "",
+        "## La versión de ecologistas, ayuntamiento y diputación",
+        "· Ecologistas Zamora / Ecologistas en Acción hablan de 'ecocidio "
+        "inminente' (Tribuna de Zamora) y advierten de posibles responsabilidades "
+        "penales para la CHD si hay daño a la reserva natural (El Español, "
+        "2025-01-21).",
+        "· Argumento central: la CHD 'trivializa con porcentajes' — el 0,1% anual "
+        "que cita la CHD podría suponer una extracción acumulada del orden del "
+        "20% en dos décadas si se mantiene el ritmo de nuevas concesiones (fuente: "
+        "El Salto, 2025-02-12/14).",
+        "· Alberto Zamorano (Ecologistas Zamora), citado en Climática "
+        "(2025-02-24): lo llama 'proyecto extractivista' que no tiene 'ningún "
+        "impacto positivo económico para la zona'.",
+        "· UPL (Unión del Pueblo Leonés) interpuso recurso de reposición contra "
+        "la autorización de la CHD (fuente: zamoranews.com, 2025-01-21) y alertó "
+        "a instancias internacionales invocando el Convenio de Ramsar.",
+        "· Manuel Herrero (UPL), citado en El Salto/Climática: 'Si se extrae agua "
+        "de un espacio protegido, ¿de dónde no se va a sacar agua en Zamora?' y "
+        "'En 10-15 años puede ser mayúscula. Es agua para usos lucrativos, es un "
+        "expolio'.",
+        "· Javier Faúndez, presidente de la Diputación de Zamora: declaración de "
+        "enero de 2025 (comunicado oficial de la Diputación, diputaciondezamora.es), "
+        "recogida de nuevo por Enfoque Diario de Zamora el 2026-04-07 al informar "
+        "de la segunda planta — NO es una declaración nueva de abril de 2026, no "
+        "fecharla como tal. Dice que la Diputación apoya la instalación de plantas "
+        "de hidrógeno verde en la comarca 'porque crea empleo y riqueza en el "
+        "medio rural', pero se manifiesta 'en contra de que para la producción de "
+        "hidrógeno verde se extraiga el agua del acuífero de la Reserva de Las "
+        "Lagunas de Villafáfila'.",
+        "· Antonio Rodríguez, alcalde de Villafáfila (partido Ahora Decide): "
+        "declaración de enero de 2025 (fuente original: Enfoque Diario de Zamora, "
+        "2025-01-21), recogida de nuevo el 2026-04-07 al informar de la segunda "
+        "planta — NO es una declaración nueva de abril de 2026. Dice: 'Se ha "
+        "autorizado una captación en un sitio muy comprometido y no sabemos lo "
+        "que va a pasar', y denuncia 'poca transparencia' en el proceso.",
+        "· MISMO alcalde, MISMA fecha (Enfoque Diario de Zamora, 2025-01-21, "
+        "artículo específico sobre consumo humano): alerta de que el acuífero del "
+        "que se extrae el agua para las plantas es EL MISMO del que bebe la "
+        "comarca (agua de consumo humano), y cuestiona la falta de transparencia "
+        "del proceso. Critica también que a los agricultores de la zona se les "
+        "restringe el acceso al agua de riego mientras a estas empresas se les "
+        "autoriza con rapidez: dice que la misma CHD 'que ahora ha acelerado "
+        "tanto los plazos' para conceder esta autorización es la que normalmente "
+        "'eterniza los procesos' con los agricultores. Este es un ángulo "
+        "importante para la pieza — no es solo un humedal protegido, es también "
+        "el agua de boca de la comarca y una comparación con el trato a los "
+        "agricultores locales.",
+        "· Movilización ciudadana: manifestación en Zamora capital el 2025-02-23 "
+        "contra la extracción (Enfoque Diario de Zamora); petición en Change.org "
+        "con más de 7.000 firmas recogidas a mediados de febrero de 2025 (El "
+        "Salto, Xataka).",
+        "",
+        "## Contexto nacional (para no tratarlo como caso aislado)",
+        "· España busca liderar el hidrógeno verde en la UE con el corredor "
+        "H2Med, con horizonte 2030 (fuente: Xataka, 2025-02-14, que usa "
+        "explícitamente Villafáfila como ejemplo de fricción entre esa ambición "
+        "industrial y la protección de humedales).",
+        "",
+        "## Lo que NO está confirmado y no debe darse por hecho",
+        "· No se ha encontrado información de que los recursos de reposición de "
+        "UPL y Ecologistas Zamora (interpuestos en enero de 2025) hayan sido ya "
+        "resueltos, ni de que exista sentencia judicial sobre el caso a fecha de "
+        "esta investigación (2026-08-24). Si se escribe sobre ello, decir "
+        "explícitamente que el litigio seguía abierto en la última cobertura "
+        "encontrada y no inventar un desenlace.",
+        "· No hay en las fuentes consultadas una medición independiente (ajena a "
+        "CHD o a los ecologistas) del estado real del acuífero: los dos "
+        "porcentajes (12% ya extraído, +0,1% de la nueva concesión) son cifras de "
+        "la propia CHD, no verificadas por un tercero.",
+        "",
+        "## Cómo tratar esto editorialmente (innegociable)",
+        "· Contar las dos versiones con la misma cantidad de espacio y con cada "
+        "cifra y cita atribuida a su fuente y fecha, tal como aparecen arriba.",
+        "· No tomar partido ni sugerir un desenlace que no esté confirmado.",
+        "· Dejar claro que son DOS empresas y DOS autorizaciones (no una), y que "
+        "la cifra total autorizada (223.920 m³/año) es la suma de ambas, "
+        "confirmada en abril de 2026 — es el dato más nuevo y el que más cambia "
+        "la escala del caso respecto a la cobertura de enero de 2025.",
+        "· Villafáfila y Granja de Moreruela no son de los 12 municipios piloto "
+        "del periódico, pero sí son parte de la comarca: no hace falta forzar la "
+        "conexión con los pilotos si no la hay en los datos.",
+    ]
+    tema = (
+        "la extracción de agua del acuífero de las Lagunas de Villafáfila para dos "
+        "plantas de hidrógeno verde en Granja de Moreruela, y el choque entre la "
+        "administración autorizante y ecologistas, ayuntamiento y diputación"
+    )
+    return tema, "\n".join(lineas)
+
+
 DOSSIERS = {
     "despoblacion": dossier_despoblacion,
     "ayudas": dossier_ayudas,
     "cien_anos": dossier_cien_anos,
     "migraciones": dossier_migraciones,
+    "agua_villafafila": dossier_agua_villafafila,
 }
 
 
