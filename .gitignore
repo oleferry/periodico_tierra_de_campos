@@ -21,4 +21,10 @@ data/boletin_hoy.json
 # no se sube: publicarla sería republicar texto con derechos de otros.
 data/radar/
 
+# Zips de newsletter ya generados (scripts/empaquetar_newsletter.py): salida
+# efímera para importar a mano en MailerLite, se regenera cuando haga falta.
+# data/newsletter_banners_estado.json SÍ se versiona — es la memoria de qué
+# banner de hermanos tocó la última vez, para que la rotación no se reinicie.
+data/newsletter_salida/
+
 .vercel

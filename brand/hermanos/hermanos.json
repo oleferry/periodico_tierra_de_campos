@@ -1,0 +1,20 @@
+[
+  {
+    "nombre": "Madapan",
+    "fichero": "banner-madapan.jpg",
+    "url": "https://madapan.es",
+    "alt": "Madapan — obrador de pan artesanal y café de especialidad en Mayorga"
+  },
+  {
+    "nombre": "Dame Perras Perro",
+    "fichero": "banner-dameperrasperro.jpg",
+    "url": "https://dameperrasperro.es",
+    "alt": "Dame Perras Perro — la IA que rastrea ayudas y subvenciones antes de que se escapen"
+  },
+  {
+    "nombre": "Gafasvan",
+    "fichero": "banner-gafasvan.jpg",
+    "url": "https://gafasvan.com",
+    "alt": "Gafasvan — óptica"
+  }
+]
