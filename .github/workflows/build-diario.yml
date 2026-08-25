@@ -99,6 +99,19 @@ jobs:
           TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
         run: python -m scripts.boletin_telegram
 
+      - name: Newsletter de la última investigación por Telegram
+        # Solo manda algo si hay una investigación en web/blog/ que no se haya
+        # empaquetado ya (data/newsletter_banners_estado.json lleva la cuenta,
+        # y se versiona a propósito). Va al admin en privado, nunca al canal:
+        # es un borrador de trabajo para importar a mano en MailerLite, no
+        # contenido publicado. continue-on-error: que falle esto no puede
+        # impedir que el sitio se publique.
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_TELEGRAM_ID: ${{ secrets.ADMIN_TELEGRAM_ID }}
+        run: python -m scripts.empaquetar_newsletter --auto
+
       - name: Publicar si hay cambios
         run: |
           git config user.name "El Terracampino (bot)"

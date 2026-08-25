@@ -32,7 +32,7 @@ en todos los sitios de la columna "Dónde se configura".
 | `TELEGRAM_CHANNEL_ID` | Canal donde publica el bot | Railway · `.env` |
 | `META_IG_USER_ID` | Id de la cuenta de Instagram (ver `docs/instagram.md`) | GitHub Actions — **sin configurar aún** |
 | `META_FB_PAGE_ID` | Id de la Página de Facebook (ver `docs/facebook.md`) | GitHub Actions — **sin configurar aún** |
-| `ADMIN_TELEGRAM_ID` | Tu id de Telegram; habilita el bloc de notas privado del bot | Railway · `.env` |
+| `ADMIN_TELEGRAM_ID` | Tu id de Telegram; habilita el bloc de notas privado del bot y el envío de la newsletter empaquetada (`scripts/empaquetar_newsletter.py`) | Railway · GitHub Actions · `.env` |
 | `LLM_PROVIDER` / `LLM_MODEL` | Qué modelo de IA usar | GitHub Actions · `.env` |
 | `APP_TIMEZONE` · `SCRAPER_USER_AGENT` · `REVIEW_REQUIRED_BY_DEFAULT` | Ajustes del sitio | `.env` |
 

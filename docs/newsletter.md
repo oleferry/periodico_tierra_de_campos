@@ -141,3 +141,29 @@ Enlace: https://elterracampino.es/blog/dos-anos-sin-mariano-haro-el-leon-de-bece
 paso más al final del workflow (mismo formato: asunto + preheader + teaser +
 botón). El homenaje (paso 5) conviene dejarlo siempre como último paso, de
 cierre.
+
+## Investigaciones nuevas — zip por Telegram para importar a mano
+
+Aparte de la secuencia de bienvenida de arriba, cada investigación nueva se
+manda como **email completo** (no un teaser) por si se quiere lanzar como
+campaña aparte. Por qué a mano: meter contenido de campaña por API exige el
+plan Advanced de MailerLite; el gratuito no lo permite.
+
+- `python -m scripts.empaquetar_newsletter` — genera el zip (HTML + `images/`)
+  de la última investigación en `data/newsletter_salida/`, sin mandar nada.
+- `python -m scripts.empaquetar_newsletter --auto` — lo que corre solo en el
+  build diario: si hay una investigación que no se haya mandado ya, la
+  empaqueta y la manda por Telegram **al administrador en privado**
+  (`ADMIN_TELEGRAM_ID`, nunca al canal público). El estado de qué ya se mandó
+  vive en `data/newsletter_banners_estado.json` (versionado a propósito).
+- El email lleva el reportaje **entero** (todos los párrafos y subtítulos,
+  más la caja de fuentes citadas), la portada del artículo reescalada a 536px
+  y, tras el primer párrafo, un banner rotativo de un proyecto hermano
+  (`brand/hermanos/hermanos.json`: Madapan, Dame Perras Perro, Gafasvan). La
+  rotación cuenta por investigación empaquetada, no por semana del
+  calendario — así ninguno de los tres sale más veces que los otros solo
+  porque una semana hubo dos investigaciones y otra ninguna.
+- **Importar en MailerLite:** Campaigns → Create campaign → Regular → editor
+  HTML → *Import zip* → subir el .zip tal cual, sin descomprimir.
+- El HTML lleva `{$unsubscribe}` literal en el pie porque MailerLite rechaza
+  el import si no encuentra el enlace de baja.
