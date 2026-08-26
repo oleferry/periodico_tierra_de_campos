@@ -49,7 +49,7 @@ from scrapers.embalses import situacion as situacion_embalses
 # OJO: tiene que coincidir con lo que sirve Vercel de verdad. Si el panel de
 # Vercel redirige a www y aquí pone sin www, el sitemap manda a Google a 93
 # URLs que redirigen y el canonical apunta a una página que no responde 200.
-SITIO_BASE = "https://elterracampino.es"
+SITIO_BASE = "https://www.elterracampino.es"
 from scrapers.paro_sepe import paro_comarca_cacheado
 from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
