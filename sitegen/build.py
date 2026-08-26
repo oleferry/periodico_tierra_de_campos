@@ -38,6 +38,18 @@ from scrapers.weather_openmeteo import geocode, weather_for
 from scrapers.lonja import cotizaciones as lonja_cotizaciones
 from scrapers.aemet_avisos import avisos as aemet_avisos
 from scrapers.embalses import situacion as situacion_embalses
+
+# Dominio canónico del sitio, en un solo sitio.
+#
+# Estaba repetido a mano en siete puntos —feed RSS, sitemap, robots, boletín de
+# Telegram, enlaces de compartir, Open Graph— y esa dispersión es justo lo que
+# hace que un cambio de host se aplique a medias. El canonical de shell() sale
+# de aquí, así que todo lo que el sitio dice de sí mismo apunta al mismo sitio.
+#
+# OJO: tiene que coincidir con lo que sirve Vercel de verdad. Si el panel de
+# Vercel redirige a www y aquí pone sin www, el sitemap manda a Google a 93
+# URLs que redirigen y el canonical apunta a una página que no responde 200.
+SITIO_BASE = "https://elterracampino.es"
 from scrapers.paro_sepe import paro_comarca_cacheado
 from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
@@ -198,7 +210,8 @@ def render_articulo(d: dict, r: dict) -> str:
   </div>
   <p class="tc-item-meta"><a href="{E(volver_href)}">← {E(volver_txt)}</a></p>
 </div></article>"""
-    return shell(f"{r['titular']} — El Terracampino", body, depth=1, desc=r["entradilla"][:150])
+    return shell(f"{r['titular']} — El Terracampino", body, depth=1, desc=r["entradilla"][:150],
+                 ruta=f"noticia/{d['hash'][:16]}.html")
 
 
 def blog_articulo_path(slug: str) -> str:
@@ -232,12 +245,13 @@ def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool)
     <strong>Fuentes:</strong>
     <ul class="tc-links-list">{fuentes_html}</ul>
   </div>
-  {bloque_compartir(f"https://elterracampino.es/blog/{slug}.html", art['titular'])}
+  {bloque_compartir(f"{SITIO_BASE}/blog/{slug}.html", art['titular'])}
   <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
 </div></article>"""
-    url = f"https://elterracampino.es/blog/{slug}.html"
-    image = f"https://elterracampino.es/assets/blog/{slug}.jpg" if tiene_imagen else ""
+    url = f"{SITIO_BASE}/blog/{slug}.html"
+    image = f"{SITIO_BASE}/assets/blog/{slug}.jpg" if tiene_imagen else ""
     return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150],
+                 ruta=blog_articulo_path(slug),
                  url=url, image=image, og_title=art["titular"])
 
 
@@ -495,7 +509,7 @@ def render_feed_rss(articulos: list[dict]) -> str:
     humano antes de fusionarse a main (ver docs de scripts/desarrollar_pista.py
     y scripts/generar_articulo_blog.py) — este feed no añade riesgo editorial
     nuevo, solo sindica lo que ya está publicado."""
-    base = "https://elterracampino.es"
+    base = SITIO_BASE
     items = "".join(f"""  <item>
     <title>{E(a['titular'])}</title>
     <link>{base}/blog/{E(a['slug'])}.html</link>
@@ -519,8 +533,19 @@ def render_feed_rss(articulos: list[dict]) -> str:
 # --------------------------------------------------------------- plantilla
 
 def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
-          image: str = "", og_title: str = "") -> str:
+          image: str = "", og_title: str = "", ruta: str | None = None) -> str:
     up = "../" * depth  # dentro de web/
+    # Canonical: `ruta` es la ruta del fichero dentro de web/ ("" para la
+    # portada). Cada render_* sabe qué página produce, así que la pone él y no
+    # hay que arrastrarla desde quien escribe el fichero.
+    #
+    # Sin canonical, cualquier duplicado —la misma página con parámetros de
+    # campaña, o servida por otro host— compite consigo misma y Google reparte
+    # las señales en vez de sumarlas. `ruta is None` (y no `if ruta`) porque la
+    # portada es cadena vacía y también necesita el suyo.
+    link_canonical = (
+        f'<link rel="canonical" href="{SITIO_BASE}/{ruta}">' if ruta is not None else ""
+    )
     meta_desc = f'<meta name="description" content="{E(desc)}">' if desc else ""
     # Open Graph: solo se emite si el llamador pasa `url` (páginas pensadas para
     # compartirse, como los artículos de blog). El resto de páginas se quedan
@@ -549,6 +574,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{E(title)}</title>
 {meta_desc}
+{link_canonical}
 {meta_og}
 <link rel="icon" href="{up}assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="{up}assets/favicon-192.png" type="image/png" sizes="192x192">
@@ -1031,7 +1057,7 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
   <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
 </div></section>"""
     return shell("El Terracampino — el tiempo y las noticias de tu pueblo",
-                 body, depth=0,
+                 body, depth=0, ruta="",
                  desc="El tiempo y las noticias de cada pueblo de Tierra de Campos, en limpio.")
 
 
@@ -1312,7 +1338,8 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
   </aside>
 </div>"""
     desc = w["articulo"][:150] if w else f"Noticias y tiempo de {m['name']}, Tierra de Campos."
-    return shell(f"{m['name']} — El Terracampino", body, depth=1, desc=desc)
+    return shell(f"{m['name']} — El Terracampino", body, depth=1, desc=desc,
+                 ruta=f"municipio/{m['slug']}.html")
 
 
 def render_sitemap(paginas: list[tuple[str, str]]) -> str:
@@ -1321,7 +1348,7 @@ def render_sitemap(paginas: list[tuple[str, str]]) -> str:
     municipio, noticias propias e investigaciones. Los anuncios oficiales
     (plenos/BOCyL/BDNS) no tienen página propia, viven dentro de la ficha de
     su municipio, así que no generan entrada aparte."""
-    base = "https://elterracampino.es"
+    base = SITIO_BASE
     urls = "".join(f"""  <url>
     <loc>{base}/{E(ruta)}</loc>
     <lastmod>{E(lastmod)}</lastmod>
@@ -1334,7 +1361,7 @@ def render_sitemap(paginas: list[tuple[str, str]]) -> str:
 
 
 def render_robots_txt() -> str:
-    return "User-agent: *\nAllow: /\n\nSitemap: https://elterracampino.es/sitemap.xml\n"
+    return f"User-agent: *\nAllow: /\n\nSitemap: {SITIO_BASE}/sitemap.xml\n"
 
 
 GUIA_HUERTA_MESES = [
@@ -1442,7 +1469,7 @@ def render_huerta() -> str:
   apriete el calor) va con el parte de cada ficha de municipio.</p>
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Guía de huerta — El Terracampino", body, depth=0,
+    return shell("Guía de huerta — El Terracampino", body, depth=0, ruta="huerta.html",
                  desc="Calendario mensual de siembra y cosecha para un huerto familiar en Tierra de Campos.")
 
 
@@ -1520,7 +1547,7 @@ def render_chivatazo(built: list[dict]) -> str:
   }});
 }})();
 </script>"""
-    return shell("¿Sabes algo? Cuéntanoslo — El Terracampino", body, depth=0,
+    return shell("¿Sabes algo? Cuéntanoslo — El Terracampino", body, depth=0, ruta="chivatazo.html",
                  desc="Buzón anónimo de chivatazos para El Terracampino, periódico hiperlocal de Tierra de Campos.")
 
 
@@ -1715,7 +1742,7 @@ def render_lonja(cots: list[dict], emb: dict | None = None) -> str:
   {bloque_embalses(emb)}
   <p class="tc-item-meta" style="margin-top:18px;"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("El campo: precios y agua — El Terracampino", body, depth=0,
+    return shell("El campo: precios y agua — El Terracampino", body, depth=0, ruta="campo.html",
                  desc="Precios del cereal en la Lonja de Valladolid y Palencia y situación de los "
                       "embalses que riegan Tierra de Campos.")
 
@@ -1741,7 +1768,7 @@ def render_leyendas(built: list[dict]) -> str:
   {tarjetas}
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Leyendas e historias populares — El Terracampino", body, depth=0,
+    return shell("Leyendas e historias populares — El Terracampino", body, depth=0, ruta="leyendas.html",
                  desc="Leyendas y tradiciones documentadas de los pueblos de Tierra de Campos.")
 
 
@@ -1874,7 +1901,7 @@ def render_esquelas_pagina(por_slug: dict[str, list[dict]], nombre_por_slug: dic
   </div>
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Esquelas — El Terracampino", body, depth=0,
+    return shell("Esquelas — El Terracampino", body, depth=0, ruta="esquelas.html",
                  desc="Esquelas y fallecimientos recientes en los pueblos de Tierra de Campos.")
 
 
@@ -1980,7 +2007,7 @@ def render_esquela_form(built: list[dict]) -> str:
   }});
 }})();
 </script>"""
-    return shell("Enviar una esquela — El Terracampino", body, depth=0,
+    return shell("Enviar una esquela — El Terracampino", body, depth=0, ruta="esquela.html",
                  desc="Envía el aviso de fallecimiento de un familiar para publicarlo en El Terracampino.")
 
 
@@ -2036,7 +2063,7 @@ def render_archivo_pagina(por_slug: dict[str, list[dict]], nombre_por_slug: dict
   <a href="https://wa.me/34695645395" target="_blank" rel="noopener">Cuéntanoslo por WhatsApp</a> y lo añadimos.</p>
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("El archivo: fotos de antes — El Terracampino", body, depth=0,
+    return shell("El archivo: fotos de antes — El Terracampino", body, depth=0, ruta="archivo.html",
                  desc="Archivo de fotos antiguas de los pueblos de Tierra de Campos, aportadas por los vecinos.")
 
 
@@ -2123,7 +2150,7 @@ def render_archivo_form(built: list[dict]) -> str:
   }});
 }})();
 </script>"""
-    return shell("Compartir una foto antigua — El Terracampino", body, depth=0,
+    return shell("Compartir una foto antigua — El Terracampino", body, depth=0, ruta="archivo-enviar.html",
                  desc="Comparte fotos antiguas de tu pueblo con el archivo fotográfico de El Terracampino.")
 
 
@@ -2161,7 +2188,7 @@ def render_gente(built: list[dict], blog_articulos: list[dict]) -> str:
   </div>
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Gente de Campos — El Terracampino", body, depth=0,
+    return shell("Gente de Campos — El Terracampino", body, depth=0, ruta="gente.html",
                  desc="Retratos de personas de los pueblos de Tierra de Campos, contados con sus propias palabras.")
 
 
@@ -2174,7 +2201,7 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
     Se guardan los titulares y entradillas YA redactados y revisados por la
     cadena de redactor.py — el boletín no vuelve a pasar nada por la IA, así que
     no puede introducir texto nuevo ni inventar."""
-    base = "https://elterracampino.es"
+    base = SITIO_BASE
     r = resumen_tiempo(built)
 
     # Una misma resolución del BOCyL puede afectar a varios municipios y aparece
@@ -2329,7 +2356,7 @@ def render_acompanar() -> str:
 
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Acompañar — El Terracampino", body, depth=0,
+    return shell("Acompañar — El Terracampino", body, depth=0, ruta="acompanar.html",
                  desc="Teléfonos y recursos contra la soledad de los mayores en Tierra de Campos: a quién llamar y cómo ayudar a quien tienes cerca.")
 
 
@@ -2456,7 +2483,7 @@ def render_aviso_legal() -> str:
 
   <p class="tc-item-meta"><a href="index.html">← Volver a portada</a></p>
 </div></article>"""
-    return shell("Aviso legal — El Terracampino", body, depth=0,
+    return shell("Aviso legal — El Terracampino", body, depth=0, ruta="aviso-legal.html",
                  desc="Titularidad de El Terracampino: propiedad de María Vega Blanco, desarrollado por Naraya Services Cloud Consulting S.L.")
 
 
