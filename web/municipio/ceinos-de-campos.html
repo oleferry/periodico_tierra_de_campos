@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ceinos de Campos — El Terracampino</title>
-<meta name="description" content="Hoy en Ceinos está nublado y frío, ahora mismo 16 grados. La máxima rondará los 22 y no bajará de 15. Lo importante es que hay un 85 por ciento de pro">
+<meta name="description" content="Noticias y tiempo de Ceinos de Campos, Tierra de Campos.">
+<link rel="canonical" href="https://www.elterracampino.es/municipio/ceinos-de-campos.html">
 
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
@@ -54,7 +55,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Ceinos de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 26/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 27/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/ceinos-de-campos.jpg" alt="Ceinos de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Ceinos_de_Campos_01.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -66,53 +67,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Ceinos de Campos: 16° y nublado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">16°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.03284&longitude=-5.15007&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Hoy en Ceinos está nublado y frío, ahora mismo 16 grados. La máxima rondará los 22 y no bajará de 15. Lo importante es que hay un 85 por ciento de probabilidad de lluvia — pueden caer unos 4 milímetros — así que prepárate. Mañana seguirán los chubascos, con máximas de unos 20 grados.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves con chubascos y viento</h4>
-      <p class="tc-day-texto">Chubascos seguros con probabilidad alta del 80% y rachas de viento de hasta 31 km/h. Las temperaturas rondarán entre 13° y 20°, así que abrígate bien si sales.</p>
-      <span class="tc-day-temp tc-data">20° <span class="tc-day-min">13°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes despejándose</h4>
-      <p class="tc-day-texto">Cielo nublado pero sin lluvia prácticamente. Suben las temperaturas hasta los 24° con mínima de 11° y viento moderado de 23 km/h.</p>
-      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">11°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado soleado y cálido</h4>
-      <p class="tc-day-texto">Cielo nublado pero sin riesgo de lluvia, con máxima de 26° y viento suave de 13 km/h. La mejor jornada de estos tres días.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">13°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Ceinos de Campos</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Ceinos de Campos</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Ceinos de Campos: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Ceinos de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>

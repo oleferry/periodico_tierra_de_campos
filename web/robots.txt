@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://elterracampino.es/sitemap.xml
+Sitemap: https://www.elterracampino.es/sitemap.xml
