@@ -42,7 +42,7 @@ if hasattr(sys.stdout, "buffer"):
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 from sitegen import ia, imagenes  # noqa: E402
-from sitegen.build import E, render_blog_articulo, shell  # noqa: E402
+from sitegen.build import E, render_blog_articulo, shell, url_publica  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
@@ -608,7 +608,10 @@ def main() -> int:
     })
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    url = f"https://elterracampino.es/blog/{slug}.html"
+    # El enlace que se copia a mano para difundir: tiene que ser el mismo que
+    # publica el sitio. Antes iba sin `www` y con `.html`, o sea encadenando dos
+    # redirecciones antes de llegar a la página.
+    url = url_publica(f"blog/{slug}")
     print(f"\nListo: web/blog/{slug}.html")
     print(f"Telegram (versión corta): {art['version_telegram']}")
     if art["revision_humana"]:

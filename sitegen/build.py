@@ -63,6 +63,49 @@ from sitegen.contenido import (
 )
 from sitegen.redactor import redactar
 
+
+def url_publica(ruta: str) -> str:
+    """URL absoluta de una página, tal y como la sirve Vercel de verdad.
+
+    El generador escribe ficheros `.html` y enlaza entre ellos con esa
+    extensión, pero Vercel sirve la URL limpia: `/huerta` responde 200 y
+    `/huerta.html` devuelve un 308 hacia ella.
+
+    Eso convertía en mentira todo lo que el sitio decía de sí mismo. Y el caso
+    grave no era el sitemap sino la canonical: `/huerta` se servía con
+    `<link rel="canonical" href=".../huerta.html">`, o sea declarando que la
+    versión buena de una página que existe es una URL que redirige. Es el mismo
+    fallo del host que ya se arregló, con otra cara, y deja el mismo
+    aprendizaje: no basta con centralizar el dominio, **hay que comprobar que
+    la URL que se publica devuelve 200**.
+
+    Los `<a href>` internos siguen siendo relativos y con `.html`. Funcionan
+    (308 y a la página), y reescribirlos obliga a tocar la lógica de `depth`,
+    que es donde se rompen los generadores estáticos. Cuestan un salto al
+    rastrear; no deciden qué se indexa, que lo deciden canonical y sitemap.
+
+    >>> url_publica("")
+    'https://www.elterracampino.es/'
+    >>> url_publica("huerta.html")
+    'https://www.elterracampino.es/huerta'
+    >>> url_publica("blog/pan-candeal.html")
+    'https://www.elterracampino.es/blog/pan-candeal'
+    >>> url_publica("municipio/mayorga.html")
+    'https://www.elterracampino.es/municipio/mayorga'
+    >>> url_publica("index.html")
+    'https://www.elterracampino.es/'
+    """
+    ruta = ruta.lstrip("/")
+    if ruta.endswith(".html"):
+        ruta = ruta[: -len(".html")]
+    # `index` no es una página: es la portada de su carpeta.
+    if ruta == "index":
+        ruta = ""
+    elif ruta.endswith("/index"):
+        ruta = ruta[: -len("index")]
+    return f"{SITIO_BASE}/{ruta}"
+
+
 ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 BRAND = ROOT / "brand"
@@ -245,10 +288,10 @@ def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool)
     <strong>Fuentes:</strong>
     <ul class="tc-links-list">{fuentes_html}</ul>
   </div>
-  {bloque_compartir(f"{SITIO_BASE}/blog/{slug}.html", art['titular'])}
+  {bloque_compartir(url_publica(f"blog/{slug}.html"), art['titular'])}
   <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
 </div></article>"""
-    url = f"{SITIO_BASE}/blog/{slug}.html"
+    url = url_publica(f"blog/{slug}.html")
     image = f"{SITIO_BASE}/assets/blog/{slug}.jpg" if tiene_imagen else ""
     return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150],
                  ruta=blog_articulo_path(slug),
@@ -512,8 +555,8 @@ def render_feed_rss(articulos: list[dict]) -> str:
     base = SITIO_BASE
     items = "".join(f"""  <item>
     <title>{E(a['titular'])}</title>
-    <link>{base}/blog/{E(a['slug'])}.html</link>
-    <guid isPermaLink="true">{base}/blog/{E(a['slug'])}.html</guid>
+    <link>{E(url_publica(f"blog/{a['slug']}"))}</link>
+    <guid isPermaLink="true">{E(url_publica(f"blog/{a['slug']}"))}</guid>
     <description>{E(a['entradilla'])}</description>
     <pubDate>{rfc822(a['fecha'])}</pubDate>
   </item>
@@ -544,7 +587,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
     # las señales en vez de sumarlas. `ruta is None` (y no `if ruta`) porque la
     # portada es cadena vacía y también necesita el suyo.
     link_canonical = (
-        f'<link rel="canonical" href="{SITIO_BASE}/{ruta}">' if ruta is not None else ""
+        f'<link rel="canonical" href="{url_publica(ruta)}">' if ruta is not None else ""
     )
     meta_desc = f'<meta name="description" content="{E(desc)}">' if desc else ""
     # Open Graph: solo se emite si el llamador pasa `url` (páginas pensadas para
@@ -1348,9 +1391,8 @@ def render_sitemap(paginas: list[tuple[str, str]]) -> str:
     municipio, noticias propias e investigaciones. Los anuncios oficiales
     (plenos/BOCyL/BDNS) no tienen página propia, viven dentro de la ficha de
     su municipio, así que no generan entrada aparte."""
-    base = SITIO_BASE
     urls = "".join(f"""  <url>
-    <loc>{base}/{E(ruta)}</loc>
+    <loc>{E(url_publica(ruta))}</loc>
     <lastmod>{E(lastmod)}</lastmod>
   </url>
 """ for ruta, lastmod in paginas)
@@ -2201,7 +2243,6 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
     Se guardan los titulares y entradillas YA redactados y revisados por la
     cadena de redactor.py — el boletín no vuelve a pasar nada por la IA, así que
     no puede introducir texto nuevo ni inventar."""
-    base = SITIO_BASE
     r = resumen_tiempo(built)
 
     # Una misma resolución del BOCyL puede afectar a varios municipios y aparece
@@ -2256,7 +2297,7 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
             "municipio": donde,
             "fecha": d.get("published_at", ""),
             "fuente": fuente_label(d),
-            "url": f"{base}/{articulo_path(d)}" if red.get("cuerpo") else url_segura(d.get("url_original", "")),
+            "url": url_publica(articulo_path(d)) if red.get("cuerpo") else url_segura(d.get("url_original", "")),
         })
     datos = {
         "fecha": hoy.isoformat(),
@@ -2265,7 +2306,7 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
                     "fenomeno": a.get("fenomeno", "")} for a in avisos],
         "noticias": noticias,
         "investigaciones": [
-            {"titular": a["titular"], "url": f"{base}/blog/{a['slug']}.html", "fecha": a.get("fecha", "")}
+            {"titular": a["titular"], "url": url_publica(f"blog/{a['slug']}"), "fecha": a.get("fecha", "")}
             for a in blog_articulos[:3]
         ],
     }
