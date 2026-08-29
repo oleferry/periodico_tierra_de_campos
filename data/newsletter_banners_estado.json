@@ -1,9 +1,11 @@
 {
-  "posicion": 0,
+  "posicion": 1,
   "historial": {
-    "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute": 0
+    "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute": 0,
+    "villarramiel-perdio-ocho-de-cada-diez-vecinos-en-un-siglo-y-nadie-firmo-la-orden": 1
   },
   "enviados": [
-    "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute"
+    "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute",
+    "villarramiel-perdio-ocho-de-cada-diez-vecinos-en-un-siglo-y-nadie-firmo-la-orden"
   ]
 }
