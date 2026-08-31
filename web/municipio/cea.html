@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cea — El Terracampino</title>
-<meta name="description" content="En Cea ahora mismo estamos a 23 grados con nubes. Subirá poco, hasta los 26 de máxima, y la noche bajará bastante — ronda los 11. El viento soplará co">
+<meta name="description" content="Noticias y tiempo de Cea, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/cea">
 
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -55,7 +55,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Cea</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 30/08/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 31/08/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/cea.jpg" alt="Cea" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Cea.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -67,53 +67,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Cea: 23° y nublado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.46278&longitude=-5.01152&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Cea ahora mismo estamos a 23 grados con nubes. Subirá poco, hasta los 26 de máxima, y la noche bajará bastante — ronda los 11. El viento soplará con cierta fuerza, unos 18 kilómetros por hora, pero no lluvia a la vista. Mañana seguirá nublado y un punto más cálido, con 27 grados.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Lunes</span>
-      <h4 class="tc-day-titular">Lunes nublado con viento fresco</h4>
-      <p class="tc-day-texto">La jornada transcurrirá bajo nubes sin previsión de lluvia. Las temperaturas rondarán entre los 10 y 27 grados, con un viento moderado de 28 km/h que hará notar su presencia.</p>
-      <span class="tc-day-temp tc-data">27° <span class="tc-day-min">10°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes nublado, más cálido</h4>
-      <p class="tc-day-texto">Seguirá la cobertura de nubes sin posibilidad de precipitación. La máxima subirá hasta los 29 grados mientras la mínima alcanzará los 14, con un viento de 30 km/h que mantendrá el aire en movimiento.</p>
-      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">14°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles con nubes y claros</h4>
-      <p class="tc-day-texto">El cielo mostrará alternancias entre nubosidad y momentos de claridad, permitiendo que la temperatura escale hasta los 31 grados. Sin lluvia a la vista y con un viento más moderado de 23 km/h, la mínima se situará en los 16 grados.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Cea</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Cea</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Cea: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Cea incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
