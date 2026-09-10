@@ -25,15 +25,22 @@ Graph API v21.0: 1) crear contenedor con image_url  2) media_publish
 - El feed (`feed.xml`) solo trae las **investigaciones**, no las noticias del
   día a día ni los plenos — igual que el resto de la difusión en redes.
 - **Instagram descarga la imagen de una URL pública** (no se sube el fichero).
-  Como el feed no incluye `<enclosure>`, se deriva la imagen transformando el
-  `<link>` del artículo: `.../blog/<slug>.html` → `.../assets/blog/<slug>.jpg`
-  (`IG_IMAGE_MODE=template` + `IG_IMAGE_REPLACEMENTS`). El script comprueba la
-  imagen con `HEAD` antes de llamar a Meta; si no existe, salta ese artículo y
-  prueba el siguiente.
+  Como el feed no incluye `<enclosure>`, se lee el **`og:image` de cada
+  artículo** (`IG_IMAGE_MODE=og`). El script comprueba la imagen con `HEAD`
+  antes de llamar a Meta; si no existe, salta ese artículo y prueba el
+  siguiente.
 - **Los artículos sin imagen se saltan automáticamente** — es el caso del
   homenaje a Mariano Haro, publicado sin foto a propósito (no se generan
-  retratos de IA de personas reales). Instagram no admite publicaciones de
-  solo texto.
+  retratos de IA de personas reales): no emite `og:image`, así que el script
+  pasa de largo. Instagram no admite publicaciones de solo texto.
+- **Por qué `og` y no `template`** (2026-09-10): hasta ahora la imagen se
+  derivaba transformando el `<link>` (`.../blog/<slug>.html` →
+  `.../assets/blog/<slug>.jpg`). Cuando el sitio pasó a publicar en el feed la
+  URL que Vercel sirve de verdad (**sin `.html`**), esa regla dejó de añadir la
+  extensión: pedía `/assets/blog/<slug>` sin `.jpg`, recibía un 404 y se
+  saltaba **todos** los artículos. El síntoma era un "nada nuevo con imagen que
+  publicar" cada lunes, sin error y sin ejecución en rojo. Con `og` da igual
+  cómo cambien las URLs: la imagen la declara el propio artículo.
 - El pie usa el **titular y la descripción ya escritos y revisados** del propio
   feed — no se redacta nada nuevo ni se inventa.
 
@@ -72,16 +79,17 @@ Ya está puesta para elterracampino.es en
 | Variable | Valor de este sitio |
 |---|---|
 | `FEED_URL` | `https://elterracampino.es/feed.xml` |
-| `IG_IMAGE_MODE` | `template` |
-| `IG_IMAGE_REPLACEMENTS` | `[["/blog/","/assets/blog/"],[".html",".jpg"]]` |
+| `IG_IMAGE_MODE` | `og` |
 | `IG_CTA` | "Lo contamos entero en elterracampino.es — enlace en la bio." |
 | `IG_HASHTAGS` | `#TierraDeCampos #Palencia #Valladolid #León #Zamora #EspañaVaciada #PueblosDeEspaña` |
 
 Para replicar el publicador en otro sitio (madapan.es, gafasvan.com): copiar
 `scripts/publish-instagram.mjs` y `scripts/instagram-posted.json` (con `[]`), y
 un workflow con su propio `FEED_URL` + secrets de esa cuenta. Si el feed de ese
-sitio sí trae `<enclosure>`, usar `IG_IMAGE_MODE=enclosure` en vez de
-`template`; si cada artículo tiene su propio `og:image`, usar `IG_IMAGE_MODE=og`.
+sitio trae `<enclosure>`, usar `IG_IMAGE_MODE=enclosure`; si no, `og` como
+aquí — **siempre que cada artículo tenga su propio `og:image`** y no una imagen
+fija del sitio (madapan.es y gafasvan.com hoy tienen una fija: ahí habría que
+poner primero el og:image por artículo, o usar `template`).
 
 ## Operar
 

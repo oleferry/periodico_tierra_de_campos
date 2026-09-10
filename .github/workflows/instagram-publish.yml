@@ -9,10 +9,10 @@
 #   META_IG_USER_ID       ID numérico de la cuenta de Instagram de este negocio
 #   META_IG_ACCESS_TOKEN  token de Usuario del Sistema (no caduca) con instagram_content_publish
 #
-# NOTA sobre la hora: GitHub programa el cron en UTC. España va en UTC+2 en
-# verano y UTC+1 en invierno, así que la hora local de este cron se desplaza una
-# hora entre estaciones. 08:15 UTC (lunes) ≈ 10:15 verano / 09:15 invierno, ya
-# pasado el build diario (06:10 UTC). Dime el día/hora local que quieras y ajusto.
+# HORA: objetivo lunes 20:00 en Madrid. GitHub programa en UTC y no entiende de
+# cambio de hora, así que se lanzan las dos horas candidatas (18:00 y 19:00 UTC)
+# y el paso "Guardia horaria" aborta la que no toca. El disparo manual siempre
+# pasa. Si prefieres simplicidad a exactitud, deja un solo cron y quita el paso.
 
 name: Instagram (mjs)
 
@@ -24,7 +24,8 @@ on:
         type: boolean
         default: false
   schedule:
-    - cron: "15 8 * * 1" # lunes 08:15 UTC (~10:15 verano / ~09:15 invierno)
+    - cron: "0 18 * * 1" # 20:00 en Madrid con horario de verano (CEST, UTC+2)
+    - cron: "0 19 * * 1" # 20:00 en Madrid con horario de invierno (CET, UTC+1)
 
 concurrency:
   group: instagram-publish
@@ -37,22 +38,45 @@ jobs:
     permissions:
       contents: write # para commitear el registro de publicados
     steps:
+      - name: Guardia horaria (solo en cron)
+        id: guard
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          HORA=$(TZ=Europe/Madrid date +%H)
+          if [ "$HORA" = "20" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Son las $HORA:00 en Madrid, no las 20:00: este disparo es el del otro huso. Salgo."
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v4
+        if: steps.guard.outputs.run == 'true'
 
       - uses: actions/setup-node@v4
+        if: steps.guard.outputs.run == 'true'
         with:
           node-version: "22"
 
       - name: Publicar en Instagram
         id: publish
+        if: steps.guard.outputs.run == 'true'
         env:
           # --- credenciales de ESTE sitio (mapeo de secrets a nombres del script) ---
           IG_USER_ID: ${{ secrets.META_IG_USER_ID }}
           IG_ACCESS_TOKEN: ${{ secrets.META_IG_ACCESS_TOKEN }}
           # --- configuración del sitio ---
           FEED_URL: "https://elterracampino.es/feed.xml"
-          IG_IMAGE_MODE: "template"
-          IG_IMAGE_REPLACEMENTS: '[["/blog/","/assets/blog/"],[".html",".jpg"]]'
+          # og, no template: desde que el feed publica la URL que sirve Vercel
+          # (sin .html), la derivación por plantilla dejaba de añadir el .jpg y
+          # TODOS los artículos se saltaban por "imagen 404" — sin error, solo
+          # un "nada nuevo que publicar" cada lunes. Leyendo el og:image de cada
+          # artículo da igual cómo cambien las URLs, y los artículos publicados
+          # a propósito sin foto (el homenaje a Mariano Haro) siguen saltándose
+          # solos porque no emiten og:image.
+          IG_IMAGE_MODE: "og"
           IG_CTA: "Lo contamos entero en elterracampino.es — enlace en la bio."
           IG_HASHTAGS: "#TierraDeCampos #Palencia #Valladolid #León #Zamora #EspañaVaciada #PueblosDeEspaña"
         run: |
@@ -63,7 +87,7 @@ jobs:
           fi
 
       - name: Commit del registro si hubo publicación
-        if: ${{ inputs.dry_run != true && steps.publish.outputs.guid != '' }}
+        if: ${{ steps.guard.outputs.run == 'true' && inputs.dry_run != true && steps.publish.outputs.guid != '' }}
         run: |
           git config user.name "El Terracampino (bot)"
           git config user.email "bot@users.noreply.github.com"
@@ -75,3 +99,13 @@ jobs:
             git pull --rebase origin "${GITHUB_REF_NAME}" || true
             git push
           fi
+
+      - name: Resumen
+        if: ${{ steps.guard.outputs.run == 'true' && steps.publish.outputs.published_id != '' }}
+        run: |
+          {
+            echo "### Publicado en Instagram"
+            echo ""
+            echo "- **guid:** \`${{ steps.publish.outputs.guid }}\`"
+            echo "- **publishedId:** \`${{ steps.publish.outputs.published_id }}\`"
+          } >> "$GITHUB_STEP_SUMMARY"

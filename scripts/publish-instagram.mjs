@@ -3,9 +3,10 @@
 // el MISMO script vale para varios sitios (madapan.es, gafasvan.com,
 // elterracampino.es); solo cambia la configuración por variables de entorno.
 //
-// Publicación por Graph API en dos pasos encadenados:
+// Publicación por Graph API en tres pasos encadenados:
 //   1) POST /{IG_USER_ID}/media          { image_url, caption } -> { id: creationId }
-//   2) POST /{IG_USER_ID}/media_publish  { creation_id }        -> { id: publishedId }
+//   2) GET  /{creationId}?fields=status_code  hasta que sea FINISHED
+//   3) POST /{IG_USER_ID}/media_publish  { creation_id }        -> { id: publishedId }
 //
 // TRAMPA (documentada): el token va SIEMPRE en la cabecera Authorization: Bearer,
 // nunca en el cuerpo JSON. La documentación de Meta induce a error en esto.
@@ -205,6 +206,42 @@ function pie(item) {
 
 // --------- Publicación ---------
 
+/**
+ * Tras crear el contenedor, Meta tarda unos segundos en descargar la imagen y
+ * procesarla. Publicar sin esperar falla con "Media ID is not available" —
+ * pasó de verdad en gafasvan.com la semana del 3 de agosto de 2026. Como el
+ * cron no reintenta solo, ese artículo se queda sin publicar y nadie se entera
+ * hasta que alguien mira el perfil. Sondea el estado hasta FINISHED (o falla
+ * si Meta lo marca ERROR o EXPIRED) antes de intentar publicar.
+ */
+async function esperarContenedorListo(creationId, cabeceras, intentos = 15, esperaMs = 4000) {
+  for (let i = 0; i < intentos; i++) {
+    const res = await conTimeout((signal) =>
+      fetch(`${API}/${creationId}?fields=status_code`, { headers: cabeceras, signal }).then(async (r) => ({
+        ok: r.ok,
+        status: r.status,
+        text: await r.text(),
+      }))
+    );
+    if (!res.ok) {
+      throw new PublicarError(`consultando el estado del contenedor: HTTP ${res.status} ${res.text.slice(0, 400)}`);
+    }
+    let estado;
+    try {
+      estado = JSON.parse(res.text).status_code;
+    } catch {
+      /* noop */
+    }
+    if (estado === "FINISHED") return;
+    if (estado === "ERROR" || estado === "EXPIRED") {
+      throw new PublicarError(`Meta no pudo procesar la imagen (${estado}): ${res.text.slice(0, 400)}`);
+    }
+    console.log(`Imagen todavía procesándose (${estado ?? "sin estado"}), esperando…`);
+    await new Promise((r) => setTimeout(r, esperaMs));
+  }
+  throw new PublicarError("la imagen no terminó de procesarse a tiempo en Meta (tras varios intentos)");
+}
+
 async function publicar(item, imageUrl) {
   const cabeceras = { Authorization: `Bearer ${CFG.token}`, "Content-Type": "application/json" };
 
@@ -225,6 +262,8 @@ async function publicar(item, imageUrl) {
   if (!crear.ok || !creationId) {
     throw new PublicarError(`creando el contenedor: HTTP ${crear.status} ${crear.text.slice(0, 400)}`);
   }
+
+  await esperarContenedorListo(creationId, cabeceras);
 
   const pub = await conTimeout((signal) =>
     fetch(`${API}/${CFG.uid}/media_publish`, {
