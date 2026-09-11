@@ -449,6 +449,54 @@ textarea { min-height: 96px; }
   color: var(--tc-texto-secundario);
 }
 
+/* Bloque de Acompañar dentro de la ficha de municipio: sobrio, sin alarmismo.
+   El verde lo distingue del resto de bloques sin gritar. */
+.tc-acompanar-mini {
+  border-left: 4px solid var(--tc-verde-regadio);
+  padding: 4px 0 4px var(--tc-space-2);
+  margin: var(--tc-space-4) 0;
+}
+
+/* La pregunta, como frase humana en la tipografía de titulares — no como
+   rótulo de caja lateral. */
+.tc-acompanar-mini h3 {
+  font-family: var(--tc-font-headline);
+  font-size: 1.15rem;
+  line-height: 1.3;
+  margin: .2rem 0 .4rem;
+  text-wrap: balance;
+}
+
+.tc-acompanar-mini-tels {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 20px;
+}
+
+/* Número + a quién llama, siempre juntos: al partir línea no se separan. */
+.tc-acompanar-mini-tel {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tc-acompanar-mini-tel a {
+  font-family: var(--tc-font-data);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--tc-verde-regadio);
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tc-acompanar-mini-tel span {
+  font-size: .82rem;
+  color: var(--tc-texto-secundario);
+}
+
 .tc-footer-redes {
   margin-top: var(--tc-space-2);
   display: flex;

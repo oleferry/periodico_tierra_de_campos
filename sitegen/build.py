@@ -143,6 +143,43 @@ MUNI_LINKS = {
 }
 PILOTS = list(MUNI_LINKS.keys())
 
+# Teléfonos de la sección "Acompañar" (ver docs/acompanar.md). Fuente ÚNICA:
+# los usan la página, la hoja A4 imprimible y el bloque de cada ficha de
+# municipio. Estaban copiados a mano en dos sitios y así es como acaba
+# publicado un número equivocado — la política editorial obliga a verificar
+# todo teléfono antes de publicarlo, y no se puede verificar lo que está
+# duplicado. Verificados el 2026-07-28; re-verificar al menos una vez al año
+# o en cuanto alguien avise de un número que no responde.
+TELEFONOS_ACOMPANAR = [
+    {
+        "nombre": "Emergencias",
+        "nombre_hoja": "Emergencias (peligro o urgencia)",
+        "tel": "112", "tel_href": "112",
+        "coste": "24 horas · todos los días",
+        "coste_hoja": "Las 24 horas, todos los días",
+        "desc": "Si hay peligro para la vida o la salud, o una urgencia de cualquier tipo. No lo dudes.",
+        "emergencia": True,
+    },
+    {
+        "nombre": "Te Acompaña — Cruz Roja",
+        "nombre_hoja": "Si te sientes solo — Te Acompaña, de Cruz Roja",
+        "tel": "900 444 111", "tel_href": "900444111",
+        "coste": "Gratuito · de lunes a viernes, de 10 a 18 h",
+        "coste_hoja": "Gratuito · De lunes a viernes, de 10 a 18 horas",
+        "desc": "Para quien se siente solo. Escuchan, orientan y acompañan, sin prisa y sin que cueste nada.",
+        "emergencia": False,
+    },
+    {
+        "nombre": "Teléfono de la Esperanza",
+        "nombre_hoja": "Para hablar, cuando lo necesites — Teléfono de la Esperanza",
+        "tel": "717 003 717", "tel_href": "717003717",
+        "coste": "Gratuito y anónimo · 24 horas, todos los días",
+        "coste_hoja": "Gratuito y anónimo · Las 24 horas, todos los días",
+        "desc": "Cuando uno necesita hablar y que le escuchen, a cualquier hora del día o de la noche.",
+        "emergencia": False,
+    },
+]
+
 E = html.escape
 
 
@@ -1368,6 +1405,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
     {ayto}
     {ayudas_html}
     {esquelas_html}
+    {bloque_acompanar(1)}
     {galeria_html}
     {archivo_html}
     {directorio_html}
@@ -2316,6 +2354,40 @@ def escribir_resumen_dia(built: list[dict], feed: list[dict], blog_articulos: li
           f"{len(datos['avisos'])} avisos")
 
 
+def bloque_acompanar(depth: int) -> str:
+    """Bloque compacto de "Acompañar" para la ficha de cada municipio.
+
+    Por qué está aquí y no solo en su sección: la persona mayor y sola no nos
+    lee en el móvil; nos leen sus hijos, que se fueron, y sus vecinos. A esos
+    los tenemos en la ficha de su pueblo —la página más visitada del sitio—, no
+    en un enlace del menú que no tienen motivo para pulsar. El papel del
+    periódico aquí es armar a quien lo tiene cerca (docs/acompanar.md).
+
+    LÍNEA ROJA, igual que en la sección: aquí no se dice nunca que nadie viva
+    solo, ni se nombra a ninguna persona. Solo teléfonos verificados y qué
+    puede hacer quien lea esto."""
+    up = "../" * depth
+    # Cada teléfono va con su nombre en una sola pieza, para que al partir
+    # línea en el móvil nunca quede un número separado de a quién llama.
+    telefonos = "".join(
+        f'<span class="tc-acompanar-mini-tel"><a href="tel:{r["tel_href"]}">{E(r["tel"])}</a>'
+        f' <span>{E(r["nombre"])}</span></span>'
+        for r in TELEFONOS_ACOMPANAR
+    )
+    # Sin tc-side-block a propósito: esa clase pone los h3 en mayúsculas de
+    # etiqueta, y aquí la pregunta tiene que leerse como una frase, no un rótulo.
+    return f"""<section class="tc-acompanar-mini">
+  <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Acompañar</span>
+  <h3>¿Tienes cerca a alguien que pasa mucho tiempo solo?</h3>
+  <p style="margin:0 0 .6rem; font-size:.92rem;">Una llamada corta también acompaña. Y si hace falta más,
+  estos teléfonos son gratuitos y al otro lado hay alguien que escucha:</p>
+  <p class="tc-acompanar-mini-tels">{telefonos}</p>
+  <p style="margin:.6rem 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Para la teleasistencia o la
+  ayuda a domicilio, pregunta en el ayuntamiento por los Servicios Sociales (CEAS) de la zona.
+  <a href="{up}acompanar.html">Más, en Acompañar</a> · <a href="{up}acompanar-hoja.html">hoja para imprimir y colgar en el pueblo</a>.</p>
+</section>"""
+
+
 def render_acompanar() -> str:
     """Sección "Acompañar" (Fase 1) — servicio público contra la soledad no
     deseada de los mayores. Ver docs/acompanar.md.
@@ -2325,34 +2397,14 @@ def render_acompanar() -> str:
     dónde encontrarse, y cómo puede ayudar quien tiene cerca a alguien solo.
     Todos los teléfonos están verificados (Cruz Roja, Teléfono de la Esperanza,
     112) — antes de tocar un número, re-verificar."""
-    # Tarjetas de "a quién llamar": teléfonos verificados. tel: para que en el
-    # móvil se pueda llamar con un toque.
-    recursos = [
-        {
-            "nombre": "Emergencias",
-            "tel": "112", "tel_href": "112",
-            "coste": "24 horas · todos los días",
-            "desc": "Si hay peligro para la vida o la salud, o una urgencia de cualquier tipo. No lo dudes.",
-        },
-        {
-            "nombre": "Te Acompaña — Cruz Roja",
-            "tel": "900 444 111", "tel_href": "900444111",
-            "coste": "Gratuito · de lunes a viernes, de 10 a 18 h",
-            "desc": "Para quien se siente solo. Escuchan, orientan y acompañan, sin prisa y sin que cueste nada.",
-        },
-        {
-            "nombre": "Teléfono de la Esperanza",
-            "tel": "717 003 717", "tel_href": "717003717",
-            "coste": "Gratuito y anónimo · 24 horas, todos los días",
-            "desc": "Cuando uno necesita hablar y que le escuchen, a cualquier hora del día o de la noche.",
-        },
-    ]
+    # Tarjetas de "a quién llamar": teléfonos verificados (TELEFONOS_ACOMPANAR,
+    # fuente única). tel: para que en el móvil se pueda llamar con un toque.
     tarjetas = "".join(f"""<div class="tc-card tc-acompanar-tarjeta">
     <h3 style="margin-top:0;">{E(r['nombre'])}</h3>
     <p class="tc-acompanar-tel"><a href="tel:{r['tel_href']}">{E(r['tel'])}</a></p>
     <p class="tc-acompanar-coste">{E(r['coste'])}</p>
     <p class="tc-pieza-cuerpo">{E(r['desc'])}</p>
-  </div>""" for r in recursos)
+  </div>""" for r in TELEFONOS_ACOMPANAR)
 
     body = f"""<article class="tc-wrap tc-articulo tc-blog-articulo"><div class="tc-articulo-ancho">
   <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Acompañar</span>
@@ -2405,7 +2457,22 @@ def render_acompanar_hoja() -> str:
     """Hoja A4 imprimible con los teléfonos, en letra grande, para colgar en
     farmacias, consultorios, hogares del jubilado, iglesias. Página autónoma
     (no usa shell): pensada para imprimirse limpia, no para navegar. Ver
-    docs/acompanar.md. Los teléfonos son los mismos verificados de render_acompanar()."""
+    docs/acompanar.md. Los teléfonos salen de TELEFONOS_ACOMPANAR, la misma
+    fuente que la web: aquí no se escribe ningún número a mano."""
+    # En la hoja manda primero el teléfono de escuchar —es a quien va dirigida—
+    # y el 112 al final, en otro color. La web los ordena al revés.
+    escucha = [r for r in TELEFONOS_ACOMPANAR if not r["emergencia"]]
+    escucha.sort(key=lambda r: "24 horas" not in r["coste_hoja"])  # el de 24 h, primero
+    bloques_tel = "\n\n".join(
+        f"""<div class="tel-bloque{' emerg' if r['emergencia'] else ''}">
+    <p class="tel-nombre">{E(r['nombre_hoja'])}</p>
+    <p class="tel-num">{E(r['tel'])}</p>
+    <p class="tel-cost">{E(r['coste_hoja'])}</p>
+  </div>"""
+        for r in escucha + [r for r in TELEFONOS_ACOMPANAR if r["emergencia"]]
+    )
+    # .replace en vez de f-string: el bloque lleva CSS con llaves y convertirlo
+    # en f-string obligaría a duplicarlas todas.
     return """<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -2443,23 +2510,7 @@ def render_acompanar_hoja() -> str:
   <h1>¿Te sientes solo?<br>No estás solo.</h1>
   <p class="sub">Llamar es gratis. Al otro lado hay alguien que escucha.</p>
 
-  <div class="tel-bloque">
-    <p class="tel-nombre">Para hablar, cuando lo necesites — Teléfono de la Esperanza</p>
-    <p class="tel-num">717 003 717</p>
-    <p class="tel-cost">Gratuito y anónimo · Las 24 horas, todos los días</p>
-  </div>
-
-  <div class="tel-bloque">
-    <p class="tel-nombre">Si te sientes solo — Te Acompaña, de Cruz Roja</p>
-    <p class="tel-num">900 444 111</p>
-    <p class="tel-cost">Gratuito · De lunes a viernes, de 10 a 18 horas</p>
-  </div>
-
-  <div class="tel-bloque emerg">
-    <p class="tel-nombre">Emergencias (peligro o urgencia)</p>
-    <p class="tel-num">112</p>
-    <p class="tel-cost">Las 24 horas, todos los días</p>
-  </div>
+  {bloques_tel}
 
   <p class="pie">Y para la teleasistencia o la ayuda a domicilio, pregunta en tu <strong>ayuntamiento</strong>
   por los Servicios Sociales (CEAS) de tu zona.</p>
@@ -2467,7 +2518,7 @@ def render_acompanar_hoja() -> str:
 </div>
 </body>
 </html>
-"""
+""".replace("{bloques_tel}", bloques_tel)
 
 
 def render_aviso_legal() -> str:
