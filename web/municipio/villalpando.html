@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalpando — El Terracampino</title>
-<meta name="description" content="En Villalpando está agradable: 23 grados y cielo limpio. Hoy subirá un poco más, hasta los 26, con ese viento suave que no te molesta, y no hay ni ras">
+<meta name="description" content="Noticias y tiempo de Villalpando, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/villalpando">
 
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -55,7 +55,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalpando</h1>
-  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 11/09/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 12/09/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/villalpando.jpg" alt="Villalpando" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_Real,_Villalpando._-_panoramio.jpg" target="_blank" rel="noopener">Frank Baulo</a>,
@@ -67,53 +67,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalpando: 23° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.864722&longitude=-5.413056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Villalpando está agradable: 23 grados y cielo limpio. Hoy subirá un poco más, hasta los 26, con ese viento suave que no te molesta, y no hay ni rastro de lluvia. Mañana seguirá parecido, así que puedes contar con buen tiempo para estos dos días.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado despejado y con algo de viento</h4>
-      <p class="tc-day-texto">Cielo limpio en Villalpando con máxima de 27 grados y mínima de 12. El viento de 17 km/h será lo más notable del día, sin posibilidad de lluvia.</p>
-      <span class="tc-day-temp tc-data">27° <span class="tc-day-min">12°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo soleado y cálido</h4>
-      <p class="tc-day-texto">Tiempo anticiclónico que deja máximas de 30 grados y mínimas de 12, con viento moderado de 10 km/h. Cielo despejado de principio a fin.</p>
-      <span class="tc-day-temp tc-data">30° <span class="tc-day-min">12°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Lunes</span>
-      <h4 class="tc-day-titular">Lunes caluroso en calma</h4>
-      <p class="tc-day-texto">La máxima sube a 32 grados con mínima de 14 en un día de cielo despejado y poco viento. Condiciones anticiclónicas que dejan el ambiente muy tranquilo.</p>
-      <span class="tc-day-temp tc-data">32° <span class="tc-day-min">14°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Villalpando</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Villalpando</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Villalpando: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villalpando incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
