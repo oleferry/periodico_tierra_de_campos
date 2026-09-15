@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paredes de Nava — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Paredes de Nava, Tierra de Campos.">
+<meta name="description" content="En Paredes de Nava ahora mismo andan los 28 grados y casi sin nubes. Subirá hasta los 32 a lo largo del día, con ese viento flojo que tenemos, y no ha">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/paredes-de-nava">
 
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -55,7 +55,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Paredes de Nava</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 14/09/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 15/09/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/paredes-de-nava.jpg" alt="Paredes de Nava" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_de_Paredes_de_Nava_-_panoramio.jpg" target="_blank" rel="noopener">Ugo Cuesta</a>,
@@ -67,12 +67,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Paredes de Nava</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Paredes de Nava</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Paredes de Nava: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Paredes de Nava: 28° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">28°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.152778&longitude=-4.694444&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Paredes de Nava ahora mismo andan los 28 grados y casi sin nubes. Subirá hasta los 32 a lo largo del día, con ese viento flojo que tenemos, y no hay riesgo de lluvia. Mañana cambia: se nubla y baja bastante, así que aprovecha hoy si tienes algo que hacer al aire libre.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con nubes y aire fuerte</h4>
+      <p class="tc-day-texto">Se espera un día nublado con máxima de 20° y mínima de 13°. El viento será notable, alcanzando 36 km/h, aunque la lluvia es improbable.</p>
+      <span class="tc-day-temp tc-data">20° <span class="tc-day-min">13°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves gris pero en seco</h4>
+      <p class="tc-day-texto">Cielo nublado con temperaturas que rondan los 22° de máxima y 9° de mínima. El viento moderará hasta 27 km/h sin posibilidad de precipitaciones.</p>
+      <span class="tc-day-temp tc-data">22° <span class="tc-day-min">9°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes nublado y sin agua</h4>
+      <p class="tc-day-texto">La nubosidad se mantiene con máxima de 23° y mínima de 12°. El viento seguirá presente en torno a 29 km/h, pero sin lluvia a la vista.</p>
+      <span class="tc-day-temp tc-data">23° <span class="tc-day-min">12°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Paredes de Nava incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
