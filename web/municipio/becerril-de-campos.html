@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Becerril de Campos — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Becerril de Campos, Tierra de Campos.">
+<meta name="description" content="Aquí en Becerril el día empieza frío, con 18 grados y prácticamente sin nubes, aunque sopla viento fuerte — unos 37 kilómetros a la hora. La temperatu">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/becerril-de-campos">
 
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -55,7 +55,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Becerril de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>737 habitantes</span><span>Actualizado: 15/09/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>737 habitantes</span><span>Actualizado: 16/09/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/becerril-de-campos.jpg" alt="Becerril de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:1867,_Crónica_de_la_provincia_de_Palencia,_Ermita_de_San_Juan_en_Becerril_de_Campos.jpg" target="_blank" rel="noopener">Eusebio de Letre / Tomás Carlos Capuz</a>,
@@ -67,12 +67,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Becerril de Campos</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Becerril de Campos</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Becerril de Campos: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Becerril de Campos: 18° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">18°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.108333&longitude=-4.641667&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Aquí en Becerril el día empieza frío, con 18 grados y prácticamente sin nubes, aunque sopla viento fuerte — unos 37 kilómetros a la hora. La temperatura no subirá mucho, hasta los 20 como mucho, y por la noche caerá a 13. No hay riesgo de lluvia. Mañana nos espera más nubosidad y un poco más templado, aunque seguirá siendo un tiempo fresco.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves con nubes y viento en popa</h4>
+      <p class="tc-day-texto">La jornada transcurrirá bajo un cielo nublado con temperaturas moderadas: máxima de 21° y mínima de 9°. El viento soplará con cierta intensidad, en torno a 26 km/h, sin probabilidad de lluvia.</p>
+      <span class="tc-day-temp tc-data">21° <span class="tc-day-min">9°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes templado y ventoso</h4>
+      <p class="tc-day-texto">Otra jornada nublada con un ligero ascenso térmico: máxima de 24° y mínima de 9°. El viento seguirá siendo protagonista con 28 km/h, pero sin amenaza de precipitaciones.</p>
+      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">9°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Sábado</span>
+      <h4 class="tc-day-titular">Sábado de buen tiempo y calidez</h4>
+      <p class="tc-day-texto">La entrada del fin de semana trae mejora con nubes y claros, máxima de 26° y mínima de 12°. Viento flojo de 25 km/h y ausencia total de lluvia para una jornada agradable.</p>
+      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">12°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Becerril de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -97,15 +138,15 @@
       <span class="tc-news-titular">Corrigen un error en los permisos de la planta solar Grijota III, en Perales y Becerril de Campos</span>
       <span class="tc-news-entradilla">Es una corrección de errores sobre la resolución de enero que modificaba los permisos de la fotovoltaica Grijota III y sus líneas de evacuación, promovida por La Caravia Solar, S.L.U. La planta se ubicará en los términos de Perales y Becerril de Campos.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/12/09/html/BOCYL-D-09122025-26.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2025-12-09</span>
-      <span class="tc-news-titular">Aprobado el impacto ambiental de la línea eléctrica para la planta de aceite entre Paredes y Becerril de Campos</span>
-      <span class="tc-news-entradilla">Medio Ambiente da el visto bueno a una línea de 45 kV que llevará corriente a la planta de refinado y embotellado de aceite, pasando entre Paredes de Nava y Becerril de Campos. Ya tiene el informe favorable; falta que se construya.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/07/03/html/BOCYL-D-03072026-127-81.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-07-03</span>
       <span class="tc-news-titular">A información pública el proyecto híbrido eólico-solar «Alcornoque» que tocará Becerril de Campos</span>
       <span class="tc-news-entradilla">Se ha presentado el proyecto de una instalación que combina viento y sol, repartida entre Paredes de Nava, Perales y Becerril de Campos. Ahora está en información pública para que quien quiera pueda mirarlo y alegar antes de que se autorice.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/09/15/html/BOCYL-D-15092026-179-21.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2026-09-15</span>
+      <span class="tc-news-titular">A información pública el parque eólico &#x27;Villaumbrales&#x27; que afectará a Becerril de Campos, Perales y Villaumbrales</span>
+      <span class="tc-news-entradilla">Los promotores piden que se declare de utilidad pública este parque eólico previsto en los tres municipios. Ahora está en información pública, así que se pueden presentar alegaciones antes de que siga adelante.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/09/10/html/BOCYL-D-10092026-176-10.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-09-10</span>
