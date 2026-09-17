@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "La juventud de Sahagún rescata en escena la figura de fray Bernardino",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17473/la-juventud-de-sahagun-rescata-en-escena-la-figura-de-fray-bernardino",
+    "published_at": "2026-09-17",
+    "detected_at": "2026-09-17T14:23:08.646493+00:00",
+    "hash": "61330cebd3d0775800fa150912694aee2369351b8e3db084613d25544a9505d7",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Los niños de Sahagún llevan al teatro la figura de fray Bernardino",
+      "entradilla": "El grupo 'Mitad del Camino Kids' representa este jueves en la capilla de San Benito una obra sobre el franciscano sahagunense, considerado uno de los padres de la antropología moderna. La cita es a las 19:30 horas.",
+      "cuerpo": [
+        "La actividad la organiza la Biblioteca Municipal de Sahagún, con la colaboración del Ayuntamiento, y forma parte de su programación de verano. Según informa Sahagún Digital, serán los propios jóvenes quienes suban al escenario para contar la vida y el legado de fray Bernardino, hijo de la villa.",
+        "La obra repasa la trayectoria del religioso y su mirada hacia las culturas indígenas del Nuevo Mundo. Uno de los ejes de la representación es su 'Historia general de las cosas de Nueva España', una fuente clave para conocer la cultura náhuatl anterior a la llegada de los españoles.",
+        "El grupo 'Mitad del Camino Kids' nació en el verano de 2025. Su nombre alude a Sahagún como punto central del Camino de Santiago, y la iniciativa busca trabajar entre los más pequeños valores como la acogida, el respeto a otras culturas y el conocimiento del patrimonio local.",
+        "En aquel primer trabajo, los participantes elaboraron un plano del Camino a su paso por Sahagún, desde la ermita de la Virgen del Puente hasta el Puente Canto. Ese plano se convertirá ahora en un cartel que quedará colocado en la fachada de la Biblioteca Municipal.",
+        "De cara a próximas ediciones, el proyecto contempla una posible exposición con los dibujos que los propios niños han hecho sobre los principales monumentos de la localidad."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Grajal de Campos descorcha su historia",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17551/grajal-de-campos-descorcha-su-historia",
+    "published_at": "2026-09-17",
+    "detected_at": "2026-09-17T14:22:56.120304+00:00",
+    "hash": "79d197d00f4cbbcab64b0a79dae7b63fb18fcc4a87e39d4162b74b68bea49c6e",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Grajal de Campos celebra el sábado la sexta edición de 'Viñedos, Castillos y Monjes'",
+      "entradilla": "El festival que une el patrimonio renacentista y la cultura del vino vuelve el 19 de septiembre con visita al viñedo, cata, comida popular y teatro. Los soportales y la Casa-Palacio de los Condes serán el escenario.",
+      "cuerpo": [
+        "La jornada arranca a las once de la mañana con un paseo por las viñas guiado por Pedro Luna, en colaboración con la organización, según informa Sahagún Digital. Es una actividad gratuita, igual que el concurso de lanzamiento de corchos que llegará a mediodía, con una botella de vino como premio.",
+        "A las dos de la tarde toca la cata de los vinos rosado, tinto y blanco que elabora en el pueblo la Bodega Pincerna. Después, una comida tradicional con productos de la vendimia: chorizo, queso, tortilla, pimientos asados, filetes empanados de pollo, pan, bebida, postre y café. El obrador sahagunense Helazos explicará cómo hace su helado artesanal de vino y ofrecerá una degustación de helado de albarín.",
+        "La tarde se cierra a las cinco y media con teatro. El grupo aficionado Picamaro, que viene desde Gijón, representa la obra 'El Conde', escrita y dirigida por Pilar Laviada. La entrada es libre hasta completar aforo.",
+        "Quien quiera participar en la experiencia que incluye cata, comida y postre paga 25 euros y necesita reserva previa, en el teléfono 628 510 242."
+      ]
+    }
+  },
+  {
     "municipality_slug": "pina-de-campos",
     "municipality_name": "Piña de Campos",
     "title": "Obligan a Adif a pagar casi cuatro veces más por una parcela expropiada en Piña de Campos para las obras del Ave",
