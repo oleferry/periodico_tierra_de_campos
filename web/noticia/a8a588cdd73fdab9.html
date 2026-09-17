@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bustillo de Chaves — El Terracampino</title>
-<meta name="description" content="Hoy en Bustillo de Chaves estamos con 18 grados y nublado, con un viento que sopla a 18 por hora. La máxima llegará a los 22 y la mínima bajará hasta ">
-<link rel="canonical" href="https://www.elterracampino.es/municipio/bustillo-de-chaves">
+<title>La diputación da 2.100 euros al CDR Valdecea de Mayorga para su punto de información juvenil — El Terracampino</title>
+<meta name="description" content="La Diputación de Valladolid ha firmado un convenio con el CDR Valdecea de Mayorga para sostener durante 2026 el punto de información juvenil de la zon">
+<link rel="canonical" href="https://www.elterracampino.es/noticia/a8a588cdd73fdab9">
 
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
@@ -52,112 +52,17 @@
   document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
 })();
 </script></header>
-<section class="tc-muni-hero"><div class="tc-wrap">
-  <span class="tc-section-label">Tu pueblo</span>
-  <h1>Bustillo de Chaves</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 17/09/2026</span></div>
-  <div class="tc-muni-hero-foto">
-    <img src="../assets/fotos-libres/bustillo-de-chaves.jpg" alt="Bustillo de Chaves" loading="lazy">
-    <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Bustillo_de_Chaves.jpg" target="_blank" rel="noopener">Rodelar</a>,
-      <a href="https://creativecommons.org/licenses/by-sa/4.0" target="_blank" rel="noopener">CC BY-SA 4.0</a>, vía Wikimedia Commons</p>
+<article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">Ayudas y subvenciones · Diputación Provincial de Valladolid · 2026-09-16</span>
+  <h1>La diputación da 2.100 euros al CDR Valdecea de Mayorga para su punto de información juvenil</h1>
+  <p class="tc-articulo-entradilla">La Diputación de Valladolid ha firmado un convenio con el CDR Valdecea de Mayorga para sostener durante 2026 el punto de información juvenil de la zona, con una aportación de 2.100 euros.</p>
+  <p class="tc-articulo-parrafo">Que quede claro: esto no es una ayuda a la que un vecino pueda presentarse. Se trata de una subvención nominativa, es decir, un convenio directo entre la Diputación y una entidad concreta, en este caso el CDR Valdecea de Mayorga. El dinero va destinado a mantener el punto de información juvenil durante el año 2026.</p><p class="tc-articulo-parrafo">La cantidad acordada es de 2.100 euros y se enmarca en las actuaciones de servicios sociales y promoción social de la Diputación. El acuerdo se aprobó mediante Decreto de Presidencia nº 4218, de 24 de julio, y se rige por la Ordenanza General de Subvenciones.</p><p class="tc-articulo-parrafo">Aunque figura un periodo del 1 de enero al 31 de diciembre de 2026, no es un plazo abierto para pedir nada: se refiere a la vigencia del convenio con esa entidad. En la práctica, es una noticia de que el CDR de Mayorga cuenta con esos fondos para seguir prestando el servicio de información a los jóvenes.</p>
+  <div class="tc-source-box">
+    <strong>Fuente oficial:</strong> convocatoria oficial de Diputación Provincial de Valladolid, registrada en la Base de Datos Nacional de Subvenciones (BDNS).
+    <a href="https://www.infosubvenciones.es/bdnstrans/GE/es/convocatoria/1131441" target="_blank" rel="noopener">Ver la convocatoria oficial →</a>
   </div>
-</div></section>
-
-
-
-<div class="tc-wrap tc-muni-grid">
-  <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Bustillo de Chaves: 18° y nublado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">18°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.13114&longitude=-5.09169&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Hoy en Bustillo de Chaves estamos con 18 grados y nublado, con un viento que sopla a 18 por hora. La máxima llegará a los 22 y la mínima bajará hasta los 8, sin que caiga lluvia. Mañana seguirá nublado pero un poco más templado, con máximas cerca de los 24.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con viento y nubes</h4>
-      <p class="tc-day-texto">Nublado de principio a fin con máxima de 24° y mínima de 9°. El viento rondará los 32 km/h, así que notarás movimiento en el aire sin lluvia de por medio.</p>
-      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">9°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado templado y ventoso</h4>
-      <p class="tc-day-texto">Continúa nublado pero sube la temperatura hasta 26° mientras la mínima se queda en 11°. El viento se mantendrá fuerte, cerca de 31 km/h, sin asomo de agua.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">11°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo despejado y cálido</h4>
-      <p class="tc-day-texto">Se abre el cielo con sol y temperaturas agradables: máxima de 28° y mínima de 16°. El viento afloja hasta los 19 km/h y la lluvia no tiene cabida en el pronóstico.</p>
-      <span class="tc-day-temp tc-data">28° <span class="tc-day-min">16°</span></span>
-    </article></div>
-  </div>
-    <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
-      <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
-      <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Bustillo de Chaves incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
-      <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
-      <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
-    </div></div>
-    
-    <h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2024/06/24/html/BOCYL-D-24062024-23.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2024-06-24</span>
-      <span class="tc-news-titular">Prórroga para la ampliación de la granja porcina de Bustillo de Chaves</span>
-      <span class="tc-news-entradilla">La explotación porcina Dimar, en régimen de titularidad compartida, tiene más plazo para comunicar el inicio de la actividad de su ampliación. Es un margen extra de tiempo, no una autorización nueva.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a></div>
-    
-    
-    <section class="tc-acompanar-mini">
-  <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Acompañar</span>
-  <h3>¿Tienes cerca a alguien que pasa mucho tiempo solo?</h3>
-  <p style="margin:0 0 .6rem; font-size:.92rem;">Una llamada corta también acompaña. Y si hace falta más,
-  estos teléfonos son gratuitos y al otro lado hay alguien que escucha:</p>
-  <p class="tc-acompanar-mini-tels"><span class="tc-acompanar-mini-tel"><a href="tel:112">112</a> <span>Emergencias</span></span><span class="tc-acompanar-mini-tel"><a href="tel:900444111">900 444 111</a> <span>Te Acompaña — Cruz Roja</span></span><span class="tc-acompanar-mini-tel"><a href="tel:717003717">717 003 717</a> <span>Teléfono de la Esperanza</span></span></p>
-  <p style="margin:.6rem 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Para la teleasistencia o la
-  ayuda a domicilio, pregunta en el ayuntamiento por los Servicios Sociales (CEAS) de la zona.
-  <a href="../acompanar.html">Más, en Acompañar</a> · <a href="../acompanar-hoja.html">hoja para imprimir y colgar en el pueblo</a>.</p>
-</section>
-    <div class="tc-card"><h3>Fotos de Bustillo de Chaves</h3>
-      <p class="tc-pieza-cuerpo">Todavía no hay fotos publicadas de Bustillo de Chaves.</p>
-      <p style="margin:10px 0 6px;"><span class="tc-button">Manda la primera foto</span></p>
-      <p class="tc-item-meta">Las fotos las mandan los vecinos por Telegram y se publican tras revisión.</p></div>
-    
-    
-    <div class="tc-card"><h3>Negocios de aquí · Tablón</h3>
-      <p class="tc-pieza-cuerpo">Traspasos, alquiler de locales y de viviendas, aperturas y comercios de Bustillo de Chaves. Todavía no hay anuncios publicados.</p>
-      <p style="margin:10px 0 6px;"><span class="tc-button">Publicar un anuncio</span></p>
-      <p class="tc-item-meta">Los anuncios los envían vecinos y comercios y se publican tras revisión. No se inventan.</p></div>
-  </main>
-  <aside class="tc-muni-side">
-    
-    
-    <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list"><li>Enlaces oficiales pendientes de verificar</li></ul></div>
-    <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda"><li>Sin fiestas registradas todavía. ¿Falta alguna? Escríbenos.</li></ul></div>
-  </aside>
-</div>
+  <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
+</div></article>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
   <div class="tc-footer-links"><a href="../index.html">Portada</a><a href="../gente.html">Gente de Campos</a><a href="../chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="../aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
