@@ -332,6 +332,70 @@ def redactar_pista(doc: dict) -> dict:
     }
 
 
+_ESQUEMA_CLASIFICACION_PISTA = {
+    "type": "object",
+    "properties": {
+        "categoria": {
+            "type": "string",
+            "enum": [
+                "publicable", "suceso", "fallecimiento", "menores",
+                "persona_vulnerable", "repetida", "caducada", "sin_hechos",
+            ],
+        },
+        "motivo": {"type": "string"},
+    },
+    "required": ["categoria", "motivo"],
+    "additionalProperties": False,
+}
+
+_SISTEMA_CLASIFICACION_PISTA = (
+    "Filtras pistas de la prensa local de Tierra de Campos antes de que El Terracampino las convierta "
+    "en una pieza propia. La pieza se publica SIN que ninguna persona la revise después, así que tu "
+    "criterio es conservador: ante la duda, NO es publicable.\n\n"
+    "Elige UNA categoría:\n"
+    "- suceso: accidentes, incendios, heridos, detenciones, delitos, robos, agresiones, estafas, "
+    "investigaciones policiales o judiciales penales, rescates, desapariciones, maltrato animal.\n"
+    "- fallecimiento: la noticia gira en torno a la muerte de una persona, aunque sea un homenaje. "
+    "Eso va por esquelas, con revisión humana.\n"
+    "- menores: hay menores identificables, o menores implicados en un hecho delicado.\n"
+    "- persona_vulnerable: se identifica a una persona concreta en situación vulnerable (mayor que vive "
+    "sola, enfermedad, precariedad) o se exponen datos personales de un particular.\n"
+    "- repetida: cuenta el mismo hecho que alguno de los titulares ya publicados de ese pueblo que se te dan.\n"
+    "- caducada: anuncia algo (un evento, un plazo, una convocatoria) cuya fecha ya ha pasado respecto a "
+    "la fecha de hoy que se te da.\n"
+    "- sin_hechos: es opinión, publicidad, promoción sin contenido, o no hay hechos concretos y "
+    "verificables suficientes para una pieza.\n"
+    "- publicable: todo lo demás que sea información real de la comarca: fiestas y cultura con fecha "
+    "futura o recién celebradas, deporte, obras, ayudas, decisiones municipales, economía local, "
+    "reconocimientos, patrimonio.\n\n"
+    "El motivo es una frase muy corta para un registro interno."
+)
+
+
+def clasificar_pista(*, pueblo: str, titulo: str, texto: str, hoy: str,
+                     titulares_recientes: list[str]) -> dict:
+    """Puerta editorial del desarrollo AUTOMÁTICO de pistas: devuelve
+    {'categoria','motivo'} y solo 'publicable' se desarrolla. Es clasificar,
+    no redactar, así que va con el modelo mecánico, igual que la moderación
+    de comentarios. Si la llamada falla, el CALLER no publica esa pista (ver
+    scripts/desarrollar_pista.py): nunca sale sola una pista sin evaluar."""
+    recientes = "\n".join(f"- {t}" for t in titulares_recientes) or "(ninguno)"
+    user = (
+        f"Fecha de hoy: {hoy}\nPueblo: {pueblo}\n"
+        f"Titulares ya publicados de este pueblo en las últimas semanas:\n{recientes}\n\n"
+        f"Titular de la pista: {titulo}\n\nTexto de la noticia original:\n{texto[:6000]}"
+    )
+    resp = _get_client().messages.create(
+        model=_model_mecanico(),
+        max_tokens=300,
+        system=_SISTEMA_CLASIFICACION_PISTA,
+        messages=[{"role": "user", "content": user}],
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_CLASIFICACION_PISTA}},
+    )
+    text = next(b.text for b in resp.content if b.type == "text")
+    return json.loads(text)
+
+
 _ESQUEMA_MODERACION = {
     "type": "object",
     "properties": {

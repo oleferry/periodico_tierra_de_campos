@@ -61,6 +61,20 @@ jobs:
           key: ia-cache-${{ github.run_id }}
           restore-keys: ia-cache-
 
+      - name: Recuperar la cola de pistas del radar
+        # data/radar/ no se versiona (guarda titulares de medios ajenos y el repo
+        # es público), pero sin conservarla entre builds cada día se empezaba de
+        # cero: se perdía qué pistas ya se descartaron y la fecha en que el radar
+        # vio por primera vez las que no traen fecha (Sahagún Digital). Caché
+        # APARTE de la de IA a propósito: meter las dos rutas en el mismo paso
+        # cambia la versión de la caché y el siguiente build no recuperaría la de
+        # IA, que es la cara.
+        uses: actions/cache@v4
+        with:
+          path: data/radar
+          key: radar-${{ github.run_id }}
+          restore-keys: radar-
+
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
@@ -78,6 +92,20 @@ jobs:
         # Cola interna (data/radar/, en .gitignore): no se publica, solo alimenta
         # la revisión. Si falla una fuente no pasa nada.
         run: python -m scrapers.radar_noticias --guardar || true
+
+      - name: Desarrollar pistas del radar (2 al día, sin sucesos)
+        # Decisión del usuario (2026-09-17): convierte hasta 2 pistas al día en
+        # piezas propias para la ficha de su pueblo, sin revisión humana. Pasan
+        # antes dos filtros conservadores (palabras de suceso + clasificación con
+        # IA) — ver el docstring de scripts/desarrollar_pista.py. Va ANTES del
+        # build para que las piezas salgan hoy mismo. continue-on-error: si falla,
+        # el sitio se publica igual, sin piezas nuevas.
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+        run: python -m scripts.desarrollar_pista --auto 2
 
       - name: Reconstruir el sitio
         env:
