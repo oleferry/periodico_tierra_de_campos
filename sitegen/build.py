@@ -229,16 +229,48 @@ def url_segura(url: str) -> str:
     return url
 
 
+#: Tipos de fuente que son documento oficial. Lo que no esté aquí no se
+#: presenta como «fuente oficial» en ningún sitio de la web.
+FUENTES_OFICIALES = {"bop", "bocyl", "municipal_news", "municipal_plenary", "subvencion"}
+
+
+def medio_de_prensa(d: dict) -> str:
+    """Nombre del medio del que sale una pieza desarrollada desde el radar."""
+    return (d.get("metadata") or {}).get("fuente") or "prensa local"
+
+
 def fuente_label(d: dict) -> str:
-    if d.get("source_type") == "bop":
+    """Etiqueta corta de la fuente, la que va encima del titular.
+
+    Cada tipo se nombra explícitamente. Antes, cualquier tipo que no estuviera
+    en la lista salía como «BOCyL», y las noticias desarrolladas desde prensa
+    local (radar_local: Sahagún Digital, El Norte de Castilla…) aparecían
+    atribuidas al boletín oficial de la Junta. Un tipo nuevo sin etiqueta sale
+    ahora como «Fuente externa» y avisa en el log del build.
+
+    >>> fuente_label({"source_type": "bocyl"})
+    'BOCyL'
+    >>> fuente_label({"source_type": "radar_local", "metadata": {"fuente": "Sahagún Digital"}})
+    'Sahagún Digital'
+    >>> fuente_label({"source_type": "radar_local"})
+    'Prensa local'
+    """
+    tipo = d.get("source_type")
+    if tipo == "bop":
         return "BOP Valladolid"
-    if d.get("source_type") == "municipal_news":
+    if tipo == "bocyl":
+        return "BOCyL"
+    if tipo == "municipal_news":
         return "Web municipal"
-    if d.get("source_type") == "municipal_plenary":
+    if tipo == "municipal_plenary":
         return "Acta de pleno"
-    if d.get("source_type") == "subvencion":
+    if tipo == "subvencion":
         return "Ayudas y subvenciones"
-    return "BOCyL"
+    if tipo == "radar_local":
+        medio = medio_de_prensa(d)
+        return medio[:1].upper() + medio[1:]
+    print(f"  aviso: source_type sin etiqueta propia: {tipo!r}", file=sys.stderr)
+    return "Fuente externa"
 
 
 def articulo_path(d: dict) -> str:
@@ -258,7 +290,12 @@ def doc_row(d: dict, *, show_muni: bool, depth: int) -> str:
         more = "Leer la noticia completa →"
     else:
         href, target = url_segura(d["url_original"]), "_blank"
-        more = "Leer en la fuente oficial →"
+        if d.get("source_type") == "radar_local":
+            more = f"Leer en {medio_de_prensa(d)} →"
+        elif d.get("source_type") in FUENTES_OFICIALES:
+            more = "Leer en la fuente oficial →"
+        else:
+            more = "Leer la fuente →"
     rel = ' rel="noopener"' if target == "_blank" else ""
     return f"""<a class="tc-news" href="{E(href)}" target="{target}"{rel}>
       <span class="tc-news-kicker">{muni}{fuente_label(d)} · {d['published_at']}</span>
@@ -271,18 +308,39 @@ def doc_row(d: dict, *, show_muni: bool, depth: int) -> str:
 def render_articulo(d: dict, r: dict) -> str:
     cuerpo_html = "".join(f'<p class="tc-articulo-parrafo">{E(p)}</p>' for p in r["cuerpo"])
 
-    if d.get("source_type") == "municipal_plenary":
+    tipo = d.get("source_type")
+    fuente_titulo = "Fuente oficial"
+    if tipo == "municipal_plenary":
         kicker = f"Acta de pleno · {d['municipality_name']} · {d['published_at']}"
         fuente_txt = f"acta de la sesión plenaria del Ayuntamiento de {d['municipality_name']}."
         fuente_cta = "Ver el documento original (PDF) →"
-    elif d.get("source_type") == "subvencion":
+    elif tipo == "subvencion":
         kicker = f"Ayudas y subvenciones · {d['municipality_name']} · {d['published_at']}"
         fuente_txt = f"convocatoria oficial de {d['municipality_name']}, registrada en la Base de Datos Nacional de Subvenciones (BDNS)."
         fuente_cta = "Ver la convocatoria oficial →"
+    elif tipo == "radar_local":
+        # Pieza propia a partir de hechos publicados por otro medio: se cita el
+        # medio por su nombre y no se llama «oficial» a lo que no lo es.
+        medio = medio_de_prensa(d)
+        muni = f"{d['municipality_name']} · " if d.get("municipality_name") else ""
+        kicker = f"{fuente_label(d)} · {muni}{d['published_at']}"
+        fuente_titulo = "Fuente"
+        fuente_txt = f"información publicada por {medio}."
+        fuente_cta = f"Leer la noticia en {medio} →"
+    elif tipo in FUENTES_OFICIALES:
+        nombres = {
+            "bop": "Boletín Oficial de la Provincia de Valladolid.",
+            "bocyl": "Boletín Oficial de Castilla y León (BOCyL).",
+            "municipal_news": f"web oficial del Ayuntamiento de {d.get('municipality_name', '')}.",
+        }
+        kicker = f"{fuente_label(d)} · {d['published_at']}"
+        fuente_txt = nombres.get(tipo, "fuente oficial.")
+        fuente_cta = "Ver la fuente oficial →"
     else:
         kicker = f"{fuente_label(d)} · {d['published_at']}"
-        fuente_txt = "fuente oficial."
-        fuente_cta = "Ver la fuente oficial →"
+        fuente_titulo = "Fuente"
+        fuente_txt = "documento de origen."
+        fuente_cta = "Ver el documento de origen →"
 
     ruta = articulo_path(d)
     if d.get("municipality_slug"):
@@ -307,7 +365,7 @@ def render_articulo(d: dict, r: dict) -> str:
   <p class="tc-articulo-entradilla">{E(r['entradilla'])}</p>
   {cuerpo_html}
   <div class="tc-source-box">
-    <strong>Fuente oficial:</strong> {E(fuente_txt)}
+    <strong>{E(fuente_titulo)}:</strong> {E(fuente_txt)}
     <a href="{E(url_segura(d['url_original']))}" target="_blank" rel="noopener">{E(fuente_cta)}</a>
   </div>
   <p class="tc-item-meta"><a href="{E(volver_href)}">← {E(volver_txt)}</a></p>

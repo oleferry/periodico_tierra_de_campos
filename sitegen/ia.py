@@ -124,8 +124,15 @@ def redactar(doc: dict) -> dict:
         fuente = f"web oficial del Ayuntamiento de {doc.get('municipality_name', '')}"
     elif doc.get("source_type") == "municipal_plenary":
         fuente = f"acta de pleno del Ayuntamiento de {doc.get('municipality_name', '')}"
-    else:
+    elif doc.get("source_type") == "bocyl":
         fuente = "BOCyL (Castilla y León)"
+    elif doc.get("source_type") == "subvencion":
+        fuente = "Base de Datos Nacional de Subvenciones (BDNS)"
+    else:
+        # Antes cualquier otro tipo se le presentaba a la IA como BOCyL, y la IA
+        # podía citar el boletín en el titular. Mejor no nombrar ninguna fuente
+        # que nombrar la que no es.
+        fuente = "documento público (sin identificar)"
     user = (
         f"Municipio: {doc.get('municipality_name','')}\n"
         f"Fuente: {fuente}\n"
