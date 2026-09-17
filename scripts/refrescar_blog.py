@@ -32,10 +32,9 @@ if hasattr(sys.stdout, "buffer"):
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from sitegen.build import bloque_compartir, shell  # noqa: E402
+from sitegen.build import bloque_compartir, envolver_blog, url_publica  # noqa: E402
 
 BLOG = ROOT / "web" / "blog"
-BASE = "https://elterracampino.es"
 
 
 def cuerpo_de(html: str) -> str | None:
@@ -68,15 +67,19 @@ def main() -> int:
 
         # Bloque de compartir, justo antes del "volver a portada".
         if "tc-compartir" not in cuerpo:
-            compartir = bloque_compartir(f"{BASE}/blog/{slug}.html", art["titular"])
+            compartir = bloque_compartir(url_publica(f"blog/{slug}.html"), art["titular"])
             volver = '<p class="tc-item-meta"><a href="../index.html">'
             if volver in cuerpo:
                 cuerpo = cuerpo.replace(volver, compartir + "\n  " + volver, 1)
             else:
                 cuerpo = cuerpo.replace("</div></article>", compartir + "\n</div></article>", 1)
 
-        nuevo = shell(f"{art['titular']} — El Terracampino", cuerpo, depth=1,
-                      desc=art["entradilla"][:150])
+        # Mismo envoltorio que un reportaje recién generado: canonical, Open
+        # Graph y datos estructurados incluidos. Antes se llamaba a shell() sin
+        # ruta ni url, y refrescar un reportaje le QUITABA la canonical y las
+        # etiquetas og: que le había puesto generar_articulo_blog.py.
+        nuevo = envolver_blog(slug, art, cuerpo, fecha=art["fecha"],
+                              tiene_imagen=bool(art.get("tiene_imagen")))
         if nuevo == html:
             print(f"  = {slug} (ya estaba al día)")
             continue

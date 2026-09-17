@@ -50,6 +50,17 @@ from scrapers.embalses import situacion as situacion_embalses
 # Vercel redirige a www y aquí pone sin www, el sitemap manda a Google a 93
 # URLs que redirigen y el canonical apunta a una página que no responde 200.
 SITIO_BASE = "https://www.elterracampino.es"
+
+# Identidad del medio que usan la cabecera, el pie y los datos estructurados
+# (schema.org). Un solo sitio por la misma razón que SITIO_BASE: lo que el
+# sitio dice de sí mismo a un lector y a un buscador tiene que ser lo mismo.
+NOMBRE_MEDIO = "El Terracampino"
+LOGO_RUTA = "assets/logo.png"  # dentro de web/; lo copia copy_assets()
+REDES = [
+    ("Facebook", "https://www.facebook.com/profile.php?id=61592649658185"),
+    ("Instagram", "https://www.instagram.com/elterracampino/"),
+    ("Telegram", "https://t.me/elterracampino"),
+]
 from scrapers.paro_sepe import paro_comarca_cacheado
 from sitegen import almacen_fotos, cache, ia
 from sitegen.contenido import (
@@ -273,11 +284,22 @@ def render_articulo(d: dict, r: dict) -> str:
         fuente_txt = "fuente oficial."
         fuente_cta = "Ver la fuente oficial →"
 
+    ruta = articulo_path(d)
     if d.get("municipality_slug"):
         volver_href = f'../municipio/{d["municipality_slug"]}.html'
         volver_txt = f"Volver a {d['municipality_name']}"
+        migas = ld_migas(("Portada", ""), (d["municipality_name"], f"municipio/{d['municipality_slug']}.html"),
+                         (r["titular"], ruta))
     else:
         volver_href, volver_txt = "../index.html", "Volver a portada"
+        migas = ld_migas(("Portada", ""), (r["titular"], ruta))
+    # La fecha es la que enseña la página (la del documento de origen): no se
+    # guarda otra, y declarar una distinta de la visible sería peor.
+    datos = [
+        ld_noticia(ruta=ruta, titular=r["titular"], entradilla=r["entradilla"],
+                   fecha=d.get("published_at"), fuente_url=url_segura(d.get("url_original") or "")),
+        migas,
+    ]
 
     body = f"""<article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
   <span class="tc-section-label" style="color:var(--tc-azul-bop);">{E(kicker)}</span>
@@ -291,14 +313,15 @@ def render_articulo(d: dict, r: dict) -> str:
   <p class="tc-item-meta"><a href="{E(volver_href)}">← {E(volver_txt)}</a></p>
 </div></article>"""
     return shell(f"{r['titular']} — El Terracampino", body, depth=1, desc=r["entradilla"][:150],
-                 ruta=f"noticia/{d['hash'][:16]}.html")
+                 ruta=ruta, datos=datos)
 
 
 def blog_articulo_path(slug: str) -> str:
     return f"blog/{slug}.html"
 
 
-def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool) -> str:
+def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool,
+                         fecha: str | None = None) -> str:
     """Artículo largo de investigación (ver ia.py:redactar_investigacion).
     `art['secciones']` ya viene emparejado subtítulo+párrafos — no hay que
     adivinar dónde va cada uno."""
@@ -328,11 +351,28 @@ def render_blog_articulo(slug: str, art: dict, *, tema: str, tiene_imagen: bool)
   {bloque_compartir(url_publica(f"blog/{slug}.html"), art['titular'])}
   <p class="tc-item-meta"><a href="../index.html">← Volver a portada</a></p>
 </div></article>"""
-    url = url_publica(f"blog/{slug}.html")
+    return envolver_blog(slug, art, body, fecha=fecha or date.today().isoformat(),
+                         tiene_imagen=tiene_imagen)
+
+
+def envolver_blog(slug: str, art: dict, body: str, *, fecha: str, tiene_imagen: bool) -> str:
+    """Envoltorio de un reportaje (cabecera, pie, canonical, Open Graph y datos
+    estructurados). Aparte del cuerpo porque scripts/refrescar_blog.py vuelve a
+    envolver reportajes ya publicados sin tocar su texto, y tiene que ponerles
+    exactamente lo mismo que a uno recién generado. `art` basta con que traiga
+    titular y entradilla: vale la entrada de data/blog/articulos.json."""
+    ruta = blog_articulo_path(slug)
+    url = url_publica(ruta)
     image = f"{SITIO_BASE}/assets/blog/{slug}.jpg" if tiene_imagen else ""
+    # Sin isBasedOn: las fuentes de un reportaje se guardan como texto
+    # ("Diario X, 2025-01-08"), no como URL, y no se van a fabricar enlaces.
+    datos = [
+        ld_noticia(ruta=ruta, titular=art["titular"], entradilla=art["entradilla"],
+                   fecha=fecha, imagen=image),
+        ld_migas(("Portada", ""), (art["titular"], ruta)),
+    ]
     return shell(f"{art['titular']} — El Terracampino", body, depth=1, desc=art["entradilla"][:150],
-                 ruta=blog_articulo_path(slug),
-                 url=url, image=image, og_title=art["titular"])
+                 ruta=ruta, url=url, image=image, og_title=art["titular"], datos=datos)
 
 
 def bloque_compartir(url: str, titulo: str) -> str:
@@ -367,7 +407,7 @@ def copy_assets() -> None:
     # aquí por el favicon PNG real del logo vigente (kit de marca v1.2).
     shutil.copy(BRAND / "logos" / "favicon-32.png", dst / "favicon-32.png")
     shutil.copy(BRAND / "logos" / "favicon-192.png", dst / "favicon-192.png")
-    shutil.copy(BRAND / "logos" / "el-terracampino-ilustrado-transparente.png", dst / "logo.png")
+    shutil.copy(BRAND / "logos" / "el-terracampino-ilustrado-transparente.png", WEB / LOGO_RUTA)
 
     # Las fotos de vecinos ya no se copian aquí: las descarga del almacén
     # compartido cargar_fotos_aprobadas(), directamente a web/assets/fotos/.
@@ -610,10 +650,116 @@ def render_feed_rss(articulos: list[dict]) -> str:
 """
 
 
+# ------------------------------------------------------ datos estructurados
+#
+# JSON-LD de schema.org: lo que leen los buscadores y los asistentes de IA para
+# saber QUÉ es el sitio y QUÉ es cada pieza, sin adivinarlo del HTML.
+#
+# La regla editorial vale aquí igual que en el texto: **nada se rellena**.
+# Cada valor sale de los datos de la pieza o de las constantes de arriba, y lo
+# que el sitio no dice de sí mismo no se declara. Por eso NO hay (todavía):
+# - foundingDate ni sede: la web no publica ni el año de fundación ni la sede
+#   editorial. Si algún día lo dice una página, se añade apuntando a ella.
+# - publishingPrinciples / correctionsPolicy / ethicsPolicy: esas propiedades
+#   piden la URL de una página con esa política, y no existe ninguna publicada
+#   (editorial/politica_editorial.md vive solo en el repo).
+# - author persona: las piezas no llevan firma; el autor es el propio medio.
+# - dateModified: no se guarda cuándo se reescribe una pieza.
+
+ID_MEDIO = f"{SITIO_BASE}/#medio"
+ID_WEB = f"{SITIO_BASE}/#web"
+
+
+def ld_sitio() -> list[dict]:
+    """El medio y el sitio web: van en todas las páginas."""
+    return [
+        {
+            "@type": "NewsMediaOrganization",
+            "@id": ID_MEDIO,
+            "name": NOMBRE_MEDIO,
+            "url": url_publica(""),
+            "logo": {"@type": "ImageObject", "url": f"{SITIO_BASE}/{LOGO_RUTA}"},
+            "sameAs": [url for _, url in REDES],
+            # Quién es la propietaria y quién lo desarrolla: lo dice el aviso legal.
+            "ownershipFundingInfo": url_publica("aviso-legal.html"),
+        },
+        {
+            "@type": "WebSite",
+            "@id": ID_WEB,
+            "url": url_publica(""),
+            "name": NOMBRE_MEDIO,
+            "inLanguage": "es-ES",
+            "publisher": {"@id": ID_MEDIO},
+        },
+    ]
+
+
+def ld_migas(*pasos: tuple[str, str]) -> dict:
+    """BreadcrumbList a partir de (nombre, ruta dentro de web/). Tiene que
+    coincidir con la navegación que ve el lector (el «← Volver a…» de la
+    página), no con una jerarquía inventada para el buscador."""
+    return {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": i, "name": nombre, "item": url_publica(ruta)}
+            for i, (nombre, ruta) in enumerate(pasos, 1)
+        ],
+    }
+
+
+def ld_noticia(*, ruta: str, titular: str, entradilla: str, fecha: str | None,
+               imagen: str = "", fuente_url: str = "") -> dict:
+    """NewsArticle de una pieza. `fuente_url` es el documento público del que
+    sale (acta, boletín, convocatoria, noticia citada): es la promesa del
+    periódico —traducir sin inventar— dicha en un formato que se lee solo."""
+    url = url_publica(ruta)
+    art = {
+        "@type": "NewsArticle",
+        "@id": f"{url}#noticia",
+        "headline": titular,
+        "description": entradilla,
+        "url": url,
+        "mainEntityOfPage": url,
+        "inLanguage": "es-ES",
+        "isPartOf": {"@id": ID_WEB},
+        "publisher": {"@id": ID_MEDIO},
+        "author": {"@id": ID_MEDIO},
+    }
+    if fecha:
+        art["datePublished"] = fecha
+    if imagen:
+        art["image"] = imagen
+    if fuente_url:
+        art["isBasedOn"] = fuente_url
+    return art
+
+
+def json_ld(nodos: list[dict]) -> str:
+    """<script type="application/ld+json"> con un @graph.
+
+    Se serializa con json.dumps (nunca a mano) y se escapan `<`, `>` y `&`
+    como \\u003c, \\u003e y \\u0026: dentro de un <script> el navegador corta
+    en el primer `</script>`, venga de donde venga, y los titulares salen de
+    fuentes externas. El JSON resultante es equivalente para cualquier lector.
+
+    >>> html = json_ld([{"headline": "a</script>b & c"}])
+    >>> html.count("</script>")
+    1
+    >>> dentro = html[len('<script type="application/ld+json">'):-len("</script>")]
+    >>> json.loads(dentro)["@graph"][0]["headline"]
+    'a</script>b & c'
+    """
+    texto = json.dumps({"@context": "https://schema.org", "@graph": nodos},
+                       ensure_ascii=False, separators=(",", ":"))
+    texto = texto.replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
+    return f'<script type="application/ld+json">{texto}</script>'
+
+
 # --------------------------------------------------------------- plantilla
 
 def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
-          image: str = "", og_title: str = "", ruta: str | None = None) -> str:
+          image: str = "", og_title: str = "", ruta: str | None = None,
+          datos: list[dict] | None = None) -> str:
     up = "../" * depth  # dentro de web/
     # Canonical: `ruta` es la ruta del fichero dentro de web/ ("" para la
     # portada). Cada render_* sabe qué página produce, así que la pone él y no
@@ -647,6 +793,9 @@ def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
         else:
             og_partes.append('<meta name="twitter:card" content="summary">')
         meta_og = "\n".join(og_partes)
+    # Datos estructurados: el medio y el sitio siempre; lo propio de la página
+    # (noticia, migas, lugar) lo pasa cada render_* en `datos`.
+    ld = json_ld(ld_sitio() + (datos or []))
     return f"""<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -656,6 +805,7 @@ def shell(title: str, body: str, depth: int, *, desc: str = "", url: str = "",
 {meta_desc}
 {link_canonical}
 {meta_og}
+{ld}
 <link rel="icon" href="{up}assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="{up}assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -685,7 +835,7 @@ def header(depth: int) -> str:
     up = "../" * depth
     home = up + "index.html"
     return f"""<header class="tc-header"><div class="tc-wrap tc-header-inner">
-  <a href="{home}" class="tc-logo"><img src="{up}assets/logo.png" alt="El Terracampino" height="52"></a>
+  <a href="{home}" class="tc-logo"><img src="{up}{LOGO_RUTA}" alt="{NOMBRE_MEDIO}" height="52"></a>
   <button class="tc-nav-toggle" id="tc-nav-toggle" aria-expanded="false" aria-controls="tc-nav">☰ Menú</button>
   <nav class="tc-nav" id="tc-nav">
     <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
@@ -844,10 +994,11 @@ document.addEventListener("DOMContentLoaded", function() {{
 def footer(depth: int) -> str:
     up = "../" * depth
     home = up + "index.html"
+    redes = "".join(f'<a href="{url}" target="_blank" rel="noopener">{nombre}</a>' for nombre, url in REDES)
     return f"""<footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
   <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{up}gente.html">Gente de Campos</a><a href="{up}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="{up}aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
-  <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
+  <div class="tc-footer-redes">Síguenos: {redes}</div>
   <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="{up}aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>"""
 
@@ -1419,8 +1570,35 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
   </aside>
 </div>"""
     desc = w["articulo"][:150] if w else f"Noticias y tiempo de {m['name']}, Tierra de Campos."
+    ruta = f"municipio/{m['slug']}.html"
     return shell(f"{m['name']} — El Terracampino", body, depth=1, desc=desc,
-                 ruta=f"municipio/{m['slug']}.html")
+                 ruta=ruta, datos=ld_municipio(m, ruta))
+
+
+def ld_municipio(m: dict, ruta: str) -> list[dict]:
+    """La ficha es la página DE un pueblo: WebPage sobre un Place. Solo lo que
+    trae data/municipios_tierra_de_campos.csv (nombre, provincia, comarca) y las
+    coordenadas con las que ya se pide el tiempo; sin ellas no se pone `geo`."""
+    url = url_publica(ruta)
+    dentro = []
+    if m.get("comarca"):
+        dentro.append({"@type": "Place", "name": m["comarca"]})
+    if m.get("province"):
+        dentro.append({"@type": "AdministrativeArea", "name": f"Provincia de {m['province']}"})
+    lugar = {"@type": "Place", "@id": f"{url}#lugar", "name": m["name"]}
+    if dentro:
+        lugar["containedInPlace"] = dentro
+    try:
+        lugar["geo"] = {"@type": "GeoCoordinates",
+                        "latitude": float(m["lat"]), "longitude": float(m["lon"])}
+    except (KeyError, TypeError, ValueError):
+        pass
+    return [
+        {"@type": "WebPage", "@id": url, "url": url, "name": f"{m['name']} — {NOMBRE_MEDIO}",
+         "inLanguage": "es-ES", "isPartOf": {"@id": ID_WEB}, "about": {"@id": lugar["@id"]}},
+        lugar,
+        ld_migas(("Portada", ""), (m["name"], ruta)),
+    ]
 
 
 def render_sitemap(paginas: list[tuple[str, str]]) -> str:

@@ -592,7 +592,9 @@ def main() -> int:
 
     print("· Escribiendo página…")
     (WEB / "blog").mkdir(parents=True, exist_ok=True)
-    html = render_blog_articulo(slug, art, tema=args.tema, tiene_imagen=tiene_imagen)
+    # Una sola fecha para la página (datos estructurados) y para el manifiesto.
+    fecha = date.today().isoformat()
+    html = render_blog_articulo(slug, art, tema=args.tema, tiene_imagen=tiene_imagen, fecha=fecha)
     (WEB / "blog" / f"{slug}.html").write_text(html, encoding="utf-8")
 
     manifest_path = DATA / "blog" / "articulos.json"
@@ -603,7 +605,7 @@ def main() -> int:
         "titular": art["titular"],
         "entradilla": art["entradilla"],
         "tema": args.tema,
-        "fecha": date.today().isoformat(),
+        "fecha": fecha,
         "tiene_imagen": tiene_imagen,
     })
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
