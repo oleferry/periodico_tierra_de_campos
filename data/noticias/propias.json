@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "el-burgo-ranero",
+    "municipality_name": "El Burgo Ranero",
+    "title": "Excursión 'Aves, libros y leyendas' desde el municipio de El Burgo Ranero",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17588/excursion-aves-libros-y-leyendas-desde-el-municipio-de-el-burgo-ranero",
+    "published_at": "2026-09-18",
+    "detected_at": "2026-09-18T11:08:05.399801+00:00",
+    "hash": "6420fd66d3d1fcf572ff81bf647f9266898ce521376d3ea60e3833367fa5589c",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Burgo Ranero organiza una excursión gratuita a Villafáfila, Urueña y Tiedra",
+      "entradilla": "El Ayuntamiento propone para el próximo 26 de septiembre una jornada bajo el título 'Aves, libros y leyendas', con autobús gratuito desde las cuatro pedanías del municipio.",
+      "cuerpo": [
+        "El plan, que adelantó Sahagún Digital, arranca en la Reserva Natural Lagunas de Villafáfila, en Zamora. Allí está previsto visitar la Casa del Parque, el centro de interpretación del espacio, y hacer un recorrido por los alrededores para observar las aves. Una de las lagunas cercanas es, según el Ayuntamiento, un buen punto para ver la fauna.",
+        "La ruta sigue hasta Urueña, en Valladolid, conocida como la Villa del Libro. Allí habrá una visita guiada por el conjunto histórico: las murallas, el castillo, las librerías y la ermita de la Anunciada, con tiempo también para comer.",
+        "La última parada será Tiedra, la villa de la lavanda, con un recorrido por su patrimonio, donde destacan el castillo, las murallas y la Plaza Mayor.",
+        "El autobús es gratuito y saldrá de Calzadilla de los Hermanillos a las 8:15, de Villamuñío a las 8:25, de El Burgo Ranero a las 8:40 y de Las Grañeras a las 8:50, con vuelta a cada localidad al terminar la jornada. La comida es opcional y cuesta 25 euros, y las entradas a museos y espacios visitables rondan los cinco euros.",
+        "Las reservas se hacen en la Oficina de Turismo de El Burgo Ranero o por teléfono, en el 987 330 023."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Sahagún viaja a la República Checa para reforzar su proyección internacional en el Camino de Santiago",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17527/sahagun-viaja-a-la-republica-checa-para-reforzar-su-proyeccion-internacional-en-el-camino-de-santiago",
+    "published_at": "2026-09-18",
+    "detected_at": "2026-09-18T11:07:52.586136+00:00",
+    "hash": "cc002fb51e2084006b09692dcdc09546aba228ad9f270d827fadad45b16c4744",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún participa en un proyecto que hermana el Camino de Santiago con la República Checa",
+      "entradilla": "El municipio se suma a Camice, una iniciativa de cooperación entre España y la Bohemia del Este, con la participación de la concejala de Promoción Económica, Julia Carracedo.",
+      "cuerpo": [
+        "Sahagún forma parte de Camice (Camino East Czech-España), un proyecto que busca crear hermanamientos, acuerdos institucionales e intercambio de experiencias en la gestión turística y cultural del Camino entre España y la República Checa. Así lo informa Sahagún Digital.",
+        "Según ese medio, la concejala del Área de Promoción Económica, Julia Carracedo, viaja a la Bohemia del Este entre el 6 y el 10 de septiembre dentro de una misión que reúne a cinco municipios españoles del Camino junto a la Asociación de Municipios del Camino de Santiago. Sahagún aporta su experiencia como centro geográfico del Camino Francés.",
+        "La iniciativa cuenta con el respaldo de los gobiernos regionales de Hradec Králové y Pardubice, el patrocinio de la Embajada de España en Praga —con presencia confirmada de la embajadora, María Pérez Sánchez-Laulhé— y la Oficina Española de Turismo en Viena. El objetivo es impulsar la ruta de Bohemia Oriental, un trazado de casi 270 kilómetros que conecta el enclave polaco de Krzeszów con la red checa pasando por lugares como el hospital de Kuks o el centro histórico de Kutná Hora.",
+        "El acto central será el martes en la sede del Gobierno regional de Hradec Králové, donde se celebra una conferencia internacional. Allí la edil de Sahagún expondrá su gestión local del Camino junto a las delegaciones de Jaca, Estella-Lizarra, Nájera y Sarria, y se pondrán en marcha mesas de trabajo con localidades checas como Broumov, Červený Kostelec, Jaroměř, Přelouč y Kutná Hora.",
+        "La agenda incluye además encuentros técnicos, recepciones con responsables municipales, reuniones en centros educativos con alumnado de español y visitas a patrimonio vinculado a la tradición jacobea."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "La juventud de Sahagún rescata en escena la figura de fray Bernardino",
