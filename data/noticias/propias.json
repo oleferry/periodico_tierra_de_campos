@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "palazuelo-de-vedija",
+    "municipality_name": "Palazuelo de Vedija",
+    "title": "Palazuelo de Vedija inicia sus fiestas patronales con la alegría de las peñas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/palazuelo-vedija-inicia-fiestas-patronales-alegria-penas-20260918211239-nt.html",
+    "published_at": "2026-09-18",
+    "detected_at": "2026-09-19T10:52:44.059409+00:00",
+    "hash": "6b5c4f6a5668c097e6696a92b8789db7eacf2eab6beae7325031c1f82271a0e2",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Palazuelo de Vedija arranca sus fiestas de San Mauricio con la vaca enmaromada como gran protagonista",
+      "entradilla": "El chupinazo del viernes dio el pistoletazo de salida a unas fiestas patronales que se prolongan hasta el martes, con cinco días de festejos, verbenas y tradición taurina.",
+      "cuerpo": [
+        "Las fiestas de San Mauricio ya están en marcha en Palazuelo de Vedija. Según informa El Norte de Castilla, el viernes por la tarde el chupinazo desde el balcón del Ayuntamiento reunió a numerosos vecinos, que después siguieron el recorrido de peñas con la charanga El Flow y los gigantes y cabezudos. La jornada terminó con una cena en Los Lavaderos y la discomovida Sonido Benavente.",
+        "El alcalde, Magín Fernández, señaló que desde el Ayuntamiento esperaban estas fiestas con mucha emoción, y en especial esa primera toma de contacto con los vecinos. El buen tiempo y que la apertura cayera en viernes ayudaron a que hubiera mucha afluencia.",
+        "El programa del sábado incluye por la mañana la presentación del libro 'El toro ensogado, historia, cultura y tradición', de Rubén López, y la colocación de una placa de la Asociación Cultural Marrandiel en homenaje al centenario del nacimiento del sacerdote y poeta Sergio Fernández. Por la tarde llega la primera suelta de la vaca enmaromada, con reses de Weimar Toros, del empresario y matador César de Castro Manrique, seguida de fuegos artificiales y discomovida.",
+        "El domingo habrá hinchables para los más pequeños, juegos tradicionales, vermú musical y una segunda suelta de la vaca enmaromada. El lunes, el desfile de caballos precederá al encierro por el campo. Y el martes, día del patrón, se celebrará el pregón a cargo de Juan Ramón Revilla, secretario del Ayuntamiento durante más de 20 años, con la última suelta de la vaca enmaromada como broche final."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "Conrado Íscar encumbra el sentimiento de pertenencia de Mayorga durante el pregón de sus fiestas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/conrado-iscar-encumbra-sentimiento-pertenencia-mayorga-pregon-20260918223932-nt.html",
+    "published_at": "2026-09-18",
+    "detected_at": "2026-09-19T10:52:30.198519+00:00",
+    "hash": "3ced6988a1d920735b1b0df09469e5b98d4c5b9bfae219c00081dd8c249fc9f9",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Conrado Íscar pregona las fiestas de Mayorga en el año del tricentenario de Santo Toribio",
+      "entradilla": "El presidente de la Diputación de Valladolid abrió este viernes las fiestas patronales de Mayorga con un pregón en la Casa de Cultura, en un año marcado por el tercer centenario de la canonización de Santo Toribio de Mogrovejo.",
+      "cuerpo": [
+        "El presidente de la Diputación de Valladolid, Conrado Íscar, fue el encargado de dar el pregón de las fiestas de Mayorga en honor a Santo Toribio de Mogrovejo. El acto se celebró en la Casa de Cultura ante numerosos vecinos, según informa El Norte de Castilla.",
+        "Íscar recordó que su primer acto público como alcalde de Matapozuelos, hace veinte años, fue precisamente el pregón de Mayorga, y dijo alegrarse de volver como pregonero. Puso en valor el arraigo de las tradiciones locales, desde el Vítor y la Procesión Cívica hasta los encierros y la Trovada de Habaneras, y subrayó el peso de la figura del santo en un año en el que se cumplen trescientos años de su canonización. Adelantó que estará en la Procesión Cívica del 27 de septiembre.",
+        "En su intervención tuvo un reconocimiento para el trabajo de los exalcaldes Carlos Magdaleno y Alberto Magdaleno y del actual regidor, David de la Viuda. También dedicó unas palabras al concejal Valentín Estévez, fallecido el pasado mes de mayo. Cerró el pregón con los vivas a Santo Toribio, a Mayorga y a España.",
+        "Tras el pregón se proclamó a las festeras de 2026. Según recoge El Norte de Castilla, el programa continúa este sábado a las 17.00 horas con el encierro por el campo, la suelta del toro del centenario y el festival Tricentenario Music. El domingo, a las 18.00, se celebra el XXII Concurso de Cortes Villa de Mayorga, y el arranque oficial de las fiestas con el chupinazo será el sábado 26 de septiembre desde el balcón del Ayuntamiento, seguido del desfile de peñas por la calle Derecha."
+      ]
+    }
+  },
+  {
     "municipality_slug": "el-burgo-ranero",
     "municipality_name": "El Burgo Ranero",
     "title": "Excursión 'Aves, libros y leyendas' desde el municipio de El Burgo Ranero",
