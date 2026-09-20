@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "villalon-de-campos",
+    "municipality_name": "Villalón de Campos",
+    "title": "Villalón de Campos se reivindica como referente provincial del queso",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/villalon-campos-reivindica-referente-provincial-queso-20260919192257-nt.html",
+    "published_at": "2026-09-19",
+    "detected_at": "2026-09-20T11:16:00.519437+00:00",
+    "hash": "2cfab556948451473bc0527da721a7558ba62c30ef469cddd934d742bbb5697f",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villalón celebra su XV Mercado del Queso con más de 25 puestos en la plaza del Rollo",
+      "entradilla": "La localidad terracampina recuperó este sábado uno de sus tradicionales mercados sabatinos en torno a su producto más conocido, el queso de pata de mulo.",
+      "cuerpo": [
+        "Villalón de Campos vivió este sábado su XV Mercado del Queso, según informa El Norte de Castilla. Desde primera hora, los visitantes recorrían la calle Mayor entre más de 25 puestos con quesos llegados de distintos puntos de León, Asturias, Orense, Palencia, Cantabria, Cáceres, Menorca y de la propia provincia de Valladolid. Junto a ellos hubo también puestos de miel, repostería, vinos y otros productos, entre ellos los de las monjas jerónimas de Toral de los Guzmanes.",
+        "La inauguración se celebró poco antes del mediodía en el Museo del Queso, con la asistencia del presidente de la Diputación de Valladolid, Conrado Íscar, la senadora Arenales Serrano y varios alcaldes de la comarca. El alcalde y senador, José Ángel Alonso, abrió el acto y dijo que «pocas cosas hablan tan bien de nuestro pueblo». El presidente de la Cámara de Comercio, Industria y Servicios de Valladolid, Víctor Caramanzana, se encargó de inaugurar el mercado y recordó que en Villalón llevan siglos practicando ideas hoy tan modernas como el producto de proximidad o la economía circular.",
+        "La jornada tuvo música y animación durante todo el día. El grupo de dulzainas Los Fogatos recorrió las calles, mientras la compañía Kamaru Teatro llevó un pasacalle de teatro de calle con un rebaño trashumante muy particular.",
+        "El Museo del Queso abrió sus puertas y acogió catas comentadas de quesos. Los más pequeños tuvieron pintacaras y talleres de elaboración de queso fresco, cestería y pan, además de la degustación de los quesos del mercado y la exposición de esculturas al aire libre dedicadas al queso."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "El encierro por el campo y la suelta del toro del centenario reúnen en Mayorga a cientos de aficionados",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/encierro-campo-suelta-toro-centenario-reunen-mayorga-20260919194024-nt.html",
+    "published_at": "2026-09-19",
+    "detected_at": "2026-09-20T11:15:45.695885+00:00",
+    "hash": "7fc5fbc30745bdce82cc88da8f36c25fa59d966c5865bd2582cd74e4eb717389",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Mayorga vive su encierro por el campo en las fiestas de Santo Toribio",
+      "entradilla": "El sábado se celebró el tradicional encierro por el campo dentro de las fiestas en honor a Santo Toribio de Mogrovejo, que este año conmemora los tres siglos de su canonización.",
+      "cuerpo": [
+        "Según informa El Norte de Castilla, el festejo tuvo lugar a media tarde en la zona de La Zamorana, a la altura del majuelo de Castilleja. Allí el matador de toros y empresario Jorge Manrique soltó un utrero y un eral de la ganadería Rodolfo Gallego, de San Román de Hornija, con muchos caballos en el campo.",
+        "Los dos astados se separaron pronto. Uno fue conducido hasta el pueblo con los bueyes gracias al trabajo de los caballistas y quedó encerrado tras recorrer las talanqueras de la calle Derecha. El otro, en cambio, tuvo que subirse al camión en el campo, igual que uno de los bueyes. Como cada año, cientos de personas siguieron el encierro en distintos vehículos.",
+        "Después, en la calle Derecha se soltó a Abogado, un astado jabonero de la ganadería Toros de Villalpando presentado como el toro del centenario por la conmemoración del tricentenario. A continuación salió uno de los novillos del encierro. El público lo siguió desde talanqueras, puertas, ventanas y las tradicionales barreras de madera donde se sientan las peñas.",
+        "La jornada terminó en la plaza de toros con el festival Tricentenario Music, con las actuaciones de Sinestesia y Bombai y una sesión final del dj Fernandisco hasta la madrugada.",
+        "El Norte de Castilla recuerda que el encierro del día 26 está declarado Fiesta de Interés Turístico de Castilla y León, una de las tres declaraciones turísticas de Mayorga junto a la Procesión Cívica del Vítor y la Trovada de Habaneras. Para este domingo está previsto, a las 18.00 horas, el XXII Concurso de Cortes Villa de Mayorga, con reses de Rodolfo Gallego y Victoriano del Río, y por la noche la actuación de Los Desgraciaus en la Sala Secretos."
+      ]
+    }
+  },
+  {
     "municipality_slug": "palazuelo-de-vedija",
     "municipality_name": "Palazuelo de Vedija",
     "title": "Palazuelo de Vedija inicia sus fiestas patronales con la alegría de las peñas",
