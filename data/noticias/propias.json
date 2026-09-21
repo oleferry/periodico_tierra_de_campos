@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "cea",
+    "municipality_name": "Cea",
+    "title": "Fiestas en Celada de Cea",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17591/fiestas-en-celada-de-cea",
+    "published_at": "2026-09-21",
+    "detected_at": "2026-09-21T12:42:14.662521+00:00",
+    "hash": "6ff5893c7653030310a64301fb69c4125950714713af95f67fc7edb1468dccf6",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Celada de Cea celebra a San Miguel con cinco días de fiestas",
+      "entradilla": "Del 26 al 30 de septiembre, Celada de Cea vive sus fiestas patronales en honor a San Miguel Arcángel, con actos religiosos, comidas populares, música y pólvora.",
+      "cuerpo": [
+        "Las fiestas arrancan la noche del sábado 26 de septiembre. A las doce en punto está previsto un concurso de disfraces con premios, bingo, música y juegos musicales para abrir el programa con ambiente festivo, según informa Sahagún Digital.",
+        "El domingo 27 llega la parte más tradicional: misa a las 13:00 horas, degustación de pinchos a continuación y música tradicional por la tarde. El lunes 28, a las 22:00 horas, la hoguera y los fuegos artificiales, a cargo de Pirotecnia Benavente, dan paso a la disco móvil Studio 45.",
+        "El plato fuerte es el martes 29, día de San Miguel. Habrá misa en honor al patrón a la una del mediodía y, a las 14:30, una paella popular amenizada con música. Por la noche vuelve Studio 45.",
+        "El programa se cierra el miércoles 30 con la misa de difuntos al mediodía y una tarde-noche marcada por la gastronomía: parrillada a las 20:00, chocolatada a las 21:00 y sorteo de un jamón a las 22:00. La traca de fin de fiestas está prevista para las 23:00 horas."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "XXVIII Muestra Coral de Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17592/xxviii-muestra-coral-de-sahagun",
+    "published_at": "2026-09-21",
+    "detected_at": "2026-09-21T12:41:59.306870+00:00",
+    "hash": "5d980168d24060320cf8bd3123751460b46d5468b4961f6b7398c72ee82fae4c",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Muestra Coral de Sahagún llega en octubre a su edición número 28",
+      "entradilla": "El auditorio municipal acogerá cuatro conciertos los sábados de octubre, con formaciones de Valladolid, Palencia, León y la agrupación local. Todos con entrada gratuita.",
+      "cuerpo": [
+        "Sahagún vuelve a llenar octubre de música coral con la XXVIII Muestra Coral, un ciclo que, según informa Sahagún Digital, forma parte del calendario cultural de la localidad desde hace casi tres décadas. Serán cuatro sábados, cuatro coros y cuatro maneras distintas de entender el canto colectivo. Todos los conciertos empiezan a las 20:00 horas y la entrada es gratuita hasta completar el aforo.",
+        "El ciclo arranca el 3 de octubre con el Coro Francisco de Montanos, de Valladolid, fundado en 1989 y dirigido por José Ignacio Farrán Martín. Es una formación vinculada a la polifonía y la música antigua, con obras de autores como Victoria, Palestrina, Monteverdi, Purcell o Bach en su repertorio, y con participaciones en iniciativas como Las Edades del Hombre.",
+        "El 10 de octubre actuará el Coro Voces Unidas, de Palencia, mucho más joven: nació en 2014 de la mano de su directora, Carmen Marín. Con una veintena de integrantes, buena parte de su actividad la desarrolla en residencias de mayores y centros educativos, y su repertorio mezcla boleros, habaneras y canciones tradicionales.",
+        "El 17 de octubre será el turno de la Capilla Clásica de León, una de las agrupaciones con más recorrido del cartel. Fundada en 1965 por Adolfo Gutiérrez Viejo, en 2026 ha celebrado 60 años de actividad ininterrumpida y hoy la dirige Elena María Fernández Delgado. Su repertorio abarca desde la polifonía española del siglo XVI hasta autores como Mozart, Beethoven, Verdi o Dvořák.",
+        "El ciclo lo cerrará el 24 de octubre el Coro Facundino, la formación local. Fundado en 1995 y dirigido desde 2009 por Svetlana Krichtopova, mantiene la fórmula habitual de la muestra: tres coros invitados y la agrupación de casa poniendo el punto final."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villalon-de-campos",
     "municipality_name": "Villalón de Campos",
     "title": "Villalón de Campos se reivindica como referente provincial del queso",
