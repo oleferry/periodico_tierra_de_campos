@@ -2,6 +2,63 @@
   {
     "municipality_slug": "cea",
     "municipality_name": "Cea",
+    "title": "Fiestas en Bustillo de Cea",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17596/fiestas-en-bustillo-de-cea",
+    "published_at": "2026-09-22",
+    "detected_at": "2026-09-22T11:30:20.590347+00:00",
+    "hash": "aaf10597cdbf54e5e4d6e5d40a57b1d18ace2812d36597102e179b0c1be5dc01",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Bustillo de Cea celebra Santa Eugenia del 25 al 27 de septiembre",
+      "entradilla": "El pueblo arranca sus fiestas patronales el viernes por la noche con el encendido de una hoguera y las alargará hasta el domingo con música, hinchables y sabor leonés.",
+      "cuerpo": [
+        "Las fiestas de Santa Eugenia en Bustillo de Cea empezarán el viernes 25 de septiembre a medianoche, con una hoguera que dará el pistoletazo de salida. Después tomará el relevo la Disco Móvil Belissima, que amenizará esa primera noche. Así lo recoge el programa publicado por Sahagún Digital.",
+        "El sábado 26 concentra el grueso de los actos. A la una del mediodía será la misa en honor a la patrona y, por la tarde, desde las siete, llegarán los hinchables y la actuación de la Orquesta Madastur. La noche volverá a cerrarse con la Disco Móvil Belissima a partir de las doce.",
+        "El domingo 27 tendrá un carácter distinto. Tras la misa de difuntos, a las trece horas, el baile vermú dará paso a una propuesta gastronómica de acento leonés, con el cortador de jamón Diego Lazo y la comida de calle de la Bermejoneta, que estará presente durante todo el fin de semana.",
+        "Habrá barra de fiestas en las tres jornadas."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
+    "title": "María Pardo reivindica en Medina de Rioseco el papel de la escuela rural",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/maria-pardo-reivindica-en-medina-de-rioseco-el-papel-de-la-escuela-rural/",
+    "published_at": "2026-09-21",
+    "detected_at": "2026-09-22T11:30:03.942276+00:00",
+    "hash": "ae85b61ff111ae9c341684cddc6aa5bdd074425ad98148f624bd25cc257866f0",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La consejera de Educación visita el CRA Campos Góticos de Rioseco, con 293 alumnos este curso",
+      "entradilla": "María Pardo recorrió el centro riosecano, que da servicio a Medina de Rioseco, Peñaflor de Hornija, Villafrechós y Villalba de los Alcores, y defendió el papel de la escuela rural.",
+      "cuerpo": [
+        "La consejera de Educación, María Pardo, visitó el CRA Campos Góticos de Medina de Rioseco para conocer cómo funciona por dentro. Según informa La Mar de Campos, aprovechó el recorrido para reivindicar la escuela rural como una forma de garantizar que vivir en un pueblo no impida acceder a una educación de calidad.",
+        "El centro atiende este curso a 293 alumnos repartidos en 23 grupos. La mayoría, 250, estudian en la cabecera de Rioseco, mientras que Peñaflor de Hornija tiene 12 escolares, Villafrechós 15 y Villalba de los Alcores 16. El CRA imparte segundo ciclo de Infantil, Primaria y Educación Especial, y cuenta con un aula multisensorial.",
+        "Este curso 2025-2026 se sumó en Rioseco una unidad de Educación Especial como aula sustitutoria, para alumnos cuya escolarización correspondería a un centro específico o a una modalidad combinada. El centro mantiene además sección bilingüe en inglés desde el curso 2010-2011 y este año dispone de un auxiliar de conversación.",
+        "La Consejería también repasó las obras hechas en el centro: la adecuación de la zona de cocina, vestuario y limpieza, con 15.600 euros invertidos en 2023, y la sustitución del suelo de caucho del parque infantil en 2025, por 37.468,73 euros. Según la Consejería, este verano se ejecutaron más de 370 actuaciones de reforma en Castilla y León, con cerca de 27 millones de euros, de los que unos cinco millones corresponden a la provincia de Valladolid.",
+        "En cuanto a las primeras edades, la Escuela Infantil Virgen de Castilviejo de Rioseco tiene este curso cinco unidades subvencionadas dentro de la oferta gratuita de 0 a 3 años, con una financiación prevista de 220.601,70 euros para 2026 y 2027."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "cea",
+    "municipality_name": "Cea",
     "title": "Fiestas en Celada de Cea",
     "source_type": "radar_local",
     "url_original": "https://sahagundigital.com/art/17591/fiestas-en-celada-de-cea",
