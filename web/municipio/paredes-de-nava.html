@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paredes de Nava — El Terracampino</title>
-<meta name="description" content="Aquí en Paredes de Nava estamos a 26 grados con casi nada de nube. Subirá hasta los 31 esta tarde, y por la noche bajará a 15 — habrá amplitud térmica">
+<meta name="description" content="Noticias y tiempo de Paredes de Nava, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/paredes-de-nava">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/paredes-de-nava","url":"https://www.elterracampino.es/municipio/paredes-de-nava","name":"Paredes de Nava — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/paredes-de-nava#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/paredes-de-nava#lugar","name":"Paredes de Nava","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}],"geo":{"@type":"GeoCoordinates","latitude":42.152778,"longitude":-4.694444}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Paredes de Nava","item":"https://www.elterracampino.es/municipio/paredes-de-nava"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Paredes de Nava</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 22/09/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 23/09/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/paredes-de-nava.jpg" alt="Paredes de Nava" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_de_Paredes_de_Nava_-_panoramio.jpg" target="_blank" rel="noopener">Ugo Cuesta</a>,
@@ -68,60 +68,25 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Paredes de Nava: 26° y casi despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">26°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.152778&longitude=-4.694444&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Aquí en Paredes de Nava estamos a 26 grados con casi nada de nube. Subirá hasta los 31 esta tarde, y por la noche bajará a 15 — habrá amplitud térmica. El viento sopla flojo, a 13 km/h, y no hay visos de lluvia. Mañana seguiremos sin precipitaciones, aunque entrará más nube, pero las temperaturas andarán parecidas.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles nublado y con viento</h4>
-      <p class="tc-day-texto">La nubosidad dominará sin traer lluvia. Máxima de 31° y mínima de 16°, con vientos de 27 km/h que marcarán el carácter del día.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves despejado y cálido</h4>
-      <p class="tc-day-texto">Se abrirán los cielos con cielos claros y sin precipitaciones. Continuará el calor con 31° de máxima y 16° de mínima, con vientos similares de 27 km/h.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">16°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con viento en aumento</h4>
-      <p class="tc-day-texto">Nubosidad sin lluvia, pero el viento se reforzará hasta los 30 km/h. La temperatura se mantendrá en máxima de 31° y mínima de 17°.</p>
-      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">17°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Paredes de Nava</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Paredes de Nava</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Paredes de Nava: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Paredes de Nava incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
       <p style="margin:6px 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Telegram es una aplicación gratuita, parecida a WhatsApp. Si no la tienes, al pulsar te pedirá instalarla.</p></div>
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
-    
+    <h2 class="tc-block-title">Lo que pasa en Paredes de Nava</h2>
+      <div class="tc-news-grid"><a class="tc-news" href="../noticia/2f4e62e808cb8b7a.html" target="_self">
+      <span class="tc-news-kicker">Palencia en la Red · 2026-09-23</span>
+      <span class="tc-news-titular">El alcalde de Paredes de Nava lleva su Oficina de Repoblación a un foro rural en Sigüenza</span>
+      <span class="tc-news-entradilla">Luis Calderón participará este viernes como ponente en el II Foro de Desarrollo Rural de Sigüenza, donde contará la experiencia del municipio en la lucha contra la despoblación.</span>
+      <span class="tc-news-more">Leer la noticia completa →</span>
+    </a></div>
     <h2 class="tc-block-title">Plenos y acuerdos municipales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/04/09/html/BOCYL-D-09042026-67-25.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-04-09</span>

@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "paredes-de-nava",
+    "municipality_name": "Paredes de Nava",
+    "title": "Paredes de Nava llevará su experiencia de la Oficina de Repoblación al Foro de Desarrollo Rural de Sigüenza",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/paredes-de-nava-llevara-su-experiencia-de-la-oficina-de-repoblacion-al-foro-de-desarrollo-rural-de-siguenza/",
+    "published_at": "2026-09-23",
+    "detected_at": "2026-09-23T11:28:33.825448+00:00",
+    "hash": "2f4e62e808cb8b7aff48c8eec8a3676f221cacb5cd9e894e3c8506f8b3ce1343",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El alcalde de Paredes de Nava lleva su Oficina de Repoblación a un foro rural en Sigüenza",
+      "entradilla": "Luis Calderón participará este viernes como ponente en el II Foro de Desarrollo Rural de Sigüenza, donde contará la experiencia del municipio en la lucha contra la despoblación.",
+      "cuerpo": [
+        "El regidor de Paredes de Nava, Luis Calderón, intervendrá el próximo viernes 25 de septiembre en el II Foro de Desarrollo Rural que se celebra en el Parador Nacional de Sigüenza. Allí explicará cómo funciona la Oficina de Repoblación que el Ayuntamiento puso en marcha en el pueblo, según informa Palencia en la Red.",
+        "Calderón formará parte de la tercera mesa de debate de la jornada, dedicada al Estatuto del Pequeño Municipio y prevista a partir de las 12:30 horas. Junto a él intervendrán, entre otros, el presidente de la Diputación de Guadalajara, José Luis Vega, y la alcaldesa de Sigüenza, María Jesús Merino.",
+        "El encuentro está organizado por la Red Castellano Manchega de Desarrollo Rural (RECAMDER) y los cinco Grupos de Desarrollo Rural de Guadalajara, con el apoyo de la Junta de Comunidades de Castilla-La Mancha y la Diputación provincial. El programa girará en torno al reto demográfico, la financiación de los pequeños municipios y el futuro del programa LEADER.",
+        "Según la organización, al foro se han inscrito cerca de 900 personas procedentes de 34 provincias y 12 comunidades autónomas. Entre los temas del debate figura también el futuro marco financiero de la Unión Europea para el periodo 2028-2034."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "USO Sanidad exige dos unidades completas de atención continuada todo el año en los centros de salud de Valencia de Don Juan y Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://leonsurdigital.com/art/32093/uso-sanidad-exige-dos-unidades-completas-atencion-continuada-todo-ano-centros-salud-valencia-don-juan-y-sahagun",
+    "published_at": "2026-09-23",
+    "detected_at": "2026-09-23T11:28:18.056244+00:00",
+    "hash": "88813f656f9510598ec2382dad10864da611e83f52a305e69c8055b0627ef04d",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Leonsur Digital",
+      "fuente_slug": "leonsurdigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "USO reclama dos enfermeras todo el año para las guardias del centro de salud de Sahagún",
+      "entradilla": "El sindicato pide a la Gerencia de Atención Primaria de León que los centros de Sahagún y Valencia de Don Juan tengan dos unidades completas de atención continuada durante los doce meses, con dos médicos y dos enfermeras por turno.",
+      "cuerpo": [
+        "El sindicato USO Sanidad ha pedido formalmente a la Gerencia de Atención Primaria de León que los centros de salud de Sahagún y Valencia de Don Juan cuenten durante todo el año con dos unidades completas de atención continuada, cada una con un médico y una enfermera. Así lo informa Leonsur Digital.",
+        "Según denuncia el sindicato, la plantilla habitual en las guardias suele ser de dos médicos y una sola enfermera durante buena parte del año. En Valencia de Don Juan se refuerza de forma excepcional con una segunda enfermera en verano o festivos, pero en Sahagún, aseguran, ese refuerzo no llega nunca.",
+        "USO advierte de que el problema se agrava cuando uno de los equipos tiene que salir a atender una urgencia en un domicilio: el segundo médico se queda entonces solo en el centro, sin enfermería a mano para responder a una emergencia que requiera trabajar juntos. \"Una guardia no puede funcionar con una sola enfermera\", sostiene el sindicato.",
+        "La organización recuerda además el desgaste de las enfermeras que cargan solas con guardias de 17 o 24 horas, sin descanso real ni reparto del trabajo. Por eso reclama consolidar todo el año el modelo reforzado que ya existe de forma temporal: dos médicos y dos enfermeras por turno en ambos centros.",
+        "USO rechaza que se justifique la dotación por razones estacionales o demográficas —\"las urgencias no entienden de calendarios\", señalan— y exige a la administración sanitaria soluciones estructurales inmediatas para los dos centros."
+      ]
+    }
+  },
+  {
     "municipality_slug": "cea",
     "municipality_name": "Cea",
     "title": "Fiestas en Bustillo de Cea",
