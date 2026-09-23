@@ -39,6 +39,19 @@
       "desde": "2026-07-28",
       "hasta": "",
       "_verificado": "2026-07-28"
+    },
+    {
+      "slug": "super-recreativa",
+      "nombre": "Super Recreativa",
+      "pueblo": "Mayorga",
+      "texto": "Alquila una máquina recreativa de los 90 para tus fiestas: 99 € al día, la recoges en Mayorga.",
+      "url": "https://superrecreativa.es",
+      "telefono": "695 64 53 95",
+      "imagen": "brand/anunciantes/super-recreativa.png",
+      "activo": true,
+      "desde": "2026-09-17",
+      "hasta": "",
+      "_verificado": "2026-09-17"
     }
   ]
 }
