@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "valdunquillo",
+    "municipality_name": "Valdunquillo",
+    "title": "Artemio Domínguez anima a dejar de fumar en el pregón de las fiestas de Valdunquillo",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/artemio-dominguez-anima-dejar-fumar-pregon-fiestas-20260923215339-nt.html",
+    "published_at": "2026-09-23",
+    "detected_at": "2026-09-24T11:39:44.719653+00:00",
+    "hash": "f40d6d6c10a6b005b93d6ddb73e74034edd4303ca5ad5f2efc0e82ab9651f69b",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Valdunquillo arranca sus fiestas de las Mercedes con un pregón cargado de recuerdos de Tierra de Campos",
+      "entradilla": "El presidente provincial de la Asociación Española contra el Cáncer, Artemio Domínguez, abrió las fiestas patronales el miércoles desde las puertas del Ayuntamiento.",
+      "cuerpo": [
+        "Las fiestas de Valdunquillo en honor a la Virgen de las Mercedes echaron a andar este miércoles con el pregón. Según informa El Norte de Castilla, lo pronunció Artemio Domínguez, presidente provincial de la Asociación Española contra el Cáncer, ante numerosos vecinos reunidos frente al Ayuntamiento.",
+        "El pregonero, natural de Morales de Campos, dedicó buena parte de su intervención a recordar la vida de antaño en los pueblos de la comarca: las calles de tierra, los carros y las caballerías, los braseros de invierno y las faenas del verano y la cosecha. Tuvo también un reconocimiento hacia las mujeres del pueblo, madres y abuelas, por su papel tanto en la casa como en el campo.",
+        "En una segunda parte animó a los vecinos a dejar de lado las preocupaciones diarias y a disfrutar de estos días de convivencia y de fiesta. Y en el tramo final aprovechó su cargo en la Aecc para lanzar un mensaje sobre la importancia de la investigación y de la prevención, recordando que el tabaco es la primera causa evitable de cáncer y pidiendo especialmente a los jóvenes que no empiecen a fumar.",
+        "Domínguez recordó además que el 24 de septiembre, día de la Virgen de las Mercedes, coincide con el Día Mundial de la Investigación en Cáncer, y cerró con vivas a la Virgen, a Valdunquillo y a España. Tras el pregón hubo refresco de la cofradía, novena y fuegos artificiales.",
+        "Según recoge el mismo medio, este jueves la localidad celebra la festividad con misa y procesión. Por la tarde habrá actuación de copla con Tamara Astorga y chocolatada ofrecida por los mayordomos."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "ampudia",
+    "municipality_name": "Ampudia",
+    "title": "Ampudia elige reina para recibir a Felipe III",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/ampudia-elige-reina-recibir-felipe-iii-20260924072107-nt.html",
+    "published_at": "2026-09-24",
+    "detected_at": "2026-09-24T11:39:30.828423+00:00",
+    "hash": "852510abd2bc92db3c2e3e138a376a197dcdcf9e68156591b40f7367ca321900",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Una creadora de contenido afincada en Ampudia será reina del Mercado Barroco este sábado",
+      "entradilla": "La creadora de contenido Johanna Manzanaro recibirá a Felipe III en la recreación histórica que Ampudia celebra el 26 de septiembre, tras ser elegida por el Ayuntamiento para el papel.",
+      "cuerpo": [
+        "Ampudia vuelve a llevar sus calles al siglo XVII este sábado con su tradicional Mercado Barroco, y este año una de las protagonistas será Johanna Manzanaro, que asumirá el papel de reina encargada de esperar y recibir a Felipe III. Así lo informa El Norte de Castilla, que recuerda que fue el propio Ayuntamiento quien la eligió para la recreación.",
+        "Manzanaro, nacida en Alicante, se ha instalado con su familia en Ampudia. Según cuenta al mismo medio, su relación con Castilla empezó por su matrimonio con un empresario vallisoletano y ha ido creciendo con los años hasta convertir esta tierra en su casa. \"Me he sentido acogida desde el primer momento\", afirma sobre el pueblo y su gente.",
+        "En 2025 fue incluida por Forbes España en su lista Best Content Creators, que reúne a los cien principales creadores de contenido del país. La revista situó su comunidad en Instagram en un millón de seguidores y repasó su trayectoria en televisión, música, moda y empresa.",
+        "La celebración tiene raíces en la propia historia de Ampudia. A comienzos del siglo XVII la villa estuvo ligada a Francisco de Sandoval y Rojas, duque de Lerma y valido de Felipe III, una etapa en la que recibió privilegios comerciales. El Mercado Barroco recupera ese pasado con personajes de época, artesanía, gastronomía y recreaciones.",
+        "Ampudia forma parte de la red de Los Pueblos Más Bonitos de España y conserva su castillo, la Colegiata de San Miguel y sus calles porticadas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "paredes-de-nava",
     "municipality_name": "Paredes de Nava",
     "title": "Paredes de Nava llevará su experiencia de la Oficina de Repoblación al Foro de Desarrollo Rural de Sigüenza",
