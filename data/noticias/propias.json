@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "fuentes-de-nava",
+    "municipality_name": "Fuentes de Nava",
+    "title": "Fuentes de Nava se convertirá el sábado en punto de encuentro para el sentimiento palentino en el XLI Día de la Provincia",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/fuentes-nava-convertira-sabado-punto-encuentro-sentimiento-20260921123522-nt.html",
+    "published_at": "2026-09-21",
+    "detected_at": "2026-09-25T11:45:48.323748+00:00",
+    "hash": "69629a4e4ec2e9e0cf0c3a52e6f96248553ff9c287644ef794d7793bd97c6a40",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Fuentes de Nava acoge el Día de la Provincia con el Renacimiento como protagonista",
+      "entradilla": "La Diputación de Palencia celebra los días 25 y 26 de septiembre su XLI Día de la Provincia, que este año pone el foco en el museo Campos del Renacimiento y tiene como sede popular a Fuentes de Nava.",
+      "cuerpo": [
+        "El programa se presentó este lunes con la presidenta de la Diputación, Ángeles Armisén, los diputados de Cultura y de Turismo, y el alcalde de Fuentes de Nava, Carlos Gutiérrez. Según informa El Norte de Castilla, la localidad ha sido elegida por su papel dentro del Museo Territorial Campos del Renacimiento, que cumple su quinto aniversario y que integran, además, Becerril de Campos, Cisneros y Paredes de Nava.",
+        "La Diputación recuerda que el museo reúne más de 200 piezas en su recorrido expositivo y que, sumando retablos y otras obras de los templos de los cuatro municipios, permite ver más de 300 bienes artísticos. En sus cinco años ha superado los 63.000 visitantes, según la institución.",
+        "La celebración arrancará el viernes 25 con el acto institucional en la Plaza de Toros de Palencia, a partir de las 19.30 horas, donde se homenajea a los municipios y se reconoce a los alcaldes con cuatro mandatos que aún no lo habían recibido. El acto servirá también para conmemorar el cincuenta aniversario del coso palentino.",
+        "El sábado 26 la jornada popular se traslada a Fuentes de Nava. A las 11.00 comienza el desfile de pendones concejiles con los Danzantes de Fuentes de Nava y los Dulzaineros de Campos, seguido de la recepción de autoridades y la Muestra de Alimentos de Palencia. Habrá música durante todo el día, con actuaciones de 'Sabor a Miel', 'Yedra', 'Mariachi Hispanoamérica' y la Orquesta Dakar para cerrar la jornada a las 20.30 horas.",
+        "El programa incluye comida popular a cinco euros —un guiso de patatas con carne—, animación infantil, la quinta edición de la Pequeferia, puertas abiertas del museo y de la iglesia de Santa María, visitas teatralizadas y talleres. El alcalde destacó la implicación vecinal y puso como ejemplo una camiseta impulsada por una peña de jóvenes que logró 400 reservas en un día, según recoge Ical.",
+        "La Diputación ha organizado autobuses gratuitos, con ocho rutas y once vehículos desde distintos puntos de la provincia, con regreso previsto a las 20.00 horas desde Fuentes de Nava."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "grijota",
+    "municipality_name": "Grijota",
+    "title": "La iglesia parroquial de Grijota renueva su cubierta",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/iglesia-parroquial-grijota-renueva-cubierta-20260922212122-nt.html",
+    "published_at": "2026-09-22",
+    "detected_at": "2026-09-25T11:45:18.016721+00:00",
+    "hash": "fe16c54b1fcfabc333aeea982d70ffdd67cf845b5c4b8976096633cdd29fca42",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Grijota renueva la cubierta de la iglesia de la Santa Cruz y pone fin a las filtraciones",
+      "entradilla": "Las obras, que han costado 154.561 euros repartidos entre varias entidades y los propios vecinos, se han celebrado este domingo coincidiendo con la fiesta del Cristo del Amparo.",
+      "cuerpo": [
+        "La iglesia parroquial de la Santa Cruz de Grijota ya no tiene los problemas de filtraciones que arrastraba. Según informa El Norte de Castilla, la reforma ha consistido en cambiar por completo la cubierta de la nave, porque las tejas curvas se estaban desplazando sobre la estructura de madera y el agua acababa entrando en el edificio. La torre del templo ya se había arreglado antes.",
+        "La inversión ha sido de 154.561 euros y se ha repartido entre varias partes: la Diputación de Palencia ha puesto algo más de 38.100 euros, la Diócesis 33.000, el Ayuntamiento de Grijota 33.600 y los casi 49.900 euros restantes han salido de cofradías, empresas, colectivos y vecinos del pueblo.",
+        "El acto de celebración se hizo este domingo, coincidiendo con la festividad del Cristo del Amparo. Acudieron la presidenta de la Diputación, Ángeles Armisén, y el alcalde de Grijota y diputado provincial, Jesús Tapia. El obispo de Palencia, Mikel Garciandía, presidió la misa.",
+        "La actuación forma parte del convenio que la Diputación y la Diócesis mantienen desde 2015 para conservar iglesias y ermitas de pueblos que no están catalogadas como Bien de Interés Cultural. Desde entonces y hasta finales de 2025, ambas han destinado más de 2,6 millones de euros a intervenir en 157 templos de la provincia. El presupuesto anual del convenio subió en 2024 hasta los 400.000 euros y se ha mantenido en 2025 y 2026."
+      ]
+    }
+  },
+  {
     "municipality_slug": "valdunquillo",
     "municipality_name": "Valdunquillo",
     "title": "Artemio Domínguez anima a dejar de fumar en el pregón de las fiestas de Valdunquillo",

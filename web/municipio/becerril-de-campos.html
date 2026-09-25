@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Becerril de Campos — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Becerril de Campos, Tierra de Campos.">
+<meta name="description" content="En Becerril ahora mismo estamos en 27 grados con cielo casi limpio. La máxima de hoy llegará a los 31, y luego baja bastante por la noche hasta los 14">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/becerril-de-campos">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/becerril-de-campos","url":"https://www.elterracampino.es/municipio/becerril-de-campos","name":"Becerril de Campos — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/becerril-de-campos#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/becerril-de-campos#lugar","name":"Becerril de Campos","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}],"geo":{"@type":"GeoCoordinates","latitude":42.108333,"longitude":-4.641667}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Becerril de Campos","item":"https://www.elterracampino.es/municipio/becerril-de-campos"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Becerril de Campos</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>737 habitantes</span><span>Actualizado: 24/09/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>737 habitantes</span><span>Actualizado: 25/09/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/becerril-de-campos.jpg" alt="Becerril de Campos" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:1867,_Crónica_de_la_provincia_de_Palencia,_Ermita_de_San_Juan_en_Becerril_de_Campos.jpg" target="_blank" rel="noopener">Eusebio de Letre / Tomás Carlos Capuz</a>,
@@ -68,12 +68,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Becerril de Campos</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Becerril de Campos</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Becerril de Campos: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Becerril de Campos: 27° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">27°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.108333&longitude=-4.641667&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Becerril ahora mismo estamos en 27 grados con cielo casi limpio. La máxima de hoy llegará a los 31, y luego baja bastante por la noche hasta los 14 — cuidado si tienes plantas delicadas. Viento flojo, nada de lluvia, así que si riegas hazlo temprano mientras el aire sea más suave. Mañana se nubla pero sin grandes cambios de temperatura.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Sábado</span>
+      <h4 class="tc-day-titular">Sábado con nubes y viento fuerte</h4>
+      <p class="tc-day-texto">Jornada nublada con máxima de 31° y mínima de 13°. El viento soplará con fuerza, tocando los 32 km/h, sin expectativas de lluvia.</p>
+      <span class="tc-day-temp tc-data">31° <span class="tc-day-min">13°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Domingo</span>
+      <h4 class="tc-day-titular">Domingo nublado y más suave</h4>
+      <p class="tc-day-texto">Las nubes seguirán presentes con temperaturas de 29° como máxima y 15° como mínima. Apenas hay opciones de lluvia y el viento moderará hasta los 20 km/h.</p>
+      <span class="tc-day-temp tc-data">29° <span class="tc-day-min">15°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Lunes</span>
+      <h4 class="tc-day-titular">Lunes con llovizna y viento</h4>
+      <p class="tc-day-texto">Se esperan lloviznas débiles, con acumulación mínima de 0.7 mm. Las temperaturas rondarán los 28° de máxima y 19° de mínima, con viento de 31 km/h que volverá a apretarse.</p>
+      <span class="tc-day-temp tc-data">28° <span class="tc-day-min">19°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Becerril de Campos incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
