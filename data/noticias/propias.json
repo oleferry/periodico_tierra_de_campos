@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "monzon-de-campos",
+    "municipality_name": "Monzón de Campos",
+    "title": "El 78% de los vecinos del área rural considera clave la oferta cultural para fijar o atraer población",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/vecinos-area-rural-considera-clave-oferta-cultural-20260926155322-nt.html",
+    "published_at": "2026-09-26",
+    "detected_at": "2026-09-26T11:18:24.575574+00:00",
+    "hash": "1f06fb6dc8dc9c49fe9325705aadab3e14bebc6b4ec8623c44ef276b3409440a",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Un informe presentado en Monzón de Campos pone la cultura en el centro del debate contra la despoblación",
+      "entradilla": "El estudio, elaborado por la alianza Vivaces y la organización Legados, defiende que la vida cultural también influye en la decisión de quedarse, marcharse o volver a un pueblo.",
+      "cuerpo": [
+        "Este viernes se presentó en Monzón de Campos el informe 'Cultura, territorio y oportunidad', un trabajo que analiza cómo la vida comunitaria y el sentido de pertenencia pesan en el reto demográfico, según informa El Norte de Castilla. La idea de fondo es sencilla: además de la vivienda, el empleo o los servicios, la cultura también cuenta a la hora de arraigar población.",
+        "Los datos que recoge el informe apuntan en esa dirección. Según el Barómetro de la Vivacidad, el 78% de quienes viven en municipios de menos de 10.000 habitantes da mucha importancia a tener una oferta cultural y de ocio adecuada. Y entre quienes se plantean irse a la ciudad, el 27,3% menciona la falta de vida social o de opciones de ocio, una cifra parecida a la de quienes citan la sanidad especializada o las oportunidades laborales.",
+        "El estudio sostiene que el problema no es la falta de interés ni tanto la de equipamientos, sino la continuidad. Solo el 41,4% de los encuestados dice que su municipio programa actividades durante todo el año, mientras que otros las concentran en ciertos periodos o las dejan para las fiestas y el verano. Buena parte de esos pueblos cuentan con polideportivo, biblioteca o centro cultural.",
+        "Para ilustrarlo, el informe examina cuatro experiencias muy distintas: un proyecto de baloncesto comarcal en Segovia, una iniciativa de arte contemporáneo que trabaja en pueblos de Asturias, Palencia y Valladolid, una escuela vinculada a la naturaleza en un pequeño pueblo del Pirineo aragonés y un proyecto de teatro que recupera la memoria de parroquias gallegas.",
+        "De todo ello, los autores extraen que la cultura arraiga mejor cuando se construye con quienes viven en el territorio y no como algo que llega de fuera. Por eso reclaman financiación más estable y a largo plazo, y una red de agentes más amplia que los ayuntamientos, señalados por el 56,1% de la población rural como el principal impulsor de la actividad cultural."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "cisneros",
+    "municipality_name": "Cisneros",
+    "title": "La huella sumergida de la memoria: el LECRAC acoge la exposición ‘La sombra de los peces en el secano’",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/la-huella-sumergida-de-la-memoria-el-lecrac-acoge-la-exposicion-la-sombra-de-los-peces-en-el-secano/",
+    "published_at": "2026-09-26",
+    "detected_at": "2026-09-26T11:18:09.038691+00:00",
+    "hash": "b255a13741ad5f101d4e84c20e03816fc1694699c9fcc307b2ff176604439aa7",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El LECRAC de Palencia acoge una exposición sobre especies extinguidas de la mano de José Luis Viñas",
+      "entradilla": "La muestra 'La Sombra de los Peces en el Secano' puede visitarse en el centro cultural palentino hasta el 23 de octubre, con la colaboración de la artista deMayo Cisneros.",
+      "cuerpo": [
+        "El Centro Cultural LECRAC de Palencia ha inaugurado 'La Sombra de los Peces en el Secano', una exposición de José Luis Viñas planteada como un museo clandestino e itinerante dedicado a las especies extintas. Así lo recoge Palencia en la Red, que informa de que la muestra estará abierta hasta el próximo 23 de octubre.",
+        "Según explicó el propio artista, la propuesta forma parte de un proyecto de investigación iniciado a mediados de la década pasada, centrado en cómo el arte contemporáneo puede abordar la pérdida de biodiversidad. Viñas habla de una \"nueva forma de museología ambiental\" basada en bio-memoriales que dedica a especies desaparecidas y que sitúa en espacios ruinosos y olvidados.",
+        "La exposición es la continuación de un trabajo anterior, presentado hace algo más de tres años en la Fundación Díaz-Caneja bajo el título 'Cuando los insectos resuciten', que se ocupaba de mariposas y polillas desaparecidas en Vallejo de Orbó, en la montaña palentina. En esta ocasión, el hilo conductor es la memoria acuática de la meseta castellana, un territorio que en tiempos remotos estuvo bajo el mar, con dos proyectos dedicados a grupos de peces extinguidos en los últimos siglos.",
+        "La muestra se completa con la aportación de la artista deMayo Cisneros, afincada en Valladolid, que trabaja la fotografía, el arte sonoro, la acción poética y la gestión cultural. Actualmente en residencia en la Fundación Díaz-Caneja, investiga la memoria del yeso en el Cerrato Palentino, recogiendo objetos en sus paseos por la zona sur de Palencia e integrándolos en cubos de yeso.",
+        "Desde el centro cultural, según Palencia en la Red, se destacó la presencia de Viñas y el propósito del LECRAC de consolidar espacios de creación y residencia artística, así como de mantener un diálogo con otras instituciones de la ciudad como la Fundación Díaz-Caneja o el Museo del Cordón."
+      ]
+    }
+  },
+  {
     "municipality_slug": "fuentes-de-nava",
     "municipality_name": "Fuentes de Nava",
     "title": "Fuentes de Nava se convertirá el sábado en punto de encuentro para el sentimiento palentino en el XLI Día de la Provincia",

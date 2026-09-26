@@ -1,13 +1,15 @@
 {
-  "posicion": 2,
+  "posicion": 0,
   "historial": {
     "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute": 0,
     "villarramiel-perdio-ocho-de-cada-diez-vecinos-en-un-siglo-y-nadie-firmo-la-orden": 1,
-    "los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos": 2
+    "los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos": 2,
+    "dos-anos-sin-mariano-haro-el-leon-de-becerril": 0
   },
   "enviados": [
     "dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute",
     "villarramiel-perdio-ocho-de-cada-diez-vecinos-en-un-siglo-y-nadie-firmo-la-orden",
-    "los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos"
+    "los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos",
+    "dos-anos-sin-mariano-haro-el-leon-de-becerril"
   ]
 }
