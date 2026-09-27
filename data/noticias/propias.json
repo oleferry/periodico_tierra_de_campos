@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "El cacereño Luis Juanela gana un reñido concurso de cortes de Mayorga",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/cacereno-luis-juanela-gana-renido-concurso-cortes-20260920225501-nt.html",
+    "published_at": "2026-09-20",
+    "detected_at": "2026-09-27T11:58:01.341426+00:00",
+    "hash": "a2317590c971f845bd1d07ff9021cdb3c24121fe9762f30ffaa5c2ab419c6c5e",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El cacereño Luis Juanela gana el Concurso de Cortes de Mayorga",
+      "entradilla": "El cortador de Losar de la Vera se impuso este domingo en la XXII edición del certamen, celebrado en la plaza de España durante las fiestas de Santo Toribio.",
+      "cuerpo": [
+        "Luis Juanela, de Losar de la Vera (Cáceres), se llevó el XXII Concurso de Cortes Villa de Mayorga, celebrado este domingo en el coso portátil de la plaza de España. Según informa El Norte de Castilla, se impuso con varios quiebros de rodillas ante un público que volvió a llenar la plaza.",
+        "En la final, Juanela quedó por delante de Dany Alonso, de Vezdemarbán, que fue segundo; Francisco Pisador 'Leguiche', de Medina del Campo, tercero; y Jorge Salán, de Villalón de Campos, cuarto. Participaron doce cortadores repartidos en tres grupos, con novillos de las ganaderías de Rodolfo Gallego y Victoriano del Río presentados por Jorge Manrique.",
+        "El festejo arrancó con un homenaje al cortador Javier Magdaleno, de Villamuriel de Cerrato, que se recupera de una lesión tras una cogida reciente en Grijota, y con un recuerdo para su padre, fallecido esta semana. También se acordaron de Miguel Díaz, mayoral en Mayorga de las reses de Victoriano del Río, fallecido hace unos meses.",
+        "Además, se rindió homenaje a los cortadores Mario Parrado, de Mucientes, y al propio Jorge Salán, para quienes el de Mayorga era su último concurso tras una larga trayectoria. El coordinador del certamen, Isidro de la Viuda, destacó la calidad del festejo y del novillo de Victoriano del Río.",
+        "El concurso forma parte del programa taurino que el Ayuntamiento organiza cada año por las fiestas patronales. En los próximos días llegan el encierro al estilo de Mayorga del 26 de septiembre, declarado Fiesta de Interés Turístico de Castilla y León, las novilladas del 28 y 29 y el gran prix de peñas del día 30."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "carrion-de-los-condes",
+    "municipality_name": "Carrión de los Condes",
+    "title": "Carrión prepara un homenaje a sus mayores el 1 de octubre",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/carrion-prepara-un-homenaje-a-sus-mayores-el-1-de-octubre/",
+    "published_at": "2026-09-25",
+    "detected_at": "2026-09-27T11:57:48.301514+00:00",
+    "hash": "8d037996f7bf7011a1b660e919b70e4555e08e2c4f4ba423973b8adc2a2efac6",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Carrión de los Condes homenajea a sus mayores el 1 de octubre",
+      "entradilla": "El Ayuntamiento ha organizado una jornada con misa y actuación de danzas para celebrar el Día Internacional de las Personas de Edad.",
+      "cuerpo": [
+        "El próximo 1 de octubre Carrión de los Condes dedicará una jornada a sus mayores con motivo del Día Internacional de las Personas de Edad. Según informa Palencia en la Red, el programa arrancará a las 13:00 horas con una misa en la iglesia de Santa María del Camino.",
+        "Por la tarde, a las 18:00 horas, la cita se traslada a la Plaza Mayor, donde actuará el grupo de danzas Alborada.",
+        "La concejala de Servicios Sociales, Beatriz Bezos, explicó que con esta jornada el consistorio quiere agradecer lo que los mayores han aportado a la vida del municipio y recordar el trabajo que se hace con ellos durante todo el año. El alcalde, Luis Miguel Medina, insistió en su papel para mantener vivas las tradiciones de Carrión.",
+        "El Ayuntamiento recuerda que a lo largo del año cuenta con el Centro de Día Armonía y el programa Salvia Rural, y colabora con la Asociación de Jubilados y Pensionistas Piña Merino y la Asociación de Mujeres Virgen de Belén, además del apoyo a las residencias de mayores del municipio."
+      ]
+    }
+  },
+  {
     "municipality_slug": "monzon-de-campos",
     "municipality_name": "Monzón de Campos",
     "title": "El 78% de los vecinos del área rural considera clave la oferta cultural para fijar o atraer población",
