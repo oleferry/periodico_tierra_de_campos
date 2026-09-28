@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "villoldo",
+    "municipality_name": "Villoldo",
+    "title": "Cervecería Basi, Kyomu Resort y La Barra de Villoldo representarán a Palencia en la final del concurso de bravas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/cerveceria-basi-kyomu-resort-barra-villoldo-representaran-20260928071944-nt.html",
+    "published_at": "2026-09-28",
+    "detected_at": "2026-09-28T13:46:28.953270+00:00",
+    "hash": "349961addde090dc310505da25dc5b31e2bda9f00b61316007fa06dab0562d27",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Una tabernera de Villoldo, a la final del concurso internacional de patatas bravas",
+      "entradilla": "Liliana Rendón, de La Barra de Villoldo Taberna dNorte, superó la semifinal palentina y competirá hoy por los premios junto a los finalistas internacionales.",
+      "cuerpo": [
+        "La cocinera de La Barra de Villoldo Taberna dNorte se ha ganado un sitio en la gran final de la séptima edición del Concurso Internacional de Patatas Bravas. Lo consiguió este domingo en la semifinal palentina, celebrada en el Hotel Rey Sancho, con una propuesta que presentó como Nuestras Bravas.",
+        "Según informa El Norte de Castilla, junto a ella pasaron el corte otros dos cocineros de la provincia: uno de Cervecería Basi, con su Brava Geometría, y otro de Kyomu Resort, con Bravas de Montaña. Los tres salieron de un total de nueve aspirantes palentinos.",
+        "El jurado, en el que había estrellas Michelin y nombres conocidos del mundo gastronómico, valoró tanto el plato en sí —sabor, contraste, producto y técnica— como que fuera viable de verdad en un servicio de barra o de sala. La estética y la originalidad tendrán sus propios premios en la jornada final.",
+        "Los tres clasificados ya se llevan un lote de productos valorado en 400 euros. En la final competirán con el resto de participantes internacionales por los grandes premios: el campeón recibirá 1.500 euros en efectivo y varios lotes de productos, mientras que el segundo y el tercero optan a 1.000 y 500 euros respectivamente, además de otras dotaciones."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "El Vítor ilumina Mayorga en el tercer centenario de la canonización de Santo Toribio",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/vitor-ilumina-mayorga-tercer-centenario-canonizacion-santo-20260927230729-nt.html",
+    "published_at": "2026-09-28",
+    "detected_at": "2026-09-28T13:46:11.595100+00:00",
+    "hash": "89a61ed6b3e2336ecab413b6e3a4f02c64141bb7f455d6219774d04fe6ec1eef",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Mayorga vuelve a arder de pellejos en la procesión del Vítor, este año con el centenario de la canonización de Santo Toribio",
+      "entradilla": "Cientos de pellejos volvieron a prender este domingo en la Procesión Cívica del Vítor de Mayorga, una tradición que en 2026 coincide con el tercer centenario de la canonización de Santo Toribio de Mogrovejo.",
+      "cuerpo": [
+        "La noche del Vítor arrancó como cada año en Mayorga. Después de la procesión religiosa de la tarde, al caer la noche los vecinos sacaron los varales y se vistieron con los viejos gabanes, guantes y sombreros ennegrecidos por años bajo el fuego. Poco antes de las diez, los primeros pellejos ya ardían en una hoguera junto a la ermita del patrón, según relata la crónica publicada por El Norte de Castilla.",
+        "La procesión recuerda el 27 de septiembre de 1752, cuando llegó a la localidad la segunda reliquia de Santo Toribio. Este año la cita tuvo un matiz especial por celebrarse el tercer centenario de la canonización del santo, para lo que se instaló una alfombra floral a la puerta de la ermita.",
+        "El recorrido lo abrió de nuevo, a sus 89 años, el vecino que lleva más de cuatro décadas haciendo de maestro del Vítor, indicando a los más pequeños cómo agarrar el varal y cómo avanzar. La pez fue tiñendo de negro las calles a su paso, un rastro que quedará durante todo el año.",
+        "El momento más emotivo llegó pasada la medianoche, cuando la procesión alcanzó la plaza tras dar varias vueltas al ruedo. Con el Vítor subido al balcón del Ayuntamiento y un castillo de fuegos artificiales, los mayorganos se arrodillaron con sus varales para cantar el himno a Santo Toribio. La jornada terminó ya de madrugada en la ermita, con vivas al santo, a Santa Rosa, al Vítor y a Mayorga, y la invitación a tomar la Parva con chocolate con churros.",
+        "El Norte de Castilla recoge también el testimonio del cofrade más antiguo de la Congregación de Santo Toribio, de 70 años, que sigue quemando pellejos junto a su familia y recuerda cuando de niño quemaba cubiertas de bicicleta porque no podía con los pellejos de vino."
+      ]
+    }
+  },
+  {
     "municipality_slug": "mayorga",
     "municipality_name": "Mayorga",
     "title": "El cacereño Luis Juanela gana un reñido concurso de cortes de Mayorga",
