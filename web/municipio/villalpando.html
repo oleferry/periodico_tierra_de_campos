@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalpando — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Villalpando, Tierra de Campos.">
+<meta name="description" content="Aquí en Villalpando ahora mismo tenemos 23 grados y nubes, sin mucho movimiento de temperatura el resto del día — te quedas en los 23 de máxima. Sopla">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/villalpando">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/villalpando","url":"https://www.elterracampino.es/municipio/villalpando","name":"Villalpando — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/villalpando#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/villalpando#lugar","name":"Villalpando","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Zamora"}],"geo":{"@type":"GeoCoordinates","latitude":41.864722,"longitude":-5.413056}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Villalpando","item":"https://www.elterracampino.es/municipio/villalpando"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalpando</h1>
-  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 28/09/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 29/09/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/villalpando.jpg" alt="Villalpando" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_Real,_Villalpando._-_panoramio.jpg" target="_blank" rel="noopener">Frank Baulo</a>,
@@ -64,21 +64,57 @@
   </div>
 </div></section>
 
-<section class="tc-wrap"><div class="tc-card" style="border-left:5px solid #C9A227;">
-  <h3 style="margin-top:0;">Avisos de AEMET en tu zona</h3>
-  <ul class="tc-links-list"><li><strong>Aviso amarillo</strong> por lluvias · desde el lunes a las 14:00 hasta el lunes a las 21:59</li><li><strong>Aviso amarillo</strong> por tormentas · desde el lunes a las 14:00 hasta el lunes a las 21:59</li></ul>
-  <p class="tc-item-meta">Fuente: Agencia Estatal de Meteorología (Plan Meteoalerta) ·
-  <a href="https://www.aemet.es/es/eltiempo/prediccion/avisos" target="_blank" rel="noopener">ver el detalle en AEMET</a></p>
-</div></section>
+
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Villalpando</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Villalpando</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Villalpando: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalpando: 23° y nublado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">23°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.864722&longitude=-5.413056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Aquí en Villalpando ahora mismo tenemos 23 grados y nubes, sin mucho movimiento de temperatura el resto del día — te quedas en los 23 de máxima. Sopla viento de 26 kilómetros por hora y hay un 33 por ciento de que caiga algo de agua, poco cosa. Mañana entra lluvia débil y baja a 21, así que si tienes algo que regar, mejor hoy mientras puedas.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con lluvia débil y soplo</h4>
+      <p class="tc-day-texto">Lluvia segura desde primeras horas con 2.1 mm acumulados y viento moderado de 25 km/h. Temperaturas contenidas entre 16 y 21 grados.</p>
+      <span class="tc-day-temp tc-data">21° <span class="tc-day-min">16°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves despejado y fresco</h4>
+      <p class="tc-day-texto">Anticiclón en toda regla: nublazón pero sin lluvia, con máxima de 21 grados y mínima de 11, bastante más fría. Viento flojo de 21 km/h.</p>
+      <span class="tc-day-temp tc-data">21° <span class="tc-day-min">11°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes nublado con posible lluvia ligera</h4>
+      <p class="tc-day-texto">Cielo cubierto y pequeña probabilidad de lluvia débil, sin descartar algún gota aislada. Temperaturas agradables, entre 13 y 24 grados, con viento tranquilo.</p>
+      <span class="tc-day-temp tc-data">24° <span class="tc-day-min">13°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villalpando incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
