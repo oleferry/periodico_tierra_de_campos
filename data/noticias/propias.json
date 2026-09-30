@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "castromocho",
+    "municipality_name": "Castromocho",
+    "title": "La Junta compra ocho parcelas en la Zona de Especial Protección para las Aves de La Nava",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/junta-compra-ocho-parcelas-zona-especial-proteccion-20260929222431-nt.html",
+    "published_at": "2026-09-29",
+    "detected_at": "2026-09-30T12:28:39.538723+00:00",
+    "hash": "26faa68a57a3af8866504ccbc7e529cf74fe30e6845a4dfc662db74ed34d320e",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Junta estudia actuaciones en 64 hectáreas compradas en la ZEPA de Castromocho",
+      "entradilla": "Junta, Ayuntamiento y Fundación Patrimonio Natural se reunieron en el pueblo para ver sobre el terreno qué hacer con ocho parcelas adquiridas dentro de la ZEPA La Nava-Campos Sur.",
+      "cuerpo": [
+        "Responsables de la Junta de Castilla y León, del Ayuntamiento de Castromocho y de la Fundación Patrimonio Natural se juntaron este martes en la localidad para hablar de qué se puede hacer en unas parcelas que la Junta ha comprado hace poco. Son ocho fincas que suman más de 64 hectáreas, todas dentro de la Zona de Especial Protección para las Aves La Nava-Campos Sur, según informa El Norte de Castilla.",
+        "Los participantes recorrieron los terrenos para ver en qué estado están y empezar a barajar posibilidades. La idea que se maneja es orientar las actuaciones a conservar y mejorar los hábitats de la zona y a reforzar sus valores naturales.",
+        "Entre las propuestas sobre la mesa está levantar infraestructuras que faciliten observar la fauna y conocer mejor el entorno. También se estudiará arreglar y mejorar el lavadero de Castromocho, junto con otras iniciativas para poner en valor tanto los recursos naturales como el patrimonio del pueblo.",
+        "Según recoge el mismo diario, la reunión sirvió para fijar una forma de trabajar en común entre las tres partes, con el objetivo de concretar más adelante qué se hará y compatibilizar la conservación con el uso público del espacio."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "paredes-de-nava",
+    "municipality_name": "Paredes de Nava",
+    "title": "La Mesa de la Lana traza en Paredes de Nava la hoja de ruta para su reindustrialización",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/la-mesa-de-la-lana-traza-en-paredes-de-nava-la-hoja-de-ruta-para-su-reindustrializacion/",
+    "published_at": "2026-09-30",
+    "detected_at": "2026-09-30T12:28:21.371350+00:00",
+    "hash": "b248d30253df4158e6e6944fc6fd1a5346ce1a3a7c33104b573dd41cc2967363",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Mesa Nacional de la Lana cierra en Paredes de Nava un año de trabajo y llevará sus peticiones al Ministerio",
+      "entradilla": "El grupo de trabajo aprobó un paquete de solicitudes prioritarias que elevará al MITECO para dar continuidad al proyecto arrancado en el marco de Cañadas de Futuro.",
+      "cuerpo": [
+        "Después de doce meses reuniendo a ganaderos, industriales, investigadores, diseñadores y administraciones, la Mesa Nacional de la Lana cerró en Paredes de Nava la ronda de reuniones de su grupo de trabajo. El resultado, según informa Palencia en la Red, es un conjunto de peticiones que se llevarán formalmente al Ministerio para la Transición Ecológica y el Reto Demográfico para dar continuidad a un proyecto que nació dentro del programa Cañadas de Futuro, impulsado por el Ayuntamiento con fondos europeos.",
+        "El trabajo se organizó en seis ámbitos: ganadería y agricultura; lavado e industria; textil, moda y hábitat; construcción y bioproductos; regulación y apoyo público; y cultura y continuidad. La jornada también sirvió para enseñar sobre el terreno proyectos piloto, desde el pastoreo en instalaciones fotovoltaicas hasta usos de la lana en aislamiento acústico y en textil del hogar.",
+        "El alcalde, Luis Calderón Nájera, puso el acento en la visibilidad conseguida. Recordó que la viabilidad industrial de la lana era antes casi invisible y ahora tiene eco en medios nacionales, y destacó que se haya logrado sentar en la misma mesa a toda la cadena de valor, de los ganaderos a los diseñadores.",
+        "Uno de los problemas señalados como más urgentes es que en España ya no existe el eslabón del peinado de la lana, lo que obliga a exportar la lana lavada para procesarla fuera y luego reimportarla, rompiendo la economía circular. Calderón defendió tratarlo como un proyecto estratégico nacional. En paralelo, el lavadero local Lanas Payo y el centro tecnológico CARTIF trabajan, dentro del programa NODDO, en sistemas avanzados de tratamiento de aguas para los lavaderos.",
+        "El Ayuntamiento trabaja además, con otras entidades, en la idea preliminar de ubicar en Paredes de Nava un Museo Nacional de la Lana, aún sin emplazamiento definido. Tras la etapa municipal en Cañadas de Futuro, la continuidad se canalizará a través del tejido asociativo y técnico, con proyectos presentados a convocatorias de financiación pública."
+      ]
+    }
+  },
+  {
     "municipality_slug": "aguilar-de-campos",
     "municipality_name": "Aguilar de Campos",
     "title": "Aguilar de Campos se rinde ante la Virgen de las Fuentes",
