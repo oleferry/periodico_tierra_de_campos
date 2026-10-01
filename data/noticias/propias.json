@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "san-pedro-de-latarce",
+    "municipality_name": "San Pedro de Latarce",
+    "title": "La III BTT Taraza reunirá el 3 de octubre en San Pedro de Latarce a ciclistas y senderistas",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/deportes/la-iii-btt-taraza-reunira-el-3-de-octubre-en-san-pedro-de-latarce-a-ciclistas-y-senderistas/",
+    "published_at": "2026-10-01",
+    "detected_at": "2026-10-01T13:05:30.097644+00:00",
+    "hash": "9d5f3d4e4fd7f6be42f5375848164cc037de1cb811f3aceef850c3a4a585bf47",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "San Pedro de Latarce acoge el 3 de octubre la III BTT Taraza",
+      "entradilla": "La prueba ciclista recorrerá unos 50 kilómetros por cuatro municipios de la zona y se completará con actividades de senderismo y una marcha infantil.",
+      "cuerpo": [
+        "San Pedro de Latarce será el punto de partida de la tercera edición de la BTT Taraza, que se celebra el próximo 3 de octubre. Según informa La Mar de Campos, el evento lo organizan la Asociación Taraza y Runva Sport, y cuenta con el respaldo de la Diputación de Valladolid a través de la marca Alimentos de Valladolid. La presentación tuvo lugar en la sede de la Diputación.",
+        "La ruta ciclista es única, de unos 50 kilómetros, y arranca a las 10:00 horas desde San Pedro para pasar por Villardefrades, Villavellid y Castromembibre. Está abierta a bicicletas de montaña y gravel. La inscripción cuesta 20 euros con comida incluida y se formaliza en la web de Runva Sport.",
+        "En la modalidad de montaña habrá premios para los tres primeros de la general masculina y femenina, más un podio aparte para corredores locales sin distinción de sexo. En gravel se premiará a los tres primeros de cada general.",
+        "La jornada no se queda solo en la bici. Hay también una ruta de senderismo de unos 6 kilómetros por el Camino de Santiago, con salida a las 10:00 desde el Ayuntamiento, por 8 euros los socios y 10 los no socios, con arroz zamorano incluido. A esto se suma una marcha infantil de unos 14 kilómetros entre San Pedro y Villardefrades, con inscripción a través de la Asociación Taraza.",
+        "Los organizadores han agradecido el apoyo de la Diputación, de los ayuntamientos de los cuatro municipios y de los comercios y colaboradores de la zona."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "villabraz",
+    "municipality_name": "Villabraz",
+    "title": "Villabraz acogerá una de las mayores granjas de gallinas camperas de León tras la luz verde ambiental a su ampliación",
+    "source_type": "radar_local",
+    "url_original": "https://leonsurdigital.com/art/32172/villabraz-acogera-mayores-granjas-gallinas-camperas-leon-luz-verde-ambiental-ampliacion",
+    "published_at": "2026-10-01",
+    "detected_at": "2026-10-01T13:05:13.659992+00:00",
+    "hash": "3bc1f45f445ea5d4e9d6373bb1390057b5b14c83b7855e249e88bc8ecfabf476",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Leonsur Digital",
+      "fuente_slug": "leonsurdigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La granja avícola de Villabraz recibe luz verde ambiental para casi duplicar su capacidad",
+      "entradilla": "La explotación, gestionada por Cantos Blancos Norte S.L.U., podrá pasar de 117.000 a 214.500 gallinas camperas tras la declaración favorable de impacto ambiental.",
+      "cuerpo": [
+        "La granja de gallinas camperas situada en Villabraz ha obtenido el visto bueno ambiental para ampliar sus instalaciones. Con la ampliación pasaría de las 117.000 gallinas actuales a un máximo de 214.500, lo que la situaría entre las mayores explotaciones del sector en la provincia. Según informa Leonsur Digital, la empresa que la gestiona es Cantos Blancos Norte S.L.U. y sus huevos abastecen a los supermercados Mercadona.",
+        "La declaración favorable de impacto ambiental la ha emitido la Consejería de Medio Ambiente y se publicó este miércoles en el Boletín Oficial de Castilla y León. El proyecto prevé levantar dos nuevas naves para gallinas camperas, además de otras infraestructuras auxiliares. Al superar las 214.000 plazas —más de mil unidades ganaderas mayores— la ley obligaba a pasar por una evaluación ambiental ordinaria.",
+        "Uno de los puntos más delicados ha sido que la granja se encuentra dentro de la ZEPA Oteros-Campos, un espacio de la Red Natura 2000 considerado hábitat para especies esteparias. Los técnicos concluyen que la actividad no tendrá efectos negativos significativos sobre el ecosistema siempre que se cumplan todas las condiciones impuestas, entre ellas medidas para reducir molestias a la fauna, control de emisiones y una gestión cuidadosa de los residuos.",
+        "La ampliación generaría cada año más de 9.100 toneladas adicionales de estiércol, destinado sobre todo a uso agrícola como fertilizante. La Confederación Hidrográfica del Duero ha advertido en su informe sobre la necesidad de controlar con cuidado ese vertido en zonas vulnerables o cercanas a masas de agua, por el riesgo de contaminación por nitratos. Por eso se obliga al promotor a reforzar las infraestructuras de almacenamiento de estos residuos.",
+        "Con este paso administrativo superado, el proyecto todavía no puede empezar las obras. Deberá reunir otros permisos antes de iniciar la ampliación con la que la explotación prácticamente duplicaría su capacidad productiva."
+      ]
+    }
+  },
+  {
     "municipality_slug": "castromocho",
     "municipality_name": "Castromocho",
     "title": "La Junta compra ocho parcelas en la Zona de Especial Protección para las Aves de La Nava",
