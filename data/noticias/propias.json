@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "paredes-de-nava",
+    "municipality_name": "Paredes de Nava",
+    "title": "Paredes de Nava repite como sede del Congreso ‘Agua, Arte y Vida’ y celebrará antes su primera Feria del Libro ‘La Chiguita’",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/paredes-de-nava-repite-como-sede-del-congreso-agua-arte-y-vida-y-celebrara-antes-su-primera-feria-del-libro-la-chiguita/",
+    "published_at": "2026-10-01",
+    "detected_at": "2026-10-02T12:25:32.543351+00:00",
+    "hash": "268dcca2309c7a86833556e7f31371f486466c9d7c5091675cef2f343e50b1d8",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Paredes de Nava encadena dos citas culturales en octubre: la Feria del Libro y el Congreso del Canal de Castilla",
+      "entradilla": "El municipio estrena este fin de semana su primera Feria del Libro, 'La Chiguita', y acogerá del 9 al 11 de octubre la tercera edición del congreso 'Agua, Arte y Vida: Canal de Castilla'.",
+      "cuerpo": [
+        "Octubre viene cargado de cultura en Paredes de Nava. Según informa Palencia en la Red, el municipio arranca este fin de semana, los días 3 y 4, con la primera edición de su Feria del Libro, bautizada como 'La Chiguita', que se celebrará en el Centro de Artes Escénicas Jorge Manrique. La inauguración correrá a cargo del escritor Gustavo Martín Garzo y la clausura la pondrá Luis García Montero.",
+        "La feria reunirá a cinco editoriales y tres librerías, con presentaciones, firmas de autores palentinos, actividades infantiles y música. El sábado habrá una mesa sobre los retos de la literatura hoy y un espacio de narración oral para niños y adultos. El domingo, además de García Montero, habrá recital, vermú con concierto y la presentación de 'Eclipse total de Sol', de Alberto Andrés Gutiérrez. La organización ha dispuesto un autobús desde San Lázaro, en Palencia, para acercar a quien quiera asistir esa jornada.",
+        "Apenas terminada la feria, la localidad acogerá del 9 al 11 de octubre el III Congreso 'Agua, Arte y Vida: Canal de Castilla', también en el Jorge Manrique. El alcalde, Luis Calderón, recordó que la edición del año pasado tuvo buena respuesta de público y contenidos, y repiten. El programa combina conferencias, mesas redondas y comunicaciones sobre agua, agricultura, energía, inteligencia artificial, literatura, biodiversidad y despoblación.",
+        "Entre los nombres anunciados figuran Julio Llamazares, Sergio del Molino, Mar Sancho o la catedrática de Inteligencia Artificial Asunción Gómez-Pérez. Una de las mesas destacadas juntará a Roberto Arranz, director regional de Red Eléctrica; Gregorio Álvarez, presidente de Iberolea; el catedrático Pepe Castillo y el propio Llamazares para hablar de agua, agricultura y energía. El viernes se abre con la presentación del poemario 'La belleza del agua', de Mar Sancho.",
+        "La última jornada, el domingo, se centra en naturaleza y biodiversidad, con una mesa sobre pastoreo y conservación del paisaje y el cierre de la exposición itinerante 'Antonio López y el Canal de Castilla'. Según explicó Calderón en la presentación, recogida por Palencia en la Red, estas actividades buscan vincular la cultura con el futuro de los pueblos y la llegada de nuevos pobladores. Red Eléctrica es el principal patrocinador del congreso, junto a Iberolea."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "fuentes-de-nava",
+    "municipality_name": "Fuentes de Nava",
+    "title": "Tres grandes obras de arte de Fuentes de Nava se expondrán en la Alhambra de Granada",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/tres-grandes-obras-de-arte-de-fuentes-de-nava-se-expondran-en-la-alhambra-de-granada/",
+    "published_at": "2026-10-02",
+    "detected_at": "2026-10-02T12:25:22.628790+00:00",
+    "hash": "6f3e9873d963cd398ff6dd2cdb60ccc51854ff646badb784aea0147c073944b9",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Tres obras de la parroquia de Fuentes de Nava viajan a una exposición en Granada",
+      "entradilla": "La iglesia de San Pedro presta un óleo de Berruguete y dos tallas de Juan de Balmaseda para la muestra que se inaugura el 8 de octubre en el palacio de Carlos V.",
+      "cuerpo": [
+        "La parroquia de San Pedro de Fuentes de Nava participa con tres piezas de su patrimonio en la exposición \"1526 Isabel de Portugal & Carlos de Habsburgo en Granada\". Según informa Palencia en la Red, las obras salieron del pueblo este mismo fin de semana camino de la ciudad andaluza.",
+        "Se trata del óleo \"El Santo Entierro\", de Alonso Berruguete, y de dos tallas del siglo XVI de Juan de Balmaseda que representan a San Andrés y a San Pablo. Del traslado se ha encargado la empresa Feltrero, especializada en el transporte de obras de arte, que recogió las piezas en la propia parroquia.",
+        "La muestra conmemora el quinto centenario de la estancia del emperador Carlos V e Isabel de Portugal en la Alhambra. Podrá visitarse desde el 8 de octubre hasta el 11 de enero de 2027, con el Palacio de Carlos V como sede principal y el Hospital Real, sede del rectorado de la Universidad de Granada, como espacio complementario."
+      ]
+    }
+  },
+  {
     "municipality_slug": "san-pedro-de-latarce",
     "municipality_name": "San Pedro de Latarce",
     "title": "La III BTT Taraza reunirá el 3 de octubre en San Pedro de Latarce a ciclistas y senderistas",

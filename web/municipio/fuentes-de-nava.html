@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fuentes de Nava — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Fuentes de Nava, Tierra de Campos.">
+<meta name="description" content="Aquí en Fuentes de Nava ahora tenemos 22 grados y el cielo casi limpio. La máxima no subirá mucho, quedará en torno a los 24, y esta noche refrescará ">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/fuentes-de-nava">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/fuentes-de-nava","url":"https://www.elterracampino.es/municipio/fuentes-de-nava","name":"Fuentes de Nava — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/fuentes-de-nava#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/fuentes-de-nava#lugar","name":"Fuentes de Nava","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}],"geo":{"@type":"GeoCoordinates","latitude":42.083056,"longitude":-4.783056}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Fuentes de Nava","item":"https://www.elterracampino.es/municipio/fuentes-de-nava"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Fuentes de Nava</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>581 habitantes</span><span>Actualizado: 1/10/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>581 habitantes</span><span>Actualizado: 2/10/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/fuentes-de-nava.jpg" alt="Fuentes de Nava" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Fuentes_de_Nava_-_001_(41065243962).jpg" target="_blank" rel="noopener">Luis Rogelio HM</a>,
@@ -68,12 +68,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Fuentes de Nava</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Fuentes de Nava</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Fuentes de Nava: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Fuentes de Nava: 22° y casi despejado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">22°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">casi despejado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.083056&longitude=-4.783056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Aquí en Fuentes de Nava ahora tenemos 22 grados y el cielo casi limpio. La máxima no subirá mucho, quedará en torno a los 24, y esta noche refrescará hasta los 11. Sopla un poco de viento, pero sin lluvia a la vista. Mañana cambia la cosa: se esperan tormentas y baja la temperatura hasta los 19 grados.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Sábado</span>
+      <h4 class="tc-day-titular">Sábado con tormenta segura</h4>
+      <p class="tc-day-texto">La jornada traerá precipitaciones importantes, alrededor de 10 milímetros, con temperaturas entre 15 y 19 grados. El viento soplará a 14 km/h sin ser determinante en la evolución del tiempo.</p>
+      <span class="tc-day-temp tc-data">19° <span class="tc-day-min">15°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Domingo</span>
+      <h4 class="tc-day-titular">Domingo con chubascos probables</h4>
+      <p class="tc-day-texto">Habrá posibilidad de precipitaciones dispersas, con acumulaciones débiles próximas a los 3 milímetros. Las máximas rondarán los 20 grados y el viento se intensificará hasta los 18 km/h.</p>
+      <span class="tc-day-temp tc-data">20° <span class="tc-day-min">15°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Lunes</span>
+      <h4 class="tc-day-titular">Lunes con posible tormenta pasajera</h4>
+      <p class="tc-day-texto">Aunque hay probabilidad reducida de lluvia, los modelos apuntan a una posible tormenta con precipitaciones escasas. Será el día más templado, con máxima de 23 grados y mínima de 14.</p>
+      <span class="tc-day-temp tc-data">23° <span class="tc-day-min">14°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Fuentes de Nava incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -81,7 +122,12 @@
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     <h2 class="tc-block-title">Lo que pasa en Fuentes de Nava</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="../noticia/69629a4e4ec2e9e0.html" target="_self">
+      <div class="tc-news-grid"><a class="tc-news" href="../noticia/6f3e9873d963cd39.html" target="_self">
+      <span class="tc-news-kicker">Palencia en la Red · 2026-10-02</span>
+      <span class="tc-news-titular">Tres obras de la parroquia de Fuentes de Nava viajan a una exposición en Granada</span>
+      <span class="tc-news-entradilla">La iglesia de San Pedro presta un óleo de Berruguete y dos tallas de Juan de Balmaseda para la muestra que se inaugura el 8 de octubre en el palacio de Carlos V.</span>
+      <span class="tc-news-more">Leer la noticia completa →</span>
+    </a><a class="tc-news" href="../noticia/69629a4e4ec2e9e0.html" target="_self">
       <span class="tc-news-kicker">El Norte de Castilla · 2026-09-21</span>
       <span class="tc-news-titular">Fuentes de Nava acoge el Día de la Provincia con el Renacimiento como protagonista</span>
       <span class="tc-news-entradilla">La Diputación de Palencia celebra los días 25 y 26 de septiembre su XLI Día de la Provincia, que este año pone el foco en el museo Campos del Renacimiento y tiene como sede popular a Fuentes de Nava.</span>
