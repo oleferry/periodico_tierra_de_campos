@@ -1,5 +1,64 @@
 [
   {
+    "municipality_slug": "osorno",
+    "municipality_name": "Osorno",
+    "title": "Osorno reconvierte una vivienda tradicional en alojamiento rural",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/osorno-reconvierte-vivienda-tradicional-alojamiento-rural-20260930204818-nt.html",
+    "published_at": "2026-09-30",
+    "detected_at": "2026-10-03T11:35:21.153484+00:00",
+    "hash": "3f918b4cc7ee4b6a499df75ca2059cf06b0da35afe0057a6375ea0274d8ce5c6",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Diputación aporta 36.000 euros a un nuevo alojamiento rural en Osorno",
+      "entradilla": "El establecimiento, llamado Desóbriga, ha recuperado una vivienda tradicional del pueblo para convertirla en negocio turístico.",
+      "cuerpo": [
+        "En Osorno acaba de abrir Desóbriga, un alojamiento rural que ha contado con 36.000 euros de ayuda de la Diputación de Palencia. Así lo recoge El Norte de Castilla, que detalla que el proyecto parte de una emprendedora que ha rehabilitado una casa tradicional del pueblo para darle un nuevo uso.",
+        "El dinero procede de la convocatoria de apoyo al tejido industrial de 2025, que repartió 2,17 millones de euros entre 103 empresas y autónomos de la provincia, con refuerzo del Plan +10. Para 2026, según la misma información, esa línea de ayudas ronda el millón y medio de euros.",
+        "La idea del alojamiento gira en torno a la tierra, la agricultura y la identidad de Tierra de Campos, poniendo en valor tanto la propia vivienda como el entorno y los productos de la zona.",
+        "En la inauguración, la presidenta de la Diputación, Ángeles Armisén, puso en valor iniciativas de este tipo como prueba de que en los pueblos también se puede emprender e invertir, y destacó en particular el papel de las mujeres que sacan adelante proyectos empresariales en el medio rural.",
+        "La apertura coincide con un buen momento del turismo rural en la provincia. Entre enero y agosto, Palencia encabezó Castilla y León en estancia media, con 2,14 noches por viajero, cifra que en agosto subió a 2,71 noches con una ocupación del 42,47 %, por encima de la media regional, según los datos que facilita la Diputación."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "paredes-de-nava",
+    "municipality_name": "Paredes de Nava",
+    "title": "Almazu, coser oportunidades desde la Tierra de Campos palentina",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/almazu-coser-oportunidades-desde-la-tierra-de-campos-palentina/",
+    "published_at": "2026-10-03",
+    "detected_at": "2026-10-03T11:34:58.601550+00:00",
+    "hash": "fcb0b719fabfa6dccefd486a42520c4b4591f554168b9f035b7a541720c891ee",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Nace en Paredes de Nava una marca de ropa que da empleo a mujeres y recupera la tradición textil del pueblo",
+      "entradilla": "Se llama Almazu, cose camisetas, sudaderas y gorras en un taller del municipio y da trabajo a cuatro mujeres más la responsable del taller. El proyecto une formación, inserción laboral y arraigo en Tierra de Campos.",
+      "cuerpo": [
+        "En Paredes de Nava funciona desde hace unos meses Almazu, una marca de ropa que ha montado su taller en el propio pueblo. Según informa Palencia en la Red, el proyecto surgió de la colaboración entre la Fundación Talento 58 y el Ayuntamiento, y se desarrolla a través de la empresa de inserción Petralia Vázquez S.L. Su fundador y director es Jorge García.",
+        "Todo empezó con un grupo de mujeres interesadas en aprender el oficio. Hubo una formación en costura y confección que se prolongó, según cuenta García al medio, desde el otoño de 2024 hasta junio de 2025. De ahí salió la idea de dar el paso siguiente: crear una marca propia y empezar a vender. La Fundación Talento 58 buscaba precisamente promover el emprendimiento de mujeres en el medio rural.",
+        "Hoy trabajan directamente en el taller cuatro mujeres, además de la responsable, lo que suma cinco empleos. García explica que algunas de ellas llegaron a Paredes desde otros puntos de España y también desde el extranjero, en algunos casos tras procesos migratorios, y que varias se han trasladado con sus familias. Calcula que el impacto alcanza a unas 18 o 19 personas. A eso se suma el trabajo indirecto que genera, como el de una empresa palentina que les arregla las máquinas.",
+        "La marca se fabrica íntegramente en el municipio y confecciona camisetas, sudaderas, gorras y gorros. García insiste a Palencia en la Red en que detrás de cada prenda hay un proceso de incorporación al empleo y de acompañamiento, y en la apuesta por materiales con certificaciones que garanticen empleo digno y respeto al medio ambiente, buscando proveedores lo más cerca posible.",
+        "El nombre viene de 'almazuela', la técnica de unir retales para hacer una pieza nueva, lo que en inglés se conoce como patchwork. García lo usa como metáfora del propio equipo. El proyecto también conecta con la memoria textil del pueblo: recuerda que Paredes llegó a tener 18 o 19 cooperativas de textil hasta 2019, muchas de las cuales cerraron tras la pandemia.",
+        "Almazu empezó a vender por internet a mediados de mayo y los pedidos han ido creciendo poco a poco. De cara al futuro, el equipo estudia abrir un espacio físico en el propio Paredes que funcione como tienda y escaparate del proceso, y mantiene conversaciones con establecimientos de Palencia y Madrid. García resume así el objetivo: crecer en ventas, pero sobre todo poder ofrecer oportunidades a más personas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "paredes-de-nava",
     "municipality_name": "Paredes de Nava",
     "title": "Paredes de Nava repite como sede del Congreso ‘Agua, Arte y Vida’ y celebrará antes su primera Feria del Libro ‘La Chiguita’",
