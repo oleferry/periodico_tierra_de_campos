@@ -1,5 +1,34 @@
 [
   {
+    "municipality_slug": "melgar-de-abajo",
+    "municipality_name": "Melgar de Abajo",
+    "title": "Nacho Foces anima a Melgar de Abajo a defender «con uñas y dientes» sus campos y majuelos",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/nacho-foces-anima-melgar-abajo-defender-dientes-20261003212820-nt.html",
+    "published_at": "2026-10-03",
+    "detected_at": "2026-10-04T12:16:37.606575+00:00",
+    "hash": "7b5f5333960a830b6f26fec533d7592afeb86c9b43d9b20078ecc93acee9ca0d",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Melgar de Abajo celebra su XVII Fiesta de la Vendimia pese a la lluvia",
+      "entradilla": "La localidad vivió este fin de semana una nueva edición de su fiesta, con unos 300 comensales, pregón, pisado de uvas y cata de vinos de prieto picudo.",
+      "cuerpo": [
+        "La Fiesta de la Vendimia de Melgar de Abajo llegó este fin de semana a su decimoséptima edición, marcada por la lluvia. Según informa El Norte de Castilla, la jornada del sábado arrancó con visitas a las iglesias del pueblo y a algunas bodegas tradicionales, con degustación de vino y aperitivo, y un paseo por las viñas en el que se reconocieron variedades como prieto picudo, verdejo, tempranillo y negro saurí.",
+        "El agua obligó a trasladar la comida en el campo al salón cultural, donde se reunieron unos 300 comensales para degustar patatas con costillas y chorizo, alubias y los vinos rosado y tinto elaborados en el pueblo con prieto picudo, además de café de puchero.",
+        "El pregón corrió a cargo del periodista terracampino Nacho Foces, que fuera subdirector de El Norte de Castilla. En su intervención ensalzó la iniciativa y el esfuerzo de los melgarejos, destacó la calidad de sus vinos y sus premios nacionales e internacionales, y les animó a defender su patrimonio natural, los campos y majuelos de la zona.",
+        "Después llegaron el pisado de uvas por los más pequeños, el brindis con el primer mosto y la entrega de premios del cartel de la fiesta. La verbena con la discomovida Caramelo y la chocolatada cerraron la jornada, amenizada por los dulzaineros Campo de Mielgas. El domingo quedaban la exposición de fotografías y carteles y una cata de vinos de prieto picudo, verdejo y negro saurí.",
+        "El presidente de Bodegas Melgarajo, Juan Manuel Polentinos, aseguró que ha sido una buena vendimia en calidad y cantidad. La fiesta la organiza la Asociación para el Desarrollo del Viñedo en la Ribera del Cea (Avicea), con la colaboración de la Diputación de Valladolid, el Ayuntamiento, la Sociedad Vitícola Melgarajo, el Centro de Desarrollo Rural Valdecea Coceder y la fábrica de embutidos Las Quintanas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "osorno",
     "municipality_name": "Osorno",
     "title": "Osorno reconvierte una vivienda tradicional en alojamiento rural",
