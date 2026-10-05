@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "villabragima",
+    "municipality_name": "Villabrágima",
+    "title": "Villabrágima y Villagarcía honran a la Virgen del Rosario y Bolaños a la del Carmen",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/villabragima-villagarcia-honran-virgen-rosario-bolanos-carmen-20261004194144-nt.html",
+    "published_at": "2026-10-04",
+    "detected_at": "2026-10-05T14:28:30.690522+00:00",
+    "hash": "1bc4f82f0b571b8edb54ee12e5132a71ed5f2af2c983bd2a8bbb94c93295cb77",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villabrágima, Villagarcía y Bolaños celebran sus fiestas de otoño",
+      "entradilla": "Tres pueblos de Tierra de Campos vivieron un fin de semana de fiestas, los dos primeros en honor a la Virgen del Rosario y el tercero a la Virgen del Carmen, según informa El Norte de Castilla.",
+      "cuerpo": [
+        "En Villabrágima las fiestas arrancaron el viernes con el primer encuentro intergeneracional de asociaciones, que juntó a más de 800 inscritos en un pueblo de poco más de mil habitantes. Participaron las asociaciones locales —el AMPA, la de mujeres La Peña, la taurina, los jubilados, la banda de música, los caballistas, el fútbol sala y Piedras Vivas— con juegos tradicionales, carretones, parrillada, flamenco y discomovida. Lo recaudado fue para la Asociación Objetivo Diagnóstico.",
+        "El sábado por la noche hubo toro del cajón y discomovida, y el domingo encierro por el campo con numerosos caballistas. Por la tarde, como cada primer domingo de octubre, la Virgen del Rosario procesionó a hombros desde la iglesia de San Ginés, donde se cantó la Salve a la patrona.",
+        "En Villagarcía de Campos también se honró a la Virgen del Rosario con misa y procesión. El Norte de Castilla cuenta que la jornada incluyó un homenaje póstumo a los cuatro alcaldes democráticos anteriores al actual, representados por sus familias, y la inauguración de las nuevas dependencias del Ayuntamiento. Por la tarde hubo hinchables, monólogos, concierto y discomovida. Las fiestas se cierran este lunes con misa de difuntos, carrera de cintas a caballo y canción española.",
+        "En Bolaños de Campos, la cofradía de la Virgen del Carmen celebró su fiesta, trasladada a octubre porque en julio los trabajos del campo lo impedían. Tras la misa en la iglesia de Santa María, los cofrades procesionaron con la capa castellana portando la imagen a hombros. La cofradía, con más de tres siglos de historia, estaba formada en sus orígenes sobre todo por pastores.",
+        "La tarde en Bolaños contó con actuaciones y verbena, y este lunes la obra 'Toc, Toc' en la iglesia de San Miguel pondrá el broche final, según el mismo medio."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Clausura de las IX Jornadas Cluniacenses en Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17611/clausura-de-las-ix-jornadas-cluniacenses-en-sahagun",
+    "published_at": "2026-10-05",
+    "detected_at": "2026-10-05T14:28:12.038847+00:00",
+    "hash": "8aaf4e1fa22e0c9069cec4b9bab7f55d85de1d7780abd4f9b508800080285773",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Las Jornadas Cluniacenses vuelven este otoño y cierran en Sahagún",
+      "entradilla": "La asociación Cluny Ibérica celebra la novena edición de un ciclo de conferencias repartido entre Sahagún, Carrión de los Condes, Frómista y Oña, cuatro localidades marcadas por la red medieval que levantaron los monjes de Cluny.",
+      "cuerpo": [
+        "Sahagún, Carrión de los Condes, Frómista y Oña vuelven a unirse este otoño en torno a su pasado cluniacense. Según informa Sahagún Digital, la asociación Cluny Ibérica organiza las IX Jornadas Cluniacenses, un ciclo divulgativo que reparte sus conferencias entre estas cuatro localidades donde la influencia de la abadía borgoñona de Cluny dejó huella.",
+        "El programa arranca en Frómista con Florian Gallon, de la Universidad de Toulouse II Jean Jaurès, que hablará sobre las aportaciones económicas de los reyes hispanos a Cluny y, en particular, sobre los mil áureos de Fernando I. Después, en el monasterio de San Zoilo de Carrión de los Condes, el historiador del arte Jordi Camps i Sòria abordará las relaciones entre arte y vínculos institucionales en el románico catalán.",
+        "Oña toma el relevo con Ana Cuesta Sánchez, de la Universidad Rey Juan Carlos y la UNIR, que recorrerá el legado artístico medieval de San Salvador de Oña. El ciclo se cierra en Sahagún con Carlos M. Reglero de la Fuente, de la Universidad de Valladolid, que se centrará en las tensiones entre el concejo sahagunense y el monasterio de San Benito en el siglo XIV.",
+        "Reglero fue, además, uno de los especialistas que participó hace diez años en la primera Semana Cultural Cluniacense, germen del actual ciclo de jornadas.",
+        "Las conferencias son gratuitas y pueden seguirse también de forma online, con aforo reducido para las presenciales. Es necesario inscribirse previamente a través del correo clunyiberica@gmail.com."
+      ]
+    }
+  },
+  {
     "municipality_slug": "melgar-de-abajo",
     "municipality_name": "Melgar de Abajo",
     "title": "Nacho Foces anima a Melgar de Abajo a defender «con uñas y dientes» sus campos y majuelos",
