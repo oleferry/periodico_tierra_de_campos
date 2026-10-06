@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Castromocho — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Castromocho, Tierra de Campos.">
+<meta name="description" content="En Castromocho llueve ahora mismo, con 18 grados y viento flojo. No subirá la temperatura en todo el día — máxima de 18 y mínima de 14 — y la lluvia n">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/castromocho">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/castromocho","url":"https://www.elterracampino.es/municipio/castromocho","name":"Castromocho — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/castromocho#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/castromocho#lugar","name":"Castromocho","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Castromocho","item":"https://www.elterracampino.es/municipio/castromocho"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/castromocho","url":"https://www.elterracampino.es/municipio/castromocho","name":"Castromocho — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/castromocho#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/castromocho#lugar","name":"Castromocho","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}],"geo":{"@type":"GeoCoordinates","latitude":42.03104,"longitude":-4.82404}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Castromocho","item":"https://www.elterracampino.es/municipio/castromocho"}]}]}</script>
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Castromocho</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>Actualizado: 5/10/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>Actualizado: 6/10/2026</span></div>
   
 </div></section>
 
@@ -64,12 +64,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Castromocho</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Castromocho</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Castromocho: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Castromocho: 18° y chubascos</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">18°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">chubascos</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.03104&longitude=-4.82404&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Castromocho llueve ahora mismo, con 18 grados y viento flojo. No subirá la temperatura en todo el día — máxima de 18 y mínima de 14 — y la lluvia no va a parar, unos 12 milímetros. Mañana se despejará un poco, aunque seguirá nublado y apenas ganará un grado.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles nublado con viento moderado</h4>
+      <p class="tc-day-texto">La nubosidad dominará la jornada con máximas de 19° y mínimas de 13°. Hay una probabilidad baja de lluvia del 30%, aunque el viento rondará los 21 km/h.</p>
+      <span class="tc-day-temp tc-data">19° <span class="tc-day-min">13°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves con chubascos y fresquito</h4>
+      <p class="tc-day-texto">Se esperan chubascos con máximas de 16° y mínimas de 9°, acompañados de viento de 24 km/h. Aunque la probabilidad es baja, los aguaceros pueden ser locales.</p>
+      <span class="tc-day-temp tc-data">16° <span class="tc-day-min">9°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes despejado y seco</h4>
+      <p class="tc-day-texto">Cielos casi despejados y ausencia total de lluvia definirán el día, con máximas de 18° y mínimas de 6°. El viento moderado de 17 km/h no afectará la estabilidad.</p>
+      <span class="tc-day-temp tc-data">18° <span class="tc-day-min">6°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Castromocho incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>

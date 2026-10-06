@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Ciclo Nacional de Cine y Mujeres Rurales en Sahagún y Grajal",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17617/ciclo-nacional-de-cine-y-mujeres-rurales-en-sahagun-y-grajal",
+    "published_at": "2026-10-06",
+    "detected_at": "2026-10-06T13:15:04.608184+00:00",
+    "hash": "87cd9b14ee311bfafaffcf7746b1847780f3c6d9132bd9566d6fb45db3f489d4",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Ciclo Nacional de Cine y Mujeres Rurales llega a Grajal y Sahagún este octubre",
+      "entradilla": "Tres proyecciones los días 17, 18 y 25 de octubre acercan a la comarca una iniciativa del Ministerio de Agricultura que recorre más de 500 pueblos de toda España.",
+      "cuerpo": [
+        "Grajal de Campos y Sahagún son dos de las sedes leonesas del IX Ciclo Nacional de Cine y Mujeres Rurales, según informa Sahagún Digital. En la comarca habrá tres sesiones: una en Grajal y dos en Sahagún, todas con películas que miran hacia la vida en los pueblos y hacia las mujeres que la sostienen.",
+        "El ciclo arranca en el Palacio de los Condes de Grajal de Campos el 17 de octubre, a las 19:00 horas, con 'Bodegón con fantasmas', de Enrique Buleo. La película se ambienta en un pueblo manchego donde vivos y muertos conviven con naturalidad, y mezcla comedia, costumbrismo y fantasía para hablar de soledad, duelo y pertenencia a una comunidad.",
+        "Las otras dos proyecciones serán en la Casa de la Cultura de Sahagún. El 18 de octubre, a las 20:00 horas, se proyecta 'La buena suerte', de Gracia Querejeta, con Hugo Silva, Megan Montaner y Miguel Rellán, sobre un hombre que deja atrás su vida para empezar de cero en un pueblo. El 25 de octubre, a la misma hora, llega 'La buena letra', de Celia Rico, basada en la novela de Rafael Chirbes y protagonizada por Loreto Mauleón, Enric Auquer y Roger Casamajor, una historia ambientada en la posguerra.",
+        "El IX Ciclo Nacional de Cine y Mujeres Rurales se desarrolla entre el 15 de octubre y el 15 de noviembre, con películas, coloquios y encuentros en distintos municipios de la provincia."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "campazas",
+    "municipality_name": "Campazas",
+    "title": "Campazas arrasa en asistencia en el desfile de San Froilán",
+    "source_type": "radar_local",
+    "url_original": "https://leonsurdigital.com/art/32207/campazas-arrasa-en-asistencia-en-el-desfile-de-san-froilan",
+    "published_at": "2026-10-06",
+    "detected_at": "2026-10-06T13:14:50.652185+00:00",
+    "hash": "b70a2a84be466b52b8d7c3ec756db1904514d9a262c8dbc35891e3276b239308",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Leonsur Digital",
+      "fuente_slug": "leonsurdigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Campazas lleva a setenta vecinos al desfile de pendones de San Froilán en León",
+      "entradilla": "El pueblo, con 110 habitantes según el INE de 2025, movilizó a setenta personas para desfilar con su pendón por las calles de la capital leonesa el domingo previo a San Froilán.",
+      "cuerpo": [
+        "Como cada año, el domingo anterior a San Froilán, Campazas acudió al desfile tradicional de pendones por León. Según informa Leonsur Digital, el pueblo fue uno de los que reunió a más participantes de toda la comitiva, con setenta vecinos desplazados a la capital.",
+        "Es una cifra llamativa para una localidad del sur de León que, de acuerdo con los datos del INE de 2025, cuenta con 110 habitantes, tras décadas de pérdida de población por el éxodo rural desde los años 70.",
+        "La comitiva desfiló al son de la dulzaina y el tamboril. Partió de la explanada de la Junta y pasó por San Marcos, la Gran Vía de San Marcos, la plaza de la Inmaculada y la plaza de Santo Domingo, para subir después por la calle Ancha hasta la plaza de Regla. El grupo portó el pendón del pueblo, con paño centenario y una vara renovada por su desgaste.",
+        "El recorrido terminó a las puertas de la Catedral de León, con la venia tradicional a la Virgen Blanca, en el parteluz de la puerta principal.",
+        "Como recoge Leonsur Digital, participaron vecinos de varias generaciones, desde los más mayores a los más jóvenes, en una cita que el pueblo repite año tras año en estas fiestas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villabragima",
     "municipality_name": "Villabrágima",
     "title": "Villabrágima y Villagarcía honran a la Virgen del Rosario y Bolaños a la del Carmen",
