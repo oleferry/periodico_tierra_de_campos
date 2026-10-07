@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "grijota",
+    "municipality_name": "Grijota",
+    "title": "Grijota estrena un punto limpio que permitirá recoger de forma separada 33 tipos de residuos",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/grijota-estrena-un-punto-limpio-que-permitira-recoger-de-forma-separada-33-tipos-de-residuos/",
+    "published_at": "2026-10-07",
+    "detected_at": "2026-10-07T13:14:47.102849+00:00",
+    "hash": "f89181b23b77c8ec2e9e28b28829e28ed598e8d0d51af58a402edc3a84b6fe78",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Grijota estrena un punto limpio que dará servicio a once municipios",
+      "entradilla": "La nueva instalación permite recoger y almacenar de forma temporal hasta 33 tipos de residuos que quedan fuera de la recogida diaria, desde muebles y restos de poda hasta aceites, pilas o aparatos electrónicos.",
+      "cuerpo": [
+        "Grijota ya tiene en marcha un punto limpio para la recogida separada de residuos municipales. Según informa Palencia en la Red, la infraestructura la ha ejecutado la Junta de Castilla y León, mientras que el Ayuntamiento de Grijota será el titular y quien se encargue de gestionarla. Lo que se deposite allí se entregará después a gestores autorizados para reciclar, reutilizar o eliminar.",
+        "La instalación está pensada para los cerca de 3.000 vecinos empadronados en el municipio, pero también para los meses en que la población sube de forma notable. Según los datos que facilita la Junta, en verano Grijota llega a superar las 6.500 personas, con el consiguiente aumento de residuos.",
+        "El punto limpio se sitúa al suroeste del casco urbano, con acceso desde la carretera P-954. Ocupa unos 2.462 metros cuadrados dentro de una parcela mucho mayor, con cerramiento perimetral.",
+        "Entre lo que se podrá dejar hay plásticos que no son envases, metales, madera, restos de poda, escombros de pequeñas obras, muebles, enseres, colchones y somieres, además de aceites, pilas y baterías, productos químicos, tóner y aparatos eléctricos y electrónicos. También habrá contenedores para ropa, vidrio, envases ligeros y papel y cartón. Una zona aparte, con estanterías, se reserva a los aparatos que puedan tener una segunda vida.",
+        "La instalación cuenta con ocho contenedores de unos 20 metros cúbicos, una marquesina para los residuos que necesitan más protección y sistemas de recogida para los que puedan generar vertidos. Incluye además pavimentación, drenaje, iluminación, oficina, videovigilancia y protección contra incendios, así como un kit de digitalización que, según detalla Palencia en la Red, permitirá al Ayuntamiento aplicar bonificaciones a los usuarios y controlar mejor los datos de gestión."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza busca castañero",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17622/almanza-busca-castanero",
+    "published_at": "2026-10-07",
+    "detected_at": "2026-10-07T13:14:35.010099+00:00",
+    "hash": "a84076a7069e150ad2a7961dd918e128f8f83275acb38842eb5c7a726253a924",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza busca castañero para su mercado de Navidad",
+      "entradilla": "La Comisión Administradora de Bienes de Almanza ha abierto el plazo para adjudicar un puesto de castañas en la zona del Arco durante las fiestas. Las solicitudes se pueden presentar hasta el 13 de octubre.",
+      "cuerpo": [
+        "El pueblo prepara otra Navidad y le añade un ingrediente nuevo. Según informa Sahagún Digital, la Comisión Administradora de Bienes de Almanza quiere instalar un puesto de castañas en la zona del Arco y ha abierto el plazo para adjudicarlo.",
+        "El espacio cuesta 400 euros y se reparte por orden de llegada de las solicitudes, que hay que enviar al correo comunicacionalmanza@gmail.com antes del 13 de octubre.",
+        "Quien se quede con el puesto tendrá que abrir desde el 21 de noviembre de 2026 hasta el 3 de enero de 2027, los fines de semana y festivos, a partir de las 17:30 y hasta el cierre. A ese calendario se suman también los días 21, 22, 23, 28, 29 y 30 de diciembre.",
+        "El castañero se une al resto de la propuesta navideña del municipio, que este año vuelve a contar con diez casetas de artesanos, dos churrerías, la pista de hielo y la iluminación que lleva varias temporadas atrayendo visitantes a Almanza durante estas fechas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "Ciclo Nacional de Cine y Mujeres Rurales en Sahagún y Grajal",

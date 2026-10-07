@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villalpando — El Terracampino</title>
-<meta name="description" content="En Villalpando ahora hay tormenta y 18 grados. No va a mejorar hoy: la máxima se queda en los 18, sopla viento moderado de 13 kilómetros por hora, y h">
+<meta name="description" content="Noticias y tiempo de Villalpando, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/villalpando">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/villalpando","url":"https://www.elterracampino.es/municipio/villalpando","name":"Villalpando — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/villalpando#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/villalpando#lugar","name":"Villalpando","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Zamora"}],"geo":{"@type":"GeoCoordinates","latitude":41.864722,"longitude":-5.413056}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Villalpando","item":"https://www.elterracampino.es/municipio/villalpando"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villalpando</h1>
-  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 6/10/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Zamora</span><span>1.433 habitantes</span><span>Actualizado: 7/10/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/villalpando.jpg" alt="Villalpando" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_Real,_Villalpando._-_panoramio.jpg" target="_blank" rel="noopener">Frank Baulo</a>,
@@ -68,53 +68,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villalpando: 18° y tormenta</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">18°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">tormenta</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.864722&longitude=-5.413056&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Villalpando ahora hay tormenta y 18 grados. No va a mejorar hoy: la máxima se queda en los 18, sopla viento moderado de 13 kilómetros por hora, y hay casi seguridad de lluvia fuerte — esperamos unos 16 milímetros. Mañana seguirá nublado con lluvia débil y apenas un grado más de calor.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles con posibilidad de lluvia débil</h4>
-      <p class="tc-day-texto">Probabilidad baja de precipitaciones, apenas 0.3 mm si llegan a caer. Temperaturas moderadas entre 13 y 19 grados con viento de 20 km/h.</p>
-      <span class="tc-day-temp tc-data">19° <span class="tc-day-min">13°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves nublado y tranquilo</h4>
-      <p class="tc-day-texto">El cielo se despeja del todo prácticamente, sin lluvia a la vista. Máximas de 17 grados y mínimas de 10 con un viento suave de 18 km/h.</p>
-      <span class="tc-day-temp tc-data">17° <span class="tc-day-min">10°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con claros dominantes</h4>
-      <p class="tc-day-texto">Jornada estable sin precipitaciones y temperaturas más bajas, entre 7 y 18 grados. Viento flojo de 16 km/h.</p>
-      <span class="tc-day-temp tc-data">18° <span class="tc-day-min">7°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Villalpando</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Villalpando</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Villalpando: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villalpando incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -134,7 +93,12 @@
       <span class="tc-news-entradilla">El Pleno del Ayuntamiento ha aprobado recuperar el escudo del pueblo y adoptar una bandera municipal propia.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/07/10/html/BOCYL-D-10072025-23.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/10/06/html/BOCYL-D-06102026-194-35.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2026-10-06</span>
+      <span class="tc-news-titular">Vía libre ambiental a un sondeo de agua para ampliar el regadío en Villalpando</span>
+      <span class="tc-news-entradilla">Unos particulares quieren hacer un pozo para sacar agua subterránea y ampliar el regadío en el término de Villalpando. Medio Ambiente ya ha dado su informe favorable.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2025/07/10/html/BOCYL-D-10072025-23.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2025-07-10</span>
       <span class="tc-news-titular">Piden permiso para hacer un aparcamiento vigilado de camiones en Villalpando</span>
       <span class="tc-news-entradilla">La empresa Alvarezherrero NG, S.L. quiere construir un área vigilada de camiones en una parcela de suelo rústico del polígono 1. Está en información pública antes de que se autorice.</span>
