@@ -1,5 +1,59 @@
 [
   {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza pone en marcha un programa de estimulación cognitiva",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17619/almanza-pone-en-marcha-un-programa-de-estimulacion-cognitiva",
+    "published_at": "2026-10-08",
+    "detected_at": "2026-10-08T13:21:15.658130+00:00",
+    "hash": "6b61dd997b78e6787b659594ad9455ccc605b1cafc7a7777e43dfacada5544b0",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza arranca un programa para ejercitar la memoria cada martes",
+      "entradilla": "El Ayuntamiento pone en marcha este mes de octubre un taller de estimulación cognitiva que impartirá Alzheimer León durante todo el curso.",
+      "cuerpo": [
+        "Almanza tiene nueva cita semanal para mantener la cabeza en forma. Según informa Sahagún Digital, el Ayuntamiento ha puesto en marcha este octubre un programa de estimulación cognitiva que se prolongará durante todo el curso escolar.",
+        "Las sesiones serán los martes por la mañana, a partir de las 12:00 horas, y las impartirá Alzheimer León. La idea es trabajar la memoria, la atención y el razonamiento, además de favorecer la socialización con ejercicios en grupo.",
+        "Las plazas son limitadas y las inscripciones ya están abiertas. Quien quiera apuntarse puede hacerlo en las oficinas municipales de Almanza."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Cine en Grajal de Campos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17627/cine-en-grajal-de-campos",
+    "published_at": "2026-10-08",
+    "detected_at": "2026-10-08T13:21:06.021643+00:00",
+    "hash": "613d157739ce64e52f4d9cad56a3d106385888f1d7ad63fbe0b6e966edaf204c",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Casa-Palacio de Grajal acoge este domingo la proyección de 'La voluntaria'",
+      "entradilla": "El palacio de los Condes de Grajal de Campos se convierte en sala de cine el domingo 11 de octubre para pasar la película dirigida por Nely Reguera y protagonizada por Carmen Machi.",
+      "cuerpo": [
+        "La sesión forma parte de 'Cine en Ruta', un circuito impulsado por el Ministerio de Cultura para llevar producciones españolas a pueblos de menos de 5.000 habitantes, como informa Sahagún Digital.",
+        "'La voluntaria' cuenta la historia de Marisa, una doctora recién jubilada que se marcha a un campo de refugiados en Grecia como voluntaria. Allí conoce a Ahmed, un niño con el que entabla una relación que termina poniendo en duda sus propias motivaciones. El guion lo firman la directora junto a Eduard Sola y Valentina Viso.",
+        "Según detalla Sahagún Digital, 'Cine en Ruta' lleva más de quince años en marcha y durante 2026 pasará por más de 150 localidades rurales. El proyecto trabaja con entidades locales y suma a las proyecciones actividades de mediación y alfabetización cinematográfica."
+      ]
+    }
+  },
+  {
     "municipality_slug": "grijota",
     "municipality_name": "Grijota",
     "title": "Grijota estrena un punto limpio que permitirá recoger de forma separada 33 tipos de residuos",
