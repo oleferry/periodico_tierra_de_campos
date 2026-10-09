@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
+    "title": "Medina de Rioseco vuelve la mirada a ocho siglos de huella franciscana",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/uncategorized/medina-de-rioseco-vuelve-la-mirada-a-ocho-siglos-de-huella-franciscana/",
+    "published_at": "2026-10-07",
+    "detected_at": "2026-10-09T13:09:35.679949+00:00",
+    "hash": "cc94279e1d23bd7456e9d7c98ba0d604316b8b3164b709647dbce8c967cc6519",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Museo de San Francisco repasa ocho siglos de legado franciscano en Rioseco",
+      "entradilla": "El Museo de San Francisco de Medina de Rioseco acoge la exposición 'De San Francisco a fray Carlos Amigo. La orden del Poverello en Medina de Rioseco', que puede verse hasta el 23 de enero de 2027.",
+      "cuerpo": [
+        "El alcalde, David Esteban, inauguró la muestra, que coincide con el 800 aniversario de la muerte de San Francisco de Asís y con el Año Jubilar Franciscano declarado por la Iglesia para 2026-2027. Así lo recoge La Mar de Campos, que detalla el contenido del recorrido.",
+        "La exposición reúne más de un centenar de esculturas y pinturas de los siglos XVII y XVIII, junto con fotografías, libros, piezas de platería y ornamentos de distintas instituciones y colecciones ligadas a Rioseco. El director del museo, Miguel García Marbán, explicó durante la visita que el recorrido arranca en las primeras formas de vida solitaria, con eremitas y anacoretas, para llegar hasta el movimiento franciscano.",
+        "Entre las piezas aparecen santos como San Jerónimo, San Onofre, Santa Teresa de Jesús, San Francisco Javier o San Francisco de Paula, y elementos tan reconocibles como el cordón franciscano. La muestra se vuelca en lo local al tratar el papel de los Enríquez, Almirantes de Castilla, como protectores de la orden e impulsores de fundaciones como los conventos de Santa Clara y San Francisco, este último pensado también como panteón familiar.",
+        "El recorrido aborda igualmente la Orden Tercera y la Archicofradía de la Vera Cruz, vinculada al origen de la Semana Santa riosecana, y termina con la figura de fray Carlos Amigo Vallejo, nacido en la ciudad y que llegó a cardenal. Su vida ocupa la última parte de la exposición, con fotografías y objetos sobre su trayectoria y su relación con la localidad.",
+        "Esteban defendió el carácter franciscano de la ciudad —«Medina de Rioseco siempre ha tenido un espíritu franciscano», dijo— y pidió que la muestra sirva para seguir difundiendo este patrimonio y mantener las piezas vinculadas a Rioseco. La exposición se puede visitar en el coro del museo con entrada libre, salvo visitas concertadas, de lunes a domingo en distintas franjas de mañana y tarde según el día."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "La Robles Milenarios de Almanza alcanza su décimo aniversario con 179 participantes",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17631/la-robles-milenarios-de-almanza-alcanza-su-decimo-aniversario-con-179-participantes",
+    "published_at": "2026-10-09",
+    "detected_at": "2026-10-09T13:09:13.255820+00:00",
+    "hash": "387f57757917be18461091209e9f59875fca5a4a332fda299414df978e427c0c",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La BTT Robles Milenarios de Almanza llega a su décima edición con 179 inscritos",
+      "entradilla": "La carrera de montaña se disputa este domingo con un recorrido de 50 kilómetros que arranca a las diez de la mañana desde la calle El Jardín.",
+      "cuerpo": [
+        "La décima edición de la BTT Robles Milenarios de Almanza ya tiene cerrada la lista de participantes. Según informa Sahagún Digital, serán 179 ciclistas los que tomen la salida este domingo 11 de octubre, de las 200 plazas que ofrecía la convocatoria.",
+        "De los inscritos, 136 saldrán con bicicleta de montaña convencional y otros 43 en la modalidad de bicicleta eléctrica. En cuanto a la participación, hay 163 hombres y 16 mujeres, y la categoría con más corredores es la máster, de 40 a 50 años.",
+        "La prueba la organiza el Ayuntamiento de Almanza dentro de la XVI Copa Diputación de Carreras Populares y mantiene su trazado de 50 kilómetros por caminos y parajes del municipio. La salida será a las 10:00 horas desde la calle El Jardín, con un máximo de tres horas y media para completar el recorrido y meta junto al pabellón municipal de deportes.",
+        "Según la previsión del tiempo recogida por Sahagún Digital, se espera una jornada poco nubosa y temperaturas por encima de los 20 grados, un ambiente que acompañaría a los ciclistas durante toda la mañana."
+      ]
+    }
+  },
+  {
     "municipality_slug": "almanza",
     "municipality_name": "Almanza",
     "title": "Almanza pone en marcha un programa de estimulación cognitiva",
