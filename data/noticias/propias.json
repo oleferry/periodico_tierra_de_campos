@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "paredes-de-nava",
+    "municipality_name": "Paredes de Nava",
+    "title": "«No niego el progreso, pero no se pueden hundir pueblos para construir pantanos»",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/niego-progreso-pueden-hundir-pueblos-construir-pantanos-20261010083559-nt.html",
+    "published_at": "2026-10-10",
+    "detected_at": "2026-10-10T12:25:04.008631+00:00",
+    "hash": "207deef32d138d70ce01189f98a631692b1fddd513f0bdf8752bbbe60496119a",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Julio Llamazares lleva a Paredes de Nava su mirada crítica sobre los pueblos anegados por los pantanos",
+      "entradilla": "El escritor leonés, Premio Nacional de Narrativa 2026 por 'El viaje de mi padre', participa este sábado en la tercera edición del congreso 'Agua, Arte y Vida', que tiene como eje el Canal de Castilla.",
+      "cuerpo": [
+        "El congreso 'Agua, Arte y Vida' se celebra este fin de semana en Paredes de Nava con el Canal de Castilla como hilo conductor. Entre sus participantes figura el novelista, poeta y guionista Julio Llamazares, que acaba de recibir el Premio Nacional de Narrativa 2026 por 'El viaje de mi padre'. Lo recoge El Norte de Castilla en una entrevista con el autor.",
+        "Llamazares adelantó que su intervención irá a contracorriente del tono festivo que suele rodear al agua. En lugar de celebrar solo su papel como fuente de vida, quiere hablar de su cara más dura, la de los pueblos que quedaron bajo los embalses. Según cuenta al periódico, nació él mismo en uno de esos pueblos sumergidos y calcula que en España hay unos 500 anegados y en torno a 50.000 personas que tuvieron que dejar sus casas para no volver.",
+        "El escritor reivindica el reconocimiento de ese drama, que a su juicio nunca se ha reparado ni económica, ni moral ni políticamente. Recuerda que muchas de esas familias acabaron viviendo en Cascón de la Nava, y que arrastran historias que nadie escucha.",
+        "En la conversación con El Norte, Llamazares también se refiere a su libro premiado, que reconstruye el viaje que hizo su padre al ir a la guerra: de su aldea en la montaña de León a León capital, luego a Carrión de los Condes —donde recibió instrucción en el monasterio de San Zoilo—, pasando cerca de Paredes de Nava hasta Palencia. Lo describe como una deuda moral con su padre y con toda una generación arrastrada a la Guerra Civil.",
+        "Sobre su defensa del medio rural, matiza que más que defender el campo defiende la justicia, y que no idealiza la vida en los pueblos ni la urbana. Dice haber crecido en un pueblo campesino que desapareció bajo el agua y en otro minero, y que lo que cuenta en su obra es la desaparición de un mundo del que viene, pero que no añora."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "villabragima",
+    "municipality_name": "Villabrágima",
+    "title": "El popular bar Chule de Villabrágima cierra después de más de medio siglo como referente comarcal",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/popular-bar-chule-villabragima-cierra-despues-medio-20261010185043-nt.html",
+    "published_at": "2026-10-10",
+    "detected_at": "2026-10-10T12:24:46.954974+00:00",
+    "hash": "a59521193b8c7fb040ceffe362233098078743a5c0827b8b53c875e9c37c22ee",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El bar Chule de Villabrágima baja la persiana tras 54 años",
+      "entradilla": "El conocido establecimiento junto a la VA-505 cerró sus puertas este viernes con una fiesta de despedida que reunió a vecinos, clientes y amigos.",
+      "cuerpo": [
+        "El bar Chule, uno de los locales más conocidos de Villabrágima, echó el cierre este viernes después de más de medio siglo de historia. En la fachada colgaba una pancarta de agradecimiento al pueblo y a los clientes, y el establecimiento organizó una fiesta de despedida con picoteo, música en directo y mucho ambiente. Así lo recoge El Norte de Castilla.",
+        "La historia del bar arrancó en 1972, cuando el vecino Jesús Fernández 'Chule' dejó su trabajo de fotógrafo para hacerse cargo del antiguo bar de Marianito junto a su esposa, Purificación Villagrá 'Puri', que se encargaba de la cocina. El local, que también ofrecía pensión, tomó el nombre de Chule. Tras la temprana muerte de él a los 52 años, su esposa siguió al frente hasta 1995, cuando tomaron el relevo su hija Ana Isabel y el marido de esta, Pedro, que mantuvieron el nombre por lo conocido que era.",
+        "El matrimonio reformó el establecimiento en el año 2000, con comedor y patio, y mantuvo una cocina muy valorada: gallina en pepitoria, pollo de corral, rabo de toro, carrilleras, lechazo y una barra con variedad de tapas, algunas premiadas en el concurso de pinchos de Villabrágima, según detalla el mismo medio.",
+        "Desde que anunciaron el cierre, los dueños han recibido numerosas muestras de cariño, cartas y hasta flores. Reconocen que les da pena, pero lo viven como un descanso merecido para poder disfrutar de la vida que el negocio no les dejaba. En la despedida, rodeados de familia y clientes, hubo emoción, lágrimas y agradecimiento."
+      ]
+    }
+  },
+  {
     "municipality_slug": "medina-de-rioseco",
     "municipality_name": "Medina de Rioseco",
     "title": "Medina de Rioseco vuelve la mirada a ocho siglos de huella franciscana",
