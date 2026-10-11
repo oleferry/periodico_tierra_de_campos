@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "villafrechos",
+    "municipality_name": "Villafrechós",
+    "title": "Villafrechós abre las puertas de su Real Monasterio de San Francisco y Santa Clara con nuevas visitas guiadas",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/villafrechos-abre-las-puertas-de-su-real-monasterio-de-san-francisco-y-santa-clara-con-nuevas-visitas-guiadas/",
+    "published_at": "2026-10-06",
+    "detected_at": "2026-10-11T12:42:57.112954+00:00",
+    "hash": "72430e000665f65b0c8ad113539d15b6c383c072580ea0eb88e4a72fcdacd48f",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Monasterio de San Francisco y Santa Clara abre sus puertas con visitas guiadas este otoño",
+      "entradilla": "El conjunto monástico de Villafrechós programa varios recorridos entre octubre y diciembre, además de una jornada especial el 5 de diciembre dedicada al origen del belén.",
+      "cuerpo": [
+        "El Real Monasterio de San Francisco y Santa Clara de Villafrechós vuelve a recibir visitas para dar a conocer su historia y su patrimonio. Según informa La Mar de Campos, los recorridos ordinarios serán el 11 y el 12 de octubre, el 21 de noviembre y el 6 de diciembre.",
+        "Cada una de esas jornadas tendrá dos pases, a las cinco y a las seis de la tarde, con grupos de hasta 20 personas. No hace falta reserva para estos recorridos: la entrada es en la puerta del convento, con un donativo de cinco euros.",
+        "Aparte de estas visitas, el programa incluye una propuesta especial el 5 de diciembre, titulada «De Greccio a Villafrechós. Conoce el origen del primer nacimiento con San Francisco». Se celebrará de once de la mañana a tres de la tarde e incluirá comida en el convento, con un donativo de 25 euros.",
+        "Para esa jornada sí hay que reservar con antelación, en grupos de entre 10 y 25 personas, a través del correo matrimoniosporlareconquista@gmail.com. La actividad aborda la relación entre San Francisco de Asís y el origen de la tradición del nacimiento, partiendo de Greccio."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "fromista",
+    "municipality_name": "Frómista",
+    "title": "Áridos Antolín, Global Producciones y Lanas Payo encabezan los premios de la Cámara de Comercio",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/aridos-antolin-global-producciones-lanas-payo-encabezan-20261009184017-nt.html",
+    "published_at": "2026-10-09",
+    "detected_at": "2026-10-11T12:42:23.578504+00:00",
+    "hash": "395827f236ce44003a91db6a4465a212828de48ecb63a298be5ab8ae3d6f7993",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Asador Villa de Frómista, premio de Turismo de la Cámara de Comercio de Palencia",
+      "entradilla": "La Cámara de Comercio de Palencia ha incluido al restaurante fromisteño entre los siete galardonados de sus premios de 2026, que reconocen la trayectoria y la aportación económica de empresas y entidades de la provincia.",
+      "cuerpo": [
+        "La Cámara Oficial de Comercio, Industria y Servicios de Palencia dio a conocer este jueves los nombres de sus premios de 2026, según informa El Norte de Castilla. En total son siete empresas y entidades distinguidas por su trayectoria, su capacidad de innovación y su contribución al desarrollo económico de la provincia.",
+        "El premio de Turismo recae en el Restaurante Asador Villa de Frómista, abierto en 2003 y dirigido por Marcelino Sánchez Cruz. La Cámara valora su apuesta por la cocina tradicional, el uso de productos de la zona y su trabajo de promoción gastronómica ligado al Camino de Santiago y al Canal de Castilla.",
+        "El resto de galardones se reparte por toda la provincia. La Medalla de Oro es para Áridos Antolín, empresa centenaria y la mayor productora de áridos de Castilla y León; la de Plata, para Global Producciones, dedicada a eventos y espectáculos; y la de Bronce, para Lanas Payo, de Paredes de Nava, por su actividad de lavado y transformación de lana.",
+        "Se completan los reconocimientos con el premio a la Innovación para Bambini Foods-Paleobull, de nutrición deportiva; el de Emprendedor-Nueva Empresa para el complejo Kyomu Resort, en Velilla del Río Carrión; y el de Especial Relevancia para el Rotary Club Palencia."
+      ]
+    }
+  },
+  {
     "municipality_slug": "paredes-de-nava",
     "municipality_name": "Paredes de Nava",
     "title": "«No niego el progreso, pero no se pueden hundir pueblos para construir pantanos»",
