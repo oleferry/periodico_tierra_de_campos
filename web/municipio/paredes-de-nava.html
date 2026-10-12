@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Paredes de Nava — El Terracampino</title>
-<meta name="description" content="En Paredes de Nava ahora mismo tenemos 22 grados y cielo limpio. La máxima no subirá mucho, rondará los 24, y por la noche bajará bastante hasta los 1">
+<meta name="description" content="Noticias y tiempo de Paredes de Nava, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/paredes-de-nava">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/paredes-de-nava","url":"https://www.elterracampino.es/municipio/paredes-de-nava","name":"Paredes de Nava — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/paredes-de-nava#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/paredes-de-nava#lugar","name":"Paredes de Nava","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}],"geo":{"@type":"GeoCoordinates","latitude":42.152778,"longitude":-4.694444}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Paredes de Nava","item":"https://www.elterracampino.es/municipio/paredes-de-nava"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Paredes de Nava</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 11/10/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>1.927 habitantes</span><span>Actualizado: 12/10/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/paredes-de-nava.jpg" alt="Paredes de Nava" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Calle_de_Paredes_de_Nava_-_panoramio.jpg" target="_blank" rel="noopener">Ugo Cuesta</a>,
@@ -68,53 +68,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Paredes de Nava: 22° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">22°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.152778&longitude=-4.694444&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Paredes de Nava ahora mismo tenemos 22 grados y cielo limpio. La máxima no subirá mucho, rondará los 24, y por la noche bajará bastante hasta los 11. Sopla viento flojo de 13 kilómetros por hora y lluvia prácticamente no hay. Mañana se nubla un poco pero sigue templado, con máxima en torno a los 25.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Lunes</span>
-      <h4 class="tc-day-titular">Lunes nublado y tranquilo</h4>
-      <p class="tc-day-texto">La nubosidad dominará sin dejar lluvia. Máxima de 25° y mínima de 12°, con viento moderado de 16 km/h que no causará molestias.</p>
-      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">12°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Martes</span>
-      <h4 class="tc-day-titular">Martes nublado con rachas fuertes</h4>
-      <p class="tc-day-texto">Seguirá cubierto pero sin lluvia, aunque el viento arreciará hasta 29 km/h. Temperatures de 25° y 13°.</p>
-      <span class="tc-day-temp tc-data">25° <span class="tc-day-min">13°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Miércoles</span>
-      <h4 class="tc-day-titular">Miércoles con claros y viento</h4>
-      <p class="tc-day-texto">Empezarán a abrirse claros entre las nubes con máxima de 26°. El viento se mantendrá fuerte en 26 km/h y no habrá lluvia.</p>
-      <span class="tc-day-temp tc-data">26° <span class="tc-day-min">14°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Paredes de Nava</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Paredes de Nava</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Paredes de Nava: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Paredes de Nava incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -205,7 +164,7 @@
   </main>
   <aside class="tc-muni-side">
     <div class="tc-side-block tc-sobre"><h3>Sobre Paredes de Nava</h3>
-      <p style="font-size:.9rem;">Cuna del escultor Alonso Berruguete y del poeta Jorge Manrique. Celebra las Jornadas Vacceas y la Carrera Vaccea.</p><p style="margin:8px 0 0; font-size:.88rem;"><strong>Deporte local:</strong> CFC Paredes (Primera División Provincial Palencia). El domingo 4 de octubre, el CFC Paredes perdió 1-2 en campo del CD Villada frente al CD Villada. El próximo partido del CFC Paredes es el domingo 11 de octubre, en casa frente al V Baños.</p></div>
+      <p style="font-size:.9rem;">Cuna del escultor Alonso Berruguete y del poeta Jorge Manrique. Celebra las Jornadas Vacceas y la Carrera Vaccea.</p><p style="margin:8px 0 0; font-size:.88rem;"><strong>Deporte local:</strong> CFC Paredes (Primera División Provincial Palencia). El domingo 11 de octubre, el CFC Paredes cayó 6-1 en casa frente al V Baños. El próximo partido del CFC Paredes es el sábado 17 de octubre, fuera, en campo del UP Barruelo frente al UP Barruelo.</p></div>
     <div class="tc-side-block tc-leyenda"><h3>Leyendas e historias populares</h3>
       <p class="tc-leyenda-titulo">El secreto bajo el rostro de la Virgen de Carejas</p>
       <p style="font-size:.9rem;">La patrona de Paredes de Nava, la Virgen de Carejas, protagoniza una vieja leyenda de cautiverio: una madre cuyo hijo había sido apresado por los moros acudía cada día a rezarle pidiendo su libertad, y al obrarse el milagro, madre e hijo volvieron juntos a darle gracias por el mismo camino que desde entonces se conoce como la Senda del Cautivo. Durante siglos se creyó que la imagen venerada en la ermita era una talla del siglo XVI. Pero en 2007, durante unas obras de restauración, se desprendió un brazo postizo y dejó a la vista, oculta bajo esa reconstrucción posterior, una talla románica original del siglo XIII, sin parangón por su antigüedad en toda Tierra de Campos según confirmó la Universidad de Valladolid. Entre la leyenda del cautivo y el hallazgo arqueológico, la pequeña Virgen morena de Carejas ha terminado por acumular dos historias de milagro: una de fe y otra de piedra.</p>
