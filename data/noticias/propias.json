@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Cata de vinos en Grajal de Campos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17638/cata-de-vinos-en-grajal-de-campos",
+    "published_at": "2026-10-13",
+    "detected_at": "2026-10-13T14:05:58.680787+00:00",
+    "hash": "183572b27a1690ffaa301bade1f8337676b67f034994cb93f4842feaf7cf14e8",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Cata de vinos de la bodega Pincerna en el Gastro Bar Alonso de Grajal de Campos",
+      "entradilla": "El local organiza para el viernes 23 de octubre una cata guiada con tres vinos leoneses y maridaje, a 25 euros por persona.",
+      "cuerpo": [
+        "El Gastro Bar Alonso de Grajal de Campos ha preparado una cata de vinos para el viernes 23 de octubre, a partir de las 19:30 horas, junto a la bodega leonesa Pincerna. Lo cuenta Sahagún Digital.",
+        "Según la información publicada, se catarán tres vinos de la bodega, con una explicación guiada por el enólogo y socio de Pincerna, Andrés Martín Carbonero, que acompañará a los asistentes por cada una de las copas y hablará del trabajo que hay detrás, desde el viñedo hasta la elaboración.",
+        "La cata se completa con un maridaje gastronómico pensado para cada vino. El precio es de 25 euros por persona y las plazas son limitadas, con un mínimo de 20 participantes para que la actividad salga adelante.",
+        "Para reservar, el bar pide contactar por WhatsApp en el número 671 465 305 indicando la palabra 'CATA'."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Nochevieja Anticipada en Sahagún con Leticia Sabater",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17640/nochevieja-anticipada-en-sahagun-con-leticia-sabater",
+    "published_at": "2026-10-13",
+    "detected_at": "2026-10-13T14:05:46.685585+00:00",
+    "hash": "56ba05f668042ca926fd43cf0417f17970dcf6f6c58678960e421f13634d8ce8",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún adelanta la Nochevieja al 28 de noviembre con Leticia Sabater en la Plaza Mayor",
+      "entradilla": "La localidad celebra la décima edición de su Nochevieja Anticipada, con uvas al aire libre, música y orquesta hasta la madrugada.",
+      "cuerpo": [
+        "Sahagún no espera a diciembre para despedir el año. El próximo sábado 28 de noviembre llega la X Nochevieja Anticipada, una cita que ya cumple diez ediciones y que, según informa Sahagún Digital, se ha convertido en uno de los encuentros con más gente del otoño en la comarca.",
+        "El punto de encuentro será la Plaza Mayor. Por la tarde habrá música, hinchables y juegos para los más pequeños, y al caer la noche llegará lo esperado: las campanadas adelantadas para comerse las uvas a la intemperie.",
+        "Después subirá al escenario Leticia Sabater con sus temas más conocidos, y la fiesta seguirá con la orquesta The 8 y 1/2 Band hasta bien entrada la madrugada. Durante la velada, la Asociación de Hostelería y Turismo de Sahagún sorteará una cesta.",
+        "Desde el Ayuntamiento y la asociación hostelera animan a acudir con las mejores galas de Nochevieja, sin olvidar algo de abrigo para el frío de noviembre. Los establecimientos asociados ofrecen menús especiales, tapeo y alojamiento para quien quiera alargar la jornada."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villafrechos",
     "municipality_name": "Villafrechós",
     "title": "Villafrechós abre las puertas de su Real Monasterio de San Francisco y Santa Clara con nuevas visitas guiadas",
