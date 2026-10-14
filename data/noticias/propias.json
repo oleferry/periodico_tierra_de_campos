@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "cea",
+    "municipality_name": "Cea",
+    "title": "Pinares y robledales del Cea abren su gran despensa micológica",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17639/pinares-y-robledales-del-cea-abren-su-gran-despensa-micologica",
+    "published_at": "2026-10-14",
+    "detected_at": "2026-10-14T11:45:05.394244+00:00",
+    "hash": "be58e2ab10623e4f84b6a6f12e18e2faecc61abeb800ab940428dff6e2b0646d",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Para coger setas en el Coto Río Cea hace falta permiso: estas son las tarifas",
+      "entradilla": "Con las primeras lluvias de otoño vuelve la temporada micológica en los montes del sureste leonés. En el coto que pasa por Cea la recogida está regulada y requiere licencia.",
+      "cuerpo": [
+        "Llega el otoño y, con él, los aficionados a la micología salen de nuevo al monte. En buena parte del territorio la recolección es libre, pero en la zona norte hay una excepción: el Coto Micológico Río Cea (LE-50003), donde hace falta permiso para llevarse setas, según informa Sahagún Digital.",
+        "El coto cubre cerca de 25.000 hectáreas de robledales y pinares, desde Villamartín de Don Sancho hasta Prioro, pasando por Almanza, Cebanico y Valderrueda. Por allí salen especies muy buscadas como el boletus, el níscalo o el rebozuelo, además de las setas de primavera.",
+        "El permiso es personal e intransferible y vale para toda la superficie del coto. En la modalidad recreativa, el tope es de cinco kilos de setas por persona y día.",
+        "Las tarifas cambian según el perfil: los vecinos empadronados pagan 10 euros por toda la temporada y los vinculados, 30. El pase turístico cuesta 10 euros un día o 15 el fin de semana, y la modalidad comercial de temporada se fija en 50 euros.",
+        "Desde las administraciones locales recuerdan que ir al monte sin licencia puede acarrear sanciones. La información sobre normativa, límites y permisos está en las oficinas municipales de los ayuntamientos adheridos y en la plataforma oficial."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "gordaliza-del-pino",
+    "municipality_name": "Gordaliza del Pino",
+    "title": "Los bolos de Gordaliza del Pino, una partida con sus propias normas",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17644/los-bolos-de-gordaliza-del-pino-una-partida-con-sus-propias-normas",
+    "published_at": "2026-10-14",
+    "detected_at": "2026-10-14T11:44:51.261485+00:00",
+    "hash": "2aa555424ac7482175400c7b43469ccafac29e0f47e29f437cb88294c03b1ab7",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El bolo de Gordaliza del Pino, donde tirar todos los bolos es perder",
+      "entradilla": "Gordaliza del Pino conserva una variante propia del juego de bolos en la que el objetivo no es derribar la formación entera, sino acertar exactamente cinco de los seis bolos. El Ayuntamiento quiere recuperarla.",
+      "cuerpo": [
+        "En Gordaliza del Pino se juega a los bolos de una manera que desconcierta a cualquiera acostumbrado a las reglas de siempre: aquí tirar los seis bolos no da la victoria, sino cero puntos. Lo premiado es la precisión, derribar justo cinco. Así lo recoge Sahagún Digital en un repaso a esta modalidad autóctona del sureste leonés.",
+        "Según detalla el medio, la partida se juega con seis bolos colocados en dos filas de tres, separados por el ancho de la propia maza, y con cinco manilas o mazas, dos de ellas de reserva. Los equipos son de tres jugadores y se lanza desde tres distancias: cinco, ocho y once metros.",
+        "Otra particularidad es cómo se golpea. La maza no puede tocar el suelo antes de impactar contra el bolo ni rodar para derribarlo: el golpe tiene que ser limpio y por el aire. Tirar entre uno y cuatro bolos suma esos mismos puntos, pero la mayor puntuación se reserva a quien derriba cinco con el menor número de mazas posible. Con una sola, quince puntos; con dos, doce; con tres, nueve.",
+        "El alcalde, Marcos Ortega, se plantea recuperar esta tradición para que no se pierda. La idea, según Sahagún Digital, es organizar más adelante una muestra o exhibición que dé a conocer las normas entre vecinos y visitantes, y asegurar que el juego pase a las nuevas generaciones."
+      ]
+    }
+  },
+  {
     "municipality_slug": "grajal-de-campos",
     "municipality_name": "Grajal de Campos",
     "title": "Cata de vinos en Grajal de Campos",
