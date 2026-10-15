@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "cisneros",
+    "municipality_name": "Cisneros",
+    "title": "Álvaro Bilbao y Rosa Aldea encabezarán las listas del PSOE de Palencia al Congreso y el Senado",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/alvaro-bilbao-rosa-aldea-encabezaran-listas-psoe-20261014205251-nt.html",
+    "published_at": "2026-10-14",
+    "detected_at": "2026-10-15T11:21:19.867508+00:00",
+    "hash": "15d2eec630ecaf9574c1dfaf512d793d31b5456209eed6360a6f5d7eb5bcc595",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La alcaldesa de Cisneros, Rosa Aldea, repite como número uno al Senado en la propuesta del PSOE palentino",
+      "entradilla": "Los socialistas de Palencia han cerrado sus candidaturas para las próximas generales con un cambio de cara al Congreso y con la regidora cisnerina encabezando la lista al Senado, a falta de que Ferraz dé el visto bueno definitivo.",
+      "cuerpo": [
+        "El PSOE de Palencia ha elaborado sus propuestas de candidatura para las próximas elecciones generales y, según informa El Norte de Castilla, la alcaldesa de Cisneros, Rosa Aldea, repite como número uno en la lista al Senado. Su nombre apareció en las votaciones de 19 de las 20 asambleas celebradas y resultó la primera clasificada en 15 de ellas.",
+        "Completan esa propuesta al Senado Jesús Manuel López Infante, de Paredes de Nava, y Belinda Mencía Solla, de Velilla del Río Carrión.",
+        "La novedad grande llega en el Congreso. La militancia palentina ha apostado por Álvaro Bilbao, secretario de la agrupación local de la capital y concejal de Urbanismo, que fue propuesto en las 21 asambleas y encabezó la votación en 20. En la asamblea de la capital obtuvo 126 votos frente a los 15 de la diputada Mari Luz Martínez Seijo, hasta ahora cabeza de lista por la provincia.",
+        "El diario recuerda que en 2015, 2016 y 2019 la propuesta de los socialistas palentinos fue desestimada por la Comisión Federal de Listas, que colocó en todas esas ocasiones a Martínez Seijo en el primer puesto. En 2023 el PSOE provincial asumió sin oposición la directriz de Ferraz. La decisión última vuelve a estar en manos del Comité Federal de Listas, que podría apartarse de nuevo de lo votado en Palencia.",
+        "Junto a Bilbao, la propuesta al Congreso la completan Alicia García Alonso, de Carrión de los Condes, como número dos, y Luis Ángel Martín Paredes, de Tariego, como número tres."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "El Espacio Joven regresa a Sahagún con una temporada cargada de talleres y excursiones",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17649/el-espacio-joven-regresa-a-sahagun-con-una-temporada-cargada-de-talleres-y-excursiones",
+    "published_at": "2026-10-15",
+    "detected_at": "2026-10-15T11:21:00.172564+00:00",
+    "hash": "dd5ab598d5383c3ae245c8da824387522d7659177fdc651754e2777e70afa5ad",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Vuelve el Espacio Joven a Sahagún con una primera cita este sábado",
+      "entradilla": "El programa de ocio juvenil de la Diputación de León arranca su sexta edición en Sahagún el 17 de octubre y se prolongará hasta mayo de 2027.",
+      "cuerpo": [
+        "El Espacio Joven regresa a Sahagún para dar a los chavales de la villa y la comarca una opción de ocio los fines de semana. Según informa Sahagún Digital, el programa lo impulsa el Servicio de Juventud de la Diputación de León en coordinación con el Ayuntamiento, y este año llega a su sexta edición acompañando el curso escolar hasta mayo de 2027.",
+        "La primera sesión será este sábado 17 de octubre, de seis a ocho de la tarde, en el Centro de Desarrollo Rural ETC-780. Para empezar han preparado un taller de juegos de mesa y de habilidad en formato gigante, como el Jenga o el Connect 4, pensados para romper el hielo y que los asistentes se vayan conociendo.",
+        "El programa está dirigido a chicos y chicas de entre 12 años (con la ESO ya empezada) y 18, con talleres semanales de dos horas en fin de semana. Para este ciclo habrá 20 sesiones en el propio municipio y otras 20 salidas fuera, en las que se comparten actividades con jóvenes de otros Espacios Jóvenes de la provincia.",
+        "La oferta incluye rutas y orientación, paintball, laser tag, geocaching, talleres tecnológicos y torneos de videojuegos como FIFA o Mario Kart, además de dinámicas artísticas, escape rooms y un bloque sobre reciclaje y energías renovables.",
+        "Se trata, según detalla Sahagún Digital, de una red de dinamización rural financiada por la Diputación y gestionada con los ayuntamientos para que los jóvenes no tengan que desplazarse a las ciudades en busca de planes. Para apuntarse hace falta inscripción previa en la plataforma oficial."
+      ]
+    }
+  },
+  {
     "municipality_slug": "cea",
     "municipality_name": "Cea",
     "title": "Pinares y robledales del Cea abren su gran despensa micológica",
