@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "montealegre-de-campos",
+    "municipality_name": "Montealegre de Campos",
+    "title": "Montealegre celebra su III Encuentro Micológico este fin de semana",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/40103/",
+    "published_at": "2026-10-16",
+    "detected_at": "2026-10-16T11:15:54.445464+00:00",
+    "hash": "b0cb09edffc6a868ab403ed015fa37efe73b4753c123fd4c5abc96a06ecbab19",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Montealegre de Campos celebra este fin de semana su III Encuentro Micológico",
+      "entradilla": "El sábado 17 y el domingo 18 de octubre, el pueblo vuelve a dedicar un fin de semana a las setas con paseos, charlas, salidas al campo y tapeo.",
+      "cuerpo": [
+        "Montealegre de Campos acoge los días 17 y 18 de octubre la tercera edición de su Encuentro Micológico, con un programa pensado para acercar la micología a vecinos y visitantes, según informa La Mar de Campos.",
+        "El sábado arranca a las 11.30 con un paseo desde el Pozo Villa hasta la fuente Barruelo, para el que se recomienda llevar el almuerzo. Después habrá tapeo micológico en el Bar Tino y un pequeño mercadillo en el patio del Ayuntamiento. Por la tarde, a las 16.30, el historiador y geógrafo Jorge Esteban Molina dará la charla 'Pagos y parajes del campo de Montealegre', seguida de una mesa redonda sobre los pagos seteros de la zona. El día termina con una sesión de yoga y un bocata en el Bar Tino.",
+        "El domingo se centra en el campo. A las 9.00 hay quedada en el Humilladero para salir en grupo a por setas, y a las 11.30 se recogen las cestas en la Asociación Mirabel.",
+        "La mañana del domingo incluye también la presentación del libro 'Amigos para siempre. Los árboles y sus compañeros los hongos', de Juan Andrés Orio y Rocío Silva, y el cuentacuentos 'Cuento de otoño', a cargo del Hada Mermelada. El encuentro se cierra con otro tapeo micológico en el Bar Tino."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "el-burgo-ranero",
+    "municipality_name": "El Burgo Ranero",
+    "title": "El CRA de El Burgo Ranero, premiado por su modelo para enseñar juntos a alumnos de distintas edades",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17654/el-cra-de-el-burgo-ranero-premiado-por-su-modelo-para-ensenar-juntos-a-alumnos-de-distintas-edades",
+    "published_at": "2026-10-16",
+    "detected_at": "2026-10-16T11:15:38.344582+00:00",
+    "hash": "eb0f80203805ef0eacb99862618ae4d1024f265980b83181ce6fbeb0e559fb11",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Junta premia al CRA de El Burgo Ranero por su trabajo en las aulas multinivel",
+      "entradilla": "El Colegio Rural Agrupado ha recibido un reconocimiento de la Junta de Castilla y León a las mejores experiencias de calidad educativa del curso 2025-2026, con una dotación de 1.000 euros.",
+      "cuerpo": [
+        "El Colegio Rural Agrupado de El Burgo Ranero ha sido distinguido por la Junta de Castilla y León entre las mejores experiencias de calidad educativa del curso 2025-2026. El premio, según informa Sahagún Digital, incluye una dotación de 1.000 euros.",
+        "El proyecto reconocido nace de la propia autoevaluación del centro y de algo muy propio de la escuela rural: las aulas multinivel, donde alumnos de distintas edades y cursos comparten clase porque no hay suficientes niños para separarlos por grupos. El Plan de Mejora busca dar a esa organización unos criterios comunes en todas las localidades que forman el CRA: El Burgo Ranero, Villamuñío, Santas Martas y Gordaliza del Pino.",
+        "Entre sus líneas de trabajo están fijar principios compartidos, impulsar metodologías activas y cooperativas, y crear procedimientos comunes de evaluación. Según recoge Sahagún Digital, la experiencia ha servido para mejorar la coordinación entre el profesorado y dar más coherencia a lo que se hace en las aulas. En este tipo de clases, los maestros adaptan las actividades a varios niveles a la vez, y los alumnos mayores pueden echar una mano a los más pequeños.",
+        "Desde el centro prevén dar continuidad al Plan de Mejora e ir incorporando estas actuaciones a su funcionamiento habitual. El reconocimiento forma parte de la convocatoria anual con la que la Junta distingue las mejores experiencias de los centros educativos de la comunidad."
+      ]
+    }
+  },
+  {
     "municipality_slug": "cisneros",
     "municipality_name": "Cisneros",
     "title": "Álvaro Bilbao y Rosa Aldea encabezarán las listas del PSOE de Palencia al Congreso y el Senado",
