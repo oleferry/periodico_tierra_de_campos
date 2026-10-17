@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
+    "title": "400 mujeres, nueve provincias y una misma historia de superación se dan cita en Medina de Rioseco",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/400-mujeres-nueve-provincias-y-una-misma-historia-de-superacion-se-dan-cita-en-medina-de-rioseco/",
+    "published_at": "2026-10-15",
+    "detected_at": "2026-10-17T10:34:58.971567+00:00",
+    "hash": "f8f84a0f227060b2cef9c17140bb325fe761253a753fb93778653cb103e1aff4",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Rioseco vuelve a acoger el Encuentro de Personas con Cáncer de Mama de Castilla y León",
+      "entradilla": "Cerca de 400 mujeres de las nueve provincias de la Comunidad pasaron el jueves en Medina de Rioseco una jornada de convivencia, recuerdo y apoyo mutuo. Era el XXV Encuentro de Personas con Cáncer de Mama, y volvía a la ciudad doce años después.",
+      "cuerpo": [
+        "Según informa La Mar de Campos, la cita reunió a unas 400 participantes llegadas de toda Castilla y León. Rioseco ya había sido sede de este encuentro hace doce años, cuando se juntaron en torno a 600 personas, así que muchas de las que entonces lo vivieron volvieron a coincidir con una nueva generación de participantes.",
+        "La jornada arrancó a las 9.30 en el Polideportivo Municipal, con un desayuno y el acto de apertura. Después hubo visitas por el patrimonio de la ciudad: las iglesias de Santa María, Santiago, Santa Cruz y San Francisco, además de la sede local de la Asociación Española Contra el Cáncer. Cada provincia tuvo a un voluntario de la AECC de Rioseco haciendo de anfitrión.",
+        "A mediodía, todas se concentraron en la Plaza Mayor para la foto de familia, uno de los momentos más esperados y también más emotivos: en ella estuvieron presentes, de forma simbólica, las mujeres que ya no están y las que no pudieron acudir. El rosa marcó el día, con pañuelos donados por Caja Rural de Zamora, lazos de ganchillo hechos por las voluntarias y tres grandes lazos que el Ayuntamiento colocó en su balcón.",
+        "La comida se celebró en el restaurante El Cortijo y dio paso a una sobremesa con humor, con la actuación de los humoristas JJ Vaquero y Fran El Chavo. La presidenta de la AECC de Medina de Rioseco, Paqui Aranda, había subrayado antes del encuentro el carácter especial de esta vigésimo quinta edición, pensada para volver a reencontrarse.",
+        "Detrás de la jornada hubo trabajo de voluntarias y la colaboración de bares, comercios y negocios de Rioseco y la comarca, que se volcaron para que las participantes pasaran unas horas acompañadas."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Recepción en el Ayuntamiento de Orense a estudiantes de Sahagún y Ciudad Real, que visitan la ciudad en un intercambio",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17659/recepcion-en-el-ayuntamiento-de-orense-a-estudiantes-de-sahagun-y-ciudad-real-que-visitan-la-ciudad-en-un-intercambio",
+    "published_at": "2026-10-17",
+    "detected_at": "2026-10-17T10:34:43.922127+00:00",
+    "hash": "f269a1fea552f8d1e888b889b19cbfaa42fb55665d35197f52787a7cc23f50b7",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Estudiantes de Sahagún visitan Ourense en un intercambio escolar",
+      "entradilla": "Un grupo de alumnos de Primero de Bachillerato de Sahagún participa esta semana en un intercambio con un instituto de Ourense.",
+      "cuerpo": [
+        "Según informa Sahagún Digital, la concejala de Educación del Ayuntamiento de Ourense, Tamara Silva, recibió en el Salón de Plenos a un grupo de estudiantes y docentes que estos días visitan la ciudad gallega.",
+        "El grupo lo forman 39 alumnos y 4 profesores de Primero de Bachillerato procedentes de Sahagún (León) y de Pedro Muñoz (Ciudad Real). La visita se enmarca en un proyecto de intercambio con el IES Universidade Laboral de Ourense.",
+        "La información completa fue publicada en ourense.gal, según recoge Sahagún Digital."
+      ]
+    }
+  },
+  {
     "municipality_slug": "montealegre-de-campos",
     "municipality_name": "Montealegre de Campos",
     "title": "Montealegre celebra su III Encuentro Micológico este fin de semana",
