@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "Mayorga se convierte en la capital del pan y la lenteja de Tierra de Campos",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/mayorga-convierte-capital-pan-lenteja-tierra-campos-20261017182908-nt.html",
+    "published_at": "2026-10-17",
+    "detected_at": "2026-10-18T10:57:48.922246+00:00",
+    "hash": "86a8102dec420fcf9250dd618772436a0c9e78ce75cffee64bb23bb87221178e",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Mayorga celebra su octava Feria del Pan y la Lenteja con la Lenteja de Oro para el Ayuntamiento",
+      "entradilla": "La localidad terracampina acoge este fin de semana una nueva edición de su feria del pan y la lenteja, con dos sedes, degustaciones, talleres y conciertos. El Ayuntamiento de Mayorga ha recibido este año la Lenteja de Oro.",
+      "cuerpo": [
+        "Mayorga vive este fin de semana la octava edición de su feria dedicada al pan y la lenteja de Tierra de Campos, una cita que la ha convertido en referencia gastronómica del otoño en la provincia. Según informa El Norte de Castilla, el evento está organizado por la Diputación de Valladolid a través de Valladolid Avanza, el Ayuntamiento de Mayorga y la IGP Lenteja de Tierra de Campos, con la colaboración de las Diputaciones de León, Palencia y Zamora y de las marcas Pan de Valladolid y Alimentos de Valladolid.",
+        "La inauguración tuvo lugar el sábado por la mañana en el Museo del Pan, con la entrega de la Lenteja de Oro que concede la IGP Lenteja de Tierra de Campos. Este año el galardón ha recaído en el propio Ayuntamiento de Mayorga. Su alcalde, David de la Viuda, lo definió como un reconocimiento no solo al consistorio, sino al pueblo, a la comarca y a las generaciones de agricultores que han trabajado la tierra. También agradeció el trabajo de las corporaciones anteriores para poner en marcha la feria.",
+        "La muestra se reparte en dos escenarios. El Museo del Pan reúne nueve expositores de panadería y repostería artesanal, mientras que la iglesia de Santa Marina acoge la feria de la lenteja con quince puestos. La primera jornada contó con cientos de visitantes.",
+        "El programa incluye actividades para todos los públicos: talleres infantiles de panadería, concursos gastronómicos, teatro y conciertos. El sábado hubo degustaciones de lenteja, cata de cerveza La Torre de Medina de Rioseco y de pan de La Tahona de Chari, de Villanubla, además de los conciertos de Dúo Trópico y Dulzaro y la actuación infantil 'Semillas y espigas para contar y jugar'.",
+        "La feria concluye el domingo con talleres infantiles, una nueva función de esa misma actuación, degustación de sopas de ajo castellanas y el concierto de DyD. Para facilitar el acceso, la Diputación habilita autobuses desde la plaza de San Pablo, con salida el domingo a las 10.00 horas y regreso a las 14.30. El billete cuesta 5 euros para socios de Amigos de la Provincia y 7 para el público general."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "villabaruz-de-campos",
+    "municipality_name": "Villabaruz de Campos",
+    "title": "Un sabroso cocido reúne en Villabaruz de Campos a cerca de un centenar de personas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/sabroso-cocido-reune-villabaruz-campos-cerca-centenar-20261017190305-nt.html",
+    "published_at": "2026-10-17",
+    "detected_at": "2026-10-18T10:57:37.313853+00:00",
+    "hash": "e5b1bc5de012712aa7af6ee06687430501ce0d344fbf8b409292c6b01f167a39",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villabaruz de Campos reúne a cerca de cien personas en su jornada del cocido",
+      "entradilla": "El pueblo celebró este sábado la tercera edición de su fiesta gastronómica del cocido, en una localidad donde en invierno apenas duermen quince vecinos.",
+      "cuerpo": [
+        "La jornada reunió a cerca de un centenar de personas entre vecinos, familiares, amigos y allegados, según informa El Norte de Castilla. Un número notable para un pueblo que en los meses de invierno cuenta con unos quince habitantes.",
+        "Los preparativos empezaron el viernes. El Ayuntamiento compró los ingredientes y un grupo de vecinas se encargó de cocinar el cocido en varias cocinas instaladas en un patio municipal. El sábado, tras el vermú, llegó la degustación en las antiguas escuelas, con sobremesa de café y palmeritas y la actuación del artista drag Ácida Liis, nombre artístico de Jonathan Calleja.",
+        "La alcaldesa, Pilar Trigueros, explicó al periódico que la idea de estas citas es dinamizar la vida del pueblo y juntar a todos para no quedarse solos en casa. Recordó que las fiestas las organizan los propios vecinos y subrayó la unión y la buena convivencia de la localidad. También destacó que las personas mayores son las que más disfrutan de estos días.",
+        "El diario recuerda además que Villabaruz de Campos recuperó el pasado febrero la festividad de la Virgen de la Calle, a la que está dedicada la iglesia parroquial, así como las danzas del paloteo."
+      ]
+    }
+  },
+  {
     "municipality_slug": "medina-de-rioseco",
     "municipality_name": "Medina de Rioseco",
     "title": "400 mujeres, nueve provincias y una misma historia de superación se dan cita en Medina de Rioseco",
