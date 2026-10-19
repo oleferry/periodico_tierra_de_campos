@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "tordehumos",
+    "municipality_name": "Tordehumos",
+    "title": "Tordehumos pone en valor sus bodegas como recurso turístico",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/tordehumos-pone-valor-bodegas-recurso-turistico-20261018211109-nt.html",
+    "published_at": "2026-10-19",
+    "detected_at": "2026-10-19T13:01:05.397839+00:00",
+    "hash": "54d89ed9555f5e10504dab4c334da1402b1f8910a5114aaabefd2e9d8577732c",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Tordehumos vuelve a abrir su patrimonio a los visitantes en la quinta edición de las jornadas",
+      "entradilla": "La Asociación Cultural Cristo de la Vega organizó este fin de semana dos días de visitas, talleres y degustaciones para poner en valor la historia y las tradiciones del pueblo.",
+      "cuerpo": [
+        "Tordehumos celebró el pasado fin de semana la quinta edición de sus Jornadas de Visitas al Patrimonio, con buena participación, según informa El Norte de Castilla. Las organizó la Asociación Cultural Cristo de la Vega con financiación de la Diputación de Valladolid.",
+        "El sábado arrancó con un paseo por la historia de la localidad guiado por Luis Cortina y Luis Busnadiego, acompañado de un pasacalles de paloteo desde la iglesia de Santiago. Después vino la visita a la Casa Museo Objetos del Ayer, donde se expone una amplia colección de piezas de la vida de Tierra de Campos. La jornada incluyó un taller de elaboración de queso, una cata de variedades antiguas de huerta, comida popular en la pradera de la ermita del Cristo de la Vega y, por la tarde, taller de paloteo, una charla sobre semillas y cultivos tradicionales y el espectáculo circense Don Orión.",
+        "El domingo el protagonismo fue para la visita a una bodega familiar del pueblo. Allí se pudo ver la zona del prensado con la viga del lagar y bajar a la bodega de piedra de sillería, donde se conserva una gran cuba con capacidad para 500 cántaros, unos 8.000 litros de vino, según recordó uno de sus propietarios, Florencio Revuelta. Un vecino de Piñel de Abajo, de la Asociación El Prao de Luya, explicó cómo se hacía antiguamente el prensado de la uva.",
+        "El presidente de la asociación organizadora, Modesto Argüello, destacó que todo lo mostrado es \"fruto de mucho trabajo\" y de valorar lo que se tiene, tanto el patrimonio material como el inmaterial. Desde la directiva, José Miguel Mozo subrayó la idea de enfocar ese patrimonio hacia el turismo.",
+        "La jornada terminó con un nuevo pase del espectáculo de malabares y monociclo de Don Orión y con un taller de elaboración de leche de almendras a cargo de Pecorea Miel, de San Pedro de Latarce."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Catorce pueblos de la comarca de Sahagún contarán con pantallas interactivas en sus asociaciones de jubilados",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17641/catorce-pueblos-de-la-comarca-de-sahagun-contaran-con-pantallas-interactivas-en-sus-asociaciones-de-jubilados",
+    "published_at": "2026-10-19",
+    "detected_at": "2026-10-19T13:00:50.283674+00:00",
+    "hash": "165b8c9c8a1cfe515e0626023fd262a0b2e689448df08924aa9ee9f2a9e347c9",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Catorce asociaciones de jubilados del partido judicial de Sahagún reciben pantallas interactivas de la Junta",
+      "entradilla": "La Junta de Castilla y León ha incluido a estas entidades en un programa que lleva dispositivos interactivos a los centros de personas mayores de toda la comunidad.",
+      "cuerpo": [
+        "Las asociaciones de jubilados de catorce localidades del sureste leonés van a contar con una pantalla interactiva para sus actividades, según informa Sahagún Digital. Se trata de un recurso cedido por la Junta dentro de un programa dirigido a los centros de personas mayores de la región.",
+        "En el partido judicial de Sahagún, las entidades beneficiarias son las de Bercianos del Real Camino, Calzada del Coto, Castellanos, Cea, Galleguillos de Campos, Las Grañeras, Joara, Matallana de Valmadrigal, Sahagún, San Pedro de Valderaduey, Santa Cristina de Valmadrigal, Villacintor, Villamartín de Don Sancho y Villaverde de Arcayos.",
+        "Los dispositivos están pensados como una herramienta para organizar actividades: ejercicios de estimulación cognitiva, ejercicio físico, juegos, bailes o el acceso a contenidos educativos. También permiten hacer videollamadas, enviar mensajes y acceder a redes sociales, algo especialmente útil en los pueblos más pequeños para mantener el contacto con familiares y amigos que viven fuera.",
+        "En el conjunto de la provincia de León, la Junta ha cedido 114 pantallas, de las que 106 ya están instaladas y ocho quedan pendientes. El programa se desarrolla en toda Castilla y León a través de la Red de Federaciones de Jubilados y Pensionistas, con 1.118 dispositivos cedidos y una inversión de más de tres millones de euros.",
+        "Las pantallas se ceden inicialmente por cuatro años, prorrogables por otros cuatro. El programa prevé además instalar otros 82 dispositivos en centros de día y residencias dependientes de la Administración autonómica."
+      ]
+    }
+  },
+  {
     "municipality_slug": "mayorga",
     "municipality_name": "Mayorga",
     "title": "Mayorga se convierte en la capital del pan y la lenteja de Tierra de Campos",
