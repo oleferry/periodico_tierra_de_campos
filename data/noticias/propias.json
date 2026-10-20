@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "osornillo",
+    "municipality_name": "Osornillo",
+    "title": "La Catedral dedica el santo del mes a San Lucas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/catedral-dedica-santo-mes-san-lucas-20261019185641-nt.html",
+    "published_at": "2026-10-19",
+    "detected_at": "2026-10-20T11:28:11.247815+00:00",
+    "hash": "28309e7d7ec98349ae7f996ad1311675c48ed7ddaa7cf2533f3983b0fbef5673",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Una talla del siglo XVI procedente de Osornillo se exhibe estas semanas en la Catedral de Palencia",
+      "entradilla": "La pieza, obra de Felipe de Vigarny, formaba parte de un antiguo retablo de la iglesia de Osornillo y ahora se muestra dentro de la iniciativa 'el santo del mes' de la Diócesis de Palencia.",
+      "cuerpo": [
+        "La talla formaba parte de un retablo con la imagen de los cuatro evangelistas que estuvo en la iglesia de Osornillo. Es una obra de principios del siglo XVI atribuida al escultor Felipe de Vigarny, según informa El Norte de Castilla.",
+        "La pieza ya tuvo protagonismo en 2018, cuando figuró entre las obras destacadas de la exposición de Las Edades del Hombre 'Mons Dei', celebrada en Aguilar de Campoo entre mayo y noviembre de aquel año.",
+        "Hoy, completamente restaurada, se conserva en el Museo Diocesano de Palencia. Durante las próximas semanas se podrá ver en la Catedral de Palencia dentro de 'el santo del mes', una iniciativa de la Diócesis para dar a conocer su patrimonio histórico.",
+        "La presentación tuvo lugar este lunes a cargo del médico de familia José Ramón Garmendia, que en 2019 fue director general de Sistema de Información, Calidad y Prestación Farmacéutica de la Consejería de Sanidad. Garmendia habló sobre la historia de San Lucas y explicó con detalle la obra expuesta."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Un cascanueces de siete metros de alto, la nueva sensación de la Navidad de Almanza",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17686/un-cascanueces-de-siete-metros-de-alto-la-nueva-sensacion-de-la-navidad-de-almanza",
+    "published_at": "2026-10-20",
+    "detected_at": "2026-10-20T11:27:56.687810+00:00",
+    "hash": "6364518268c4ce49d8fe0537e2fe5a3a266d5a6d4f3cb6b13221f681d1c0b051",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza encenderá su Navidad el 21 de noviembre con un cascanueces de siete metros",
+      "entradilla": "La villa del alto Cea volverá a llenar sus calles de luces y grandes figuras, con una nueva incorporación gigante firmada por el artesano local Fernando Ortiz.",
+      "cuerpo": [
+        "El próximo sábado 21 de noviembre Almanza encenderá su iluminación navideña, según informa Sahagún Digital. Este año la novedad es un cascanueces de más de siete metros que sale de una gran caja de música, obra del artesano local Fernando Ortiz, responsable habitual de este tipo de montajes en el pueblo.",
+        "El cascanueces no estará solo. Como en años anteriores, por distintos puntos de la villa se repartirán figuras de gran tamaño: duendes, camellos, una galleta de jengibre, el Grinch, un regalo gigante, un árbol de Navidad, renos, trineos y un muñeco de nieve, todo entre miles de pequeñas luces.",
+        "A esas figuras se suman rincones decorados, calles iluminadas y espacios como el paseo de las piruletas, de manera que el recorrido por el pueblo ofrece una escena distinta en cada tramo.",
+        "Por otro lado, y tras la experiencia del año pasado, Papá Noel ha pedido formalmente al Ayuntamiento volver a instalar su residencia temporal en el Torreón, del 21 de noviembre al 24 de diciembre. El objetivo es repetir las visitas de familias que ya se dieron entonces, con actividades en las que participarán también sus duendes."
+      ]
+    }
+  },
+  {
     "municipality_slug": "tordehumos",
     "municipality_name": "Tordehumos",
     "title": "Tordehumos pone en valor sus bodegas como recurso turístico",
