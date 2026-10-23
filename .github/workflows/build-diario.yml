@@ -32,7 +32,13 @@ jobs:
     # actualizar en silencio, porque una ejecución cancelada no avisa.
     # Con la caché de IA los builds deberían bajar mucho, pero el margen tiene
     # que cubrir un día con mucha noticia nueva o una fuente lenta.
-    timeout-minutes: 40
+    #
+    # 40 tampoco bastó: el 21 y el 22/10/2026 se cancelaron a los 38-40 min en
+    # "Reconstruir el sitio" (el 20/10 ya tardó 31). Y se alimenta solo: una
+    # ejecución cancelada no guarda la caché de IA, así que el día siguiente
+    # tiene que redactar lo de dos días y tarda todavía más. El repo es público,
+    # así que los minutos de Actions no cuestan; subir el margen no tiene precio.
+    timeout-minutes: 75
     permissions:
       contents: write        # para poder hacer push del sitio regenerado
     steps:
