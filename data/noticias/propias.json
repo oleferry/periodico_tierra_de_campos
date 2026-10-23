@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Una comida en Grajal de Campos recaudará fondos para reparar la cubierta de la iglesia de San Miguel",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17688/una-comida-en-grajal-de-campos-recaudara-fondos-para-reparar-la-cubierta-de-la-iglesia-de-san-miguel",
+    "published_at": "2026-10-23",
+    "detected_at": "2026-10-23T11:31:52.283045+00:00",
+    "hash": "6c01f8ec3b37ac8353d1e0d8af3f95f1bb2d182631792df956dcae0e3b2ffd24",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Comida solidaria en Grajal de Campos para arreglar el tejado de la iglesia de San Miguel",
+      "entradilla": "La asociación Virgen de las Puertas organiza el sábado 31 de octubre una comida para recaudar fondos destinados a la reparación de la cubierta del templo.",
+      "cuerpo": [
+        "La cita será en la Casa-Palacio de los Condes de Grajal, el edificio renacentista de la localidad, a partir de las 14:30 horas. El menú es marinero: guiso de patatas con langostinos, almejas y mejillones, con agua, vino, pan y postre. El precio, 12 euros, y según informa Sahagún Digital todo lo recaudado irá íntegro a las obras del tejado de la iglesia.",
+        "Después de comer habrá bingo, a cargo de la Comisión de Fiestas, que colabora en la iniciativa junto al Ayuntamiento de Grajal.",
+        "Quien quiera ir tiene que reservar plaza y comprar el ticket antes del 28 de octubre. Los pases están en los comercios del pueblo y en la Oficina de Turismo, que está en el albergue municipal. Para consultas y reservas se ha habilitado el teléfono 628 510 242. La organización pide que cada asistente lleve su propio plato, vaso y cubiertos.",
+        "Para quien no pueda acudir pero quiera echar una mano, hay una cuenta abierta para donativos: ES46 0049 5278 4324 1618 0956."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "gordoncillo",
+    "municipality_name": "Gordoncillo",
+    "title": "Gordoncillo vuelve a escuchar su patrimonio",
+    "source_type": "radar_local",
+    "url_original": "https://leonsurdigital.com/art/32331/gordoncillo-vuelve-escuchar-patrimonio",
+    "published_at": "2026-10-23",
+    "detected_at": "2026-10-23T11:31:37.321098+00:00",
+    "hash": "cc2e633f801aa8f059a87defa6c3aac5ee1aa909f66e7c8c3fb6658c6fa8cc39",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Leonsur Digital",
+      "fuente_slug": "leonsurdigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El MIHACALE de Gordoncillo acoge el concierto de Carlos Soto Folk el 31 de octubre",
+      "entradilla": "El auditorio del antiguo complejo harinero recibe la presentación de 'Barrio Mudéjar', con entrada gratuita, dentro de los Circuitos Escénicos de Castilla y León.",
+      "cuerpo": [
+        "El sábado 31 de octubre, a las seis de la tarde, el sexteto Carlos Soto Folk presentará su proyecto 'Barrio Mudéjar' en el auditorio del MIHACALE, en Gordoncillo. La entrada es gratuita y la actuación durará alrededor de ochenta minutos, según la información recogida por Leonsur Digital.",
+        "El concierto se enmarca en los Circuitos Escénicos de Castilla y León. 'Barrio Mudéjar' parte de la mezcla de raíces hispanovisigodas, moriscas y sefardíes para llevarlas a un formato musical actual. Por ahora están confirmados el lugar, el horario y el carácter gratuito, pero no se ha detallado el repertorio.",
+        "El escenario es parte de la gracia. El MIHACALE ocupa la antigua fábrica Marina Luz y su almacén, La Panera. La fábrica funcionó durante varias décadas del siglo XX y fue reconstruida tras un incendio en 1944. El museo conserva maquinaria de distintas fases de la producción de harina, parte de ella procedente de otras antiguas harineras de la región.",
+        "La Panera, levantada entre 1937 y 1938, mantiene sus muros de tierra y su estructura de madera. En la planta baja hay un auditorio de 300 plazas y en la superior, un espacio de exposiciones temporales. Así que la música sonará dentro de un edificio que antes servía para almacenar grano.",
+        "La actividad cultural de Gordoncillo también se ha movido fuera del museo: el proyecto Tierras Pobladas lleva los relatos de los vecinos a las calles del pueblo, según informó La Nueva Crónica en septiembre de 2026."
+      ]
+    }
+  },
+  {
     "municipality_slug": "osornillo",
     "municipality_name": "Osornillo",
     "title": "La Catedral dedica el santo del mes a San Lucas",
