@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Locales de campaña y espacios de propaganda en la comarca de Sahagún para las elecciones generales",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17695/locales-de-campana-y-espacios-de-propaganda-en-la-comarca-de-sahagun-para-las-elecciones-generales",
+    "published_at": "2026-10-24",
+    "detected_at": "2026-10-24T10:51:34.314282+00:00",
+    "hash": "c8e9ed8ec9f9e7694cf33bff47a89d9efbbf429c0ce51cb6126fb394f1254436",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El BOP publica los locales y lugares para la campaña electoral en la comarca de Sahagún",
+      "entradilla": "La Junta Electoral de Zona ha fijado en qué espacios podrán celebrarse actos gratuitos de campaña y dónde colocar propaganda de cara a las elecciones del 29 de noviembre.",
+      "cuerpo": [
+        "El Boletín Oficial de la Provincia ha hecho público el edicto de la Junta Electoral de Zona de Sahagún con la relación de locales reservados para actos de campaña y de lugares habilitados para la propaganda electoral, de cara a los comicios convocados para el 29 de noviembre. Lo recoge Sahagún Digital.",
+        "Cada ayuntamiento de la comarca concreta sus propios espacios. En la villa de Sahagún, los actos se celebrarán en la Casa de la Cultura, en la plaza de Santiago, en horario de mañana y tarde. La propaganda se repartirá por el casco urbano, con soportes de banderolas en báculos de alumbrado de varios viales, y en pedanías como San Pedro de las Dueñas, Sotillo de Cea, Joara, Celada de Cea, Arenillas de Valderaduey y San Martín de la Cueza.",
+        "En el resto de municipios predominan los salones de usos múltiples, las casas consistoriales, las antiguas escuelas y las casas del pueblo para los actos, mientras que la cartelería se sitúa en frontones, farolas, marquesinas, contenedores o fachadas de locales públicos, según detalla el edicto.",
+        "Hay particularidades. En Cebanico, Villaselán y Villamoratiel de las Matas no se prevén actos en locales cerrados —en el caso de Villaselán, por la población del municipio—, y Villamoratiel prohíbe además colocar carteles en cualquier espacio público. En Santa Cristina de Valmadrigal, la propaganda deberá fijarse en los depósitos con machones de ladrillo cara vista para no dañar los paramentos.",
+        "El edicto puede consultarse al completo en el Boletín Oficial de la Provincia, con el desglose localidad por localidad."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
+    "title": "‘Bajo el cielo de Santiago’, la luz de la noche riosecana que anunciará la Semana Santa de 2027",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/bajo-el-cielo-de-santiago-la-luz-de-la-noche-riosecana-que-anunciara-la-semana-santa-de-2027/",
+    "published_at": "2026-10-23",
+    "detected_at": "2026-10-24T10:51:21.838270+00:00",
+    "hash": "c3060476dc0d3937004e97aff7010c7512a6e882fe38d3abd189ea17c4f6b4f3",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "'Bajo el cielo de Santiago' será el cartel de la Semana Santa de Rioseco en 2027",
+      "entradilla": "La fotografía de Francisco Javier Hernández ha ganado el XXIII Concurso Tomás de Sierra, que organiza la Junta de Semana Santa de Medina de Rioseco.",
+      "cuerpo": [
+        "La imagen que anunciará la Semana Santa riosecana de 2027 ya tiene nombre: 'Bajo el cielo de Santiago', de Francisco Javier Hernández. La obra se ha impuesto en el XXIII Concurso de Fotografía Tomás de Sierra, convocado por la Junta de Semana Santa, según informa La Mar de Campos.",
+        "La fotografía, de encuadre vertical, juega con el contraste entre el azul del cielo nocturno y la luz cálida que ilumina las figuras del paso. Al fondo aparece la torre de la iglesia de Santiago, que sitúa la escena en pleno centro de la ciudad, mientras las siluetas de los espectadores en la parte baja recuerdan que la imagen está tomada desde la calle.",
+        "El jurado también escogió la fotografía que ilustrará la portada de la revista oficial de la Junta: 'Sombras de fe', de Cristian Pérez Conde. El autor del cartel recibirá 600 euros y una placa, y el de la portada de la revista, 250 euros y placa.",
+        "Al certamen se presentaron más de cien fotografías de 13 participantes, de las que se ha seleccionado una galería digital de 104 imágenes. Durante la entrega, el presidente de la Junta de Semana Santa agradeció la calidad de los trabajos y animó a profesionales y aficionados a presentarse a la próxima edición, la XXIV, en 2027."
+      ]
+    }
+  },
+  {
     "municipality_slug": "grajal-de-campos",
     "municipality_name": "Grajal de Campos",
     "title": "Una comida en Grajal de Campos recaudará fondos para reparar la cubierta de la iglesia de San Miguel",
