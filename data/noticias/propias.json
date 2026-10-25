@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "riberos-de-la-cueza",
+    "municipality_name": "Riberos de la Cueza",
+    "title": "Cerrada una iglesia de Palencia por el derrumbe de parte de una bóveda",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/cerrada-iglesia-palencia-derrumbe-parte-boveda-20261024142726-nt.html",
+    "published_at": "2026-10-24",
+    "detected_at": "2026-10-25T11:17:34.157876+00:00",
+    "hash": "8599745a115252c697d2cc4bd0a2a20e17558c00eb423216635dbe47ce83ff3b",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Se derrumba parte de una bóveda en la iglesia de Riberos de la Cueza",
+      "entradilla": "El templo barroco de Santa María está cerrado desde hace un par de semanas tras la caída de ladrillos en una de sus bóvedas. No había nadie dentro cuando ocurrió.",
+      "cuerpo": [
+        "Según informa El Norte de Castilla, el desprendimiento lo descubrió el párroco de la Unidad Pastoral de Carrión, que estaba fuera de la provincia y, al volver y acudir al templo que atiende cada semana, se encontró con ladrillos caídos en el suelo de la nave lateral norte. La iglesia estaba cerrada en ese momento, así que no hubo que lamentar daños personales.",
+        "No es la primera vez que ocurre algo así en Santa María. El edificio ha sufrido otros derrumbes parecidos a lo largo de su historia, aunque de muchos de ellos apenas queda documentación. Desde la caída de hace dos semanas, el templo permanece cerrado, si bien desde fuera no se nota el problema.",
+        "La Diócesis de Palencia está estudiando las causas. Los técnicos apuntan a la inestabilidad del terreno sobre el que se levanta la iglesia, un promontorio. Recuerdan que la reforma de la cubierta de 2018 dejó claro que el tejado no era el que empujaba sobre los muros, por lo que la intervención que ahora haría falta sería más profunda y relacionada con el suelo.",
+        "La iglesia data de los siglos XVI y XVII, es de estilo barroco y está construida en ladrillo, con tres naves y bóvedas de arista con yeserías. En su interior conserva varios retablos de los siglos XVII y XVIII y la imagen del Bendito Cristo de la Salud, muy venerada por los vecinos. El templo, algo apartado del núcleo, pertenece a un pueblo de medio centenar de habitantes."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Sahagún abre al mundo la biblioteca de Joaquín González, Puerro de Oro 2026",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17707/sahagun-abre-al-mundo-la-biblioteca-de-joaquin-gonzalez-cuenca-puerro-de-oro-2026",
+    "published_at": "2026-10-25",
+    "detected_at": "2026-10-25T11:17:21.141769+00:00",
+    "hash": "93a1a103538debc3151009626a4d71873632ba7035bf363b268b1d99d951c91a",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún inaugura la Biblioteca Joaquín González Cuenca con los 20.000 libros donados por su familia",
+      "entradilla": "La villa abrió este sábado un nuevo espacio cultural en la Casa de la Cultura para custodiar la colección del filólogo sahagunino, que su familia donó al pueblo tras su fallecimiento en 2023.",
+      "cuerpo": [
+        "Como informa Sahagún Digital, el sábado se inauguró en Sahagún la Biblioteca Joaquín González Cuenca, pensada para dar cabida a los más de 20.000 volúmenes que reunió el filólogo a lo largo de su vida. El espacio se ha habilitado en la planta baja de la Casa de la Cultura, en lo que antes era la cantina de la Asociación de Jubilados y Pensionistas, acondicionada durante los últimos meses.",
+        "Al acto acudieron la hija del filólogo, Manuela González Irisarri, familiares y amigos, junto a la corporación municipal con el alcalde en funciones, Zacarías Gutiérrez, y el concejal de Cultura, Ramón Rodríguez. También estuvo parte del equipo municipal que ha trabajado en seleccionar, ordenar y catalogar un legado que, según recoge el medio, prácticamente duplica los fondos bibliográficos del pueblo.",
+        "Durante la inauguración se descubrió una placa en memoria de González Cuenca. Su hija agradeció el gesto al Ayuntamiento y dijo sentirse tranquila al saber que la biblioteca de su padre queda en el lugar que mejor podía acogerla: su Sahagún. El filólogo fue catedrático de Filología Hispánica, medievalista y cervantista, siempre vinculado a su localidad natal.",
+        "La jornada tuvo una segunda parte por la tarde, con la entrega a título póstumo del Puerro de Oro 2026 a Joaquín González Cuenca, la máxima distinción del Ayuntamiento. El acto, en el Auditorio Municipal, coincidió con la clausura de la XXVIII Muestra Coral, que cerró su edición con la actuación del Coro Facundino, organizador del evento."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "Locales de campaña y espacios de propaganda en la comarca de Sahagún para las elecciones generales",
