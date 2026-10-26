@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "villalon-de-campos",
+    "municipality_name": "Villalón de Campos",
+    "title": "Villalón de Campos vuelve a ser la capital del Camino de Madrid",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/villalon-campos-vuelve-capital-camino-madrid-20261025172718-nt.html",
+    "published_at": "2026-10-25",
+    "detected_at": "2026-10-26T12:55:58.600831+00:00",
+    "hash": "b9ad9ee71a15835edaf2b435864366a63df2aa927412522eafd4db7d243dbff7",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villalón reúne a más de 60 peregrinos en el Encuentro Nacional del Camino de Santiago",
+      "entradilla": "La localidad acogió este fin de semana la decimoquinta edición de un encuentro que busca dar a conocer el Camino de Madrid a su paso por la provincia de Valladolid.",
+      "cuerpo": [
+        "Más de 60 peregrinos llegados de puntos como Asturias, Extremadura, Barcelona, Madrid, Pontevedra, Santander, Murcia, Bilbao y Castilla y León se dieron cita en Villalón de Campos para el Encuentro Nacional de Peregrinos a Santiago, según informa El Norte de Castilla.",
+        "El programa arrancó el viernes con la llegada de los participantes y se prolongó durante todo el fin de semana. El sábado el grupo se desplazó a Medina de Rioseco, donde navegó por el Canal de Castilla a bordo del barco Antonio de Ulloa y recorrió la ciudad, y por la tarde hizo una marcha por la vía verde del Camino de Madrid hasta Cuenca de Campos, con visita a una bodega. El domingo incluyó un chocolate con churros en la plaza del Rollo, la visita al Centro de Interpretación El palomar del abuelo —dentro de la residencia San Roque, donde los mayores explicaron el valor de los palomares de Tierra de Campos— y la misa en la iglesia de San Miguel.",
+        "El encuentro también tuvo su lado solidario, con la recogida de alimentos que se entregarán a Cáritas.",
+        "La iniciativa parte un año más del hospitalero voluntario Francisco Arroyo, que recordó que el encuentro nació en 2010 con el objetivo de dar a conocer el Camino de Madrid y atraer más peregrinos a la provincia. Según recoge el mismo medio, Arroyo lamentó la primera incidencia en los quince años del encuentro: la caída de un participante durante la marcha a Cuenca de Campos, que le causó un golpe en la cara pero quedó en un susto.",
+        "Entre los asistentes volvió a estar el hospitalero y peregrino madrileño Jesús Saiz, de 84 años, coronel retirado del Ejército, que destacó la parte espiritual del Camino. La peregrina más veterana del encuentro fue una madrileña de 86 años."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Taller de creación artística para mayores de 60 años en Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17714/taller-de-creacion-artistica-para-mayores-de-60-anos-en-sahagun",
+    "published_at": "2026-10-26",
+    "detected_at": "2026-10-26T12:55:47.727934+00:00",
+    "hash": "30a2d83c2f4f2ce4de55d236911292660161784d68ec572e54f347b183ed5fba",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Un taller de creación artística para mayores de 60 años en Sahagún",
+      "entradilla": "El Centro de Desarrollo Rural ETC-780 de Sahagún organiza cuatro sesiones en noviembre y diciembre pensadas como espacio de encuentro y ocio para personas mayores de 60 años.",
+      "cuerpo": [
+        "El ETC-780 de Sahagún acoge un taller de creación artística dirigido a mayores de 60 años, planteado como un rato de desconexión y para fomentar las relaciones entre los participantes. Según informa Sahagún Digital, las sesiones combinan dinámicas teatrales, juegos y ejercicios enfocados al bienestar.",
+        "Serán cuatro jornadas, todas en jueves: el 12, el 19 y el 26 de noviembre, y el 3 de diciembre. El horario será de 11:00 a 13:00 en el propio centro.",
+        "Quien quiera apuntarse puede hacerlo de forma presencial en el ETC-780, preguntando por Esther o Sergio. Desde la organización piden inscribirse con tiempo, ya que el taller se hará solo si se reúne un grupo mínimo de personas.",
+        "La actividad la organiza el Colectivo para el Desarrollo Rural de Tierra de Campos, con cofinanciación de la Junta de Castilla y León y la colaboración de la Fundación 'la Caixa' y el Ayuntamiento."
+      ]
+    }
+  },
+  {
     "municipality_slug": "riberos-de-la-cueza",
     "municipality_name": "Riberos de la Cueza",
     "title": "Cerrada una iglesia de Palencia por el derrumbe de parte de una bóveda",
