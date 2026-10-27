@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "El Aula de la Uned de Sahagún invita a explorar el mundo de las emociones",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17718/el-aula-de-la-uned-de-sahagun-invita-a-explorar-el-mundo-de-las-emociones",
+    "published_at": "2026-10-27",
+    "detected_at": "2026-10-27T12:03:03.068177+00:00",
+    "hash": "61371a53560ed4dd60d381283fc736023fef97ffe99612dcb67dbe284e9b7906",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Aula de la UNED en Sahagún organiza una charla sobre emociones",
+      "entradilla": "La psicóloga Ana Casis García hablará el 10 de noviembre sobre las emociones básicas y cómo reconocer lo que hay detrás de nuestras reacciones. La entrada es gratuita.",
+      "cuerpo": [
+        "El Aula de la UNED de Sahagún ha preparado una jornada para entender el mundo emocional y aprender a identificar qué sentimos y por qué reaccionamos como lo hacemos en el día a día. Lleva por título 'El impulso invisible: la fuerza que nos mueve'.",
+        "Según informa Sahagún Digital, la ponencia correrá a cargo de la psicóloga Ana Casis García, que abordará las emociones básicas y su función adaptativa. La idea de fondo es que las emociones no son algo que haya que corregir, sino parte de cómo interpretamos lo que nos pasa y tomamos decisiones.",
+        "La cita será el 10 de noviembre, de 19:30 a 21:00 horas, y está abierta a todos los públicos. La participación es gratuita y se puede seguir de forma presencial, en el Aula UNED de Sahagún, en el Centro de Desarrollo ETC-780, o por internet.",
+        "Las inscripciones pueden hacerse en la propia aula."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "El Ayuntamiento de Almanza exige a Correos la recuperación “inmediata” del reparto",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17717/el-ayuntamiento-de-almanza-exige-a-correos-la-recuperacion-inmediata-del-reparto",
+    "published_at": "2026-10-27",
+    "detected_at": "2026-10-27T12:02:50.499743+00:00",
+    "hash": "eff823031ea5127cb804fb9ce887668cf8374728c946aa1d549d7245cb1ac7b6",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza pide a Correos que vuelva a repartir el correo tras quedarse sin cartero",
+      "entradilla": "El Ayuntamiento reclama la recuperación inmediata del reparto postal ante la falta de cartero y la acumulación de cartas sin entregar en el municipio.",
+      "cuerpo": [
+        "El Ayuntamiento de Almanza ha exigido a Correos que recupere cuanto antes el reparto de correspondencia en el municipio. Según informa Sahagún Digital, el Consistorio denuncia que ahora mismo no hay cartero y que las cartas se están acumulando en las dependencias centrales de la empresa, según los datos de los que dispone.",
+        "El Ayuntamiento advierte de que esta situación deja a los vecinos de Almanza y de sus pueblos sin un servicio postal con normalidad. Señala que el retraso puede afectar sobre todo a las personas mayores y causar problemas cuando se trata de documentación administrativa, bancaria o sanitaria que llega fuera de plazo.",
+        "El Consistorio sostiene que la falta de personal no puede acabar en la interrupción de un servicio esencial. Por eso pide a Correos que cubra el servicio de forma inmediata, que reparta con urgencia el correo acumulado y que dé una explicación oficial sobre qué ha pasado y en qué plazos piensa resolverlo, además de medidas para que no se repita.",
+        "En su comunicado, el Ayuntamiento enmarca la reivindicación en la idea de que vivir en el medio rural no debe suponer tener menos servicios. \"No pedimos privilegios: exigimos que se preste un servicio esencial con normalidad y respeto hacia nuestros vecinos\", afirma, y cierra con una petición directa: \"Queremos soluciones, no más cartas sin repartir\"."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villalon-de-campos",
     "municipality_name": "Villalón de Campos",
     "title": "Villalón de Campos vuelve a ser la capital del Camino de Madrid",

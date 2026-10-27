@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villoldo — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Villoldo, Tierra de Campos.">
+<meta name="description" content="En Villoldo ahora mismo anda en 17 grados y nublado. Subirá poco, hasta los 19 de máxima, y por la noche bajará bastante — rondará los 3. No lluvia a ">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/villoldo">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/villoldo","url":"https://www.elterracampino.es/municipio/villoldo","name":"Villoldo — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/villoldo#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/villoldo#lugar","name":"Villoldo","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Villoldo","item":"https://www.elterracampino.es/municipio/villoldo"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/villoldo","url":"https://www.elterracampino.es/municipio/villoldo","name":"Villoldo — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/villoldo#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/villoldo#lugar","name":"Villoldo","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Palencia"}],"geo":{"@type":"GeoCoordinates","latitude":42.24782,"longitude":-4.59592}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Villoldo","item":"https://www.elterracampino.es/municipio/villoldo"}]}]}</script>
 <link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="../assets/favicon-192.png" type="image/png" sizes="192x192">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villoldo</h1>
-  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>Actualizado: 26/10/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Palencia</span><span>Actualizado: 27/10/2026</span></div>
   
 </div></section>
 
@@ -64,12 +64,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Villoldo</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Villoldo</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Villoldo: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villoldo: 17° y nublado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">17°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.24782&longitude=-4.59592&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Villoldo ahora mismo anda en 17 grados y nublado. Subirá poco, hasta los 19 de máxima, y por la noche bajará bastante — rondará los 3. No lluvia a la vista, aunque haya nubes, y el viento será flojo, rondando los 11 kilómetros por hora. Mañana seguirá nublado y sin cambios importantes de temperatura.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles nublado con viento moderado</h4>
+      <p class="tc-day-texto">El cielo se mantiene cubierto en toda la jornada, con máximas de 18° y mínimas de 6°. El viento sopla a 20 km/h, lo que le dará un carácter más frío al día.</p>
+      <span class="tc-day-temp tc-data">18° <span class="tc-day-min">6°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves en calma, algo más cálido</h4>
+      <p class="tc-day-texto">Jornada nublada pero sin lluvia y con vientos débiles de 7 km/h. La máxima sube hasta 19°, aunque la mínima baja considerablemente hasta los 2°.</p>
+      <span class="tc-day-temp tc-data">19° <span class="tc-day-min">2°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes nublado y tranquilo</h4>
+      <p class="tc-day-texto">El tiempo se mantiene estable sin precipitaciones y con cielo cubierto. Máxima de 17° y mínima de 7°, con vientos flojos de 12 km/h.</p>
+      <span class="tc-day-temp tc-data">17° <span class="tc-day-min">7°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villoldo incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
