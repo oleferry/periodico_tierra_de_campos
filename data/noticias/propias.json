@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Grajal de Campos interpela... ¿truco o trato?",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17728/grajal-de-campos-interpela-truco-o-trato",
+    "published_at": "2026-10-28",
+    "detected_at": "2026-10-28T12:43:53.605410+00:00",
+    "hash": "5c8fb8fa28fe7a8440aa5d2d5925652234727d05010f40681657c1ec8e204bc9",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Grajal de Campos llena el 31 de octubre con Halloween infantil, una comida solidaria y teatro histórico",
+      "entradilla": "El pueblo tiene preparado un viernes con varias citas a la vez: actividades para niños, una comida para arreglar la iglesia de San Miguel y la recreación de la muerte de Raimundo de Borgoña en el Palacio de los Condes.",
+      "cuerpo": [
+        "La tarde de Halloween en Grajal está pensada para los más pequeños. Según informa Sahagún Digital, habrá talleres infantiles, el tradicional 'truco o trato' por las calles al caer el sol y, a las ocho de la tarde, chocolate con bizcochos en los locales del Ayuntamiento. Para apuntar a los niños hay que llamar antes al 681 197 788. Organizan el Centro de Iniciativas Turísticas El Palacio, el Ayuntamiento y la Comisión de Fiestas, con patrocinio de Supermercados Lupa.",
+        "Ese mismo día, a las 14:30, la asociación Virgen de las Puertas celebra una comida solidaria en el Palacio de los Condes, con menú marinero a 12 euros. Lo recaudado irá íntegro a reparar la cubierta de la iglesia de San Miguel. Después del almuerzo, la Comisión de Fiestas pone un bingo.",
+        "El plato fuerte histórico llega por la tarde. La compañía amateur 'Telón Abierto' vuelve a representar las últimas horas de Raimundo de Borgoña, noble de la corte de Alfonso VI y conde de Grajal, que murió en el pueblo en 1107. El montaje usa el propio palacio como escenario, con teatro, proyecciones y sonido.",
+        "Habrá tres pases, a las 19:00, 19:30 y 20:00, con plazas muy limitadas, según detalla Sahagún Digital. La entrada incluye una copa de vino y algo de picar. Las reservas se hacen en el 628 510 242 o directamente en el Palacio de los Condes, de miércoles a domingo."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Ocho siglos de nombres: así aparecían Sahagún y los pueblos de su entorno en los documentos medievales",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17724/ocho-siglos-de-nombres-asi-aparecian-sahagun-y-los-pueblos-de-su-entorno-en-los-documentos-medievales",
+    "published_at": "2026-10-28",
+    "detected_at": "2026-10-28T12:43:31.448941+00:00",
+    "hash": "78fceece399c60d2473f6814885d7b362338c8f4a375296f8ca257f98331c931",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún aparece escrito de 22 formas distintas en documentos medievales del monasterio",
+      "entradilla": "Un estudio filológico ha analizado 329 formas de nombres de lugar en pergaminos redactados entre 1211 y 1250, y el topónimo de la villa es el que más variantes presenta.",
+      "cuerpo": [
+        "Los pueblos de la comarca de Sahagún ya figuraban por escrito hace ocho siglos, y no siempre con el nombre que tienen hoy. Así lo muestra un trabajo de la filóloga Clara E. Prieto Entrialgo, publicado en la revista científica Scriptum Digital y del que informa Sahagún Digital.",
+        "La investigación parte de 28 documentos originales del monasterio de Sahagún y su entorno, de los que se han extraído 329 formas de nombres de lugar. Entre ellos aparecen localidades reconocibles todavía hoy, aunque hayan cambiado mucho: Valdavida se escribía Ualdauida, Villapeceñil como Uilla pecenjn, Codornillos como cornudiellos y Villazanzo de Valderaduey como Uilla zand. También figuran Grajal de Campos, Bercianos y otros pueblos del entorno.",
+        "El caso más llamativo es el de la propia villa. El nombre de Sahagún sale 43 veces y lo hace con 22 formas gráficas distintas: San Fagund, Sant Fagund, Sandfagund, Sanfagund o sant ffagunt, entre otras. Según recoge el estudio, ningún otro topónimo junta tanta frecuencia y variedad: Castilla presenta cinco formas en 17 menciones, Carrión de los Condes seis en ocho, y León siete en quince.",
+        "La autora aclara que no se trata de que los escribanos escribieran mal. En el siglo XIII no había una ortografía fija, y en los documentos convivían distintas tradiciones de escritura. Algunas diferencias son solo de grafía; otras podrían reflejar maneras distintas de pronunciar, aunque no siempre puede saberse con seguridad.",
+        "El trabajo sitúa Sahagún en una zona de contacto entre el asturleonés y el castellano. Un ejemplo: la f- inicial latina, que hoy ha desaparecido en nombres como Sahagún, Herrera, Sahelices o Villalcón, se mantenía en los pergaminos en formas como san fagun o ujlla falcon. En total, la documentación recoge 112 referentes geográficos, sobre todo de Tierra de Campos, aunque más de la mitad aparecen una sola vez y algunos ya no pueden identificarse con seguridad."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "El Aula de la Uned de Sahagún invita a explorar el mundo de las emociones",
