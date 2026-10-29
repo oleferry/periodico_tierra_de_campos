@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza pone en el mercado 13 parcelas de su polígono industrial",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17745/almanza-pone-en-el-mercado-13-parcelas-de-su-poligono-industrial",
+    "published_at": "2026-10-29",
+    "detected_at": "2026-10-29T12:53:25.010157+00:00",
+    "hash": "de4dad02ccdc852132ac81772bde7e79f13b6c8a2fe5796f0b51eb0e98832746",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza saca a la venta 13 parcelas de su polígono industrial",
+      "entradilla": "El Ayuntamiento ha abierto el plazo para vender 13 parcelas de uso industrial, valoradas en conjunto en 348.608 euros, según informa Sahagún Digital.",
+      "cuerpo": [
+        "El Ayuntamiento de Almanza ha puesto en marcha la venta de 13 parcelas de su polígono industrial, con una superficie total de 20.502 metros cuadrados. El anuncio del concurso se publicó este jueves en el Boletín Oficial de la Provincia de León, después del acuerdo que tomó el Pleno el 8 de septiembre.",
+        "Las parcelas, que llevan los números 2 al 9 y del 11 al 15, tienen tamaños que van de los 1.382 a los 2.065 metros cuadrados. La más pequeña, la número 2, está valorada en 22.112 euros, y la número 12 es la más cara, con 33.040 euros. La mayoría se mueve entre los 22.000 y los 31.000 euros, según detalla Sahagún Digital. El polígono está al sur del pueblo, a la izquierda de la carretera LE-232 hacia Sahagún.",
+        "El alcalde, Javier Santiago Vélez, ha confirmado que el plazo ya está abierto. Los interesados tienen diez días hábiles para presentar sus ofertas, que deben entregarse en mano en las oficinas municipales, en la avenida Europa número 33. El pliego de condiciones puede consultarse allí mismo y en la sede electrónica del Ayuntamiento.",
+        "La apertura de las ofertas se hará tres días hábiles después de que acabe el plazo. Los terrenos forman parte del patrimonio municipal de suelo y están destinados a actividades industriales."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "vallecillo",
+    "municipality_name": "Vallecillo",
+    "title": "Vallecillo desafía al miedo con un hospital maldito, magosto y queimada",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17746/vallecillo-desafia-al-miedo-con-un-hospital-maldito-magosto-y-queimada",
+    "published_at": "2026-10-29",
+    "detected_at": "2026-10-29T12:53:13.829662+00:00",
+    "hash": "b224377ab230083a380fccc2ffbfc35f4caeb748b8e8fc6bae5c2938162ea2c5",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Vallecillo une Halloween y magosto en un fin de semana de terror y tradición",
+      "entradilla": "La asociación Fuente del Olmo organiza para el 31 de octubre y el 1 de noviembre un pasaje del terror, concurso de disfraces, magosto y queimada en la localidad.",
+      "cuerpo": [
+        "El sábado 31 de octubre arranca el programa en la plaza del pueblo. Según informa Sahagún Digital, a las cinco de la tarde se reunirán los participantes para un paseo terrorífico por las calles de Vallecillo.",
+        "A las 18:30 el protagonismo se traslada a la Casa Playa, que para la ocasión se convierte en un 'hospital maldito' a modo de pasaje del terror. La tarde se completa con una merienda y un concurso de disfraces con premios a los atuendos más originales.",
+        "El domingo el plan cambia de registro. En las antiguas escuelas se celebrará un magosto a partir de las siete de la tarde, y a las 20:30 habrá degustación de queimada.",
+        "Las citas del domingo son gratuitas para los socios de la asociación. Quienes no lo sean tendrán que abonar cinco euros, según detalla el medio."
+      ]
+    }
+  },
+  {
     "municipality_slug": "grajal-de-campos",
     "municipality_name": "Grajal de Campos",
     "title": "Grajal de Campos interpela... ¿truco o trato?",

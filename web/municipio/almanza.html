@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Almanza — El Terracampino</title>
-<meta name="description" content="En Almanza ahora mismo tenemos 15 grados y cielo limpio. La máxima de hoy no llegará a los 17, y por la noche bajaremos hasta los 5 — abrígate bien si">
+<meta name="description" content="Noticias y tiempo de Almanza, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/almanza">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/almanza","url":"https://www.elterracampino.es/municipio/almanza","name":"Almanza — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/almanza#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/almanza#lugar","name":"Almanza","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de León"}],"geo":{"@type":"GeoCoordinates","latitude":42.65825,"longitude":-5.0362}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Almanza","item":"https://www.elterracampino.es/municipio/almanza"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Almanza</h1>
-  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 28/10/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de León</span><span>Actualizado: 29/10/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/almanza.jpg" alt="Almanza" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:2017_Puente_de_Almanza_sobre_el_río_Cea._León_(2).jpg" target="_blank" rel="noopener">LOBO QUIRCE</a>,
@@ -68,53 +68,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Almanza: 15° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">15°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.65825&longitude=-5.0362&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">En Almanza ahora mismo tenemos 15 grados y cielo limpio. La máxima de hoy no llegará a los 17, y por la noche bajaremos hasta los 5 — abrígate bien si sales al atardecer. No hay lluvia a la vista, y el viento es flojo. Mañana se nublará un poco, pero seguiremos sin agua.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Jueves</span>
-      <h4 class="tc-day-titular">Jueves nublado y seco</h4>
-      <p class="tc-day-texto">Nubes sin lluvia en la jornada, con máxima de 18° y mínima de 3°. Viento flojo de 9 km/h que no causará molestias.</p>
-      <span class="tc-day-temp tc-data">18° <span class="tc-day-min">3°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes mantiene la estabilidad</h4>
-      <p class="tc-day-texto">Sigue nublado pero sin precipitaciones, con temperaturas parecidas al jueves: 18° de máxima y 4° de mínima. Viento en los mismos términos, 9 km/h.</p>
-      <span class="tc-day-temp tc-data">18° <span class="tc-day-min">4°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado se abre el cielo</h4>
-      <p class="tc-day-texto">Casi despejado y sin lluvia, con máxima de 19° y mínima de 5°. Viento algo más fuerte en 11 km/h, pero dentro de lo normal.</p>
-      <span class="tc-day-temp tc-data">19° <span class="tc-day-min">5°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Almanza</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Almanza</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Almanza: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Almanza incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -122,7 +81,12 @@
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     <h2 class="tc-block-title">Lo que pasa en Almanza</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="../noticia/eff823031ea5127c.html" target="_self">
+      <div class="tc-news-grid"><a class="tc-news" href="../noticia/de4dad02ccdc8521.html" target="_self">
+      <span class="tc-news-kicker">Sahagún Digital · 2026-10-29</span>
+      <span class="tc-news-titular">Almanza saca a la venta 13 parcelas de su polígono industrial</span>
+      <span class="tc-news-entradilla">El Ayuntamiento ha abierto el plazo para vender 13 parcelas de uso industrial, valoradas en conjunto en 348.608 euros, según informa Sahagún Digital.</span>
+      <span class="tc-news-more">Leer la noticia completa →</span>
+    </a><a class="tc-news" href="../noticia/eff823031ea5127c.html" target="_self">
       <span class="tc-news-kicker">Sahagún Digital · 2026-10-27</span>
       <span class="tc-news-titular">Almanza pide a Correos que vuelva a repartir el correo tras quedarse sin cartero</span>
       <span class="tc-news-entradilla">El Ayuntamiento reclama la recuperación inmediata del reparto postal ante la falta de cartero y la acumulación de cartas sin entregar en el municipio.</span>
