@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "villalan-de-campos",
+    "municipality_name": "Villalán de Campos",
+    "title": "Villalán de Campos presenta en Madrid el Día de la Gaseosa",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/villalan-campos-presenta-madrid-dia-gaseosa-20261028184410-nt.html",
+    "published_at": "2026-10-29",
+    "detected_at": "2026-10-30T12:45:17.784157+00:00",
+    "hash": "1a1d708d27b9508bbef86696523c5ec518c492178c0419546c7761c2925cfa50",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La gaseosa lleva a Villalán de Campos hasta el encuentro anual del sector en Madrid",
+      "entradilla": "El alcalde, Ignacio Sánchez, y el humorista Leo Harlem participaron en la reunión de la Asociación de Bebidas Refrescantes, que invitó al pueblo tras sus dos ediciones del Día de la Gaseosa.",
+      "cuerpo": [
+        "El empeño de Villalán de Campos por reivindicar la gaseosa ha tenido premio: la Asociación de Bebidas Refrescantes invitó al pueblo a su encuentro anual en Madrid. Allí acudieron el alcalde, Ignacio Sánchez, y el humorista Leo Harlem, padrino de las dos jornadas que la localidad celebró en los veranos de 2025 y 2026. Lo cuenta El Norte de Castilla.",
+        "El regidor intervino en una mesa redonda sobre lo que supone esta industria para los municipios y aprovechó para invitar al sector a una nueva edición del Día de la Gaseosa en 2027, otra vez con Leo Harlem al frente. La propuesta, según el diario, fue bien recibida, con la idea de ampliar contenidos y la posibilidad de crear una \"casita de la gaseosa\" ligada a la recuperación de una pequeña biblioteca en la plaza.",
+        "Leo Harlem cerró el encuentro recordando el crecimiento de la cita: de medio centenar de personas en la primera edición a más de doscientas en la segunda. En la jornada participaron representantes de la industria, expertos y responsables municipales para hablar de los retos del sector y del consumo.",
+        "El equipo organizador también visitó en Madrid el Ministerio de Asuntos Exteriores, desde donde se tramitará la solicitud a la ONU para declarar un Día Internacional de la Gaseosa, una gestión que arrancó el año pasado. Sánchez habló de \"canalizar esta propuesta utópica\" y de complementarla con actividades culturales y de desarrollo en el medio rural."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "ampudia",
+    "municipality_name": "Ampudia",
+    "title": "El Castillo de Ampudia viajará por toda España en un cupón de la ONCE",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/castillo-ampudia-viajara-espana-cupon-once-20261029161021-nt.html",
+    "published_at": "2026-10-29",
+    "detected_at": "2026-10-30T12:45:02.329629+00:00",
+    "hash": "a79b0f4049094a264c86d84af11528b523b5cd2311de1e8e1167420ecff6a068",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Castillo de Ampudia protagoniza el cupón de la ONCE del 3 de noviembre",
+      "entradilla": "Cinco millones de cupones llevarán por toda España la imagen de la fortaleza medieval palentina el próximo martes.",
+      "cuerpo": [
+        "La fortaleza de Ampudia tendrá su minuto de fama nacional el martes 3 de noviembre. Ese día, el cupón de la ONCE reproducirá el castillo del siglo XV, que llegará a toda España a través de cinco millones de boletos. Así lo informa El Norte de Castilla.",
+        "El cupón se presentó este jueves en el propio castillo. Al acto acudieron la directora de la ONCE en Palencia, Alejandra Rodríguez Gutiérrez; la vicepresidenta del Consejo Territorial en Castilla y León, María Luz Hernández Benito; la presidenta de la Fundación, María Teresa Berthet Monet; el patrono de la fundación, Eugenio Fontaneda Berthet, y la concejala de Educación, Sanidad, Mayores y Desarrollo Local del Ayuntamiento de Ampudia, Tamara Gil Sanfrutos.",
+        "El castillo se levantó entre 1461 y 1488 por encargo de García López de Ayala, señor de Ayala y Salvatierra. Uno de sus propietarios, el Conde de Salvatierra Pedro de Ayala, participó en la causa comunera y en la Batalla de Ampudia. Tras la derrota comunera, en 1522, el emperador llegó a confiscar la fortaleza, aunque poco después la devolvió a la familia.",
+        "Es un edificio de planta trapezoidal, con cuatro torres cuadradas en las esquinas, foso con puente levadizo y un muro de barbacana con torres cilíndricas. Luce hoy un buen estado tras la restauración que impulsó Eugenio Fontaneda, quien instaló allí su colección de arte y antigüedades. Fallecido en 1991, su familia creó después una fundación para gestionar el castillo y la colección y velar por su conservación.",
+        "La ONCE dedicará además el cupón del miércoles 4 de noviembre al Día Internacional de las Personas Cuidadoras, también con cinco millones de boletos, para reconocer la labor de quienes cuidan a personas mayores con discapacidad visual."
+      ]
+    }
+  },
+  {
     "municipality_slug": "almanza",
     "municipality_name": "Almanza",
     "title": "Almanza pone en el mercado 13 parcelas de su polígono industrial",
