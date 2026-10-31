@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "villamoronta",
+    "municipality_name": "Villamoronta",
+    "title": "Regantes de Palencia firman convenios con Seiasa y la Junta para modernizar sus canales",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/regantes-palencia-firman-convenios-seiasa-junta-modernizar-20261027162613-nt.html",
+    "published_at": "2026-10-27",
+    "detected_at": "2026-10-31T12:17:26.097311+00:00",
+    "hash": "a7a087277fc436debb519557776e078d43c02eedb202bb7210283a45c6711dba",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "77 millones para modernizar el riego en tres comunidades de regantes de León, Zamora y Palencia",
+      "entradilla": "La comunidad de las Vegas de Saldaña-Carrión y Villamoronta es una de las tres que firmó este martes los acuerdos con la Junta y Seiasa para renovar sus infraestructuras de riego.",
+      "cuerpo": [
+        "Tres comunidades de regantes adscritas a Ferduero firmaron este martes en Hospital de Órbigo (León) sendos acuerdos con la Junta de Castilla y León y con la Sociedad Mercantil Estatal de Infraestructuras Agrarias (Seiasa) para modernizar 15.400 hectáreas de regadío en León, Zamora y Palencia. La inversión total es de 77 millones de euros y, según recoge El Norte de Castilla, beneficiará a unos 1.500 propietarios.",
+        "Una de las implicadas es la Comunidad de Regantes de las Vegas de Saldaña-Carrión y Villamoronta, que acomete su Fase III. La actuación abarca 2.021 hectáreas en los municipios palentinos de Pedrosa de la Vega, Saldaña, Santervás de la Vega y Villaluenga de la Vega, con 450 regantes beneficiados y una inversión de 31,3 millones de euros (IVA incluido).",
+        "En esa fase se sustituirá la actual red de acequias por una red de riego presurizada con hidrantes y sistemas de telecontrol, y se añadirán infraestructuras como obras de toma, estaciones de filtrado, balsas, bombeo, instalaciones eléctricas o plantas solares.",
+        "Los otros dos acuerdos corresponden a la Fase I del Canal del Esla, con casi 11.000 hectáreas en León y Zamora y una inversión de 18 millones, y a la Fase II de los Canales del Bajo Carrión, en Palencia, con 2.400 hectáreas y 28,4 millones, según los datos que facilita la Junta.",
+        "A la firma asistieron el consejero de Agricultura, Joaquín Antonio Pino; el presidente de Seiasa, Francisco Rodríguez Mulero, y el presidente de Ferduero, Eloy Báilez Lobato, en presencia del delegado del Gobierno en Castilla y León, Nicanor Sen."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "carrion-de-los-condes",
+    "municipality_name": "Carrión de los Condes",
+    "title": "Carrión de los Condes estrena una pista de tenis en el complejo deportivo",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/carrion-condes-estrena-pista-tenis-complejo-deportivo-20261028204757-nt.html",
+    "published_at": "2026-10-28",
+    "detected_at": "2026-10-31T12:17:10.669822+00:00",
+    "hash": "3aba2da4328a99224e55a405342cedd8e2997bdead6bf331483f3f4839236c38",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Carrión de los Condes estrena pista de tenis en el complejo deportivo municipal",
+      "entradilla": "El Ayuntamiento ha abierto una nueva pista con medidas federativas y anuncia más mejoras en el polideportivo para los próximos meses.",
+      "cuerpo": [
+        "Carrión de los Condes ya tiene una nueva pista de tenis en su complejo deportivo municipal. La instalación cuenta con medidas federativas, un pavimento antideslizante de color azul y su red, según informa El Norte de Castilla.",
+        "El alcalde, Luis Miguel Medina, explicó en un comunicado del Ayuntamiento que la pista responde a un compromiso con los vecinos y al aumento del interés por este deporte en el municipio en los últimos tiempos. Insistió en la idea de que los carrioneses puedan hacer deporte sin tener que desplazarse a otras localidades.",
+        "El consistorio adelanta que esta pista es solo el principio de una serie de actuaciones previstas en el polideportivo durante los próximos meses. Las obras afectarán a los vestuarios, la pista de juego y la cubierta, y también se digitalizará el sistema de acceso a la instalación.",
+        "La concejala de Deportes, María Pastor, señaló que la nueva pista responde a una demanda que venían detectando y avanzó que el trabajo seguirá con las mejoras anunciadas en el polideportivo."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villalan-de-campos",
     "municipality_name": "Villalán de Campos",
     "title": "Villalán de Campos presenta en Madrid el Día de la Gaseosa",
