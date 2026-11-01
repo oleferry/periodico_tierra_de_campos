@@ -1,5 +1,33 @@
 [
   {
+    "municipality_slug": "pozuelo-de-la-orden",
+    "municipality_name": "Pozuelo de la Orden",
+    "title": "Vecinos de Tordehumos constituyen la Asociación Salvemos Tierra de Campos para frenar la planta de biometano",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/vecinos-tordehumos-constituyen-asociacion-salvemos-tierra-campos-20261025181645-nt.html",
+    "published_at": "2026-10-25",
+    "detected_at": "2026-11-01T13:14:34.038010+00:00",
+    "hash": "b544537ae61d167336250cf1782aee2ba350fcb4d452aa8d69e3e79cdb11fc29",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Nace la asociación Salvemos Tierra de Campos para frenar la macroplanta de biometano de Tordehumos",
+      "entradilla": "Vecinos de Tordehumos, Pozuelo de la Orden, Cabreros del Monte y otros pueblos de la comarca constituyeron el pasado sábado un colectivo para oponerse al proyecto de planta de residuos y biometano previsto en Tordehumos.",
+      "cuerpo": [
+        "Un centenar de vecinos de pueblos de la zona se juntaron el sábado en el centro cultural San Miguel de Tordehumos para poner en marcha la asociación Salvemos Tierra de Campos. Así lo recoge El Norte de Castilla, que detalla que en el acto se leyó un manifiesto contra lo que describen como la mayor amenaza para la comarca: el proyecto de una planta de gestión de residuos y producción de biometano en el término municipal de Tordehumos.",
+        "Según el mismo medio, el manifiesto reivindica el territorio como hogar y patrimonio, y defiende que estos pueblos \"no son solares vacíos ni vertederos industriales\". El texto carga contra el proyecto al considerarlo pura especulación de fondos de inversión y multinacionales energéticas, y acusa al Ayuntamiento de Tordehumos y a su alcalde de facilitar la instalación y de haber ocultado información al vecindario, incumpliendo las obligaciones de publicidad del expediente.",
+        "El portavoz del colectivo, Virgilio Maraña, explicó a El Norte de Castilla que los próximos pasos pasan por dar visibilidad a la asociación, trasladar sus protestas a todos los niveles y emprender acciones legales. Según indicó, se está a la espera de la resolución de la Junta de Castilla y León sobre la autorización ambiental integrada y de que la Comisión de Urbanismo se pronuncie sobre el uso industrial en suelo rústico. Maraña aclaró que no se oponen a este tipo de instalaciones, sino que reclaman que se hagan con un plan ordenado.",
+        "El proyecto lo ha presentado la sociedad Capwatt Biometano ESP4, S.L. para las parcelas 74 y 98 del polígono 1 de Tordehumos, muy cerca de Cabreros del Monte, Pozuelo de la Orden y Cotanes del Campo. Hace dos meses se abrió una recogida de firmas en change.org que ya suma 2.755 apoyos y en la que se enumeran posibles afecciones como el aumento del tráfico pesado, los olores, las emisiones, el riesgo para los recursos hídricos, el impacto en el paisaje y la fauna, o la gestión de los subproductos."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villamoronta",
     "municipality_name": "Villamoronta",
     "title": "Regantes de Palencia firman convenios con Seiasa y la Junta para modernizar sus canales",
