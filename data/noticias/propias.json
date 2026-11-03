@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza prepara un fin de semana del campo a la cazuela",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17744/almanza-prepara-un-fin-de-semana-del-campo-a-la-cazuela",
+    "published_at": "2026-11-03",
+    "detected_at": "2026-11-03T14:04:30.077760+00:00",
+    "hash": "76007f0e381718f24466fbd9a961fef87154bead905d9576bae1d1658c2171ef",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza celebra la undécima edición de MicoAlmanza del 6 al 8 de noviembre",
+      "entradilla": "El encuentro micológico vuelve con salida al campo, charlas y una feria de la tapa de setas que implica a la hostelería local durante todo el fin de semana.",
+      "cuerpo": [
+        "Almanza prepara una nueva edición de MicoAlmanza, que este año cumple once ediciones. Según informa Sahagún Digital, el programa combina actividades formativas, una salida al campo y propuestas gastronómicas pensadas para todos los públicos.",
+        "El grueso de las actividades divulgativas se concentra el sábado 7 de noviembre en la Casa de la Cultura. Por la mañana habrá una salida micológica guiada al campo de Almanza y, ya por la tarde, se clasificarán las setas recogidas y se analizarán sus características. La jornada se cerrará con la charla 'Las setas más interesantes del Río Cea', a cargo de José María Escapa, presidente de la Asociación Micológica San Jorge.",
+        "En paralelo, la Feria de la Tapa de Setas recorre los bares del pueblo durante todo el fin de semana, desde el viernes por la tarde hasta el domingo. Cada tapa cuesta 2,50 euros y, quienes completen la cartilla, entran en un sorteo de 150 euros.",
+        "Entre las tapas de esta edición hay pimiento relleno de carrilleras con boletus en el Bar Luis, el mico-menú del Bar Universal, un crepe de setas y bacon con crema de boletus en el Bar Jaque y un vol-au-vent de boletus, brie y cebolla caramelizada en el Restaurante La Torre.",
+        "Sahagún Digital añade que el establecimiento Torre de Almanza participa también en las jornadas Buscasetas de Tierra de Sabor, organizadas por la delegación de Castilla y León de Euro-Toques, que este año llegan a su edición número 25 con más de un centenar de establecimientos de la comunidad hasta el 15 de noviembre."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "joarilla-de-las-matas",
+    "municipality_name": "Joarilla de las Matas",
+    "title": "Cristina González del Amo volverá a optar por el PSOE a la Alcaldía de Joarilla de las Matas",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17755/cristina-gonzalez-del-amo-volvera-a-optar-por-el-psoe-a-la-alcaldia-de-joarilla-de-las-matas",
+    "published_at": "2026-11-03",
+    "detected_at": "2026-11-03T14:04:18.104187+00:00",
+    "hash": "eaa9c888214a4404d383c918e51eda3440afdbccd5b642e1d860621fb2db2ec3",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La candidata socialista González del Amo repetirá al frente del PSOE en Joarilla de las Matas en 2027",
+      "entradilla": "La socialista Cristina González del Amo volverá a encabezar la lista del PSOE a la Alcaldía de Joarilla de las Matas en las municipales de 2027, será su tercera candidatura.",
+      "cuerpo": [
+        "Cristina González del Amo repetirá como candidata socialista a la Alcaldía de Joarilla de las Matas en las elecciones de 2027. Según informa Sahagún Digital, será la tercera vez que se presente a la Alcaldía del municipio.",
+        "La propia candidata comunicó la decisión en un mensaje dirigido a los vecinos. En él dice afrontar esta cita con la misma ilusión de siempre, pero sumando la experiencia de los últimos años al frente del proyecto socialista en el pueblo.",
+        "Entre sus prioridades, González del Amo menciona seguir trabajando por Joarilla, escuchar a los vecinos y atender lo que a su juicio todavía queda pendiente. También anima a quien quiera sumarse a la candidatura, aportar ideas o echar una mano a dar el paso.",
+        "Con este anuncio empiezan a conocerse los primeros movimientos de cara a las municipales de 2027, aunque aún faltan meses para la cita electoral y para que las candidaturas queden cerradas."
+      ]
+    }
+  },
+  {
     "municipality_slug": "pozuelo-de-la-orden",
     "municipality_name": "Pozuelo de la Orden",
     "title": "Vecinos de Tordehumos constituyen la Asociación Salvemos Tierra de Campos para frenar la planta de biometano",
