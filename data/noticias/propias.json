@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Representación de Las peras de Dios en Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17767/representacion-de-las-peras-de-dios-en-sahagun",
+    "published_at": "2026-11-04",
+    "detected_at": "2026-11-04T14:24:12.654902+00:00",
+    "hash": "0d402035b6f1e049d2ad3be86f085a29852fae7e06dd027e5eae84969883bc69",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "'Las peras de Dios', un cuento de Antonio Pereira hecho teatro, llega este sábado a Sahagún",
+      "entradilla": "El auditorio municipal acoge el sábado a las 20:00 horas una adaptación del relato del escritor villafranquino, dirigida por el sahagunense Javier Bermejo. La entrada es libre hasta completar aforo.",
+      "cuerpo": [
+        "El sábado 7 de noviembre el auditorio municipal de Sahagún recibe 'Las peras de Dios', una comedia que lleva al escenario uno de los cuentos de Antonio Pereira. El montaje lo dirige Javier Bermejo, natural de Sahagún, y la función empieza a las 20:00 horas con entrada libre hasta llenar el aforo.",
+        "La obra se presentó esta mañana en la villa, según informa Sahagún Digital. En el acto estuvieron Joaquín Otero, sobrino del escritor y responsable de la Fundación Antonio Pereira; Raúl Díez, vinculado a Sahagún y parte del equipo de la producción; y el concejal de Cultura del Ayuntamiento, Ramón Rodríguez de Alaíz. Otero definió el relato como \"Pereira en estado puro\".",
+        "Se trata de una comedia de 70 minutos dividida en cuatro actos, con adaptación de Nuria Rubial. La historia se sitúa en un pueblo berciano a mediados de los años ochenta, cuando una cosecha extraordinaria de fruta obliga a una familia a convivir con ella a todas horas y desata una serie de líos familiares, secretos y tentaciones. Bermejo la describe como una obra \"muy leonesa y muy artesana\".",
+        "El director se encarga también del planteamiento escénico y la iluminación, esta última junto a Raúl Díez, que firma el diseño de sonido y luces. Elsa Pérez es la ayudante de dirección. El reparto lo forman Isabel San Millán, Miguel Barajas, Chiqui Fernández, Nuria Rubial, Sofía García, Iván Caballero, Alberto Iglesias y Aitana Castro.",
+        "La producción, impulsada por la Fundación Antonio Pereira, ya ha pasado por Villafranca del Bierzo, Carrizo de la Ribera, León y La Bañeza antes de recalar en Sahagún."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Excursión a la maragatería desde Grajal de Campos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17769/excursion-a-la-maragateria-desde-grajal-de-campos",
+    "published_at": "2026-11-04",
+    "detected_at": "2026-11-04T14:24:01.647961+00:00",
+    "hash": "d91f0072ac98580fab1d44c97d3cc33f5083a49f4e6b1fd80b9c8d079f47af49",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Grajal de Campos organiza una excursión a Astorga y Santa Colomba de Somoza",
+      "entradilla": "El Centro de Iniciativa Turística El Palacio propone para el 22 de noviembre un viaje cultural y gastronómico dentro del programa de la Diputación 'Un paseo por tu provincia'.",
+      "cuerpo": [
+        "La salida está fijada para el domingo 22 de noviembre a las 8:30 horas desde la localidad, según informa Sahagún Digital. La jornada combina patrimonio histórico y gastronomía, con parada en Astorga por la mañana y en Santa Colomba de Somoza por la tarde.",
+        "En Astorga está prevista una visita guiada a la ruta romana, de hora y media, con dos pases, a las 10:00 y a las 11:30 horas. Después, los participantes comerán en la propia ciudad. El menú hay que elegirlo al inscribirse: de primero, guiso de patatas con calamares o revuelto de jamón de bodega con queso cremoso; de segundo, salmón a la plancha o mini cachopo relleno de jamón, pimiento y queso.",
+        "Por la tarde el grupo se trasladará a Santa Colomba de Somoza, en la comarca maragata, con visitas a la Casa Museo, el Torreón de los Osorio y el espacio cultural Club 45.",
+        "El precio es de 29 euros por persona e incluye el transporte, la comida y la entrada a la ruta romana. Para reservar plaza, la organización facilita dos teléfonos de contacto: 636 682 590 y 655 479 049."
+      ]
+    }
+  },
+  {
     "municipality_slug": "almanza",
     "municipality_name": "Almanza",
     "title": "Almanza prepara un fin de semana del campo a la cazuela",
