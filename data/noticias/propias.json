@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza y Cea recibirán más de medio millón de euros para renovar sus infraestructuras y mejorar los servicios públicos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17775/almanza-y-cea-recibiran-mas-de-medio-millon-de-euros-para-renovar-sus-infraestructuras-y-mejorar-los-servicios-publicos",
+    "published_at": "2026-11-05",
+    "detected_at": "2026-11-05T14:32:22.576278+00:00",
+    "hash": "bbf28004e500f3b204fd438a69069418fc47b30495650dbb37238f9d59fd8656",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza recibe 300.000 euros de la Diputación para obras en el pueblo",
+      "entradilla": "El Pleno de la Diputación de León ha aprobado la primera fase del Plan Provincial de Cooperación Municipal 2026-2027, que deja fondos para Almanza y Cea dentro de la comarca.",
+      "cuerpo": [
+        "Según informa Sahagún Digital, la Diputación ha dado luz verde al reparto de cerca de 3,5 millones de euros para financiar obras en doce ayuntamientos de la provincia. De ese reparto, en nuestra zona salen beneficiados Almanza y Cea.",
+        "Al Ayuntamiento de Almanza le corresponden 300.000 euros, repartidos en cuatro actuaciones. La partida más grande, 117.085,87 euros, irá a pavimentar y reasfaltar viales del municipio. La sexta fase del pabellón polideportivo, centrada en los vestuarios, cuenta con 57.128,92 euros, y las reparaciones e impermeabilización de la piscina suman 53.433,27 euros. Además se destinan 59.332,86 euros a comprar una retroexcavadora mixta para obras.",
+        "En Cea la ayuda asciende a 231.000 euros, que irán íntegros al proyecto de saneamiento y pavimentación en la propia localidad y en los núcleos de Bustillo de Cea y San Pedro de Valderaduey.",
+        "Junto a estos dos ayuntamientos, el plan beneficia en esta primera entrega a otros diez municipios leoneses: Carracedelo, Fuentes de Carbajal, Mansilla Mayor, La Pola de Gordón, La Robla, Vega de Infanzones, Vegacervera, Vegaquemada, Villabraz y Villaquejida."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Sahagún retoma sus domingos de cine",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17777/sahagun-retoma-sus-domingos-de-cine",
+    "published_at": "2026-11-05",
+    "detected_at": "2026-11-05T14:32:09.479192+00:00",
+    "hash": "41806413db1f4578b61a176f706e3c6b45b2079584810a18d19b81ae582eb312",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún recupera el cine en la Casa de la Cultura este domingo",
+      "entradilla": "El Ayuntamiento retoma su ciclo de proyecciones gratuitas con dos pases cada domingo, uno infantil y otro para adultos. La primera sesión es el 8 de noviembre.",
+      "cuerpo": [
+        "El domingo 8 de noviembre vuelve el cine a la Casa de la Cultura de Sahagún. La sesión infantil arranca a las 17:30 horas, según informa Sahagún Digital.",
+        "El ciclo, organizado por el Ayuntamiento para las tardes de invierno, prevé por ahora dos pases semanales los domingos: el de las 17:30 para el público infantil y otro a las ocho de la tarde para adultos.",
+        "Desde el Consistorio apuntan que las proyecciones se programarán todos los domingos y algunos festivos, siempre con entrada gratuita.",
+        "La cartelera se podrá consultar en la propia Casa de la Cultura, en las oficinas municipales o a través del Facebook del Ayuntamiento de Sahagún."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "Representación de Las peras de Dios en Sahagún",
