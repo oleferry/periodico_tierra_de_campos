@@ -1,5 +1,60 @@
 [
   {
+    "municipality_slug": "villabragima",
+    "municipality_name": "Villabrágima",
+    "title": "Villabrágima celebra este fin de semana su XVII Feria del Pincho",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/gastronomia/villabragima-celebra-este-fin-de-semana-su-xvii-feria-del-pincho/",
+    "published_at": "2026-11-06",
+    "detected_at": "2026-11-06T14:10:58.667744+00:00",
+    "hash": "be4502ae63208115b4eb0471c57998cff25d5240711a8edeadee9760c4ae5e63",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villabrágima celebra este fin de semana su XVII Feria del Pincho",
+      "entradilla": "Cinco locales del pueblo participan los días 7 y 8 de noviembre con sus pinchos, y habrá sorteo de un lote de productos cárnicos y música en la madrugada del sábado.",
+      "cuerpo": [
+        "Un fin de semana para ir de pincho en pincho por Villabrágima. La localidad acoge los días 7 y 8 de noviembre la XVII Feria del Pincho, organizada por la Asociación de Bares de Villabrágima con la colaboración del Ayuntamiento, según informa La Mar de Campos.",
+        "En esta edición participan cinco establecimientos: los bares Palacio, Judería y Ursi, el Centro Cultural y la Churrería Eyma, cada uno con su pincho estrella. La idea es que vecinos y visitantes recorran los locales y prueben lo que ofrece la hostelería del pueblo.",
+        "Quienes se animen a degustar los pinchos recibirán un ticket para entrar en el sorteo de un lote de productos cárnicos de Villabrágima. El sorteo se hará al terminar la feria y el resultado se anunciará por redes sociales.",
+        "Para alargar la fiesta, el Centro Cultural acogerá una disco móvil en la madrugada del sábado 7, a partir de la 1.00 horas, patrocinada por los gerentes del establecimiento."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Sahagún acoge un taller gratuito sobre almacenamiento en la nube",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17759/sahagun-acoge-un-taller-gratuito-sobre-almacenamiento-en-la-nube",
+    "published_at": "2026-11-06",
+    "detected_at": "2026-11-06T14:10:47.628419+00:00",
+    "hash": "fd6381f95e5edb823410f85e9ac9e42fb8c013f102d06099345f45e34ae1e263",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún acoge un taller gratuito sobre almacenamiento en la nube",
+      "entradilla": "El curso se impartirá los días 17 y 24 de noviembre en el Centro de Desarrollo ETC-780, dentro del programa de competencias digitales de CyL Digital.",
+      "cuerpo": [
+        "Sahagún tendrá este mes un taller práctico para aprender a manejar el almacenamiento en la nube. Según informa Sahagún Digital, la formación enseñará a guardar, organizar, compartir y acceder a documentos, fotos y archivos desde cualquier dispositivo.",
+        "Las clases se centrarán en plataformas como Google Drive, OneDrive y Dropbox. Se celebrarán los días 17 y 24 de noviembre, de 16:30 a 20:00 horas, en el Centro de Desarrollo ETC-780. Son presenciales y gratuitas, y forman parte del programa de competencias digitales para la ciudadanía de CyL Digital.",
+        "Quien quiera apuntarse o pedir más información puede hacerlo en el teléfono 987 649 121, en el correo ayuda@cyldigital.es o en el teléfono gratuito 900 909 752."
+      ]
+    }
+  },
+  {
     "municipality_slug": "almanza",
     "municipality_name": "Almanza",
     "title": "Almanza y Cea recibirán más de medio millón de euros para renovar sus infraestructuras y mejorar los servicios públicos",
