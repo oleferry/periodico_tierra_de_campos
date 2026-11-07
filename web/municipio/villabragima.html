@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Villabrágima — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Villabrágima, Tierra de Campos.">
+<meta name="description" content="En Villabrágima tenemos ahora 14 grados y el cielo nublado. La máxima no subirá mucho, unos 16, y bajará bastante esta noche hasta los 7. Hay poco rie">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/villabragima">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/villabragima","url":"https://www.elterracampino.es/municipio/villabragima","name":"Villabrágima — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/villabragima#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/villabragima#lugar","name":"Villabrágima","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Valladolid"}],"geo":{"@type":"GeoCoordinates","latitude":41.82178,"longitude":-5.11546}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Villabrágima","item":"https://www.elterracampino.es/municipio/villabragima"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Villabrágima</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 6/11/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>Actualizado: 7/11/2026</span></div>
   
 </div></section>
 
@@ -64,12 +64,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Villabrágima</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Villabrágima</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Villabrágima: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Villabrágima: 14° y nublado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">14°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.82178&longitude=-5.11546&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Villabrágima tenemos ahora 14 grados y el cielo nublado. La máxima no subirá mucho, unos 16, y bajará bastante esta noche hasta los 7. Hay poco riesgo de lluvia hoy, aunque mañana es posible que caiga algo débil. El viento sopla suave, sin darle importancia.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Domingo</span>
+      <h4 class="tc-day-titular">Domingo con posibles gotas</h4>
+      <p class="tc-day-texto">La probabilidad de lluvia es moderada, rondando el 43%, con cantidades mínimas esperadas. Temperaturas suaves entre 8 y 17 grados, con viento de 20 km/h.</p>
+      <span class="tc-day-temp tc-data">17° <span class="tc-day-min">8°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Lunes</span>
+      <h4 class="tc-day-titular">Lunes pasado por agua</h4>
+      <p class="tc-day-texto">La lluvia será más probable y consistente, con probabilidad del 75% y acumulados de casi 10 mm. Sube un poco la temperatura máxima hasta 19 grados, pero arrecian los vientos a 30 km/h.</p>
+      <span class="tc-day-temp tc-data">19° <span class="tc-day-min">13°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Martes</span>
+      <h4 class="tc-day-titular">Martes con chubascos fuertes</h4>
+      <p class="tc-day-texto">Es el día más activo en cuanto a precipitaciones, con 22 mm esperados y probabilidad del 81%. Las temperaturas bajan a máxima de 15 grados y los chubascos llegarán con viento de 24 km/h.</p>
+      <span class="tc-day-temp tc-data">15° <span class="tc-day-min">12°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Villabrágima incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>

@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
+    "title": "Medina de Rioseco y su comarca tendrán una marca territorial",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/medina-rioseco-comarca-marca-territorial-20261106075232-nt.html",
+    "published_at": "2026-11-06",
+    "detected_at": "2026-11-07T12:54:09.126383+00:00",
+    "hash": "79020ab8012ea5eb464a897b270c073c82526be7b24b359e3ed752b2cdd76c74",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Los empresarios de Rioseco y comarca empiezan a construir una marca territorial propia",
+      "entradilla": "La Asociación de Empresarios y Profesionales de Medina de Rioseco y Comarca (Aempryc) ha arrancado el proceso para crear una identidad común que ponga en valor la zona, con el objetivo de presentarla dentro de un año.",
+      "cuerpo": [
+        "La idea es dar a la comarca una marca que identifique y proyecte lo que tiene, tanto en lo empresarial como en lo turístico. El primer paso fue un desayuno informativo con los socios de la asociación, celebrado hace unos días en el Hotel Vittoria Colonna, según informa El Norte de Castilla.",
+        "El proyecto está financiado con fondos Leader y cuenta con la colaboración del Grupo de Acción Local Campos y Torozos, que participa directamente en la gestión. En la marca quieren que estén representadas las empresas de todos los sectores, las instituciones, las asociaciones y los espacios patrimoniales, sociales, culturales y turísticos de la comarca.",
+        "El siguiente paso será escuchar a la propia comarca. Durante los próximos meses, un equipo de la asociación organizará encuentros para recoger el sentir de la gente, y esas aportaciones servirán de base para elaborar la marca.",
+        "El presidente de Aempryc, Francisco de la Iglesia, explicó que la idea es construir juntos un elemento común de pertenencia que proyecte el potencial de la zona y la muestre como un lugar donde desarrollar un proyecto de vida de calidad. La presentación oficial está prevista dentro de un año.",
+        "Aempryc agrupa a empresas de pueblos de Tierra de Campos y Montes Torozos. Nació en 1997 y en 2027 cumplirá treinta años. Actualmente cuenta con más de cien socios de sectores como el comercio, la hostelería, la industria o los servicios."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "ampudia",
+    "municipality_name": "Ampudia",
+    "title": "Urueña y Ampudia toman asiento en la dirección de los pueblos más bonitos de Castilla y León",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/uruena-y-ampudia-toman-asiento-en-la-direccion-de-los-pueblos-mas-bonitos-de-castilla-y-leon/",
+    "published_at": "2026-11-06",
+    "detected_at": "2026-11-07T12:53:55.705519+00:00",
+    "hash": "0a5864bca32698224d64353f3c8f5e7dcf0a02e01fc1eeac5196ae8436144953",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Ampudia entra en la directiva de la nueva asociación de Los Pueblos Más Bonitos de España en Castilla y León",
+      "entradilla": "El alcalde de Ampudia, José Luis Gil Marcos, ocupará una vocalía en la junta directiva de la entidad autonómica recién constituida, que agrupa a 27 municipios de la comunidad.",
+      "cuerpo": [
+        "Ampudia tendrá voz propia en la nueva Asociación de Los Pueblos Más Bonitos de España en Castilla y León. Su alcalde, José Luis Gil Marcos, formará parte de la junta directiva como vocal. Así lo informa La Mar de Campos.",
+        "La entidad se constituyó este jueves en la sede de la Consejería de Cultura, Turismo y Deporte, en un acto en el que el consejero José Alberto Díaz Pico recibió a los alcaldes y representantes de los 27 municipios fundadores. La asamblea eligió como primer presidente a Ramón López Blázquez, del Ayuntamiento de Sepúlveda (Segovia), localidad que acogerá también la sede.",
+        "Además de Ampudia, la junta directiva cuenta con representantes de Ledesma (Salamanca), Urueña (Valladolid), Medinaceli (Soria), Caleruega (Burgos) y Bonilla de la Sierra (Ávila). El alcalde de Urueña, Francisco Rodríguez San José, ejercerá como tesorero.",
+        "La asociación nace para defender los intereses comunes de estos pueblos y promocionar su patrimonio, sus tradiciones y el turismo rural. Según recoge La Mar de Campos, pretende actuar como interlocutora ante la Junta de Castilla y León y las diputaciones en asuntos como la vivienda, el transporte, los servicios públicos, la prevención de incendios o el comercio local.",
+        "Castilla y León cuenta con 31 de los 126 municipios de la red nacional, repartidos por las nueve provincias. De ellos, 27 han participado en la constitución de la nueva entidad autonómica."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villabragima",
     "municipality_name": "Villabrágima",
     "title": "Villabrágima celebra este fin de semana su XVII Feria del Pincho",
