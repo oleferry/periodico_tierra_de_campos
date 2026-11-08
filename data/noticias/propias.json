@@ -2,6 +2,64 @@
   {
     "municipality_slug": "medina-de-rioseco",
     "municipality_name": "Medina de Rioseco",
+    "title": "Medina de Rioseco plantea cuatro proyectos para atraer población, mejorar los cuidados y rehabilitar viviendas",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/medina-de-rioseco-plantea-cuatro-proyectos-para-atraer-poblacion-mejorar-los-cuidados-y-rehabilitar-viviendas/",
+    "published_at": "2026-11-04",
+    "detected_at": "2026-11-08T13:16:28.927260+00:00",
+    "hash": "02064753f51809ece7f9fc2bc9acf4f91b9d2af3507f6334919e368566f1bba0",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Rioseco presenta cuatro proyectos para pedir fondos contra la despoblación y para vivienda",
+      "entradilla": "En el pleno de noviembre, el Ayuntamiento de Medina de Rioseco dio a conocer cuatro iniciativas con las que buscará financiación estatal, autonómica y europea. También se aprobó el nuevo convenio del personal laboral y se sorteó a los miembros de las mesas electorales del 29 de noviembre.",
+      "cuerpo": [
+        "Según informa La Mar de Campos, el consistorio riosecano llevó al pleno ordinario de noviembre cuatro proyectos para los que pedirá ayudas a través de distintas convocatorias. Van desde la lucha contra la despoblación hasta los cuidados a mayores, la mejora de barrios y la rehabilitación de viviendas en el casco histórico.",
+        "Uno de ellos, 'Campos Acoge', se plantea junto a Villagarcía de Campos, Valverde de Campos y Castromonte, con un presupuesto de 336.717 euros. La idea es facilitar la llegada de familias nuevas a Tierra de Campos con una oficina de acogida, acceso a vivienda y la conexión entre quienes buscan trabajo y negocios que necesitan relevo. Contempla al menos 15 viviendas para nuevos pobladores y un servicio de transporte a demanda.",
+        "Otros dos proyectos giran en torno a los cuidados de proximidad y los espacios verdes: 'Medina de Rioseco Cuida', centrado en el bienestar de los mayores, y 'Barrio Jardín Terapéutico', una propuesta europea para estudiar cómo influye el entorno de los barrios en la salud de los vecinos. El cuarto se dirige a la rehabilitación de viviendas en el conjunto histórico, recuperar inmuebles vacíos para alquiler social o asequible y actuar en edificios protegidos, acudiendo a una convocatoria regional ligada al Plan Estatal de Vivienda 2026-2030.",
+        "En la misma sesión se aprobó por unanimidad el nuevo Convenio Colectivo del Personal Laboral del Ayuntamiento, avalado por la mesa negociadora el 15 de octubre y ratificado el 26. El acuerdo actualiza las condiciones laborales y adapta la organización municipal a la normativa vigente. También se hizo el sorteo informático de las mesas electorales para las generales del 29 de noviembre.",
+        "En el apartado de mociones, el grupo popular sacó adelante con seis votos una propuesta para reclamar al Gobierno medidas de apoyo al sector cerealista: un plan frente a la caída de precios y la subida de costes, ayudas directas, mejoras en los seguros agrarios, precios justos para los productores, más control sobre las importaciones y la defensa ante la UE de medidas pensadas para las zonas cerealistas del sur de Europa."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "La Junta enfría el futuro del camping de Sahagún y condiciona cualquier ayuda a que el Ayuntamiento complete los permisos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17765/la-junta-enfria-el-futuro-del-camping-de-sahagun-y-condiciona-cualquier-ayuda-a-que-el-ayuntamiento-complete-los-permisos",
+    "published_at": "2026-11-08",
+    "detected_at": "2026-11-08T13:16:09.385015+00:00",
+    "hash": "0b2493e485059a0f31cb07945d7193da58d358eaecf28f2eccf3cef815b75021",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El camping Pedro Ponce vuelve a las Cortes seis años después de su cierre",
+      "entradilla": "UPL reclamó a la Junta una solución para la vieja instalación turística de Sahagún, pero el consejero de Cultura condicionó cualquier ayuda a que el Ayuntamiento resuelva antes los trámites pendientes.",
+      "cuerpo": [
+        "El futuro del Camping Municipal Pedro Ponce volvió a debatirse este martes en las Cortes de Castilla y León. Según informa Sahagún Digital, la procuradora de Unión del Pueblo Leonés, Rosa Quintanilla, preguntó al Gobierno autonómico por el prometido nuevo camping y pidió una salida para una instalación que durante décadas fue uno de los principales reclamos turísticos de la villa y su comarca.",
+        "El Pedro Ponce abrió en 1986 junto al río Cea y creció con varias ampliaciones, algunas con apoyo económico de la propia Junta. El problema llegó al legalizar la última ampliación: la Confederación Hidrográfica del Duero advirtió de que los terrenos tenían riesgo de inundación, y en 2015 la Junta retiró el número de registro que permitía su funcionamiento. El Ayuntamiento invirtió 120.000 euros en actuaciones sobre el entorno del Cea para evitar desbordamientos, pero no se resolvió nada.",
+        "En 2019 la Junta inadmitió la declaración responsable del Consistorio y abrió un expediente sancionador por apertura ilegal, con una propuesta de multa de 65.001 euros. Aquello obligó a desalojar a las familias que tenían allí sus caravanas y puso fin a más de tres décadas de actividad. El camping lleva cerrado desde 2020.",
+        "Quintanilla recordó que ese año la Junta se comprometió a impulsar un nuevo camping en una ubicación que cumpliera la normativa, y sostuvo que seis años después no se ha hecho nada. UPL pide o bien cambiar la normativa autonómica para que la instalación funcione al menos en las épocas sin riesgo de inundación, o bien que la Junta financie el nuevo proyecto. La procuradora cifró en más de 250.000 euros el beneficio directo que el camping generaba para la comarca.",
+        "La respuesta del consejero de Cultura, Turismo y Deporte, José Alberto Díaz Pico, fue distinta. Aseguró que no consta ninguna solicitud del Ayuntamiento para financiar el camping ni en esta ni en anteriores convocatorias de ayudas, y negó que a la Consejería le conste ninguna promesa. Según recoge Sahagún Digital, situó el siguiente paso en el propio Consistorio: debe conseguir antes los informes y autorizaciones de organismos como Medio Ambiente, Urbanismo y la Confederación. \"Cumplida la legalidad, hablaremos de ayuda\", concluyó. Mientras tanto, Sahagún sigue sin el camping y sin calendario para una solución."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
     "title": "Medina de Rioseco y su comarca tendrán una marca territorial",
     "source_type": "radar_local",
     "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/medina-rioseco-comarca-marca-territorial-20261106075232-nt.html",
