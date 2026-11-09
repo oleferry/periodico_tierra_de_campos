@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "bolanos-de-campos",
+    "municipality_name": "Bolaños de Campos",
+    "title": "Un busto recuerda en Bolaños de Campos a Benita Mendiola y Velasco, la primera alcaldesa de Castilla y León",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/busto-recuerda-bolanos-campos-benita-mendiola-velasco-20261103221536-nt.html",
+    "published_at": "2026-11-03",
+    "detected_at": "2026-11-09T16:05:32.100492+00:00",
+    "hash": "22013d5c7bfa1c2b28b21075001f5490e5d03b2e3b1a06a40cc593fd8cca7ed1",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Bolaños de Campos recupera la memoria de su primera alcaldesa con un busto",
+      "entradilla": "El pueblo ha dedicado un programa conmemorativo a Benita Mendiola y Velasco, maestra y alcaldesa en 1926, considerada la primera mujer documentada al frente de un ayuntamiento en Castilla y León. El acto se clausuró este lunes.",
+      "cuerpo": [
+        "El atrio del Ayuntamiento acogió a media mañana el acto institucional, que terminó con el descubrimiento de un busto en su memoria. Se celebra a pocos días del 27 de octubre, cuando se cumplieron cien años de su toma de posesión como alcaldesa en 1926. Así lo cuenta El Norte de Castilla.",
+        "El busto lo descubrió una vecina octogenaria, la única del pueblo que llegó a conocer a la maestra y alcaldesa. La escultura y la placa son obra de los artesanos riosecanos de Bronces Perero. Al acto asistieron el subdelegado del Gobierno, Jacinto Canales; la delegada territorial, Raquel Alonso; el historiador local José María Collantes, que investigó la figura de la homenajeada, y el alcalde, Alberto Callejo, además de alcaldesas de pueblos de la zona.",
+        "Según recordó el regidor, en una época en la que una mujer al frente de un ayuntamiento era algo excepcional, Benita impulsó iniciativas como una escuela de adultas, una biblioteca rural y el pozo artesiano, que sigue funcionando un siglo después.",
+        "Según recoge El Norte de Castilla, Benita había nacido en Valladolid en 1899 y obtuvo plaza de maestra con 21 años. En 1923 llegó a la escuela de niñas de Bolaños, donde organizó actividades culturales, un grupo de costura y una escuela de adultas por la que pasaron hasta 38 mujeres.",
+        "A finales de 1924 fue nombrada concejala tras el fallecimiento de un edil, lo que provocó la dimisión de casi toda la corporación. En 1926, con 27 años, asumió la alcaldía. Dejó Bolaños en 1929 con destino a Palencia. Tras la Guerra Civil sufrió la depuración del magisterio; fue reintegrada en enero de 1955 y falleció ese mismo año."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "fuentes-de-nava",
+    "municipality_name": "Fuentes de Nava",
+    "title": "Miguel de Santiago regresa al verso para rememorar su infancia",
+    "source_type": "radar_local",
+    "url_original": "https://www.palenciaenlared.es/miguel-de-santiago-regresa-al-verso-para-rememorar-su-infancia/",
+    "published_at": "2026-11-09",
+    "detected_at": "2026-11-09T16:05:15.050139+00:00",
+    "hash": "1e003f41422aeac3555215795f922f5b13645679a7817485b629711701e0d62b",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Palencia en la Red",
+      "fuente_slug": "palenciaenlared",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Miguel de Santiago vuelve al verso con 'La casa', un viaje a su infancia en Fuentes de Nava",
+      "entradilla": "El poeta y sacerdote palentino, nacido en Fuentes de Nava en 1948, publica un nuevo poemario que recorre los rincones y las emociones de su niñez en el pueblo.",
+      "cuerpo": [
+        "Miguel de Santiago regresa al poema versificado con 'La casa', editado por PPC Editorial. Según informa Palencia en la Red, el título alude a la casa de su infancia: los espacios, las sensaciones y las emociones de aquellos años. Llega después de una trilogía en prosa poética formada por 'Hojas de otoño' (2022), 'La música en el alma' (2024) y 'Salmodia en mí. El eco de tu voz' (2025).",
+        "El libro reúne 51 textos, más una 'Salida' a modo de coda, acompañados por ilustraciones de Beatriz Sevilla Almansa. La dedicatoria va dirigida a quienes acompañaron sus pasos en la infancia, y se abre con la conocida cita de Rilke: 'La verdadera patria del hombre es la infancia'.",
+        "El poeta va recorriendo las estancias de la casa —el zaguán, el balcón, la despensa, el pozo— y a partir de cada una recupera recuerdos. En los primeros poemas predomina lo material, los objetos y los espacios; a partir del poema 23, el libro vira hacia lo intangible, hacia las sensaciones y emociones ligadas a la vida en el campo.",
+        "Aparecen también las figuras familiares: el padre labriego, la madre, los abuelos. Y, como es habitual en su obra, una fuerte carga espiritual. La despensa se describe como un lugar sagrado, custodia del pan y del vino, y el conjunto se plantea como una forma de oración.",
+        "La coda se cierra con una frase que no es suya, sino del sacerdote y teólogo navarro José María Cabodevilla: 'La casa es una maqueta de otra Casa'. Como recuerda Palencia en la Red, Miguel de Santiago es poeta, sacerdote, ensayista, biógrafo, periodista y académico de la Institución Tello Téllez de Meneses."
+      ]
+    }
+  },
+  {
     "municipality_slug": "medina-de-rioseco",
     "municipality_name": "Medina de Rioseco",
     "title": "Medina de Rioseco plantea cuatro proyectos para atraer población, mejorar los cuidados y rehabilitar viviendas",
