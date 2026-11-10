@@ -1,5 +1,63 @@
 [
   {
+    "municipality_slug": "villabragima",
+    "municipality_name": "Villabrágima",
+    "title": "Villabrágima volverá este sábado al siglo XVI con la recreación de la llegada de los comuneros",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/villabragima-volvera-este-sabado-al-siglo-xvi-con-la-recreacion-de-la-llegada-de-los-comuneros/",
+    "published_at": "2026-11-10",
+    "detected_at": "2026-11-10T14:47:24.162201+00:00",
+    "hash": "3b103d4e3838566956aff04d12a1d4b48344934a95ebc3cf2e23cc1f7e8621be",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villabrágima vuelve a 1520 para recrear la llegada de las tropas comuneras",
+      "entradilla": "El sábado 14 de noviembre, a partir de las 19:30, el pueblo revivirá con recreación por sus calles aquel episodio de la Guerra de las Comunidades, con pregón final de Joaquín Burguera.",
+      "cuerpo": [
+        "Villabrágima se prepara para volver cinco siglos atrás. Según informa La Mar de Campos, el próximo sábado 14 de noviembre la localidad recreará la llegada de las tropas de las Comunidades de Castilla en 1520, cuando sus dirigentes intentaron forzar un acuerdo con el bando realista que evitara el choque definitivo.",
+        "Aquellas negociaciones, celebradas en el pueblo entre noviembre y diciembre de 1520, terminaron sin pacto. Para el cronista real Prudencio de Sandoval, el fracaso comunero empezó precisamente aquí, donde la falta de acción militar abrió el camino hacia la derrota posterior en Villalar.",
+        "La recreación arrancará a las 19:30 en la plaza Mayor. Desde allí, los participantes recorrerán las calles vestidos de época, con antorchas, faroles y objetos sonoros, representando escenas de la vida cotidiana del siglo XVI. Entre ellas destacará el llamado Razonamiento de Villabrágima, uno de los últimos intentos de entendimiento entre comuneros e imperiales.",
+        "La jornada se cerrará en la plaza Mayor con el pregón de Joaquín Burguera, exprofesor de la Universidad de Oviedo.",
+        "Organiza el Ayuntamiento de Villabrágima, con la colaboración de la Asociación Cultural El Razonamiento de Villabrágima, y el apoyo de la Diputación de Valladolid, el Ayuntamiento de Medina de Rioseco y la Asociación Cultural Torre del Homenaje. La cita sale adelante, señala el medio, gracias al trabajo de vecinos y asociaciones en la ambientación de calles y balcones, los faroles, los escudos y los trajes."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "César Morán y la zona de Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17791/cesar-moran-y-la-zona-de-sahagun",
+    "published_at": "2026-11-10",
+    "detected_at": "2026-11-10T14:47:02.897781+00:00",
+    "hash": "32c3cd927ec5fc28fed9aefd776ecfc8a1b0aca9322dbb0366f341b555c02432",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Cuando Sahagún y sus pueblos cabían en las primeras páginas de un libro de viajes de 1925",
+      "entradilla": "El etnógrafo e historiador César Morán abrió su obra 'Por tierras de León' (1925) describiendo la comarca de Sahagún. Un repaso a aquellas páginas, recuperado por Sahagún Digital.",
+      "cuerpo": [
+        "Según recoge Sahagún Digital, el libro de César Morán 'Por tierras de León', publicado en 1925, dedica sus primeras páginas a Sahagún y los pueblos de alrededor. El autor relaciona el origen de la villa con el sepulcro de los santos Facundo y Primitivo, y recuerda que también se la conoció como Domnos Sanctos. Destaca el peso del monasterio benedictino en la Edad Media y señala las iglesias mudéjares de San Tirso y San Lorenzo. Para Morán, la riqueza de Sahagún de entonces venía sobre todo de la agricultura, de las vegas que roturaron los benedictinos y del río Cea.",
+        "El recorrido sigue por los pueblos cercanos. De Castrotierra, a 23 kilómetros, describe los vestigios de un castro antiguo al noroeste, dos promontorios que la tradición llama el castillo y el castillín, y la iglesia de San Pedro Apóstol, levantada —según cuenta— sobre un antiguo templo pagano. También anota que al excavar bodegas aparece el terreno minado de galerías, y una leyenda local sobre una gallina con pollos de oro.",
+        "En Castrovega se fija en los desniveles naturales que hacían las veces de muralla y en la abundancia de iglesias dedicadas a San Pedro. De Cea describe las ruinas de su castillo, con una torre en pie, y una cueva en una ladera del castro junto a la que los labradores sacaban huesos y esqueletos.",
+        "De Grajal de Campos, a cinco kilómetros de Sahagún, el autor habla de su castillo de piedra blanca bien conservado, con cuatro cubos cilíndricos y un viejo cañón apuntando al pueblo, y de un palacio renacentista con una reja de travesaños hechos con cadenas. Allí un vecino le contó que había encontrado unas pequeñas rejas de arado —probablemente puntas de flecha— clavadas en un esqueleto, en un paraje donde la tradición sitúa una batalla.",
+        "Morán también observa que en la zona se construía con tierra y ladrillo por falta de piedra, que se traía desde el Valle de Las Casas. El capítulo lo cierra lamentando no haber visitado Castroañe y Castromudarra, que por su nombre sospechaba antiguas fortalezas. El texto está firmado por la Asociación Cultural Castrum Terre, de Castrotierra de Valmadrigal, y lo publica Sahagún Digital."
+      ]
+    }
+  },
+  {
     "municipality_slug": "bolanos-de-campos",
     "municipality_name": "Bolaños de Campos",
     "title": "Un busto recuerda en Bolaños de Campos a Benita Mendiola y Velasco, la primera alcaldesa de Castilla y León",
