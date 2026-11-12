@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "villabragima",
+    "municipality_name": "Villabrágima",
+    "title": "Villabrágima reivindicará los sabores de siempre con su séptima Jornada de la Matanza",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/gastronomia/villabragima-reivindicara-los-sabores-de-siempre-con-su-septima-jornada-de-la-matanza/",
+    "published_at": "2026-11-12",
+    "detected_at": "2026-11-12T15:04:42.322778+00:00",
+    "hash": "211a61c1acdd19b2cfed15d3d72a51846d9acbe17c8bbdf313939dae4de48625",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villabrágima celebra el 6 de diciembre sus séptimas Jornadas de la Matanza",
+      "entradilla": "La cita gastronómica arrancará a las 12:00 horas con la elaboración de embutidos, degustación de jijas y sorteo de productos. Las inscripciones se hacen en el Ayuntamiento antes del 2 de diciembre.",
+      "cuerpo": [
+        "Villabrágima vuelve a recuperar una de las tradiciones más ligadas a la vida en los pueblos con la séptima edición de sus Jornadas de la Matanza. Será el domingo 6 de diciembre, a partir de mediodía, según informa La Mar de Campos.",
+        "Durante la jornada, los asistentes podrán ver de cerca el destazado y la elaboración de embutidos. Al terminar habrá una degustación de jijas con huevo, acompañadas de limonada o vino, y se sortearán dos medios marranos y dos jamones entre los participantes.",
+        "Para apuntarse hay que pasar por el Ayuntamiento antes del 2 de diciembre, con un precio de 5 euros. Después de esa fecha la papeleta sube a 7 euros. Para rematar el día, los bares del pueblo ofrecerán postres variados a precio simbólico.",
+        "La iniciativa la organiza el Ayuntamiento de Villabrágima con la colaboración de la Diputación de Valladolid, la Carnicería El Arco y las asociaciones del municipio."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Almanza contará con una balsa para ganadería extensiva y prevención de fuegos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17803/almanza-contara-con-una-balsa-para-ganaderia-extensiva-y-prevencion-de-fuegos",
+    "published_at": "2026-11-12",
+    "detected_at": "2026-11-12T15:04:25.617233+00:00",
+    "hash": "64bc6d44c6435d414949eee2a210af78c1d30cc8d32003f802444acc9163aa44",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Almanza tendrá una nueva balsa de agua para incendios y ganadería",
+      "entradilla": "La Junta construirá en el paraje de Tarza un depósito de agua destinado a reforzar la lucha contra el fuego y a abastecer a la ganadería extensiva. La obra ronda los 250.000 euros.",
+      "cuerpo": [
+        "Según informa Sahagún Digital, la actuación se enmarca en un plan autonómico publicado en el Boletín Oficial de Castilla y León a través de una orden de la Consejería de Agricultura, Ganadería, Medio Rural y Política Ambiental. Ese plan prevé dotar de estas infraestructuras a diez municipios de la comunidad afectados por los incendios del verano de 2025.",
+        "Los trabajos ya han arrancado con las primeras catas en el paraje de Tarza, el lugar elegido para situar el depósito. El proyecto no se limita al vaso de almacenamiento: incluye obras de toma, conducción de llenado, caseta de válvulas, vallado, camino de coronación y accesos, además de un hidrante para cubas y otro preparado para autobombas de extinción. También se contemplan medidas de integración ambiental.",
+        "Las obras están clasificadas como infraestructuras agrarias complementarias de titularidad pública y las promoverá y ejecutará directamente la propia Consejería.",
+        "En la provincia de León, junto a Almanza figuran también Castrocontrigo, Villamontán de la Valduerna y Puente de Domingo Flórez, además de otros municipios de Ávila, Palencia, Salamanca y Zamora. La orden aclara que estar en el listado no garantiza la construcción si los estudios técnicos posteriores concluyen que alguna de las balsas no es viable."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "La Asociación de Hostelería y Turismo, Garajes Redondo y Horus Sport, patrocinadores oficiales del Sahagún Promesas",
