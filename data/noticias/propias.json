@@ -1,5 +1,60 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "La Asociación de Hostelería y Turismo, Garajes Redondo y Horus Sport, patrocinadores oficiales del Sahagún Promesas",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17790/la-asociacion-de-hosteleria-y-turismo-garajes-redondo-y-horus-sport-patrocinadores-oficiales-del-sahagun-promesas",
+    "published_at": "2026-11-12",
+    "detected_at": "2026-11-12T04:08:44.620603+00:00",
+    "hash": "1ce00b7ffc18e84cc8be8af9ff97b743da0d79b1a5b4e4f27fed84e8d7ddc946",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Sahagún Promesas vestirá sus equipaciones con el patrocinio de comercios locales",
+      "entradilla": "El club de fútbol de la villa ha firmado un acuerdo de patrocinio para las dos próximas temporadas con la hostelería y varios negocios de la zona.",
+      "cuerpo": [
+        "El Club de Fútbol Sahagún Promesas tiene cubiertas las equipaciones para los dos próximos cursos gracias a un convenio con comercios y hosteleros locales, según informa Sahagún Digital. El acuerdo lo firmaron Josué Fernández, presidente de la Asociación de Hostelería y Turismo de Sahagún, y Soraya Bernal, presidenta del club.",
+        "Al patrocinio se sumaron también Garajes Redondo, representado por Raúl Redondo, y la tienda Horus Sport, al frente de la cual está Ana Cristina Pacho, donde se compraron las indumentarias. El reparto publicitario deja a la hostelería en la parte delantera de la camiseta, a la tienda de deportes en la manga y al taller de bicicletas y jardinería en la espalda.",
+        "Según el medio, el acuerdo permitirá que más de un centenar de jóvenes de Sahagún y de la comarca sigan jugando al fútbol durante las dos próximas ligas. Desde los colectivos implicados subrayaron que, cuando el deporte y el comercio de proximidad van juntos, la villa sale ganando.",
+        "El arranque de temporada llega además con cambios en la dirección del club: Soraya Bernal ha tomado el relevo en la presidencia tras la etapa de Bernardino Ortega, con el objetivo de dar continuidad al proyecto y al fútbol base del municipio."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "villabragima",
+    "municipality_name": "Villabrágima",
+    "title": "Villabrágima suspende la recreación histórica de la Noche de las Antorchas por el mal tiempo",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/villabragima-suspende-la-recreacion-historica-de-la-noche-de-las-antorchas-por-el-mal-tiempo/",
+    "published_at": "2026-11-11",
+    "detected_at": "2026-11-12T04:08:35.022403+00:00",
+    "hash": "e26ed0d06fa107c2d5dc43c0e453ada74521565d43e75bfbe640a9f450117353",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Aplazada la Noche de las Antorchas de Villabrágima por el mal tiempo",
+      "entradilla": "La recreación histórica, que estaba prevista para este sábado 14 de noviembre, queda en suspenso hasta nuevo aviso por las malas condiciones meteorológicas.",
+      "cuerpo": [
+        "La Noche de las Antorchas de Villabrágima no se celebrará este sábado como estaba previsto. La organización ha decidido dejarla en suspenso por la persistencia del mal tiempo, según informa La Mar de Campos.",
+        "Desde la organización han lamentado las molestias que la decisión pueda causar a quienes iban a participar y a los que pensaban acercarse a verla, y han agradecido la comprensión del público.",
+        "También han adelantado que darán a conocer cualquier novedad sobre la celebración cuando la haya."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villabragima",
     "municipality_name": "Villabrágima",
     "title": "Villabrágima volverá este sábado al siglo XVI con la recreación de la llegada de los comuneros",
