@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mayorga — El Terracampino</title>
-<meta name="description" content="Ahora mismo en Mayorga estamos en 14 grados y el cielo está limpio, pero no te dejes engañar. Hoy entra viento fuerte — 25 kilómetros por hora — y cas">
+<meta name="description" content="Noticias y tiempo de Mayorga, Tierra de Campos.">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/mayorga">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/mayorga","url":"https://www.elterracampino.es/municipio/mayorga","name":"Mayorga — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/mayorga#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/mayorga#lugar","name":"Mayorga","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Valladolid"}],"geo":{"@type":"GeoCoordinates","latitude":42.16663,"longitude":-5.2627}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Mayorga","item":"https://www.elterracampino.es/municipio/mayorga"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Mayorga</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.354 habitantes</span><span>Actualizado: 12/11/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>1.354 habitantes</span><span>Actualizado: 13/11/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/mayorga.jpg" alt="Mayorga" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Ayuntamiento_de_Mayorga_01.jpg" target="_blank" rel="noopener">Rodelar</a>,
@@ -68,53 +68,12 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Mayorga: 14° y despejado</h2>
-    <div class="tc-weather-hero">
-    <div class="tc-weather-now">
-      <span class="tc-weather-big tc-data" id="tc-weather-big-live">14°</span>
-      <span class="tc-weather-desc" id="tc-weather-desc-live">despejado</span>
-      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
-    </div>
-    <script>
-(function() {
-  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
-    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
-    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
-    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
-    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
-  fetch("https://api.open-meteo.com/v1/forecast?latitude=42.16663&longitude=-5.2627&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(d) {
-      if (!d || !d.current) return;
-      var big = document.getElementById("tc-weather-big-live");
-      var desc = document.getElementById("tc-weather-desc-live");
-      var sello = document.getElementById("tc-weather-sello-live");
-      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
-      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
-      if (sello) sello.textContent = "En vivo · Open-Meteo";
-    })
-    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
-})();
-</script>
-    <p class="tc-weather-article">Ahora mismo en Mayorga estamos en 14 grados y el cielo está limpio, pero no te dejes engañar. Hoy entra viento fuerte — 25 kilómetros por hora — y casi con seguridad cae algo de agua antes de que acabe el día, aunque poca cosa. La máxima se queda en 14, con mínima de 9 grados. Mañana sigue nublado y con lluvia débil, y no sube de 13. Si tienes algo sin asegurar en el campo, mejor miralo ahora.</p>
-    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
-    <div class="tc-days"><article class="tc-day">
-      <span class="tc-day-name">Viernes</span>
-      <h4 class="tc-day-titular">Viernes con lluvia débil y viento fuerte</h4>
-      <p class="tc-day-texto">Lluvia débil durante el día con acumulados de 6.8 mm. Máxima de 13 grados y mínima de 10, con viento de 26 km/h que reforzará la sensación de frío.</p>
-      <span class="tc-day-temp tc-data">13° <span class="tc-day-min">10°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Sábado</span>
-      <h4 class="tc-day-titular">Sábado con llovizna persistente</h4>
-      <p class="tc-day-texto">Llovizna en el ambiente con apenas 2.1 mm acumulados. Algo más frío, con máxima de 12 grados y mínima de 9, y viento de 26 km/h.</p>
-      <span class="tc-day-temp tc-data">12° <span class="tc-day-min">9°</span></span>
-    </article><article class="tc-day">
-      <span class="tc-day-name">Domingo</span>
-      <h4 class="tc-day-titular">Domingo ventoso y con llovizna</h4>
-      <p class="tc-day-texto">Llovizna nuevamente, con acumulado de 5.0 mm y rachas de viento más intensas, alcanzando 35 km/h. Máxima de 11 grados y mínima de 8.</p>
-      <span class="tc-day-temp tc-data">11° <span class="tc-day-min">8°</span></span>
-    </article></div>
-  </div>
+    <h2 class="tc-block-title">A ras de tierra — Mayorga</h2>
+    <section class="tc-wrap tc-weather">
+  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Mayorga</span>
+  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Mayorga: el servicio
+  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
+</section>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Mayorga incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -161,73 +120,73 @@
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="../noticia/8136a33dab2f596f.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-11-03</span>
-      <span class="tc-news-titular">Mayorga concede dos ayudas a la natalidad pese a no cumplir el requisito de empadronamiento</span>
-      <span class="tc-news-entradilla">El pleno extraordinario aprobó por unanimidad dar las ayudas municipales por el nacimiento de dos niñas, aunque sus familias no cumplían el requisito de antigüedad en el padrón. En la misma sesión se sortearon las mesas para las elecciones generales del 29 de noviembre.</span>
+      <span class="tc-news-titular">Mayorga saca adelante dos ayudas a la natalidad pese a no cumplirse un requisito del padrón</span>
+      <span class="tc-news-entradilla">El pleno extraordinario del 31 de octubre aprobó por unanimidad conceder las ayudas por nacimiento a dos madres aunque uno de los progenitores no acreditaba los doce meses de empadronamiento que exige la ordenanza. En la misma sesión se sortearon las mesas para las elecciones a Cortes del 29 de noviembre.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/ffdf2a0a429094f7.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-10-13</span>
-      <span class="tc-news-titular">Mayorga aprueba el estudio de detalle del Corrillo del Templo y declara una parcela sobrante</span>
-      <span class="tc-news-entradilla">El pleno dio luz verde definitiva a dos expedientes urbanísticos: el reajuste de alineaciones en el Corrillo del Templo 1, 2 y 3 y la calificación de un terreno de la vía pública como parcela sobrante que pasa a ser bien patrimonial.</span>
+      <span class="tc-news-titular">Mayorga aprueba el estudio de detalle del corrillo del Templo y una parcela sobrante</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde definitiva a dos expedientes urbanísticos: el reajuste de alineaciones en el Corrillo del Templo 1, 2 y 3 y la declaración de una parcela como sobrante de la vía pública.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/e69a8845bacccff1.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-07-13</span>
       <span class="tc-news-titular">Mayorga aprueba rehabilitar la iglesia de Santa María como centro cultural por 157.900 euros</span>
-      <span class="tc-news-entradilla">El pleno dio luz verde al proyecto de reforma interior del templo, incluido en el Plan Bienal de la Diputación, y avanzó también en la venta de una parcela municipal.</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde al proyecto de ejecución para convertir el interior de la iglesia de Santa María en un centro cultural, dentro del Plan Bienal 2026-2027 de la Diputación. También acordó seguir con la venta de una parcela sobrante de vía pública.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/71065580a8b2a99d.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-06-25</span>
-      <span class="tc-news-titular">Mayorga reorganiza sus concejalías y aprueba la cuenta general de 2025</span>
-      <span class="tc-news-entradilla">El pleno extraordinario del 18 de junio dio luz verde definitiva a las cuentas del año pasado y remodeló el reparto de áreas de gobierno, con nuevo primer teniente de alcalde.</span>
+      <span class="tc-news-titular">Mayorga reparte de nuevo las concejalías y aprueba las cuentas de 2025</span>
+      <span class="tc-news-entradilla">El pleno extraordinario de Mayorga reorganizó el reparto de concejalías del mandato 2023-2027 y dio luz verde definitiva a la Cuenta General del ejercicio 2025.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/7aa3c66693c4cdea.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-03-24</span>
-      <span class="tc-news-titular">Mayorga suprime el puesto de alguacil auxiliar administrativo y crea uno nuevo de alguacil</span>
-      <span class="tc-news-entradilla">El pleno aprobó por unanimidad modificar la relación de puestos de trabajo y contratar de forma provisional a Silvia Fernández Santervás como alguacil hasta que la plaza se cubra en propiedad.</span>
+      <span class="tc-news-titular">Mayorga suprime el puesto de alguacil auxiliar y crea uno de alguacil que cubre temporalmente</span>
+      <span class="tc-news-entradilla">El pleno extraordinario modificó la relación de puestos de trabajo del Ayuntamiento y aprobó, de paso, la contratación de Silvia Fernández Santervás como alguacil de forma provisional hasta que la plaza se cubra con un funcionario de carrera.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/9772e0da004c46f8.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-02-24</span>
       <span class="tc-news-titular">Mayorga aprueba definitivamente el presupuesto de 2026 sin alegaciones</span>
-      <span class="tc-news-entradilla">El pleno confirmó las cuentas municipales tras el periodo de exposición pública y afrontó dos peticiones vecinales: la ubicación de la Plaza Mayor y las futuras viviendas de protección.</span>
+      <span class="tc-news-entradilla">El pleno elevó a definitivo el presupuesto municipal al no presentarse reclamaciones durante la exposición pública. En ruegos y preguntas salieron la ubicación de la Plaza y las viviendas de protección.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/a4cfdab19e6b0782.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2026-02-24</span>
-      <span class="tc-news-titular">Mayorga pide 157.800 euros para convertir la iglesia de Santa María en centro cultural</span>
-      <span class="tc-news-entradilla">El pleno de enero aprobó por unanimidad solicitar esa obra al Plan Bienal de la Diputación y, en la misma sesión, subió la tasa de alta de los vados permanentes de 12 a 25 euros.</span>
+      <span class="tc-news-titular">Mayorga pide 157.800 € para convertir la iglesia de santa maría en centro cultural</span>
+      <span class="tc-news-entradilla">El pleno solicitó incluir en el Plan Bienal de Diputación la restauración interior del templo y aprobó subir la tasa de alta de vados de 12 a 25 euros.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/452d4ea1b72d3c48.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-10-10</span>
-      <span class="tc-news-titular">Mayorga da luz verde a varias facturas de caminos y al arreglo de un tramo hundido en Escuelas Viejas</span>
-      <span class="tc-news-entradilla">El pleno aprobó por unanimidad un paquete de facturas centrado en el arreglo de caminos y de un tramo de calzada hundido, además de una modificación en la relación de puestos de trabajo.</span>
+      <span class="tc-news-titular">Mayorga aprueba facturas de arreglo de caminos y de un tramo hundido en la calle Escuelas Viejas</span>
+      <span class="tc-news-entradilla">El pleno dio luz verde por unanimidad a varias facturas de obra en caminos y calzadas, y modificó un puesto de la plantilla municipal.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/f8fe47d814a76da1.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">El pleno de Mayorga se queda en trámite, con debate sobre la compra de los corrales</span>
-      <span class="tc-news-entradilla">La sesión, de apenas diecinueve minutos, no dejó acuerdos de fondo, pero sí un rifirrafe sobre cómo se pagó la compra de los corrales que se cerró el pasado 30 de diciembre.</span>
+      <span class="tc-news-titular">La oposición pregunta en Mayorga cómo se pagó la compra de los corrales</span>
+      <span class="tc-news-entradilla">El pleno de enero no cerró ningún acuerdo de fondo: solo trámites internos y un par de preguntas de la oposición sobre la compra de unos corrales y el posible asfaltado de la calle Sanatorio.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/710404cc976c27bb.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga aprueba por unanimidad el presupuesto municipal de 2025</span>
-      <span class="tc-news-entradilla">El pleno extraordinario dio luz verde a las cuentas del ejercicio 2025 sin ningún voto en contra, en una sesión que apenas duró ocho minutos.</span>
+      <span class="tc-news-titular">Mayorga aprueba por unanimidad su presupuesto municipal para 2025</span>
+      <span class="tc-news-entradilla">El pleno extraordinario sacó adelante las cuentas del ejercicio sin votos en contra, con el respaldo de todos los concejales presentes.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/9d36138fee4b6e6e.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
       <span class="tc-news-titular">Mayorga asfaltará nueve calles con contribuciones especiales que pagarán los vecinos afectados</span>
-      <span class="tc-news-entradilla">El Ayuntamiento aprobó por mayoría cargar el 90% del coste de las obras a los propietarios de las calles afectadas, con el PSOE en contra. La inversión prevista ronda los 140.000 euros.</span>
+      <span class="tc-news-entradilla">El Ayuntamiento aprobó una obra de asfaltado de 140.000 euros que repercutirá el 90% del coste en los propietarios de las calles afectadas. El PSOE votó en contra y el acuerdo salió adelante por cinco votos del PP frente a tres.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/6f11ad013f00e20c.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
       <span class="tc-news-titular">Mayorga cede la cubierta del colegio San Francisco para placas solares de una comunidad energética</span>
-      <span class="tc-news-entradilla">El pleno aprobó ceder gratis y de forma directa el tejado del colegio a CEL Toda Valladolid para instalar paneles fotovoltaicos, además de sacar adelante el presupuesto de 2025 y pedir que la Trovada de Habaneras sea declarada fiesta de interés turístico.</span>
+      <span class="tc-news-entradilla">El pleno aprobó la concesión gratuita del tejado del colegio a la CEL Toda Valladolid y dio luz verde definitiva al presupuesto de 2025. También pedirá que la Trovada de Habaneras sea declarada fiesta de interés turístico.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/7f1dc5b733396b99.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga cede una superficie municipal para placas solares de una comunidad energética local</span>
-      <span class="tc-news-entradilla">El pleno dio luz verde a instalar placas fotovoltaicas en un inmueble del Ayuntamiento y a sumarse al autoconsumo dentro de la comunidad energética CEL Toda Valladolid. Ambos acuerdos salieron adelante por unanimidad.</span>
+      <span class="tc-news-titular">Mayorga cede una superficie municipal para instalar placas solares de una comunidad energética</span>
+      <span class="tc-news-entradilla">El pleno extraordinario aprobó por unanimidad ceder espacio en un inmueble municipal para colocar placas fotovoltaicas destinadas a una comunidad energética local y sumarse al autoconsumo de la asociación CEL Toda Valladolid.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a><a class="tc-news" href="../noticia/e83351979bf8bacd.html" target="_self">
       <span class="tc-news-kicker">Acta de pleno · 2025-07-28</span>
-      <span class="tc-news-titular">Mayorga aprobará el asfaltado de diez calles con contribuciones especiales por 148.000 euros</span>
-      <span class="tc-news-entradilla">El Ayuntamiento asumirá el 55,78% del coste de la obra y los vecinos pagarán el 44,22% restante. La oposición votó en contra al defender que el consistorio debería cubrir una parte mayor.</span>
+      <span class="tc-news-titular">Mayorga aprueba contribuciones especiales para asfaltar diez calles con un 44% a cargo de los vecinos</span>
+      <span class="tc-news-entradilla">El pleno sacó adelante, por cinco votos a favor y dos en contra, el reparto de la obra de asfaltado, valorada en casi 148.000 euros. El Ayuntamiento asumirá un 55,78% y los vecinos el resto.</span>
       <span class="tc-news-more">Leer la noticia completa →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
       <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/11/10/html/BOCYL-D-10112026-217-37.do" target="_blank" rel="noopener">

@@ -1,5 +1,33 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Presentación de la nueva novela de Javier Pérez en Sahagún",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17811/presentacion-de-la-nueva-novela-de-javier-perez-en-sahagun",
+    "published_at": "2026-11-13",
+    "detected_at": "2026-11-13T14:29:28.452660+00:00",
+    "hash": "7b47658add57e452ac11df7d7675273baadc63a6e7c5a32a381e7f68bc2fe8a4",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Auditorio de Sahagún acoge la presentación de la última novela de Javier Pérez Fernández",
+      "entradilla": "El escritor presentará 'Lo que late bajo el hielo' el próximo 20 de noviembre a las ocho de la tarde en el Auditorio Municipal.",
+      "cuerpo": [
+        "El próximo 20 de noviembre, a partir de las 20:00 horas, el Auditorio Municipal de Sahagún acogerá la presentación de 'Lo que late bajo el hielo', la nueva novela de Javier Pérez Fernández. Así lo informa Sahagún Digital, que detalla que la obra ha sido publicada por Marciano Sonoro en 2026 y tiene 262 páginas.",
+        "La novela se mueve dentro del género negro y el thriller. Según recoge el medio, la historia arranca cuando un grupo de científicos es trasladado a una base aislada del archipiélago de Svalbard, en el Ártico, para estudiar un organismo surgido tras la liberación de un alga atrapada en el permafrost. Al llegar, en plena tormenta y con la noche polar cerca, encuentran las instalaciones aparentemente abandonadas. En paralelo, en Oslo, un investigador privado se ve envuelto en un misterio que termina llevándolo al mismo escenario extremo.",
+        "Pérez Fernández empezó su trayectoria con relatos cortos y debutó en 2023 con 'Réquiem por Irina', editada por Círculo Rojo. Un año después publicó 'Por qué los girasoles miran hacia el sol', también con Marciano Sonoro, con la que se adentró en el thriller, género al que vuelve ahora con esta nueva obra.",
+        "El encuentro permitirá conocer de cerca la novela y la trayectoria del autor, vinculado a la provincia de León desde sus inicios."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villabragima",
     "municipality_name": "Villabrágima",
     "title": "Villabrágima reivindicará los sabores de siempre con su séptima Jornada de la Matanza",
