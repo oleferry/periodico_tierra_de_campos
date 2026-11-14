@@ -2,6 +2,35 @@
   {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
+    "title": "Sahagún pierde su más reconocido testimonio de arquitectura popular",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17814/sahagun-pierde-su-mas-reconocido-testimonio-de-arquitectura-popular",
+    "published_at": "2026-11-14",
+    "detected_at": "2026-11-14T13:26:18.372337+00:00",
+    "hash": "297a7302affdfcb929218040878fc964a00bfaf443eeefcde4602608acd025bd",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Se derrumba parte de la casa de La Trinidad, uno de los últimos ejemplos de arquitectura popular de Sahagún",
+      "entradilla": "Las últimas lluvias han provocado el desplome de buena parte de la estructura de este inmueble, situado dentro del Conjunto Histórico de la villa y del Camino de Santiago.",
+      "cuerpo": [
+        "Buena parte de la casa de La Trinidad, en Sahagún, se ha venido abajo tras las últimas lluvias. Según informa Sahagún Digital, el edificio era uno de los pocos que quedaban en la villa como muestra de la arquitectura tradicional leonesa y castellana, levantada con madera, adobe y ladrillo.",
+        "El inmueble formaba parte del paisaje de uno de los espacios históricos de la localidad, dentro del Conjunto Histórico y del trazado del Camino de Santiago. Reunía elementos como soportal, balcón, piedra y adobe, ligados a una forma de construir cada vez menos habitual en el pueblo.",
+        "Desde el Ayuntamiento señalan que el mal estado del edificio ya se conocía y que se habían hecho gestiones con la propiedad para intentar conservarlo, sin que hasta ahora se ejecutaran las actuaciones necesarias. Tras el derrumbe parcial, dicen que la prioridad es garantizar la seguridad del entorno y comprobar en qué estado quedan los elementos que siguen en pie.",
+        "Según las mismas fuentes municipales recogidas por Sahagún Digital, el departamento de Arquitectura prepara un informe que pasará al área de Patrimonio para definir cómo intervenir. Esa valoración decidirá qué partes pueden mantenerse y cuáles habrá que desmontar o demoler por seguridad, además de documentar y recuperar los materiales que proceda.",
+        "El Ayuntamiento distingue esta actuación inmediata de los pasos posteriores para recuperar el edificio protegido, y adelanta su intención de impulsar el expediente para exigir a la propiedad las medidas que correspondan, según los informes técnicos y lo que determine Patrimonio."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
     "title": "Presentación de la nueva novela de Javier Pérez en Sahagún",
     "source_type": "radar_local",
     "url_original": "https://sahagundigital.com/art/17811/presentacion-de-la-nueva-novela-de-javier-perez-en-sahagun",
