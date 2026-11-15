@@ -1,5 +1,34 @@
 [
   {
+    "municipality_slug": "villalan-de-campos",
+    "municipality_name": "Villalán de Campos",
+    "title": "Villalán de Campos vuelve a correr las castañas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/villalan-campos-vuelva-correr-castanas-20261114200928-nt.html",
+    "published_at": "2026-11-14",
+    "detected_at": "2026-11-15T13:52:16.130655+00:00",
+    "hash": "c9d8eb4aa665bb59b3a940c8ac6c7d66a522470d6fba9ff02c350e5c883d5869",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villalán de Campos vuelve a 'correr las castañas' en la función de las Ánimas del Purgatorio",
+      "entradilla": "La Cofradía de las Benditas Ánimas del Purgatorio celebró este sábado su función anual con la tradición de lanzar castañas cocidas a la puerta de la casa del mayordomo, una costumbre que hunde sus raíces siglos atrás.",
+      "cuerpo": [
+        "Tras la misa en la iglesia parroquial de Santa Cecilia, y aprovechando una tregua de la lluvia, los cofrades se dirigieron, con el estandarte por delante, a la casa del mayordomo de este año. Según informa El Norte de Castilla, el cargo recayó en Javier Sánchez, que hizo las veces de mayordomo en sustitución de su hijo, residente en Londres y que no pudo viajar.",
+        "Frente a la vivienda, el párroco rezó un responso por los difuntos antes del momento más esperado: el 'correr las castañas'. El mayordomo del año pasado lanzó a la puerta dos canastillos de mimbre con castañas cocidas con anís para que los vecinos las recogieran. El último azafate lo arrojó el padre del mayordomo. Los cofrades, eso sí, no pueden coger ni una sola.",
+        "Después, los cofrades pasaron al interior de la casa, donde fueron agasajados con vino, castañas asadas y pasteles, y celebraron la junta de la cofradía, en la que se aprobaron las cuentas. Al resto del pueblo se le invitó a un aperitivo en el bar. Más tarde se entregó la vara al mayordomo del próximo año.",
+        "El diario recoge que la cofradía ya aparece citada en el catastro del Marqués de la Ensenada de 1752, y que su libro actual data de 1885. Entre los hitos de su historia figura la incorporación de la mujer, con la primera mayordoma en 2011. El alcalde, Ignacio Sánchez, cofrade por tradición familiar, insistió en la importancia de conservar las tradiciones como seña de identidad del pueblo.",
+        "El pueblo mira ya al próximo fin de semana, cuando lleguen las fiestas patronales en honor a Santa Cecilia."
+      ]
+    }
+  },
+  {
     "municipality_slug": "sahagun",
     "municipality_name": "Sahagún",
     "title": "Sahagún pierde su más reconocido testimonio de arquitectura popular",
