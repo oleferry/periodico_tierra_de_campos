@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "cea",
+    "municipality_name": "Cea",
+    "title": "Feria de Santa Cecilia en Cea",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17821/feria-de-santa-cecilia-en-cea",
+    "published_at": "2026-11-16",
+    "detected_at": "2026-11-16T15:36:00.767521+00:00",
+    "hash": "bf1a15ee94f4e507b3c189697863743c0427191ab5fb9d7005887b72b3900a27",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Cea celebra el 21 de noviembre su feria de Santa Cecilia, con más de 500 años de historia",
+      "entradilla": "El Pabellón Campo-Río acogerá una jornada de puestos, degustaciones y concursos que mantiene viva una de las citas más antiguas del calendario de la villa.",
+      "cuerpo": [
+        "La villa de Cea vuelve a su cita de noviembre. El sábado 21 se celebra la feria de Santa Cecilia, un mercado con más de cinco siglos de historia que hoy se centra en la artesanía, los productos de la tierra y el encuentro entre vecinos. Según informa Sahagún Digital, el recinto abrirá a las 11:00 horas en el Pabellón Campo-Río.",
+        "La mañana arrancará a las 11:30 con el reparto de sopas de ajo, orujos y pastas, una de las propuestas más tradicionales. Durante la jornada se podrán recorrer los puestos y participar en los concursos organizados, con premios para el mejor puesto artesano y para los de tortillas y repostería.",
+        "Como novedad este año, la feria suma un concurso de dibujo infantil en dos categorías, de 0 a 9 años y de 10 a 16. Los trabajos ganadores servirán de cartel para anunciar la edición de 2027. Los dibujos deben entregarse antes de las 13:00 horas y todos los participantes recibirán un obsequio.",
+        "A mediodía, a las 15:00, la Asociación de Mujeres de Cea ofrecerá una degustación de alubias, seguida de una rifa con productos aportados por los feriantes. Por la tarde habrá bingo y juegos de mesa a las 17:00, degustación de chocolate a las 18:00 y música en directo con Noemí Blanco a las 18:30. El recinto cerrará a las 21:00 horas."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "Grajal de Campos y Villamartín de Don Sancho participan en una iniciativa que busca convertir municipios poco poblados en destinos capaces de atraer y retener visitantes",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17801/grajal-de-campos-y-villamartin-de-don-sancho-participan-en-una-iniciativa-que-busca-convertir-municipios-poco-poblados-en-destinos-capaces-de-atraer-y-retener-visitantes",
+    "published_at": "2026-11-16",
+    "detected_at": "2026-11-16T15:35:43.618691+00:00",
+    "hash": "069098bcc6036320ec40b6fb2857c06cfd6d016a49fd9a848a75e3690b8b76e1",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Grajal se suma a un proyecto para convertir los pueblos pequeños en destinos turísticos",
+      "entradilla": "La localidad participa en Villas Turísticas Leader, una iniciativa de cooperación que reúne a cinco grupos de acción local y diez municipios de Castilla y León para que los visitantes no solo pasen, sino que se queden.",
+      "cuerpo": [
+        "La idea de fondo es sencilla de explicar y difícil de lograr: que quien llega a un pueblo encuentre motivos para detenerse, conocer su patrimonio, comer, dormir y alargar la estancia. Con ese objetivo nace Villas Turísticas Leader, un proyecto de cooperación en el que participa Grajal de Campos, según informa Sahagún Digital.",
+        "En la comarca de Sahagún la iniciativa la coordina Adescas y, junto a Grajal, participa también Villamartín de Don Sancho. Cada municipio parte de recursos distintos: Grajal apuesta sobre todo por su patrimonio histórico y artístico, mientras que Villamartín orientará su participación hacia la naturaleza, la micología y el entorno rural.",
+        "El proyecto arranca de una realidad habitual en los pueblos pequeños: tener recursos turísticos no basta para que los visitantes se queden. Por eso una de las cuestiones que se quiere trabajar es cómo transformar esos atractivos en experiencias y servicios que amplíen el tiempo de permanencia y generen actividad económica.",
+        "Villas Turísticas Leader implica a cinco grupos de acción local de Castilla y León y a diez municipios, que trabajarán de forma conjunta para compartir experiencias, detectar oportunidades y diseñar modelos turísticos pensados para localidades pequeñas. Para Grajal, según detalla Sahagún Digital, la incorporación supone también una ocasión para ordenar y dar más visibilidad a recursos que ya forman parte de la identidad del pueblo."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villalan-de-campos",
     "municipality_name": "Villalán de Campos",
     "title": "Villalán de Campos vuelve a correr las castañas",
