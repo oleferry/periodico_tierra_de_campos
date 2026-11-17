@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medina de Rioseco — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Medina de Rioseco, Tierra de Campos.">
+<meta name="description" content="En Medina de Rioseco ahora mismo anda todo nublado y fresco, apenas 15 grados. No subirá mucho hoy — llegará a los 16 como máximo — y el viento te va ">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/medina-de-rioseco">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/medina-de-rioseco","url":"https://www.elterracampino.es/municipio/medina-de-rioseco","name":"Medina de Rioseco — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/medina-de-rioseco#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/medina-de-rioseco#lugar","name":"Medina de Rioseco","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Valladolid"}],"geo":{"@type":"GeoCoordinates","latitude":41.883056,"longitude":-5.042778}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Medina de Rioseco","item":"https://www.elterracampino.es/municipio/medina-de-rioseco"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Medina de Rioseco</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>4.617 habitantes</span><span>Actualizado: 16/11/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>4.617 habitantes</span><span>Actualizado: 17/11/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/medina-de-rioseco.jpg" alt="Medina de Rioseco" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Fundación_Joaquín_Díaz_-_Vista_panorámica_-_Medina_de_Rioseco_(Valladolid).jpg" target="_blank" rel="noopener">Fundación Joaquín Díaz / Cayetano Enríquez</a>,
@@ -68,12 +68,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Medina de Rioseco</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Medina de Rioseco</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Medina de Rioseco: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Medina de Rioseco: 15° y nublado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">15°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.883056&longitude=-5.042778&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">En Medina de Rioseco ahora mismo anda todo nublado y fresco, apenas 15 grados. No subirá mucho hoy — llegará a los 16 como máximo — y el viento te va a azotar con rachas de 31 kilómetros por hora. Con esa probabilidad de lluvia alta y el viento que trae, ten cuidado con lo que tengas al aire; mañana los chubascos seguirán la cosa sin mejorar mucho.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Miércoles</span>
+      <h4 class="tc-day-titular">Miércoles con chubascos y viento fuerte</h4>
+      <p class="tc-day-texto">Los chubascos serán lo protagonista con una probabilidad del 85% y vientos de 34 km/h que complicarán el día. Las temperaturas rondarán entre los 12 y 16 grados, así que abriga bien si sales.</p>
+      <span class="tc-day-temp tc-data">16° <span class="tc-day-min">12°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Jueves</span>
+      <h4 class="tc-day-titular">Jueves nublado pero en seco</h4>
+      <p class="tc-day-texto">Tras los chubascos del miércoles, el jueves mejora aunque siga nublado y algo fresco con máximas de 12 grados. Solo hay un 30% de probabilidad de lluvia, así que es bastante probable que no caiga nada.</p>
+      <span class="tc-day-temp tc-data">12° <span class="tc-day-min">8°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes estable sin lluvia</h4>
+      <p class="tc-day-texto">El viernes se mantiene nublado pero sin posibilidad de lluvia y con vientos más flojos. Las temperaturas seguirán bajas, entre 8 y 12 grados, pero al menos podrás moverte sin preocupación por el agua.</p>
+      <span class="tc-day-temp tc-data">12° <span class="tc-day-min">8°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Medina de Rioseco incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -81,7 +122,12 @@
       <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
     </div></div>
     <h2 class="tc-block-title">Lo que pasa en Medina de Rioseco</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="../noticia/79020ab8012ea5eb.html" target="_self">
+      <div class="tc-news-grid"><a class="tc-news" href="../noticia/b7e610239fd9c06b.html" target="_self">
+      <span class="tc-news-kicker">La Mar de Campos · 2026-11-17</span>
+      <span class="tc-news-titular">Un ángel hecho a mano, la apuesta navideña de la AECC de Rioseco para recaudar fondos</span>
+      <span class="tc-news-entradilla">La junta local de la Asociación Española Contra el Cáncer vende figuras de ángel elaboradas por sus voluntarias para destinar lo recaudado a la investigación.</span>
+      <span class="tc-news-more">Leer la noticia completa →</span>
+    </a><a class="tc-news" href="../noticia/79020ab8012ea5eb.html" target="_self">
       <span class="tc-news-kicker">El Norte de Castilla · 2026-11-06</span>
       <span class="tc-news-titular">Los empresarios de Rioseco y comarca empiezan a construir una marca territorial propia</span>
       <span class="tc-news-entradilla">La Asociación de Empresarios y Profesionales de Medina de Rioseco y Comarca (Aempryc) ha arrancado el proceso para crear una identidad común que ponga en valor la zona, con el objetivo de presentarla dentro de un año.</span>

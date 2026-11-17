@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "medina-de-rioseco",
+    "municipality_name": "Medina de Rioseco",
+    "title": "Un ángel hecho con las manos y el corazón de las voluntarias de la AECC",
+    "source_type": "radar_local",
+    "url_original": "https://www.lamardecampos.org/actualidad/un-angel-hecho-con-las-manos-y-el-corazon-de-las-voluntarias-de-la-aecc/",
+    "published_at": "2026-11-17",
+    "detected_at": "2026-11-17T15:55:14.507787+00:00",
+    "hash": "b7e610239fd9c06bc54bfe4debc006da755f57464f95afcd240aee7bacb2546d",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "La Mar de Campos",
+      "fuente_slug": "lamardecampos",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Un ángel hecho a mano, la apuesta navideña de la AECC de Rioseco para recaudar fondos",
+      "entradilla": "La junta local de la Asociación Española Contra el Cáncer vende figuras de ángel elaboradas por sus voluntarias para destinar lo recaudado a la investigación.",
+      "cuerpo": [
+        "Como cada Navidad, la junta local de la AECC en Medina de Rioseco saca a la venta un adorno solidario. Este año el elegido es un ángel, hecho a mano por las voluntarias a partir de perchas de plástico que luego decoran con guirnaldas y luces, según informa La Mar de Campos.",
+        "Cada figura cuesta 17 euros y lo que se recaude irá íntegramente a la investigación contra el cáncer. El Ayuntamiento de Rioseco corre este año con el coste de los materiales.",
+        "La presidenta de la junta local, Paqui Aranda, cuenta que ya tienen listas 308 unidades, de las cuales unas 70 están reservadas. Quien quiera una puede contactar con las voluntarias o acercarse al local de la asociación para encargarla.",
+        "Además del ángel, en el local hay otros objetos navideños a la venta. La iniciativa sigue la línea de años anteriores, cuando fueron los muñecos de nieve los que decoraron escaparates, bares, comercios y balcones de la zona."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Sahagún invita a descubrir al artista que se lleva dentro",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17826/sahagun-invita-a-descubrir-al-artista-que-se-lleva-dentro",
+    "published_at": "2026-11-17",
+    "detected_at": "2026-11-17T15:55:02.627520+00:00",
+    "hash": "9d5d3048d3a8e84b58bc02aaae231898dda82b8ec1a838ac2d10ee690d9c5df2",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Sahagún organiza un taller de iniciación a la escultura este sábado",
+      "entradilla": "La cita es el 21 de noviembre, a las 10:30, en el auditorio municipal, y está abierta a adultos y a niños a partir de seis años.",
+      "cuerpo": [
+        "El próximo sábado Sahagún acoge un taller para acercarse a la escultura, una actividad pensada tanto para personas adultas como para menores desde los seis años. Según informa Sahagún Digital, se celebrará en el auditorio municipal a las 10:30 horas.",
+        "El taller plantea un primer contacto con este mundo trabajando con dos técnicas y dos materiales distintos, con la idea de que quien se anime pueda experimentar con sus propias manos. No hace falta tener experiencia previa.",
+        "Tampoco es necesario inscribirse de antemano: quien quiera participar puede apuntarse directamente en el auditorio ese mismo día, a la hora de inicio.",
+        "La propuesta está patrocinada por el Instituto Leonés de Cultura de la Diputación de León, con la colaboración del Ayuntamiento de Sahagún."
+      ]
+    }
+  },
+  {
     "municipality_slug": "cea",
     "municipality_name": "Cea",
     "title": "Feria de Santa Cecilia en Cea",
