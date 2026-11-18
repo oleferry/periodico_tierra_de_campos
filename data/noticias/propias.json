@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "mayorga",
+    "municipality_name": "Mayorga",
+    "title": "Mayorga celebra el centenario acto de la bandera de España con el escudo de Carlos III",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/mayorga-celebra-centenario-acto-bandera-espana-escudo-20261116211825-nt.html",
+    "published_at": "2026-11-16",
+    "detected_at": "2026-11-18T15:33:14.708443+00:00",
+    "hash": "0933c4048c4402b7d22324deeb6a753090e9a5e64b458125656b8a2633891789",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Mayorga honra a la Virgen de Calatrava, su patrona más antigua",
+      "entradilla": "La cofradía celebró su festividad el tercer domingo de noviembre con vísperas, procesión y el tradicional rendido de bandera. Por primera vez, el cargo de mayordomo entrante recayó en una mujer.",
+      "cuerpo": [
+        "Mayorga ha vuelto a rendir devoción a la Virgen de Calatrava, que fue patrona de la localidad antes que San Nabor y Santo Toribio. Según informa El Norte de Castilla, se trata de una tradición muy antigua cuya festividad ha cambiado de fecha con el tiempo, aunque la cofradía nunca ha dejado de honrar su imagen, hoy el tercer domingo de noviembre.",
+        "Los actos arrancaron el sábado con las vísperas y la enhorabuena al mayordomo entrante, un cargo que este año recayó por primera vez en una mujer. No faltó la degustación de castañas. El domingo se celebró la misa mayor por la mañana y, por la tarde, la procesión, con cofrades vistiendo capas castellanas, el único pendón que queda en Mayorga y la bandera de España con el escudo de Carlos III.",
+        "El diario recuerda que esa bandera remite a la Orden de Calatrava, cuya presencia en la villa durante la Edad Media se vincula a su papel estratégico en la frontera entre los reinos de León y Castilla. La Virgen de Calatrava llegó a tener iglesia propia en Mayorga, hoy desaparecida, en lo que ahora es el barrio de Calatrava.",
+        "Los actos se cerraron el lunes con la misa de difuntos y la comida de hermandad. Por la tarde, tras el rosario, la bandera recorrió la calle Derecha entre cohetes hasta la plaza Mayor, donde el abanderado rindió honores frente al Ayuntamiento, en cuyo balcón estaban el alcalde, David de la Viuda, y el cabo de la Guardia Civil. La comitiva siguió luego hasta la casa del mayordomo de este año.",
+        "El alcalde, cofrade desde que su padre lo inscribió al nacer, definió la cofradía como \"una pequeña familia\" y subrayó el sentimiento de hermandad de juntarse con los cofrades y pedir a la Virgen por todos, los que están y los que ya no."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "berrueces",
+    "municipality_name": "Berrueces",
+    "title": "De Berrueces a Friburgo para convertirse en experto en Historia de la Iglesia: «Donde yo estoy, está España»",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/vivi-cerca-caida-muro-berlin-proceso-transformacion-20261118073014-nt.html",
+    "published_at": "2026-11-18",
+    "detected_at": "2026-11-18T15:32:55.040301+00:00",
+    "hash": "df4c8951952d15aff59164173eac632c037e5283667adc5073c26adba47014f1",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "De Berrueces a las aulas de Friburgo: medio siglo de un teólogo nacido en Tierra de Campos",
+      "entradilla": "Mariano Delgado Casado, nacido en Berrueces en 1955, se marchó a Alemania con 21 años y hoy está considerado uno de los grandes especialistas europeos en Historia de la Iglesia. El Norte de Castilla recoge su trayectoria.",
+      "cuerpo": [
+        "Según relata El Norte de Castilla, este vecino de origen berrucense salió de España en el verano de 1976 rumbo a Múnich con una maleta y mucha incertidumbre. Hijo de agricultores, había entrado en el Seminario de Valladolid con apenas diez años y siguió después estudios de Teología. Fueron varios profesores quienes le animaron a marcharse al mundo germanófono, donde, le decían, estaban los mejores teólogos.",
+        "Tras un curso intensivo de alemán, se instaló en Innsbruck (Austria). Allí sacó las licenciaturas de Filosofía y Teología, se doctoró, empezó a dar clases y conoció a su mujer, tirolesa, con la que tiene tres hijas y cuatro nietos. En 1988 la familia se trasladó a Berlín Occidental, donde fue testigo de la caída del Muro en 1989, una de las experiencias que él mismo recuerda como más importantes de su vida.",
+        "En 1997 ganó por concurso público la cátedra de Historia de la Iglesia en la Universidad de Friburgo (Suiza), donde reside desde entonces. Ha sido dos veces decano de su Facultad de Teología y dirigió durante diecisiete años el Instituto para el Diálogo Interreligioso. Desde 2025 es catedrático emérito, pero sigue investigando, publicando y acudiendo a congresos. Tiene además el doctorado honoris causa en Teología por la Universidad de Sankt Augustin (Alemania).",
+        "Lleva medio siglo fuera, pero vuelve varias veces al año para ver a su madre, a sus hermanos y a los amigos de siempre. Dice sentirse tan español como suizo —tiene la doble nacionalidad desde 2011— y mantiene un fuerte vínculo con Valladolid y con Tierra de Campos, a la que describe como uno de los paisajes espirituales más impresionantes de Europa. Entre sus orgullos, cuenta al periódico, figura tener una calle con su nombre en Berrueces, su pueblo natal."
+      ]
+    }
+  },
+  {
     "municipality_slug": "medina-de-rioseco",
     "municipality_name": "Medina de Rioseco",
     "title": "Un ángel hecho con las manos y el corazón de las voluntarias de la AECC",
