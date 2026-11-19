@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "el-burgo-ranero",
+    "municipality_name": "El Burgo Ranero",
+    "title": "La Junta da diez días para alegar sobre la macrogranja de El Burgo Ranero",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17830/la-junta-da-diez-dias-para-alegar-sobre-la-macrogranja-de-el-burgo-ranero",
+    "published_at": "2026-11-19",
+    "detected_at": "2026-11-19T15:40:07.970256+00:00",
+    "hash": "8d25e0602299c5723e75ef9886c1cb3abe33c9a5def5e3261ae79cfe8965d945",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Junta abre un trámite de audiencia en la macrogranja porcina de El Burgo Ranero",
+      "entradilla": "Las personas reconocidas como interesadas tienen diez días para consultar el expediente y presentar alegaciones en el procedimiento de autorización ambiental de la explotación promovida por Danakil Studios y Proyectos.",
+      "cuerpo": [
+        "La tramitación de la macrogranja porcina proyectada en El Burgo Ranero da un nuevo paso. Según informa Sahagún Digital, la Junta de Castilla y León ha empezado a notificar a quienes figuran como interesados un trámite de audiencia que les deja consultar el expediente y presentar alegaciones durante diez días desde que reciben la comunicación.",
+        "El proyecto, que corresponde a una explotación de multiplicación, se prevé en la parcela 49 del polígono 902 del municipio. Contempla 2.640 cerdas con lechones hasta 20 kilos, 500 cerdas de reposición y seis verracos, con una capacidad total de 3.146 animales y una producción anual estimada de 17.443 metros cúbicos de purines.",
+        "Este paso llega después de que a principios de año la Junta dictara una declaración de impacto ambiental favorable, publicada en el Boletín Oficial de Castilla y León, que considera la instalación ambientalmente viable siempre que se cumpla el condicionado de la Administración. Esa declaración no cierra la tramitación: sus condiciones deben incorporarse a la autorización ambiental, que tendrá una vigencia de cuatro años y quedará sin efecto si no se inicia la ejecución en ese plazo.",
+        "El proyecto plantea dos balsas cubiertas de 7.041 metros cúbicos cada una y usar las deyecciones como abono en 584,98 hectáreas. El consumo de agua previsto es de 24.793 metros cúbicos al año, pendiente aún de la autorización del organismo de cuenca. La resolución también fija medidas como la reducción de proteína en la alimentación, el enterramiento inmediato de los purines, un programa anual de vigilancia y la instalación de tres piezómetros para controlar las aguas subterráneas.",
+        "La apertura de este trámite mantiene en marcha un procedimiento al que, desde sus primeras fases, se han opuesto el Ayuntamiento de El Burgo Ranero, la plataforma Payuelo Libre y particulares. Entre las objeciones planteadas figuran el consumo de agua, la gestión de los purines, el tráfico, los olores y la posible afección al entorno del Camino de Santiago."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "grajal-de-campos",
+    "municipality_name": "Grajal de Campos",
+    "title": "La vida cotidiana de los Tercios en Grajal de Campos",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17832/la-vida-cotidiana-de-los-tercios-en-grajal-de-campos",
+    "published_at": "2026-11-19",
+    "detected_at": "2026-11-19T15:39:57.913456+00:00",
+    "hash": "ec417311688e98043595b86149604d44bf45fa0f401735c0e7e2d3845de603d9",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Palacio de los Condes de Grajal recrea la vida cotidiana de los Tercios este sábado",
+      "entradilla": "Grajal de Campos acoge el 21 de noviembre una visita guiada que muestra cómo vivían los soldados de los Tercios fuera del campo de batalla. La entrada es gratuita hasta completar aforo.",
+      "cuerpo": [
+        "Este sábado, 21 de noviembre, el Palacio de los Condes de Grajal abrirá sus puertas a las cinco de la tarde para una actividad que se centra en el día a día de los soldados de los Tercios, aquella infantería de la Monarquía Hispánica de los siglos XVI y XVII. Para la ocasión, el edificio estará ambientado de forma especial.",
+        "Según informa Sahagún Digital, la propuesta corre a cargo de La Camarada, Asociación para el Estudio de la Cultura Cotidiana del Siglo de Oro, una entidad que trabaja con la recreación y la experiencia directa para acercarse a las formas de vida de la época.",
+        "La visita pone el foco en cómo pasaban el tiempo estos soldados cuando no estaban en campaña: juegos de azar, apuestas, pruebas de fuerza o las visitas a las tabernas formaban parte de sus ratos de descanso.",
+        "La entrada es gratuita hasta completar el aforo."
+      ]
+    }
+  },
+  {
     "municipality_slug": "mayorga",
     "municipality_name": "Mayorga",
     "title": "Mayorga celebra el centenario acto de la bandera de España con el escudo de Carlos III",

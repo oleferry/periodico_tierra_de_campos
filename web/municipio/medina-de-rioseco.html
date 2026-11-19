@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Medina de Rioseco — El Terracampino</title>
-<meta name="description" content="Noticias y tiempo de Medina de Rioseco, Tierra de Campos.">
+<meta name="description" content="Aquí en Medina de Rioseco anda nublado y frío, con 12 grados ahora mismo. No subirá mucho en lo que queda de día — andará por los 12 — y soplará vient">
 <link rel="canonical" href="https://www.elterracampino.es/municipio/medina-de-rioseco">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"NewsMediaOrganization","@id":"https://www.elterracampino.es/#medio","name":"El Terracampino","url":"https://www.elterracampino.es/","logo":{"@type":"ImageObject","url":"https://www.elterracampino.es/assets/logo.png"},"sameAs":["https://www.facebook.com/profile.php?id=61592649658185","https://www.instagram.com/elterracampino/","https://t.me/elterracampino"],"ownershipFundingInfo":"https://www.elterracampino.es/aviso-legal"},{"@type":"WebSite","@id":"https://www.elterracampino.es/#web","url":"https://www.elterracampino.es/","name":"El Terracampino","inLanguage":"es-ES","publisher":{"@id":"https://www.elterracampino.es/#medio"}},{"@type":"WebPage","@id":"https://www.elterracampino.es/municipio/medina-de-rioseco","url":"https://www.elterracampino.es/municipio/medina-de-rioseco","name":"Medina de Rioseco — El Terracampino","inLanguage":"es-ES","isPartOf":{"@id":"https://www.elterracampino.es/#web"},"about":{"@id":"https://www.elterracampino.es/municipio/medina-de-rioseco#lugar"}},{"@type":"Place","@id":"https://www.elterracampino.es/municipio/medina-de-rioseco#lugar","name":"Medina de Rioseco","containedInPlace":[{"@type":"Place","name":"Tierra de Campos"},{"@type":"AdministrativeArea","name":"Provincia de Valladolid"}],"geo":{"@type":"GeoCoordinates","latitude":41.883056,"longitude":-5.042778}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Portada","item":"https://www.elterracampino.es/"},{"@type":"ListItem","position":2,"name":"Medina de Rioseco","item":"https://www.elterracampino.es/municipio/medina-de-rioseco"}]}]}</script>
@@ -56,7 +56,7 @@
 <section class="tc-muni-hero"><div class="tc-wrap">
   <span class="tc-section-label">Tu pueblo</span>
   <h1>Medina de Rioseco</h1>
-  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>4.617 habitantes</span><span>Actualizado: 18/11/2026</span></div>
+  <div class="tc-muni-meta"><span>Provincia de Valladolid</span><span>4.617 habitantes</span><span>Actualizado: 19/11/2026</span></div>
   <div class="tc-muni-hero-foto">
     <img src="../assets/fotos-libres/medina-de-rioseco.jpg" alt="Medina de Rioseco" loading="lazy">
     <p class="tc-muni-hero-credito">Foto: <a href="https://commons.wikimedia.org/wiki/File:Fundación_Joaquín_Díaz_-_Vista_panorámica_-_Medina_de_Rioseco_(Valladolid).jpg" target="_blank" rel="noopener">Fundación Joaquín Díaz / Cayetano Enríquez</a>,
@@ -68,12 +68,53 @@
 
 <div class="tc-wrap tc-muni-grid">
   <main class="tc-muni-main">
-    <h2 class="tc-block-title">A ras de tierra — Medina de Rioseco</h2>
-    <section class="tc-wrap tc-weather">
-  <span class="tc-section-label" style="color:var(--tc-azul-bop);">A ras de tierra — El tiempo hoy en Medina de Rioseco</span>
-  <p class="tc-pieza-cuerpo">Ahora mismo no podemos darte el tiempo de Medina de Rioseco: el servicio
-  meteorológico no responde. Vuelve a probar en un rato — se actualiza solo varias veces al día.</p>
-</section>
+    <h2 class="tc-block-title">A ras de tierra — El tiempo hoy en Medina de Rioseco: 12° y nublado</h2>
+    <div class="tc-weather-hero">
+    <div class="tc-weather-now">
+      <span class="tc-weather-big tc-data" id="tc-weather-big-live">12°</span>
+      <span class="tc-weather-desc" id="tc-weather-desc-live">nublado</span>
+      <span class="tc-sello tc-sello--auto" id="tc-weather-sello-live">Automático · Open-Meteo</span>
+    </div>
+    <script>
+(function() {
+  var WMO = {0:"despejado",1:"casi despejado",2:"nubes y claros",3:"nublado",45:"niebla",48:"niebla helada",
+    51:"llovizna débil",53:"llovizna",55:"llovizna intensa",61:"lluvia débil",63:"lluvia",65:"lluvia fuerte",
+    66:"lluvia helada",67:"lluvia helada fuerte",71:"nieve débil",73:"nieve",75:"nieve intensa",77:"aguanieve",
+    80:"chubascos",81:"chubascos",82:"chubascos fuertes",85:"chubascos de nieve",86:"chubascos de nieve",
+    95:"tormenta",96:"tormenta con granizo",99:"tormenta fuerte con granizo"};
+  fetch("https://api.open-meteo.com/v1/forecast?latitude=41.883056&longitude=-5.042778&current=temperature_2m,weather_code&timezone=Europe%2FMadrid")
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(d) {
+      if (!d || !d.current) return;
+      var big = document.getElementById("tc-weather-big-live");
+      var desc = document.getElementById("tc-weather-desc-live");
+      var sello = document.getElementById("tc-weather-sello-live");
+      if (big) big.textContent = Math.round(d.current.temperature_2m) + "°";
+      if (desc) desc.textContent = WMO[d.current.weather_code] || "tiempo variable";
+      if (sello) sello.textContent = "En vivo · Open-Meteo";
+    })
+    .catch(function() { /* si falla, se queda el dato del build — mejor eso que nada */ });
+})();
+</script>
+    <p class="tc-weather-article">Aquí en Medina de Rioseco anda nublado y frío, con 12 grados ahora mismo. No subirá mucho en lo que queda de día — andará por los 12 — y soplará viento de 25 que se notará. Lluvia no hay segura, aunque hay posibilidad, pero de poco. Mañana viene con algo más de humedad, aunque sin que llueva de verdad.</p>
+    <span class="tc-section-label" style="color:var(--tc-azul-bop);">Los próximos días</span>
+    <div class="tc-days"><article class="tc-day">
+      <span class="tc-day-name">Viernes</span>
+      <h4 class="tc-day-titular">Viernes con lluvia débil</h4>
+      <p class="tc-day-texto">Lluvias que apenas dejan 1.3 mm con máxima de 12° y mínima de 8°. Viento de 19 km/h que acompañará el día.</p>
+      <span class="tc-day-temp tc-data">12° <span class="tc-day-min">8°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Sábado</span>
+      <h4 class="tc-day-titular">Sábado completamente mojado</h4>
+      <p class="tc-day-texto">Lluvia segura con 23.8 mm acumulados, máxima de 11° y mínima de 9°. Viento moderado de 20 km/h durante toda la jornada.</p>
+      <span class="tc-day-temp tc-data">11° <span class="tc-day-min">9°</span></span>
+    </article><article class="tc-day">
+      <span class="tc-day-name">Domingo</span>
+      <h4 class="tc-day-titular">Domingo con chubascos y viento</h4>
+      <p class="tc-day-texto">Chubascos probables con máxima de 11° y mínima de 5°, acompañados de viento fuerte que rondará los 26 km/h. Apenas 0.5 mm esperado.</p>
+      <span class="tc-day-temp tc-data">11° <span class="tc-day-min">5°</span></span>
+    </article></div>
+  </div>
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —Medina de Rioseco incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -124,7 +165,12 @@
       <span class="tc-news-entradilla">El Ayuntamiento da luz verde al proyecto para reordenar las parcelas y hacer las calles de esa unidad del Plan General. Es el paso previo para que la zona quede urbanizada.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a></div><h2 class="tc-block-title">Otros anuncios oficiales</h2>
-      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/10/28/html/BOCYL-D-28102026-209-15.do" target="_blank" rel="noopener">
+      <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/11/18/html/BOCYL-D-18112026-223-18.do" target="_blank" rel="noopener">
+      <span class="tc-news-kicker">BOCyL · 2026-11-18</span>
+      <span class="tc-news-titular">Visto bueno ambiental a las baterías que acompañarán a la planta solar de Medina de Rioseco</span>
+      <span class="tc-news-entradilla">La empresa Inver Generación 12, S.L. quiere añadir a la planta solar existente un sistema de almacenamiento en baterías de 5 MW y 20 MWh, llamado «BESS Posadas». Ya tiene el informe de impacto ambiental; falta que se ejecute.</span>
+      <span class="tc-news-more">Leer en la fuente oficial →</span>
+    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/10/28/html/BOCYL-D-28102026-209-15.do" target="_blank" rel="noopener">
       <span class="tc-news-kicker">BOCyL · 2026-10-28</span>
       <span class="tc-news-titular">A información pública la nueva red de distribución eléctrica en Medina de Rioseco</span>
       <span class="tc-news-entradilla">Industria ha sacado a información pública la solicitud para autorizar y construir una instalación de distribución eléctrica en el municipio. Falta que se dé el visto bueno antes de construirla.</span>
@@ -133,11 +179,6 @@
       <span class="tc-news-kicker">BOCyL · 2026-11-04</span>
       <span class="tc-news-titular">Medina de Rioseco empieza a expropiar terrenos para el nuevo sector residencial SUR D09</span>
       <span class="tc-news-entradilla">La Junta ha convocado a los propietarios afectados para firmar las actas previas a la ocupación de sus bienes y derechos. Es el paso para poder sacar adelante el plan residencial en ese sector del municipio.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/08/12/html/BOCYL-D-12082026-155-8.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">BOCyL · 2026-08-12</span>
-      <span class="tc-news-titular">Aprobado el plan para levantar nuevas viviendas en el sector sur de Medina de Rioseco</span>
-      <span class="tc-news-entradilla">La Junta ha dado el visto bueno al plan que ordena el suelo residencial del sector sur D09 del pueblo. Con esto queda fijado cómo se podrá urbanizar esa zona.</span>
       <span class="tc-news-more">Leer en la fuente oficial →</span>
     </a><a class="tc-news" href="https://medinaderioseco.org/informacion-publica-aprobacion-definitiva-proyecto-de-urbanizacion-de-la-travesia-de-la-carretera-a-villaesper/" target="_blank" rel="noopener">
       <span class="tc-news-kicker">Web municipal · 2026-07-31</span>
