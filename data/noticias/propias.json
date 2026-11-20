@@ -1,5 +1,60 @@
 [
   {
+    "municipality_slug": "paredes-de-nava",
+    "municipality_name": "Paredes de Nava",
+    "title": "El dúo italiano formado por Roberto Fabbri y Fabio Macera abrirá el Festival de Guitarra",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/duo-italiano-formado-roberto-fabbri-fabio-macera-20261118170622-nt.html",
+    "published_at": "2026-11-18",
+    "detected_at": "2026-11-20T15:21:22.026204+00:00",
+    "hash": "96dcc96c42a955dce222da1fffbd1e59091503839205d2efb31db1bbdc6557e5",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "El Festival Diapasión llega a Paredes de Nava con 'Historias del Tango'",
+      "entradilla": "El Dúo El Tango actuará en Paredes de Nava el 20 de noviembre dentro de la vigésimo cuarta edición del Festival Internacional de Guitarra Diapasión, que también pasa por Palencia, Guardo y Husillos.",
+      "cuerpo": [
+        "Paredes de Nava será una de las primeras paradas del festival. Según informa El Norte de Castilla, el próximo 20 de noviembre llega al pueblo el Dúo El Tango, formado por Orlando di Bello al bandoneón y Carles Pons a la guitarra, con el espectáculo 'Historias del Tango'. Al día siguiente, el 21, la misma propuesta se podrá ver en Husillos.",
+        "El festival, que celebra su edición número 24, está organizado por la Asociación Musical Calandria con la dirección artística de Carles Pons y el apoyo del Ayuntamiento de Palencia, dentro del Otoño Cultural. Se desarrolla hasta el 29 de noviembre, con el grueso de los conciertos en el Teatro Principal de la capital y actuaciones repartidas también por Guardo.",
+        "En el caso concreto de Paredes de Nava, las entradas cuestan cinco euros. Para los conciertos del Teatro Principal de Palencia, el precio es de diez euros y pueden comprarse en las taquillas del teatro y en su web, teatroprincipaldepalencia.es."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "almanza",
+    "municipality_name": "Almanza",
+    "title": "Los CIT de Sahagún, Almanza y Grajal se beneficiarán de la subvención de la Junta para impulsar la actividad turística",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17833/los-cit-de-sahagun-almanza-y-grajal-se-beneficiaran-de-la-subvencion-de-la-junta-para-impulsar-la-actividad-turistica",
+    "published_at": "2026-11-20",
+    "detected_at": "2026-11-20T15:21:07.164028+00:00",
+    "hash": "215d95727b64431725333e68a6d3f22befb04b1d1ca7c5838c8cb1e483509f68",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Junta destina 315.000 euros a las iniciativas turísticas, con Almanza entre las beneficiadas",
+      "entradilla": "El Consejo de Gobierno aprobó una subvención para la federación que agrupa a los centros de iniciativas turísticas de Castilla y León, entre ellos los de Almanza, Sahagún y Grajal de Campos.",
+      "cuerpo": [
+        "El Consejo de Gobierno autorizó este jueves 19 de noviembre una ayuda de 315.000 euros para la Federación de Centros de Iniciativas Turísticas de Castilla y León (Fecitcal), según informa Sahagún Digital. El dinero servirá para tareas de promoción, coordinación y digitalización de las 48 entidades que forman parte de esa red.",
+        "Entre esas agrupaciones figuran las de Almanza, Sahagún y Grajal de Campos, asociaciones sin ánimo de lucro que trabajan en el medio rural. La subvención cubre las iniciativas que se desarrollen entre octubre de 2026 y septiembre de 2027.",
+        "Con estos fondos se podrán pagar el mantenimiento de oficinas y puntos de información al visitante, la edición de guías y folletos, el diseño de webs, la señalización de monumentos y el acondicionamiento de rutas de senderismo.",
+        "La ayuda también contempla la presencia en ferias como Fitur o Intur, campañas en medios y el apoyo a mercados tradicionales. En el apartado de dinamización comarcal entran jornadas gastronómicas y de artesanía, certámenes culturales, exposiciones, ciclos musicales, pruebas deportivas y la participación en fiestas locales y romerías."
+      ]
+    }
+  },
+  {
     "municipality_slug": "el-burgo-ranero",
     "municipality_name": "El Burgo Ranero",
     "title": "La Junta da diez días para alegar sobre la macrogranja de El Burgo Ranero",
