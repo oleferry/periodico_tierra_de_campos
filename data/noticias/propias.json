@@ -1,5 +1,62 @@
 [
   {
+    "municipality_slug": "villoldo",
+    "municipality_name": "Villoldo",
+    "title": "Mocedades y Los Panchos comparten este domingo escenario en el teatro Ortega",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/palencia/mocedades-panchos-comparten-domingo-escenario-teatro-ortega-20261116150055-nt.html",
+    "published_at": "2026-11-16",
+    "detected_at": "2026-11-21T14:34:19.657419+00:00",
+    "hash": "f135a4ac0845f2f641c4288a998653476f5bebeb39f3bb57723eae664c776e75",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-palencia",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Mocedades y Los Panchos se juntan en el teatro Ortega el domingo",
+      "entradilla": "El teatro Ortega acoge este domingo 22 un concierto conjunto de Mocedades y Los Panchos, dentro de la semana cultural que también cierra el festival de jazz de Palencia.",
+      "cuerpo": [
+        "Dos nombres clásicos de la canción en español coinciden sobre el mismo escenario este domingo 22, día de Santa Cecilia. Según informa El Norte de Castilla, Mocedades y Los Panchos actuarán en el teatro Ortega a partir de las 18:30 horas, en una gira que celebra los sesenta años del grupo bilbaíno.",
+        "Mocedades llega de la mano de Izaskun Uranga, miembro fundadora, y repasará temas que ya forman parte de la memoria de varias generaciones, como 'Eres tú' o 'Amor de hombre'. Los Panchos, con la voz de Rafael Basurto Lara, aportarán el bolero con clásicos como 'Rayito de luna' o 'Si tú me dices ven'. Las entradas parten de los 45 euros.",
+        "La semana cultural arranca antes, el martes 17 a las 18:30, con la obra 'El asistente personal', del grupo de teatro Virgen de Oroyo de Villoldo, a beneficio de la Fundación Hombres Nuevos de Palencia.",
+        "El Ortega también despide esta semana el XIII Jazz Palencia Festival con dos citas: el viernes 20 a las 21:00 toca el Billy Cobham Quintet, y el sábado 21 a las 20:30 cierran Cucurucho Valdés y el Javier Colina Trío con el espectáculo 'Para Bebo'. Estos conciertos de jazz cuestan desde 25 euros.",
+        "Las entradas para todos los espectáculos pueden comprarse en teatroortega.com y en la taquilla del teatro."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "La biblioteca de Sahagún recibe uno de los premios María Moliner por su apuesta por la lectura",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17824/la-biblioteca-de-sahagun-recibe-uno-de-los-premios-maria-moliner-por-su-apuesta-por-la-lectura",
+    "published_at": "2026-11-21",
+    "detected_at": "2026-11-21T14:34:01.426108+00:00",
+    "hash": "1f9f0743544c9181ce2ab98b90fd73b82c3081d312bfeeed7cafadcb729631ed",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "La Biblioteca de Sahagún hace balance de un año de actividades para unir a vecinos de todas las edades",
+      "entradilla": "La Biblioteca Municipal ha presentado un proyecto que recoge las propuestas con las que ha intentado acercar la lectura y convertir sus salas en lugar de encuentro.",
+      "cuerpo": [
+        "La Biblioteca Municipal de Sahagún ha repasado todo lo que ha organizado a lo largo del año con una idea de fondo: que la biblioteca no sea solo un sitio para coger libros, sino un espacio donde se junte gente de distintas edades. Así lo recoge el proyecto que ha presentado, según informa Sahagún Digital.",
+        "Entre las actividades que han pasado por la biblioteca están el taller de verano 'Mitad del Camino Kids', las sesiones del Club de Lectura y su conexión con el cine, presentaciones de libros, rutas literarias y juegos de mesa con motivo del Día de la Biblioteca. Para Navidad vuelve el tradicional Amigo Invisible, en el que los participantes se intercambian libros.",
+        "Los más pequeños también tienen su hueco, con juegos, actividades de comprensión lectora, 'escape rooms' literarias y el trabajo del Club de Lectura Infantil.",
+        "El proyecto pone además en valor los fondos de la propia biblioteca, junto con los del Centro de Interpretación y Documentación de la Peregrina y la Sala de Investigadores 'Joaquín González Cuenca'."
+      ]
+    }
+  },
+  {
     "municipality_slug": "paredes-de-nava",
     "municipality_name": "Paredes de Nava",
     "title": "El dúo italiano formado por Roberto Fabbri y Fabio Macera abrirá el Festival de Guitarra",
