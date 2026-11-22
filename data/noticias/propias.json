@@ -1,5 +1,61 @@
 [
   {
+    "municipality_slug": "sahagun",
+    "municipality_name": "Sahagún",
+    "title": "Cruz Roja reúne en Sahagún a más de un centenar de personas voluntarias de toda la provincia en su encuentro anual",
+    "source_type": "radar_local",
+    "url_original": "https://sahagundigital.com/art/17815/cruz-roja-reune-en-sahagun-a-mas-de-un-centenar-de-personas-voluntarias-de-toda-la-provincia-en-su-encuentro-anual",
+    "published_at": "2026-11-22",
+    "detected_at": "2026-11-22T14:29:32.305746+00:00",
+    "hash": "9ad4537c12326f9ddda0ef15a12cbf2064deb267bbd56b14a7808bffe0460a1a",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "Sahagún Digital",
+      "fuente_slug": "sahagundigital",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Más de cien voluntarios de Cruz Roja se reúnen en Sahagún en su encuentro provincial",
+      "entradilla": "El Auditorio Municipal acogió este domingo una jornada que reunió a voluntarios de toda la provincia para compartir experiencias y reconocer su trabajo.",
+      "cuerpo": [
+        "Sahagún fue este domingo punto de encuentro para más de un centenar de voluntarios de Cruz Roja llegados de distintas zonas de la provincia. La cita, celebrada en el Auditorio Municipal, formó parte del Encuentro Provincial de Voluntariado, según informa Sahagún Digital.",
+        "La jornada sirvió para poner en común el trabajo que desarrollan las asambleas comarcales y para reconocer a quienes colaboran con la organización, especialmente en el acompañamiento a personas en situación de dificultad.",
+        "Según los datos recogidos por Sahagún Digital, este año más de 1.300 personas participan como voluntarias en Cruz Roja a través de las 15 asambleas comarcales que la entidad tiene en León.",
+        "El presidente provincial de Cruz Roja, Daniel Hernández, fue el encargado de cerrar el encuentro, en el que agradeció la dedicación de los voluntarios y defendió su papel en la respuesta a las necesidades sociales. La jornada incluyó además una visita a la cercana localidad de Grajal de Campos."
+      ]
+    }
+  },
+  {
+    "municipality_slug": "villalan-de-campos",
+    "municipality_name": "Villalán de Campos",
+    "title": "Juan Revilla ensalza la asamblea vecinal de Villalán de Campos en su pregón de fiestas",
+    "source_type": "radar_local",
+    "url_original": "https://www.elnortedecastilla.es/valladolid/provincia/juan-revilla-ensalza-asamblea-vecinal-villalan-campos-20261121200115-nt.html",
+    "published_at": "2026-11-21",
+    "detected_at": "2026-11-22T14:29:14.660307+00:00",
+    "hash": "fe802fc0217abd6adf107df1434d06665c18b777510f778b95fdf57e344c4716",
+    "confidence": "medium",
+    "requires_review": false,
+    "estado": "publicado",
+    "metadata": {
+      "fuente": "El Norte de Castilla",
+      "fuente_slug": "elnortedecastilla-valladolid",
+      "scraper": "SCR-016"
+    },
+    "redaccion": {
+      "titular": "Villalán de Campos celebra Santa Cecilia con el pregón de su secretario durante dos décadas",
+      "entradilla": "El exsecretario del Ayuntamiento, Juan Revilla, abrió oficialmente las fiestas patronales con un pregón centrado en la asamblea vecinal y el respeto entre vecinos.",
+      "cuerpo": [
+        "Villalán de Campos vive este fin de semana sus fiestas patronales en honor a Santa Cecilia. El arranque oficial fue el sábado con el pregón, que corrió a cargo de Juan Revilla, secretario del Ayuntamiento durante veinte años antes de cambiar de destino. Según informa El Norte de Castilla, también fue secretario de Berrueces y de Palazuelo de Vedija, localidades que ya le nombraron pregonero de sus fiestas el pasado septiembre.",
+        "En su intervención, ante numerosos vecinos e invitados, Revilla puso el foco en la asamblea vecinal de la localidad y en el arraigo que genera. Destacó el respeto entre las partes y hacia las opiniones contrarias, recordando que, pese a las discusiones, al final se solía llegar a acuerdos.",
+        "El pregonero aprovechó para lanzar un mensaje de cara a las próximas elecciones generales: dijo que la alta política debería tomar ejemplo de ese modo de entenderse, en unos tiempos marcados por la confrontación. También dejó alguna anécdota, como aquella vez en que se escribió al arquitecto Frank Gehry para que hiciera un proyecto en la torre de Santa Cecilia. Según recoge El Norte de Castilla, cerró recordando que servir a este Ayuntamiento había sido el mayor de los honores y leer su última acta, un orgullo.",
+        "Después del refresco llegó el recorrido de peñas con Los Cañis, la hoguera tradicional junto a la iglesia y la música del grupo Cocottes y Dj Jefe. Para este domingo está prevista la procesión en honor a la patrona, seguida de la misa."
+      ]
+    }
+  },
+  {
     "municipality_slug": "villoldo",
     "municipality_name": "Villoldo",
     "title": "Mocedades y Los Panchos comparten este domingo escenario en el teatro Ortega",
