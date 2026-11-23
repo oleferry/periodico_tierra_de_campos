@@ -29,7 +29,7 @@ def redactar(doc: dict) -> dict:
     # evita que un fallo de la IA caiga al redactor por reglas, que titula a
     # partir de doc['title'] — y en una pista ese título es el del OTRO medio.
     if doc.get("redaccion"):
-        return _con_titular_capitalizado(doc["redaccion"])
+        return _con_titular_capitalizado(doc["redaccion"], doc.get("municipality_name", ""))
 
     es_pleno_con_texto = doc.get("source_type") == "municipal_plenary" and doc.get("acta_texto")
     es_ayuda_con_texto = doc.get("source_type") == "subvencion" and doc.get("ayuda_texto")
@@ -42,7 +42,7 @@ def redactar(doc: dict) -> dict:
     ).hexdigest()
     guardado = cache.get("redactor", clave)
     if guardado:
-        return _con_titular_capitalizado(guardado)
+        return _con_titular_capitalizado(guardado, doc.get("municipality_name", ""))
     if ia.disponible():
         try:
             if es_pleno_con_texto:
@@ -52,17 +52,28 @@ def redactar(doc: dict) -> dict:
             else:
                 r = ia.redactar(doc)
             cache.set("redactor", clave, r)
-            return _con_titular_capitalizado(r)
+            return _con_titular_capitalizado(r, doc.get("municipality_name", ""))
         except Exception as exc:  # noqa: BLE001 (cualquier fallo → reglas)
             print(f"  aviso: IA no disponible para un titular ({exc}); uso reglas", file=sys.stderr)
-    return redactar_reglas(doc)
+    return _con_titular_capitalizado(redactar_reglas(doc), doc.get("municipality_name", ""))
 
 
-def _con_titular_capitalizado(r: dict) -> dict:
-    """La IA no siempre empieza el titular en mayúscula; se normaliza aquí
-    (una sola vez, aplica también a lo que ya estaba en caché)."""
+def _con_titular_capitalizado(r: dict, pueblo: str = "") -> dict:
+    """Normaliza la caja del titular (una sola vez, aplica también a lo que ya
+    estaba en caché):
+      · la IA no siempre empieza en mayúscula;
+      · algunas webs municipales titulan TODO EN MAYÚSCULAS, y sin IA el
+        redactor por reglas lo heredaba: en portada parecía que el periódico
+        gritaba. Se pasa a caja normal y se recupera el nombre del pueblo."""
     t = r["titular"]
-    if t and t[0].islower():
+    letras = [c for c in t if c.isalpha()]
+    if len(letras) >= 12 and sum(c.isupper() for c in letras) / len(letras) > 0.7:
+        t = t.lower()
+        if pueblo:
+            t = re.sub(re.escape(pueblo.lower()), pueblo, t)
+        t = t[0].upper() + t[1:]
+        r = {**r, "titular": t}
+    elif t and t[0].islower():
         r = {**r, "titular": t[0].upper() + t[1:]}
     return r
 

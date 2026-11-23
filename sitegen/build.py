@@ -903,11 +903,11 @@ def header(depth: int) -> str:
   <nav class="tc-nav" id="tc-nav">
     <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="{home}">Portada</a>
-    <a href="{home}#pueblos">Elige tu pueblo</a>
-    <a href="{home}#comarca">La comarca</a>
+    <a href="{home}#ultimo">Lo último</a>
+    <a href="{home}#pueblos">Los pueblos</a>
     <a href="{home}#blog">Investigaciones</a>
-    <a href="{up}huerta.html">Huerta</a>
     <a href="{up}campo.html">El campo</a>
+    <a href="{up}huerta.html">Huerta</a>
     <a href="{up}leyendas.html">Leyendas</a>
     <a href="{up}esquelas.html">Esquelas</a>
     <a href="{up}acompanar.html">Acompañar</a>
@@ -1353,11 +1353,22 @@ def _bloque_portada(p: dict | None, hoy: date) -> str:
 </article>"""
 
 
+# Máximo de piezas de un mismo pueblo en "Lo último". Un pueblo con web
+# municipal activa (Carrión) publicaba seis de las diez el mismo día y tapaba al
+# resto de la comarca; el boletín de Telegram ya tuvo el mismo problema.
+MAX_ULTIMO_POR_PUEBLO = 2
+
+
 def _lista_ultimo(pool: list[dict], excluir: dict | None, hoy: date, n: int = 10) -> str:
     items = []
+    por_pueblo: dict[str, int] = {}
     for d in pool:
         if excluir is not None and d is excluir:
             continue
+        slug = d.get("municipality_slug") or ""
+        if slug and por_pueblo.get(slug, 0) >= MAX_ULTIMO_POR_PUEBLO:
+            continue
+        por_pueblo[slug] = por_pueblo.get(slug, 0) + 1
         href, target, _ = enlace_doc(d, 0)
         rel = ' rel="noopener"' if target == "_blank" else ""
         items.append(f"""<li><a href="{E(href)}" target="{target}"{rel}>
@@ -1402,13 +1413,11 @@ def _rejilla_pueblos(built: list[dict], pool: list[dict], hoy: date) -> str:
     tarjetas = []
     for m in sorted(built, key=lambda m: strip_accents(m["name"]).lower()):
         n = recientes.get(m["slug"], 0)
-        nuevas = (f'<span class="tc-pueblo-nuevas">{n} {"novedad" if n == 1 else "novedades"}</span>'
-                  if n else "")
+        nuevas = f'<span class="tc-pueblo-nuevas">{n} {"nueva" if n == 1 else "nuevas"}</span>' if n else ""
         tarjetas.append(f"""<a class="tc-pueblo" href="municipio/{E(m['slug'])}.html">
-      <span class="tc-pueblo-nombre">{E(m['name'])}</span>
-      <span class="tc-pueblo-prov">{E(m.get('province', ''))}</span>{nuevas}
+      <span class="tc-pueblo-nombre">{E(m['name'])}</span>{nuevas}
     </a>""")
-    return f'<div class="tc-pueblos-grid">{"".join(tarjetas)}</div>'
+    return f'<div class="tc-pueblos-grid tc-pueblos-grid--compacta">{"".join(tarjetas)}</div>'
 
 
 def _datos_comarca(built: list[dict], cots: list[dict] | None, paro: dict | None) -> str:

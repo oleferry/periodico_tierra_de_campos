@@ -214,8 +214,8 @@ jobs:
           # trampa: al chocar dejaba el repo A MEDIO REBASE, en detached HEAD, y
           # el push moría con "You are not currently on a branch" — build en rojo
           # y web sin publicar. Pasó el 2026-08-04.
-          git fetch origin main
-          if ! git rebase origin/main; then
+          git fetch origin "$GITHUB_REF_NAME"
+          if ! git rebase "origin/$GITHUB_REF_NAME"; then
             # Los conflictos solo pueden estar en ficheros GENERADOS (web/, data/),
             # que este build acaba de rehacer enteros: vale nuestra versión.
             # OJO con la inversión de git: durante un rebase, --theirs es el commit
