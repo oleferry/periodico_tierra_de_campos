@@ -1286,6 +1286,28 @@ def datos_pueblos(built: list[dict], pool: list[dict], hoy: date) -> dict:
     return out
 
 
+def datos_ultimas(pool: list[dict], n: int = 80) -> list[dict]:
+    """web/datos/ultimas.json: las piezas más recientes de toda la comarca, con
+    enlace absoluto. De aquí sale "La semana terracampina" (el correo de los
+    viernes, scripts/semana_terracampina.py) y servirá para un buscador."""
+    out = []
+    for d in pool[:n]:
+        r = redactar(d)
+        href, target, _ = enlace_doc(d, 0)
+        out.append({
+            "titular": r["titular"],
+            "entradilla": r.get("entradilla", ""),
+            "pueblo": d.get("municipality_name", ""),
+            "slug": d.get("municipality_slug", ""),
+            "fecha": (d.get("published_at") or "")[:10],
+            "fuente": fuente_label(d),
+            "pleno": d.get("source_type") == "municipal_plenary",
+            "propia": bool(r.get("cuerpo")),
+            "url": href if target == "_blank" else url_publica(href),
+        })
+    return out
+
+
 def _kicker(d: dict, hoy: date, *, con_pueblo: bool = True) -> str:
     partes = []
     if con_pueblo and d.get("municipality_name"):
@@ -3043,6 +3065,92 @@ def render_acompanar_hoja() -> str:
 """.replace("{bloques_tel}", bloques_tel)
 
 
+def _qr_svg(url: str) -> str:
+    """QR en SVG, escalable por CSS (viewBox, sin tamaño fijo). Corrección de
+    errores media: aguanta una esquina doblada o una mancha en el cartel."""
+    import segno
+    return segno.make(url, error="m").svg_inline(scale=1, omitsize=True, dark="#131313", border=2)
+
+
+def render_cartel(m: dict) -> str:
+    """Cartel A4 imprimible de un pueblo, con un QR a su ficha, para colgar en
+    el bar, la farmacia, el consultorio o el tablón del ayuntamiento. Es la
+    herramienta de la salida al mercado "lectores primero" (ver docs/mercado.md):
+    en estos pueblos mucha gente no busca un periódico en internet, pero sí
+    apunta el móvil a un cartel que lleva el nombre de su pueblo.
+
+    Página autónoma, sin shell(): está pensada para imprimirse limpia."""
+    url = url_publica(f"municipio/{m['slug']}.html")
+    url_corta = url.replace("https://www.", "")
+    nombre = E(m["name"])
+    return f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Cartel de {nombre} — El Terracampino</title>
+<link rel="icon" href="../assets/favicon-32.png" type="image/png" sizes="32x32">
+<style>
+  @page {{ size: A4; margin: 14mm; }}
+  * {{ box-sizing: border-box; }}
+  body {{ margin: 0; font-family: Georgia, 'PT Serif', serif; color: #131313; background: #fff; }}
+  .hoja {{ max-width: 182mm; min-height: 269mm; margin: 0 auto; padding: 10mm 0; display: flex; flex-direction: column; gap: 9mm; }}
+  .marca {{ display: flex; align-items: center; gap: 12px; border-bottom: 3px solid #131313; padding-bottom: 6mm; }}
+  .marca img {{ height: 22mm; width: auto; }}
+  .marca span {{ font-family: Arial, Helvetica, sans-serif; font-size: 11pt; letter-spacing: .14em; text-transform: uppercase; color: #1F3F5C; }}
+  h1 {{ margin: 0; font-size: 40pt; line-height: 1.05; }}
+  .pueblo {{ color: #A65F2A; }}
+  .sub {{ margin: 0; font-size: 17pt; line-height: 1.35; }}
+  .qr {{ display: flex; align-items: center; gap: 9mm; border: 2px solid #131313; padding: 7mm; }}
+  .qr svg {{ width: 80mm; height: 80mm; flex: 0 0 auto; }}
+  .qr-txt {{ font-family: Arial, Helvetica, sans-serif; font-size: 15pt; line-height: 1.4; }}
+  .qr-txt strong {{ display: block; font-size: 19pt; margin-bottom: 3mm; }}
+  .url {{ font-family: 'Courier New', monospace; font-size: 13pt; margin-top: 4mm; display: block; }}
+  .pie {{ font-family: Arial, Helvetica, sans-serif; font-size: 12.5pt; line-height: 1.45; border-top: 1px solid #ccc; padding-top: 5mm; margin: auto 0 0; }}
+  .volver {{ font-family: Arial, sans-serif; font-size: 11pt; }}
+  .volver button {{ font: inherit; padding: 8px 14px; min-height: 44px; cursor: pointer; }}
+  @media print {{ .volver {{ display: none; }} .hoja {{ padding: 0; min-height: 267mm; }} }}
+</style>
+</head>
+<body>
+<div class="hoja">
+  <p class="volver"><a href="../carteles.html">← Todos los carteles</a> ·
+  <button type="button" onclick="window.print()">Imprimir este cartel</button></p>
+  <div class="marca"><img src="../{LOGO_RUTA}" alt=""><span>El Terracampino · el periódico de los pueblos</span></div>
+  <h1>Lo que pasa en <span class="pueblo">{nombre}</span>, cada día</h1>
+  <p class="sub">El tiempo, los plenos del ayuntamiento, las ayudas, las fiestas y las noticias del pueblo. Gratis y sin registrarse.</p>
+  <div class="qr">
+    {_qr_svg(url)}
+    <div class="qr-txt"><strong>Apunta aquí con la cámara del móvil</strong>
+    Se abre sola la página de {nombre}.
+    <span class="url">{E(url_corta).replace("/", "/<wbr>")}</span></div>
+  </div>
+  <p class="pie">También en Telegram y WhatsApp: busca <strong>El Terracampino</strong>. ¿Sabes algo que debería contarse? Escríbenos desde la web.</p>
+</div>
+</body>
+</html>
+"""
+
+
+def render_carteles(built: list[dict]) -> str:
+    """Índice de carteles: uno por pueblo, para imprimir y repartir."""
+    filas = "".join(
+        f'<li><a href="cartel/{E(m["slug"])}.html">{E(m["name"])}</a> '
+        f'<span class="tc-agenda-pueblo">{E(m.get("province", ""))}</span></li>'
+        for m in sorted(built, key=lambda m: strip_accents(m["name"]).lower()))
+    body = f"""<article class="tc-wrap tc-articulo"><div class="tc-articulo-ancho">
+  <span class="tc-section-label">Para repartir</span>
+  <h1>Carteles para cada pueblo</h1>
+  <p class="tc-articulo-entradilla">Un cartel por pueblo, en A4, con un código QR que abre directamente
+  la página de ese pueblo. Para colgar en el bar, la farmacia, el consultorio, la tienda o el tablón del
+  ayuntamiento: donde la gente se para y mira.</p>
+  <ul class="tc-links-list">{filas}</ul>
+</div></article>"""
+    return shell("Carteles para cada pueblo — El Terracampino", body, depth=0, ruta="carteles.html",
+                 desc="Carteles imprimibles con código QR para cada pueblo de Tierra de Campos.")
+
+
 def render_aviso_legal() -> str:
     """Aviso legal / titularidad del medio (LSSI-CE art. 10). Deja constancia de
     quién es la propietaria del periódico y quién lo desarrolla y mantiene. No se
@@ -3329,6 +3437,9 @@ def main() -> int:
     (WEB / "datos" / "pueblos.json").write_text(
         json.dumps(datos_pueblos(built, pool, hoy), ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8")
+    (WEB / "datos" / "ultimas.json").write_text(
+        json.dumps(datos_ultimas(pool), ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8")
     blog_articulos = cargar_blog_articulos()
     (WEB / "feed.xml").write_text(render_feed_rss(blog_articulos), encoding="utf-8")
 
@@ -3350,6 +3461,10 @@ def main() -> int:
     (WEB / "aviso-legal.html").write_text(render_aviso_legal(), encoding="utf-8")
     (WEB / "acompanar.html").write_text(render_acompanar(), encoding="utf-8")
     (WEB / "acompanar-hoja.html").write_text(render_acompanar_hoja(), encoding="utf-8")
+    (WEB / "carteles.html").write_text(render_carteles(built), encoding="utf-8")
+    (WEB / "cartel").mkdir(parents=True, exist_ok=True)
+    for m in built:
+        (WEB / "cartel" / f"{m['slug']}.html").write_text(render_cartel(m), encoding="utf-8")
     paginas_sitemap: list[tuple[str, str]] = [
         ("", hoy.isoformat()), ("huerta.html", hoy.isoformat()), ("chivatazo.html", hoy.isoformat()),
         ("leyendas.html", hoy.isoformat()), ("campo.html", hoy.isoformat()),
