@@ -28,3 +28,6 @@ data/radar/
 data/newsletter_salida/
 
 .vercel
+
+# Volcado de la portada de los builds de prueba (ver scripts/previsualizar_portada.py)
+data/volcado_portada.pkl

@@ -41,8 +41,34 @@ jobs:
     timeout-minutes: 75
     permissions:
       contents: write        # para poder hacer push del sitio regenerado
+      pull-requests: write   # para fusionar las investigaciones no vetadas
     steps:
       - uses: actions/checkout@v4
+
+      - name: Publicar las investigaciones que nadie ha vetado en 48 h
+        if: github.ref == 'refs/heads/main'
+        id: investigaciones
+        # Las investigaciones automáticas (investigacion-semanal.yml) llegan como
+        # PR con la etiqueta investigacion-auto. Si pasadas 48 h nadie la ha
+        # cerrado, se fusiona aquí, ANTES del build, para que la pieza salga hoy
+        # con su portada, su hueco en el feed y la newsletter. Las de la etiqueta
+        # investigacion-prueba (lanzadas a mano) no se fusionan nunca solas.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          limite=$(date -u -d '48 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          publicadas=""
+          for pr in $(gh pr list --state open --label investigacion-auto --json number,createdAt \
+                        --jq ".[] | select(.createdAt < \"$limite\") | .number"); do
+            rama=$(gh pr view "$pr" --json headRefName --jq .headRefName)
+            if gh pr merge "$pr" --squash --delete-branch --repo "$GITHUB_REPOSITORY"; then
+              echo "Publicada la investigación de la PR #$pr ($rama)"
+              publicadas="$publicadas ${rama#investigacion/}"
+            fi
+          done
+          echo "slugs=$(echo $publicadas)" >> "$GITHUB_OUTPUT"
+          if [ -n "$publicadas" ]; then git pull --ff-only origin main; fi
 
       - uses: actions/setup-python@v5
         with:
@@ -100,6 +126,7 @@ jobs:
         run: python -m scrapers.radar_noticias --guardar || true
 
       - name: Desarrollar pistas del radar (2 al día, sin sucesos)
+        if: github.ref == 'refs/heads/main'
         # Decisión del usuario (2026-09-17): convierte hasta 2 pistas al día en
         # piezas propias para la ficha de su pueblo, sin revisión humana. Pasan
         # antes dos filtros conservadores (palabras de suceso + clasificación con
@@ -120,9 +147,19 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           LLM_PROVIDER: ${{ secrets.LLM_PROVIDER }}
           LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          TC_VOLCADO_PORTADA: ${{ github.ref != 'refs/heads/main' && 'data/volcado_portada.pkl' || '' }}
         run: python -m sitegen.build
 
+      - name: Guardar el volcado de la portada (solo builds de prueba)
+        if: github.ref != 'refs/heads/main'
+        uses: actions/upload-artifact@v4
+        with:
+          name: volcado-portada
+          path: data/volcado_portada.pkl
+          retention-days: 7
+
       - name: Boletín diario en el canal de Telegram
+        if: github.ref == 'refs/heads/main'
         # Va DESPUÉS del build (necesita data/boletin_hoy.json, que escribe él) y
         # con continue-on-error a propósito: que Telegram esté caído no puede
         # impedir que el sitio se publique. Si no hay nada nuevo, el script no
@@ -134,6 +171,7 @@ jobs:
         run: python -m scripts.boletin_telegram
 
       - name: Newsletter de la última investigación por Telegram
+        if: github.ref == 'refs/heads/main'
         # Solo manda algo si hay una investigación en web/blog/ que no se haya
         # empaquetado ya (data/newsletter_banners_estado.json lleva la cuenta,
         # y se versiona a propósito). Va al admin en privado, nunca al canal:
@@ -176,3 +214,21 @@ jobs:
             GIT_EDITOR=true git rebase --continue || { git rebase --abort; exit 1; }
           fi
           git push
+
+      - name: Anunciar en el canal las investigaciones recién publicadas
+        # Solo cuando la página ya responde: Vercel tarda un par de minutos en
+        # desplegar tras el push, y anunciar antes deja el enlace en 404 a todo
+        # el canal (pasó el 2026-07-24). --anunciar comprueba el 200 y falla si
+        # no; se reintenta hasta 10 minutos.
+        if: github.ref == 'refs/heads/main' && steps.investigaciones.outputs.slugs != ''
+        continue-on-error: true
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+        run: |
+          for slug in ${{ steps.investigaciones.outputs.slugs }}; do
+            for intento in $(seq 1 20); do
+              if python -m scripts.generar_articulo_blog --anunciar "$slug"; then break; fi
+              sleep 30
+            done
+          done

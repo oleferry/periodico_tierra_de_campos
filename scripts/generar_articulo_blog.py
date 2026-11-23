@@ -537,6 +537,48 @@ def publicar_telegram(titular: str, entradilla: str, url: str) -> None:
         print("  publicado en el canal de Telegram.")
 
 
+def escribir_articulo(art: dict, tema: str, *, sin_imagen: bool = False) -> tuple[str, bool]:
+    """Portada + página + manifiesto de un artículo ya redactado. La usan esta
+    vía manual y la automática (scripts/investigacion_semanal.py). Devuelve
+    (slug, tiene_imagen)."""
+    slug = _slugify(art["titular"])
+    tiene_imagen = False
+    if not sin_imagen and imagenes.disponible():
+        print("· Generando imagen de portada (OpenAI)…")
+        try:
+            img = imagenes.generar_imagen(art["prompt_imagen"])
+            (DATA / "blog" / "imagenes").mkdir(parents=True, exist_ok=True)
+            (DATA / "blog" / "imagenes" / f"{slug}.jpg").write_bytes(img)
+            # También en web/: el build la copia ahí igualmente, pero así la
+            # previsualización de una rama (antes de ningún build) sale completa.
+            (WEB / "assets" / "blog").mkdir(parents=True, exist_ok=True)
+            (WEB / "assets" / "blog" / f"{slug}.jpg").write_bytes(img)
+            tiene_imagen = True
+        except Exception as exc:  # noqa: BLE001
+            print(f"  aviso: fallo generando imagen ({exc}); se publica sin imagen", file=sys.stderr)
+    else:
+        print("  (sin OPENAI_API_KEY real, o --sin-imagen: se publica sin imagen)")
+
+    print("· Escribiendo página…")
+    (WEB / "blog").mkdir(parents=True, exist_ok=True)
+    html = render_blog_articulo(slug, art, tema=tema, tiene_imagen=tiene_imagen)
+    (WEB / "blog" / f"{slug}.html").write_text(html, encoding="utf-8")
+
+    manifest_path = DATA / "blog" / "articulos.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else []
+    manifest = [a for a in manifest if a["slug"] != slug]  # regenerar = sustituir
+    manifest.insert(0, {
+        "slug": slug,
+        "titular": art["titular"],
+        "entradilla": art["entradilla"],
+        "tema": tema,
+        "fecha": date.today().isoformat(),
+        "tiene_imagen": tiene_imagen,
+    })
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    return slug, tiene_imagen
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Genera un artículo de blog/investigación")
     ap.add_argument("--tema", choices=sorted(DOSSIERS))
@@ -556,7 +598,7 @@ def main() -> int:
         if not pieza:
             print(f"No hay ninguna pieza con slug {args.anunciar}", file=sys.stderr)
             return 1
-        url = f"https://elterracampino.es/blog/{pieza['slug']}.html"
+        url = url_publica(f"blog/{pieza['slug']}")
         import requests as _rq
         if _rq.get(url, timeout=20).status_code != 200:
             print(f"{url} todavía no responde 200: despliégala antes de anunciarla.", file=sys.stderr)
@@ -573,42 +615,9 @@ def main() -> int:
 
     print("· Redactando con IA (puede tardar 1-2 minutos)…")
     art = ia.redactar_investigacion(tema, dossier)
-    slug = _slugify(art["titular"])
     print(f"  titular: {art['titular']}")
+    slug, _ = escribir_articulo(art, args.tema, sin_imagen=args.sin_imagen)
     print(f"  slug: {slug}")
-
-    tiene_imagen = False
-    if not args.sin_imagen and imagenes.disponible():
-        print("· Generando imagen de portada (OpenAI)…")
-        try:
-            img = imagenes.generar_imagen(art["prompt_imagen"])
-            (DATA / "blog" / "imagenes").mkdir(parents=True, exist_ok=True)
-            (DATA / "blog" / "imagenes" / f"{slug}.jpg").write_bytes(img)
-            tiene_imagen = True
-        except Exception as exc:  # noqa: BLE001
-            print(f"  aviso: fallo generando imagen ({exc}); se publica sin imagen", file=sys.stderr)
-    else:
-        print("  (sin OPENAI_API_KEY real, o --sin-imagen: se publica sin imagen)")
-
-    print("· Escribiendo página…")
-    (WEB / "blog").mkdir(parents=True, exist_ok=True)
-    # Una sola fecha para la página (datos estructurados) y para el manifiesto.
-    fecha = date.today().isoformat()
-    html = render_blog_articulo(slug, art, tema=args.tema, tiene_imagen=tiene_imagen, fecha=fecha)
-    (WEB / "blog" / f"{slug}.html").write_text(html, encoding="utf-8")
-
-    manifest_path = DATA / "blog" / "articulos.json"
-    manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.exists() else []
-    manifest = [a for a in manifest if a["slug"] != slug]  # regenerar = sustituir
-    manifest.insert(0, {
-        "slug": slug,
-        "titular": art["titular"],
-        "entradilla": art["entradilla"],
-        "tema": args.tema,
-        "fecha": fecha,
-        "tiene_imagen": tiene_imagen,
-    })
-    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # El enlace que se copia a mano para difundir: tiene que ser el mismo que
     # publica el sitio. Antes iba sin `www` y con `.html`, o sea encadenando dos

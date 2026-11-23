@@ -1,0 +1,130 @@
+# Investigación semanal automática (decisión del usuario, 2026-09-17).
+#
+# Elige un tema, lo investiga con búsqueda web real, lo redacta y lo propone
+# como PR (ver scripts/investigacion_semanal.py). NO publica: la PR se fusiona
+# sola en el build diario pasadas 48 h si nadie la cierra (build-diario.yml).
+# Cerrar la PR = vetar la pieza. Vercel deja en la PR un enlace de
+# previsualización para leerla entera antes.
+#
+# EL DETALLE QUE GOBIERNA TODO — las etiquetas: una ejecución PROGRAMADA lleva
+# investigacion-auto, la que se publica sola. Una lanzada A MANO (una prueba)
+# lleva investigacion-prueba y no se publica nunca sola. Sin esa distinción,
+# cada prueba acabaría en portada a las 48 h (pasó en Gafasvan).
+#
+# Requisitos:
+#   - Settings → Actions → General → "Allow GitHub Actions to create and approve
+#     pull requests" ACTIVADO. Sin eso, gh pr create falla con 403.
+#   - Secrets: ANTHROPIC_API_KEY; OPENAI_API_KEY para la portada (sin ella la
+#     pieza sale sin imagen e Instagram la salta); TELEGRAM_BOT_TOKEN y
+#     ADMIN_TELEGRAM_ID para avisar al administrador.
+#
+# Coste aproximado por investigación: 1-2 € (búsquedas web + redacción + portada).
+
+name: Investigación semanal
+
+on:
+  schedule:
+    # Martes 05:00 UTC. Si nadie cierra la PR, sale el jueves con el build diario.
+    - cron: "0 5 * * 2"
+  workflow_dispatch: {}
+
+concurrency:
+  group: investigacion-semanal
+  cancel-in-progress: false
+
+jobs:
+  investigar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write        # para subir la rama con el artículo
+      pull-requests: write   # para abrir la PR
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Recuperar la cola del radar (solo lectura)
+        # Le da al elegidor de temas lo que ha visto la prensa local estas dos
+        # semanas. Solo restore: quien la mantiene es el build diario.
+        uses: actions/cache/restore@v4
+        with:
+          path: data/radar
+          key: radar-${{ github.run_id }}
+          restore-keys: radar-
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Temas ya propuestos
+        # Publicados o rechazados: para no volver a proponer lo mismo.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr list --state all --limit 40 \
+            --search "label:investigacion-auto,investigacion-prueba" \
+            --json title > "$RUNNER_TEMP/propuestas.json"
+
+      - name: Elegir, investigar y redactar
+        id: gen
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_TELEGRAM_ID: ${{ secrets.ADMIN_TELEGRAM_ID }}
+        run: python -m scripts.investigacion_semanal --evitar "$RUNNER_TEMP/propuestas.json" --github
+
+      - name: Abrir la PR
+        id: pr
+        if: steps.gen.outputs.slug != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SLUG: ${{ steps.gen.outputs.slug }}
+          TITULAR: ${{ steps.gen.outputs.titular }}
+          CUERPO: ${{ steps.gen.outputs.cuerpo }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            etiqueta=investigacion-auto
+          else
+            etiqueta=investigacion-prueba
+          fi
+          gh label create investigacion-auto --color 0e8a16 \
+            --description "Se publica sola a las 48 h si nadie cierra la PR" --force
+          gh label create investigacion-prueba --color fbca04 \
+            --description "Lanzada a mano: nunca se publica sola" --force
+
+          rama="investigacion/$SLUG"
+          git config user.name "El Terracampino (bot)"
+          git config user.email "bot@users.noreply.github.com"
+          git checkout -b "$rama"
+          git add web/blog web/assets/blog data/blog
+          git commit -m "Investigación: $TITULAR"
+          git push -u origin "$rama"
+
+          url=$(gh pr create --base main --head "$rama" --title "Investigación: $TITULAR" \
+                  --body-file "$CUERPO" --label "$etiqueta")
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "etiqueta=$etiqueta" >> "$GITHUB_OUTPUT"
+
+      - name: Avisar al administrador por Telegram
+        if: steps.pr.outputs.url != ''
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_TELEGRAM_ID: ${{ secrets.ADMIN_TELEGRAM_ID }}
+          TITULAR: ${{ steps.gen.outputs.titular }}
+          URL: ${{ steps.pr.outputs.url }}
+          ETIQUETA: ${{ steps.pr.outputs.etiqueta }}
+        run: |
+          if [ "$ETIQUETA" = "investigacion-auto" ]; then
+            nota="Si no cierras la PR, se publica sola en 48 horas."
+          else
+            nota="Es una prueba lanzada a mano: no se publica sola. Fusiónala tú si la quieres."
+          fi
+          msg=$(printf 'Nueva investigación propuesta:\n%s\n\n%s\nLeer, revisar o vetar: %s' "$TITULAR" "$nota" "$URL")
+          python -m scripts.investigacion_semanal --avisar "$msg"

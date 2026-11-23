@@ -48,6 +48,8 @@ Contenido y análisis:
 python -m scripts.generar_articulo_blog --tema <tema>   # investigación larga
 python -m scripts.desarrollar_pista --listar            # pistas del radar
 python -m scripts.detectar_anomalias                    # datos que se salen de su media
+python -m scripts.desarrollar_pista --auto 2 --dry-run  # qué pistas saldrían solas hoy
+python -m scripts.investigacion_semanal --solo-tema     # qué investigaría esta semana
 node scripts/publish-instagram.mjs --dry-run  # ver docs/instagram.md
 node scripts/publish-facebook.mjs --dry-run   # ver docs/facebook.md
 ```
@@ -96,7 +98,16 @@ simultáneos se pisen). Nada es público hasta aprobarse.
 - **Web**: `git push` → **Vercel despliega solo** (raíz del proyecto = `web/`).
 - **Build diario**: GitHub Action (`.github/workflows/build-diario.yml`), 24/7.
   Una ejecución cancelada por timeout **no avisa**: la web se queda sin
-  actualizar en silencio y además se pierde la caché de ese día.
+  actualizar en silencio y además se pierde la caché de ese día. Desarrolla y
+  publica solo 2 pistas del radar al día (sin sucesos) y fusiona las
+  investigaciones automáticas que nadie haya vetado en 48 h.
+- **Investigación semanal**: `.github/workflows/investigacion-semanal.yml`
+  (martes) abre una PR; **cerrarla = vetar la pieza**. Las lanzadas a mano llevan
+  la etiqueta `investigacion-prueba` y nunca se publican solas.
+- **El BOP de Valladolid bloquea las IPs de servidores en la nube** (GitHub,
+  Railway en EE. UU. y en Ámsterdam: timeout; desde una conexión doméstica
+  española responde). Desde el Action siempre sale `aviso: BOP no disponible`:
+  no es un fallo pasajero, no reintentar a ciegas.
 - **El bot NO se redespliega con `git push`**: su servicio de Railway no está
   conectado a GitHub. Hay que desplegarlo explícitamente. Tras desplegar aparece
   un conflicto 409 de long-polling mientras convive con la instancia vieja; se

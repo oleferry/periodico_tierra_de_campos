@@ -217,15 +217,30 @@ Es la pieza central del proyecto, más que `ia.py`. Para cada `doc`, en orden:
 
 ### 4.4. Investigaciones largas (`scripts/generar_articulo_blog.py`)
 
-Distinto del resto del pipeline: es **manual**, no se dispara solo. Fase de
-investigación con búsqueda web real (jerarquía de fuentes: oficiales → casos
-primarios → prensa de calidad contrastada), luego redacción a partir
-**solo** del dossier (nunca de memoria). Publica el resultado en
-`web/blog/<slug>.html` y avisa en el canal de Telegram.
+Dos vías que comparten redacción (`ia.redactar_investigacion`) y escritura
+(`escribir_articulo`):
 
-**Esto llevaba dos semanas parado en algún momento de agosto** (última entre
-el 4 y el 24 de agosto) — no es un fallo técnico, es que nadie lo lanzó: no
-hay disparador automático, hay que ejecutarlo a mano eligiendo tema.
+- **Manual** (`generar_articulo_blog.py --tema X`): el dossier es una función
+  escrita a mano en ese script.
+- **Automática semanal** (desde 2026-09-17, `scripts/investigacion_semanal.py`
+  + `.github/workflows/investigacion-semanal.yml`, martes 05:00 UTC). Tres
+  fases con el modelo editorial: **elegir** tema entre las ideas 🟢/🟡 de
+  `docs/ideas-blog.md` cruzadas con el radar (nunca las 🔴, que necesitan
+  trabajo de campo); **investigar** con búsqueda y lectura web reales
+  (`ia.investigar_tema`, herramientas de servidor de Anthropic) hasta un
+  dossier con fuente, fecha y URL de cada dato, que se para con
+  `VEREDICTO: INSUFICIENTE` si no hay hechos para una pieza honesta; y
+  **redactar**. El dossier se guarda en
+  `data/blog/investigaciones/<slug>.investigacion.md`.
+- **Publicación con veto**: la vía automática abre una PR con la etiqueta
+  `investigacion-auto` y avisa al administrador por Telegram. El build diario
+  la fusiona sola pasadas 48 h si nadie la ha cerrado, y cuando la página ya
+  responde 200 la anuncia en el canal. **Cerrar la PR = vetarla.** Las
+  lanzadas a mano llevan `investigacion-prueba` y nunca se publican solas.
+
+Antes de esto estuvo **tres semanas y media parado** (del 24 de agosto al 17
+de septiembre): no era un fallo, es que la única vía era manual y nadie la
+lanzó.
 
 ### 4.5. El radar de pistas (`scrapers/radar_noticias.py` + `scripts/desarrollar_pista.py`)
 
@@ -245,6 +260,13 @@ copia ni parafrasea.
   — no un cambio unilateral.
 - Mínimo de 400 caracteres de material en la fuente para "desarrollarse" —
   por debajo de eso no hay hechos suficientes, solo redacción.
+- **Decisión del 2026-09-17: el build diario desarrolla 2 pistas al día
+  solo** (`--auto 2`). Como nadie las revisa, pasan dos puertas: palabras de
+  suceso (determinista) y `ia.clasificar_pista` (modelo mecánico), que descarta
+  sucesos, fallecimientos, menores, personas vulnerables, noticias repetidas,
+  anuncios caducados y piezas sin hechos. Si la clasificación falla, no se
+  publica. Máximo 7 días de antigüedad y una pieza por pueblo al día. La cola
+  `data/radar/` se conserva entre builds con su propia `actions/cache`.
 
 ### 4.6. Esquelas — la única pieza 100% manual del sistema
 
@@ -358,15 +380,20 @@ principio, complica el kit de marca.
 ### GitHub Actions activos
 
 1. **`build-diario.yml`** — reconstruye todo el sitio. Pasos, en orden:
-   scrapers → radar → `sitegen.build` (con `ANTHROPIC_API_KEY`,
-   `SUPABASE_*`, `LLM_PROVIDER/MODEL`) → boletín de Telegram
-   (`continue-on-error`) → **newsletter por Telegram** (`--auto`,
-   `continue-on-error`, nuevo desde 2026-08) → publicar (git add/commit/push
-   con manejo explícito de conflictos de rebase, ver §12).
-2. **`instagram-publish.yml`** — semanal (lunes), publica la investigación
+   fusionar investigaciones no vetadas en 48 h → cachés de IA y de radar →
+   radar → **2 pistas desarrolladas solas** → `sitegen.build` (con
+   `ANTHROPIC_API_KEY`, `SUPABASE_*`, `LLM_PROVIDER/MODEL`) → boletín de
+   Telegram (`continue-on-error`) → **newsletter por Telegram** (`--auto`,
+   `continue-on-error`) → publicar (git add/commit/push con manejo explícito de
+   conflictos de rebase, ver §12) → anunciar en el canal las investigaciones
+   recién publicadas, cuando ya responden 200.
+2. **`investigacion-semanal.yml`** — martes 05:00 UTC: elige, investiga y
+   redacta una investigación y abre una PR para vetar (ver §4.4). Necesita que
+   el repositorio permita a Actions crear PRs.
+3. **`instagram-publish.yml`** — semanal (lunes), publica la investigación
    más reciente con imagen. **Bloqueado**: faltan `META_IG_USER_ID` /
    `META_IG_ACCESS_TOKEN`.
-3. **`facebook-publish.yml`** — semanal (lunes, 15 min después de
+4. **`facebook-publish.yml`** — semanal (lunes, 15 min después de
    Instagram), publica enlace + tarjeta Open Graph de la investigación más
    reciente. **Bloqueado**: faltan `META_FB_PAGE_ID` / `META_FB_ACCESS_TOKEN`.
 
@@ -590,6 +617,20 @@ Bugs reales, encontrados y resueltos en producción, no hipotéticos:
     email** — `empaquetar_newsletter.py` las reescala a 536px antes de
     meterlas en el zip.
 
+12. **El BOP de Valladolid lleva caído en producción desde que el build se
+    mudó a GitHub Actions** (al menos desde el 21 de agosto), y en silencio:
+    el aviso salía en cada log. Probado el 2026-09-17: la red de la
+    Diputación de Valladolid no responde desde GitHub, ni desde Railway en
+    EE. UU. ni en Ámsterdam (con el BOE y nuestra web respondiendo desde esas
+    mismas máquinas como control), ni por http ni por https. Desde una
+    conexión doméstica española responde en menos de un segundo. Es un
+    bloqueo a IPs de centros de datos: no se arregla reintentando.
+
+13. **Instagram publicó cero veces durante cinco lunes sin dar error.** Desde
+    que el feed usa URLs sin `.html`, la regla que derivaba la portada dejó de
+    añadir `.jpg` y todas daban 404. Resuelto leyendo el `og:image` de cada
+    artículo (ver `docs/instagram.md`).
+
 **Trampas conocidas de la integración con Meta (Instagram/Facebook), aunque
 aún no aplicadas por falta de credenciales — documentadas en
 `docs/instagram.md`/`docs/facebook.md` para cuando se desbloqueen:** el token
@@ -626,6 +667,15 @@ Verificado contra el sistema en producción a 2026-08-26, no una estimación:
 
 Por prioridad:
 
+0. **Para que la investigación semanal funcione sola** (a 2026-09-17):
+   activar en GitHub *Settings → Actions → General → "Allow GitHub Actions to
+   create and approve pull requests"* (hoy desactivado: sin eso no puede abrir
+   la PR) y subir `OPENAI_API_KEY` como secret (sin ella las piezas salen sin
+   portada e Instagram las salta).
+0. **Decidir cómo recuperar el BOP de Valladolid** (ver §12, trampa 12). Las
+   opciones realistas son que lo descargue a diario tu propio ordenador (gratis,
+   pero depende de que esté encendido), un servidor pequeño en España (unos
+   pocos euros al mes) o pedir a la Diputación que no bloquee al periódico.
 1. **Credenciales de Meta (Instagram + Facebook).** Falta crear en Meta
    Business Suite un Usuario del Sistema con `instagram_content_publish` +
    `pages_manage_posts`, y sacar `META_IG_USER_ID` / `META_FB_PAGE_ID`. Sin

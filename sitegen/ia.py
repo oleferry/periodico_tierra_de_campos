@@ -21,25 +21,98 @@ PROMPT_VERSION = "3"
 _client = None
 
 
-def _model() -> str:
-    m = (os.getenv("LLM_MODEL") or "").strip()
-    return m if m.startswith("claude-") else "claude-opus-4-8"
-
-
-# Modelo barato para las tareas MECÁNICAS: convertir números del parte
-# meteorológico en una frase, y filtrar comentarios. No hay criterio editorial
-# que proteger ahí — es transformar datos en texto — y cuesta unas cinco veces
-# menos que Opus ($1/$5 por millón de tokens frente a $5/$25).
+# Cuatro niveles de modelo, cada uno donde rinde (decisión del usuario,
+# 2026-11-23: "los más potentes", unos 20 €/mes más). Precios por millón de
+# tokens de entrada/salida a esa fecha; comprobar en la documentación de
+# Anthropic antes de fiarse de ellos.
 #
-# NO usar este modelo para redactar noticias, plenos, ayudas ni
-# investigaciones: ahí sí hay juicio editorial y se paga Opus a propósito.
+# EDITORIAL — redacta lo que lleva juicio: titulares, plenos, ayudas, pistas,
+# pies de foto. Opus 5 ($5/$25), mismo precio que el Opus 4.8 al que sustituye.
+MODELO_EDITORIAL = "claude-opus-5"
+
+# FILTRO — las dos puertas que deciden qué se publica SIN que lo vea nadie:
+# qué pista del radar sale sola y qué comentario entra en la web. Sonnet 5
+# ($2/$10): bastante más criterio que Haiku por céntimos al día, y es justo
+# donde un error sale publicado.
+MODELO_FILTRO = "claude-sonnet-5"
+
+# MECÁNICO — transformar datos en texto sin criterio que proteger: el parte del
+# tiempo. Haiku 4.5 ($1/$5). NO usarlo para nada que decida qué se publica.
 MODELO_MECANICO = "claude-haiku-4-5"
+
+# INVESTIGACIÓN — elegir el tema semanal y escribir la pieza larga: Claude
+# Fable 5.1 ($10/$50), el modelo más capaz. Una pieza a la semana: unos 3-5 €.
+MODELO_INVESTIGACION = "claude-fable-5-1"
+
+
+def _forzado() -> str | None:
+    """LLM_MODEL (secret opcional) fuerza un modelo para TODO, por si hay que
+    salir de un apuro sin tocar código. Vacío o 'replace_me' = no fuerza nada."""
+    m = (os.getenv("LLM_MODEL") or "").strip()
+    return m if m.startswith("claude-") else None
+
+
+def _model() -> str:
+    return _forzado() or MODELO_EDITORIAL
+
+
+def _model_filtro() -> str:
+    return _forzado() or MODELO_FILTRO
 
 
 def _model_mecanico() -> str:
-    """Si el usuario fija LLM_MODEL a mano, se respeta también aquí."""
-    m = (os.getenv("LLM_MODEL") or "").strip()
-    return m if m.startswith("claude-") else MODELO_MECANICO
+    return _forzado() or MODELO_MECANICO
+
+
+def _model_investigacion() -> str:
+    return _forzado() or MODELO_INVESTIGACION
+
+
+# Si el modelo se niega a una petición (stop_reason "refusal", pasa muy rara vez
+# y casi siempre por falsos positivos), la API la reintenta sola con otro modelo
+# adecuado en vez de devolverla vacía. Solo para los modelos que lo admiten.
+_CON_RESCATE = {"claude-opus-5", "claude-fable-5-1"}
+
+
+class RespuestaVacia(Exception):
+    """La IA no devolvió texto utilizable (rechazo o corte por longitud). Quien
+    llama la trata como cualquier otro fallo: el redactor cae a reglas."""
+
+
+def _llamar(**kwargs):
+    """messages.create con el rescate ante rechazos donde aplica."""
+    if kwargs.get("model") in _CON_RESCATE:
+        return _get_client().beta.messages.create(
+            betas=["server-side-fallback-2026-07-01"], fallbacks="default", **kwargs)
+    return _get_client().messages.create(**kwargs)
+
+
+def _llamar_largo(*, rescate: bool = True, timeout: float = 900.0, **kwargs):
+    """Como _llamar, pero en streaming y con timeout largo: para las piezas de
+    investigación, que tardan minutos. Devuelve el mensaje final completo.
+    rescate=False en bucles con herramientas: el rescate cambia de modelo a
+    mitad de turno y complica retomar un 'pause_turn'."""
+    cliente = _get_client().with_options(timeout=timeout, max_retries=2)
+    if rescate and kwargs.get("model") in _CON_RESCATE:
+        with cliente.beta.messages.stream(
+                betas=["server-side-fallback-2026-07-01"], fallbacks="default", **kwargs) as st:
+            return st.get_final_message()
+    with cliente.messages.stream(**kwargs) as st:
+        return st.get_final_message()
+
+
+def _texto(resp) -> str:
+    """Texto de la respuesta, comprobando antes POR QUÉ terminó: con el
+    pensamiento activado de los modelos nuevos, un max_tokens corto se lo come
+    el razonamiento y la respuesta llega cortada o sin texto."""
+    if resp.stop_reason == "refusal":
+        raise RespuestaVacia("el modelo rechazó la petición")
+    if resp.stop_reason == "max_tokens":
+        raise RespuestaVacia("respuesta cortada por max_tokens")
+    partes = [b.text for b in resp.content if b.type == "text"]
+    if not partes:
+        raise RespuestaVacia("respuesta sin texto")
+    return "".join(partes)
 
 
 # Esfuerzo bajo para los textos cortos y repetitivos (titular + entradilla de
@@ -47,6 +120,10 @@ def _model_mecanico() -> str:
 # Los artículos largos (plenos, ayudas, investigaciones) NO lo llevan: ahí
 # interesa que el modelo piense. Ojo: 'effort' no existe en Haiku 4.5, así que
 # no se combina con MODELO_MECANICO.
+#
+# Opus 5, Sonnet 5 y Fable 5.1 piensan por defecto, y ese razonamiento cuenta
+# contra max_tokens: por eso los topes de cada llamada son holgados. Es solo un
+# techo, se paga lo que se usa.
 ESFUERZO_BAJO = {"effort": "low"}
 
 
@@ -139,15 +216,15 @@ def redactar(doc: dict) -> dict:
         f"Fecha: {doc.get('published_at','')}\n"
         f"Texto oficial:\n{doc.get('title','')}"
     )
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model(),
-        max_tokens=400,
+        max_tokens=3000,
         system=_SISTEMA_NOTICIA,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_NOTICIA},
                        **ESFUERZO_BAJO},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     data = json.loads(text)
     return {"titular": data["titular"].strip().rstrip("."), "entradilla": data["entradilla"].strip()}
 
@@ -205,14 +282,14 @@ def redactar_pleno(doc: dict) -> dict:
         f"Fecha del acta: {doc.get('published_at', '')}\n"
         f"Texto completo del acta:\n{doc.get('acta_texto', '')}"
     )
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model(),
-        max_tokens=1500,
+        max_tokens=8000,
         system=_SISTEMA_PLENO,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_PLENO}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     data = json.loads(text)
     return {
         "titular": data["titular"].strip().rstrip("."),
@@ -256,14 +333,14 @@ def redactar_ayuda(doc: dict) -> dict:
         f"Fecha de publicación: {doc.get('published_at', '')}\n"
         f"Datos oficiales de la convocatoria:\n{doc.get('ayuda_texto', '')}"
     )
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model(),
-        max_tokens=1200,
+        max_tokens=8000,
         system=_SISTEMA_AYUDA,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_PLENO}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     data = json.loads(text)
     return {
         "titular": data["titular"].strip().rstrip("."),
@@ -316,14 +393,14 @@ def redactar_pista(doc: dict) -> dict:
         f"Fecha: {doc.get('published_at', '')}\n\n"
         f"Texto original del que extraer los hechos (NO lo reescribas):\n{doc.get('pista_texto', '')}"
     )
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model(),
-        max_tokens=1500,
+        max_tokens=8000,
         system=_SISTEMA_PISTA,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_PLENO}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     data = json.loads(text)
     return {
         "titular": data["titular"].strip().rstrip("."),
@@ -385,14 +462,14 @@ def clasificar_pista(*, pueblo: str, titulo: str, texto: str, hoy: str,
         f"Titulares ya publicados de este pueblo en las últimas semanas:\n{recientes}\n\n"
         f"Titular de la pista: {titulo}\n\nTexto de la noticia original:\n{texto[:6000]}"
     )
-    resp = _get_client().messages.create(
-        model=_model_mecanico(),
-        max_tokens=300,
+    resp = _llamar(
+        model=_model_filtro(),
+        max_tokens=3000,
         system=_SISTEMA_CLASIFICACION_PISTA,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_CLASIFICACION_PISTA}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     return json.loads(text)
 
 
@@ -434,14 +511,14 @@ def moderar_comentario(texto: str) -> dict:
     """Devuelve {'aprobar': bool, 'motivo': str}. Si la llamada a la IA falla,
     el CALLER debe tratarlo como 'no aprobar' (ver scripts/moderar_comentarios.py)
     — nunca se publica un comentario que no se ha podido evaluar de verdad."""
-    resp = _get_client().messages.create(
-        model=_model_mecanico(),
-        max_tokens=300,
+    resp = _llamar(
+        model=_model_filtro(),
+        max_tokens=3000,
         system=_SISTEMA_MODERACION,
         messages=[{"role": "user", "content": f"Comentario a evaluar:\n\n{texto}"}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_MODERACION}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     return json.loads(text)
 
 
@@ -486,13 +563,13 @@ def tiempo(w: dict) -> str:
     if aviso:
         datos += f"\n{aviso}"
 
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model_mecanico(),
         max_tokens=400,
         system=_SISTEMA_TIEMPO,
         messages=[{"role": "user", "content": datos}],
     )
-    return next(b.text for b in resp.content if b.type == "text").strip().strip('"')
+    return _texto(resp).strip().strip('"')
 
 
 PROMPT_VERSION_DIAS = "1"
@@ -543,14 +620,14 @@ def tiempo_dias(municipio: str, dias: list[dict]) -> list[dict]:
         for d in dias
     ]
     user = f"Municipio: {municipio}\n" + "\n".join(lineas)
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model_mecanico(),
         max_tokens=600,
         system=_SISTEMA_TIEMPO_DIAS,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_TIEMPO_DIAS}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     salida = json.loads(text)["dias"]
     if len(salida) != len(dias):
         raise ValueError("La IA no devolvió un día por cada día pedido")
@@ -584,9 +661,9 @@ def pie_de_foto(imagen_jpeg: bytes, *, pueblo: str, texto_remitente: str = "") -
     contexto = f"Pueblo: {pueblo}."
     if texto_remitente.strip():
         contexto += f' Texto de quien manda la foto: "{texto_remitente.strip()}"'
-    resp = _get_client().messages.create(
+    resp = _llamar(
         model=_model(),
-        max_tokens=200,
+        max_tokens=3000,
         system=_SISTEMA_FOTO,
         messages=[{
             "role": "user",
@@ -600,7 +677,7 @@ def pie_de_foto(imagen_jpeg: bytes, *, pueblo: str, texto_remitente: str = "") -
         }],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_FOTO}},
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     return json.loads(text)["pie"].strip()
 
 
@@ -689,6 +766,154 @@ _ESQUEMA_INVESTIGACION = {
 }
 
 
+# ------------------------------------------------ investigación automática
+# Fase 1 y 2 de scripts/investigacion_semanal.py. La fase 3 (redactar) es
+# redactar_investigacion(), la misma que usan las investigaciones hechas a mano.
+# Las dos van con el modelo editorial: elegir qué se investiga y qué fuentes
+# valen es criterio periodístico, no transformación mecánica de datos.
+
+_ESQUEMA_TEMA = {
+    "type": "object",
+    "properties": {
+        "tema_clave": {"type": "string"},
+        "titulo_de_trabajo": {"type": "string"},
+        "pregunta_central": {"type": "string"},
+        "por_que_ahora": {"type": "string"},
+        "fuentes_a_buscar": {"type": "array", "items": {"type": "string"}},
+        "idea_backlog": {"type": ["integer", "null"]},
+    },
+    "required": ["tema_clave", "titulo_de_trabajo", "pregunta_central", "por_que_ahora",
+                 "fuentes_a_buscar", "idea_backlog"],
+    "additionalProperties": False,
+}
+
+_SISTEMA_TEMA = (
+    "Eres el jefe de investigación de El Terracampino, periódico de la comarca de Tierra de Campos "
+    "(Palencia, Valladolid, León y Zamora). Cada semana eliges UNA investigación larga que otra IA "
+    "documentará solo con búsquedas en internet, sin trabajo de campo, y que se publicará sin que "
+    "nadie la reescriba. Por eso el tema tiene que ser investigable de verdad con fuentes públicas "
+    "en línea: datos oficiales (INE, BOE, BOCyL, boletines provinciales, Junta, diputaciones, "
+    "confederaciones hidrográficas, BDNS, Sacyl, Educación), documentos de ayuntamientos y prensa "
+    "de calidad para contrastar.\n\n"
+    "Descarta cualquier tema que dependa de entrevistas, visitas, encuestas propias o datos que no "
+    "estén publicados: una IA que 'investiga' eso acaba inventando. Descarta también lo que repita "
+    "una investigación ya publicada o ya propuesta, y lo que sea opinión en lugar de pregunta.\n\n"
+    "Puedes partir de una idea del backlog (di su número en idea_backlog) o de algo que haya "
+    "detectado el radar de noticias si abre una pregunta de fondo; si no, idea_backlog es null.\n\n"
+    "tema_clave: identificador corto en minúsculas con guiones bajos (p. ej. 'escuelas_rurales'). "
+    "pregunta_central: una sola pregunta concreta y respondible con datos. fuentes_a_buscar: "
+    "organismos y documentos concretos donde debería estar la respuesta."
+)
+
+
+def elegir_tema_investigacion(*, ideas: str, publicadas: list[str], propuestas: list[str],
+                              pistas: list[str], hoy: str) -> dict:
+    """Elige el tema de la semana. Devuelve el dict de _ESQUEMA_TEMA. Lanza si falla."""
+    def lista(xs: list[str]) -> str:
+        return "\n".join(f"- {x}" for x in xs) or "(ninguna)"
+    user = (
+        f"Fecha de hoy: {hoy}\n\n"
+        f"Investigaciones ya publicadas:\n{lista(publicadas)}\n\n"
+        f"Investigaciones ya propuestas las últimas semanas (publicadas o rechazadas; no repitas):\n"
+        f"{lista(propuestas)}\n\n"
+        f"Backlog de ideas investigables (🟢 con datos públicos, 🟡 con fuentes públicas dispersas):\n"
+        f"{ideas}\n\n"
+        f"Lo que ha detectado el radar en la prensa local estas dos semanas (solo titulares):\n"
+        f"{lista(pistas)}"
+    )
+    resp = _llamar_largo(
+        model=_model_investigacion(),
+        max_tokens=16000,
+        system=_SISTEMA_TEMA,
+        messages=[{"role": "user", "content": user}],
+        output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_TEMA}},
+    )
+    text = _texto(resp)
+    return json.loads(text)
+
+
+_MARCA_DOSSIER = "=== DOSSIER ==="
+
+_SISTEMA_INVESTIGAR = (
+    "Eres investigador de El Terracampino, periódico de la comarca de Tierra de Campos. Documentas "
+    "UNA pregunta con búsquedas web reales y entregas un dossier de hechos verificados que después "
+    "otra IA convertirá en artículo sin poder comprobar nada más. Todo lo que no esté en tu dossier "
+    "no existirá para ella; todo lo que pongas mal, saldrá publicado mal.\n\n"
+    "Jerarquía de fuentes, por este orden: (1) oficiales — INE, BOE, BOCyL, boletines provinciales, "
+    "Junta de Castilla y León, diputaciones, confederaciones hidrográficas, BDNS, ayuntamientos; "
+    "(2) documentos primarios de las entidades implicadas; (3) prensa de calidad, siempre contrastada "
+    "con (1) o (2) cuando sea posible.\n\n"
+    "Reglas duras:\n"
+    "- No inventes datos, importes, fechas, nombres ni citas. Si no hay evidencia, dilo.\n"
+    "- Cada cifra con su fuente, su fecha o año y su URL.\n"
+    "- Si hablas de una ayuda, convocatoria o plazo, comprueba si sigue vigente y dilo con fecha.\n"
+    "- Resume los hechos con tus palabras. Nada de copiar párrafos de otros medios: como mucho una "
+    "frase corta entre comillas y atribuida.\n"
+    "- No incluyas datos personales de particulares. Cargos públicos, empresas y organismos, sí.\n"
+    "- Céntrate en los municipios de Tierra de Campos; lo de fuera, solo como comparación.\n\n"
+    f"Cuando termines de investigar, escribe el dossier empezando por una línea que diga exactamente "
+    f"{_MARCA_DOSSIER} y con estas secciones: pregunta central; hallazgos (cada uno con fuente, fecha "
+    "y URL); cifras verificadas (dato — fuente — año — URL); posiciones de los actores (atribuidas); "
+    "caso comparable de fuera si lo hay; lo que no se pudo verificar; advertencias para quien "
+    "redacte. La última línea del dossier debe ser exactamente 'VEREDICTO: SUFICIENTE' si hay hechos "
+    "verificados de sobra para 1.200 palabras honestas, o 'VEREDICTO: INSUFICIENTE — ' seguido del "
+    "motivo si no los hay. Es mejor no publicar que rellenar."
+)
+
+
+def investigar_tema(tema: dict, hoy: str, max_continuaciones: int = 6) -> dict:
+    """Fase de investigación con búsqueda y lectura web reales (herramientas de
+    servidor de Anthropic). Devuelve {'dossier','suficiente','motivo','busquedas'}.
+    Lanza si la API falla.
+
+    La búsqueda corre en los servidores de Anthropic en un bucle propio; si ese
+    bucle llega a su límite, la respuesta vuelve con stop_reason 'pause_turn' y
+    se retoma reenviando lo acumulado (sin añadir un "continúa", que el servidor
+    no necesita). Se usa streaming porque una investigación tarda minutos."""
+    tools = [
+        {"type": "web_search_20260209", "name": "web_search", "max_uses": 25,
+         "user_location": {"type": "approximate", "country": "ES", "timezone": "Europe/Madrid"}},
+        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": 20},
+    ]
+    pregunta = (
+        f"Fecha de hoy: {hoy}\n\n"
+        f"Tema: {tema['titulo_de_trabajo']}\n"
+        f"Pregunta central: {tema['pregunta_central']}\n"
+        f"Por qué ahora: {tema['por_que_ahora']}\n"
+        f"Dónde debería estar la respuesta: {'; '.join(tema['fuentes_a_buscar'])}"
+    )
+    acumulado: list = []
+    busquedas = 0
+    for _ in range(max_continuaciones + 1):
+        mensajes = [{"role": "user", "content": pregunta}]
+        if acumulado:
+            mensajes.append({"role": "assistant", "content": acumulado})
+        resp = _llamar_largo(
+            rescate=False,
+            model=_model_investigacion(),
+            max_tokens=64000,
+            system=_SISTEMA_INVESTIGAR,
+            messages=mensajes,
+            tools=tools,
+        )
+        acumulado = acumulado + list(resp.content)
+        uso = getattr(resp.usage, "server_tool_use", None)
+        busquedas += getattr(uso, "web_search_requests", 0) or 0
+        if resp.stop_reason != "pause_turn":
+            break
+
+    texto = "".join(b.text for b in acumulado if b.type == "text")
+    if _MARCA_DOSSIER not in texto:
+        return {"dossier": "", "suficiente": False, "busquedas": busquedas,
+                "motivo": "la investigación terminó sin entregar dossier"}
+    dossier = texto[texto.rindex(_MARCA_DOSSIER) + len(_MARCA_DOSSIER):].strip()
+    ultima = dossier.splitlines()[-1].strip() if dossier else ""
+    suficiente = ultima.upper().startswith("VEREDICTO: SUFICIENTE")
+    motivo = "" if suficiente else (ultima.split("—", 1)[-1].strip() if "—" in ultima
+                                    else "el dossier no cerró con veredicto")
+    return {"dossier": dossier, "suficiente": suficiente, "motivo": motivo, "busquedas": busquedas}
+
+
 def redactar_investigacion(tema: str, dossier: str) -> dict:
     """Artículo largo de investigación a partir de un dossier factual (texto
     libre: datos, cifras con fuente, contexto). Devuelve titular, entradilla,
@@ -702,17 +927,14 @@ def redactar_investigacion(tema: str, dossier: str) -> dict:
         "Devuelve el cuerpo como una lista de 4-6 secciones, cada una con su subtítulo "
         "y sus párrafos (2-4 párrafos por sección, siguiendo las reglas de párrafo indicadas)."
     )
-    resp = _get_client().messages.create(
-        model=_model(),
-        max_tokens=8000,
+    resp = _llamar_largo(
+        model=_model_investigacion(),
+        max_tokens=64000,
         system=_SISTEMA_INVESTIGACION,
         messages=[{"role": "user", "content": user}],
         output_config={"format": {"type": "json_schema", "schema": _ESQUEMA_INVESTIGACION}},
-        # El cliente por defecto tiene un timeout corto (25s, ver _get_client) pensado
-        # para titulares breves; un artículo de hasta 8000 tokens necesita más margen.
-        timeout=180.0,
     )
-    text = next(b.text for b in resp.content if b.type == "text")
+    text = _texto(resp)
     data = json.loads(text)
     data["titular"] = data["titular"].strip().rstrip(".")
     for s in data["secciones"]:

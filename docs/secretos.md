@@ -13,7 +13,7 @@ en todos los sitios de la columna "Dónde se configura".
 | Nombre | Para qué | Dónde se configura |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | Redacción con IA (Claude) | GitHub Actions · `.env` local |
-| `OPENAI_API_KEY` | Generación de imágenes (portadas, banners) | `.env` local |
+| `OPENAI_API_KEY` | Generación de imágenes (portadas, banners) | `.env` local · GitHub Actions (la necesita la investigación semanal para la portada — **pendiente de subir**) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Almacén de fotos, esquelas, archivo, comentarios | Vercel · GitHub Actions · Railway · `.env` |
 | `SUPABASE_ANON_KEY` | Acceso de cliente a Supabase | `.env` local |
 | `DATABASE_URL` | Cadena de conexión a la base de datos (lleva credenciales) | `.env` local |
