@@ -932,6 +932,15 @@ textarea { min-height: 96px; }
   .tc-pueblos-grid--compacta .tc-pueblo { flex-direction: column; gap: 2px; min-height: 44px; }
 }
 
+/* Patrocinio por pueblo, junto al tiempo de la ficha. Siempre con la etiqueta
+   "Publicidad" a la vista (docs/publicidad.md). */
+.tc-patrocinio { margin: -12px 0 var(--tc-space-3); font-size: .85rem; color: var(--tc-texto-secundario); }
+.tc-patrocinio a { color: var(--tc-tinta-tierra); }
+.tc-patrocinio-etq {
+  font-family: var(--tc-font-data); font-size: .66rem; letter-spacing: .06em; text-transform: uppercase;
+  border: 1px solid var(--tc-linea-suave); padding: 1px 5px; margin-right: 4px;
+}
+
 /* La comarca en cifras. */
 .tc-datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--tc-linea-suave); border: 1px solid var(--tc-linea-suave); }
 .tc-dato { display: flex; flex-direction: column; gap: 6px; background: var(--tc-papel-crudo); padding: 18px 20px; text-decoration: none; color: var(--tc-tinta-tierra); }

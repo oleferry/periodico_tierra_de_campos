@@ -1,5 +1,31 @@
 # Coste de las llamadas a la IA
 
+## Modo ahorro (vigente desde 2026-11-23)
+
+Decisión del usuario: **limitar el coste antes de tener seguidores**. Objetivo:
+unos 25-30 €/mes de IA en total, con un tope de 40 €/mes puesto en la consola
+de Anthropic (si se alcanza, la web sigue saliendo con el redactor por reglas
+y sin pistas del radar: degrada, no se rompe).
+
+| Tarea | Modelo | Por qué |
+|---|---|---|
+| Plenos, ayudas, pistas, pies de foto | Opus 5 ($5/$25) | Juicio editorial: lo que diferencia al periódico |
+| Titulares de boletín (~100 al día) | Sonnet 5 ($2/$10), esfuerzo bajo | Traducir un trámite a lenguaje llano |
+| Filtros que publican solos (pistas, comentarios) | Sonnet 5 | Es donde un error sale publicado |
+| El tiempo | Haiku 4.5 ($1/$5), **solo los 12 pilotos** | Los otros ~60 pueblos, con el texto de Open-Meteo |
+| Investigación: tema y redacción | Opus 5 | |
+| Investigación: búsqueda web | Sonnet 5, **12 búsquedas y 6 lecturas como mucho** | Es lo caro: cada página leída son miles de tokens |
+| Frecuencia de investigación | **cada dos semanas** | |
+
+Lección del 2026-11-23: una investigación con Fable 5.1 ($10/$50) y 33
+búsquedas costó del orden de 10-20 € y, sumada a las pruebas del día, agotó el
+límite de gasto del mes. Fable se recupera cuando haya lectores que lo paguen.
+
+El resto de este documento es la medición original del 2026-08-01, con Opus
+4.8 para todo: sigue valiendo para entender dónde está el gasto.
+
+---
+
 Medido el 2026-08-01. Sirve para no volver a calcularlo desde cero y para saber
 dónde tocar si el gasto se dispara.
 

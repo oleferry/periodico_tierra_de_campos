@@ -1664,6 +1664,42 @@ def render_home(built: list[dict], pool: list[dict], hoy: date,
 
 # --------------------------------------------------------------- municipio
 
+def patrocinador_de(slug: str, hoy: date | None = None) -> dict | None:
+    """Anunciante que patrocina un pueblo (data/anunciantes.json, "patrocinios"),
+    solo si está activo y dentro de su vigencia. None si no hay: el hueco no se
+    ve hasta que se cierra el primer patrocinio (ver docs/mercado.md)."""
+    ruta = ROOT / "data" / "anunciantes.json"
+    if not ruta.exists():
+        return None
+    datos = json.loads(ruta.read_text(encoding="utf-8"))
+    quien = (datos.get("patrocinios") or {}).get(slug)
+    if not quien:
+        return None
+    hoy_iso = (hoy or date.today()).isoformat()
+    for a in datos.get("anunciantes", []):
+        if a.get("slug") != quien or not a.get("activo"):
+            continue
+        if a.get("desde") and a["desde"] > hoy_iso:
+            return None
+        if a.get("hasta") and a["hasta"] < hoy_iso:
+            return None
+        return a
+    return None
+
+
+def bloque_patrocinio(m: dict) -> str:
+    """'El tiempo de X, con la colaboración de Y'. Siempre marcado como
+    publicidad (regla de docs/publicidad.md: nunca disfrazado de contenido)."""
+    a = patrocinador_de(m["slug"])
+    if not a:
+        return ""
+    nombre = E(a["nombre"])
+    enlace = (f'<a href="{E(a["url"])}" target="_blank" rel="noopener sponsored">{nombre}</a>'
+              if a.get("url") else nombre)
+    return (f'<p class="tc-patrocinio"><span class="tc-patrocinio-etq">Publicidad</span> '
+            f'El tiempo de {E(m["name"])}, con la colaboración de {enlace}.</p>')
+
+
 def weather_block(m: dict) -> str:
     w = m.get("weather")
     if not w:
@@ -1916,6 +1952,7 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
   <main class="tc-muni-main">
     <h2 class="tc-block-title">A ras de tierra — {tiempo_titular}</h2>
     {weather_block(m)}
+    {bloque_patrocinio(m)}
     <div class="tc-channel tc-channel--inline"><div class="tc-channel-inner">
       <div><h3 style="margin:0 0 4px;">Recibe las noticias de la comarca por Telegram</h3>
       <p style="margin:0; font-size:.9rem;">Un mensaje al día con el tiempo y lo que pasa en los pueblos de Tierra de Campos —{E(m['name'])} incluido—: plenos, ayudas, agenda y alguna historia de aquí.</p>
@@ -3081,6 +3118,14 @@ def _qr_svg(url: str) -> str:
     return segno.make(url, error="m").svg_inline(scale=1, omitsize=True, dark="#131313", border=2)
 
 
+def _patrocinio_cartel(m: dict) -> str:
+    a = patrocinador_de(m["slug"])
+    if not a:
+        return ""
+    return (f'<p class="patrocinio">Este cartel llega a {E(m["name"])} con la colaboración de '
+            f'<strong>{E(a["nombre"])}</strong>.</p>')
+
+
 def render_cartel(m: dict) -> str:
     """Cartel A4 imprimible de un pueblo, con un QR a su ficha, para colgar en
     el bar, la farmacia, el consultorio o el tablón del ayuntamiento. Es la
@@ -3117,6 +3162,7 @@ def render_cartel(m: dict) -> str:
   .qr-txt strong {{ display: block; font-size: 19pt; margin-bottom: 3mm; }}
   .url {{ font-family: 'Courier New', monospace; font-size: 13pt; margin-top: 4mm; display: block; }}
   .pie {{ font-family: Arial, Helvetica, sans-serif; font-size: 12.5pt; line-height: 1.45; border-top: 1px solid #ccc; padding-top: 5mm; margin: auto 0 0; }}
+  .patrocinio {{ font-family: Arial, Helvetica, sans-serif; font-size: 12pt; margin: 0; color: #444; }}
   .volver {{ font-family: Arial, sans-serif; font-size: 11pt; }}
   .volver button {{ font: inherit; padding: 8px 14px; min-height: 44px; cursor: pointer; }}
   @media print {{ .volver {{ display: none; }} .hoja {{ padding: 0; min-height: 267mm; }} }}
@@ -3135,6 +3181,7 @@ def render_cartel(m: dict) -> str:
     Se abre sola la página de {nombre}.
     <span class="url">{E(url_corta).replace("/", "/<wbr>")}</span></div>
   </div>
+  {_patrocinio_cartel(m)}
   <p class="pie">También en Telegram y WhatsApp: busca <strong>El Terracampino</strong>. ¿Sabes algo que debería contarse? Escríbenos desde la web.</p>
 </div>
 </body>
@@ -3376,7 +3423,12 @@ def main() -> int:
             if lat and lon:
                 m["lat"], m["lon"] = float(lat), float(lon)
                 m["weather"] = weather_for(m["name"], float(lat), float(lon))
-                tiempo_ia(m["weather"], hoy)
+                # Modo ahorro (2026-11-23): el parte redactado con IA solo en
+                # los 12 pueblos piloto. Los demás (~60) usan el texto que ya
+                # trae weather_for: para dar temperaturas y cielo basta, y eran
+                # unas 120 llamadas diarias a la IA.
+                if slug in PILOTS:
+                    tiempo_ia(m["weather"], hoy)
                 print(f"· {m['name']}: {m['weather']['ahora']['temp']}° {m['weather']['ahora']['desc']}", flush=True)
         except ScraperError as exc:
             print(f"  aviso: sin tiempo para {m['name']} ({exc})", file=sys.stderr)

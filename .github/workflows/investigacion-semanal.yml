@@ -18,13 +18,17 @@
 #     pieza sale sin imagen e Instagram la salta); TELEGRAM_BOT_TOKEN y
 #     ADMIN_TELEGRAM_ID para avisar al administrador.
 #
-# Coste aproximado por investigación: 1-2 € (búsquedas web + redacción + portada).
+# MODO AHORRO (decisión del usuario, 2026-11-23): una investigación cada DOS
+# semanas, búsqueda con Sonnet 5 y tope de 12 búsquedas (ver sitegen/ia.py).
+# Coste aproximado por pieza: 2-4 € (búsquedas web + redacción + portada).
+# La primera prueba con Fable 5.1 y 33 búsquedas costó del orden de 10-20 €.
 
-name: Investigación semanal
+name: Investigación quincenal
 
 on:
   schedule:
-    # Martes 05:00 UTC. Si nadie cierra la PR, sale el jueves con el build diario.
+    # Martes 05:00 UTC; el trabajo "toca" deja pasar solo las semanas pares.
+    # Si nadie cierra la PR, sale el jueves con el build diario.
     - cron: "0 5 * * 2"
   workflow_dispatch: {}
 
@@ -33,7 +37,25 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  toca:
+    # GitHub no tiene cron quincenal: se lanza cada martes y aquí se decide.
+    # Un lanzamiento a mano siempre pasa.
+    runs-on: ubuntu-latest
+    outputs:
+      si: ${{ steps.semana.outputs.si }}
+    steps:
+      - id: semana
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ] || [ $(( 10#$(date -u +%V) % 2 )) -eq 0 ]; then
+            echo "si=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Semana impar: esta semana no toca investigación."
+            echo "si=false" >> "$GITHUB_OUTPUT"
+          fi
+
   investigar:
+    needs: toca
+    if: needs.toca.outputs.si == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     permissions:

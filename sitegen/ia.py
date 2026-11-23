@@ -21,28 +21,40 @@ PROMPT_VERSION = "3"
 _client = None
 
 
-# Cuatro niveles de modelo, cada uno donde rinde (decisión del usuario,
-# 2026-11-23: "los más potentes", unos 20 €/mes más). Precios por millón de
-# tokens de entrada/salida a esa fecha; comprobar en la documentación de
-# Anthropic antes de fiarse de ellos.
+# Niveles de modelo, cada uno donde rinde. MODO AHORRO (decisión del usuario,
+# 2026-11-23): "limitar el coste antes de tener seguidores", unos 25-30 €/mes
+# de IA en total. Precios por millón de tokens de entrada/salida a esa fecha;
+# comprobar en la documentación de Anthropic antes de fiarse de ellos.
 #
-# EDITORIAL — redacta lo que lleva juicio: titulares, plenos, ayudas, pistas,
-# pies de foto. Opus 5 ($5/$25), mismo precio que el Opus 4.8 al que sustituye.
+# EDITORIAL — redacta lo que lleva juicio de verdad: plenos, ayudas, pistas,
+# investigaciones, pies de foto. Opus 5 ($5/$25), mismo precio que el Opus 4.8
+# al que sustituye.
 MODELO_EDITORIAL = "claude-opus-5"
 
+# TITULARES — titular + entradilla de cada anuncio de boletín: unas cien
+# llamadas cortas por build, traducir un trámite a lenguaje llano. Sonnet 5
+# ($2/$10) lo hace bien y cuesta menos de la mitad que Opus.
+MODELO_TITULARES = "claude-sonnet-5"
+
 # FILTRO — las dos puertas que deciden qué se publica SIN que lo vea nadie:
-# qué pista del radar sale sola y qué comentario entra en la web. Sonnet 5
-# ($2/$10): bastante más criterio que Haiku por céntimos al día, y es justo
-# donde un error sale publicado.
+# qué pista del radar sale sola y qué comentario entra en la web. Sonnet 5:
+# bastante más criterio que Haiku por céntimos al día, y es justo donde un
+# error sale publicado.
 MODELO_FILTRO = "claude-sonnet-5"
 
 # MECÁNICO — transformar datos en texto sin criterio que proteger: el parte del
 # tiempo. Haiku 4.5 ($1/$5). NO usarlo para nada que decida qué se publica.
 MODELO_MECANICO = "claude-haiku-4-5"
 
-# INVESTIGACIÓN — elegir el tema semanal y escribir la pieza larga: Claude
-# Fable 5.1 ($10/$50), el modelo más capaz. Una pieza a la semana: unos 3-5 €.
-MODELO_INVESTIGACION = "claude-fable-5-1"
+# INVESTIGACIÓN — elegir el tema y escribir la pieza larga: Opus 5. La
+# BÚSQUEDA web, que es lo caro (cada página leída son miles de tokens), con
+# Sonnet 5 y con tope de búsquedas. El 2026-11-23 una investigación con Fable
+# 5.1 (33 búsquedas) costó del orden de 10-20 € y agotó el límite de gasto del
+# mes: se vuelve a Fable cuando haya lectores que lo justifiquen.
+MODELO_INVESTIGACION = "claude-opus-5"
+MODELO_BUSQUEDA = "claude-sonnet-5"
+MAX_BUSQUEDAS = 12
+MAX_LECTURAS = 6
 
 
 def _forzado() -> str | None:
@@ -66,6 +78,14 @@ def _model_mecanico() -> str:
 
 def _model_investigacion() -> str:
     return _forzado() or MODELO_INVESTIGACION
+
+
+def _model_busqueda() -> str:
+    return _forzado() or MODELO_BUSQUEDA
+
+
+def _model_titulares() -> str:
+    return _forzado() or MODELO_TITULARES
 
 
 # Si el modelo se niega a una petición (stop_reason "refusal", pasa muy rara vez
@@ -217,7 +237,7 @@ def redactar(doc: dict) -> dict:
         f"Texto oficial:\n{doc.get('title','')}"
     )
     resp = _llamar(
-        model=_model(),
+        model=_model_titulares(),
         max_tokens=3000,
         system=_SISTEMA_NOTICIA,
         messages=[{"role": "user", "content": user}],
@@ -871,9 +891,9 @@ def investigar_tema(tema: dict, hoy: str, max_continuaciones: int = 6) -> dict:
     se retoma reenviando lo acumulado (sin añadir un "continúa", que el servidor
     no necesita). Se usa streaming porque una investigación tarda minutos."""
     tools = [
-        {"type": "web_search_20260209", "name": "web_search", "max_uses": 25,
+        {"type": "web_search_20260209", "name": "web_search", "max_uses": MAX_BUSQUEDAS,
          "user_location": {"type": "approximate", "country": "ES", "timezone": "Europe/Madrid"}},
-        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": 20},
+        {"type": "web_fetch_20260209", "name": "web_fetch", "max_uses": MAX_LECTURAS},
     ]
     pregunta = (
         f"Fecha de hoy: {hoy}\n\n"
@@ -890,7 +910,7 @@ def investigar_tema(tema: dict, hoy: str, max_continuaciones: int = 6) -> dict:
             mensajes.append({"role": "assistant", "content": acumulado})
         resp = _llamar_largo(
             rescate=False,
-            model=_model_investigacion(),
+            model=_model_busqueda(),
             max_tokens=64000,
             system=_SISTEMA_INVESTIGAR,
             messages=mensajes,

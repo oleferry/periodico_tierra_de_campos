@@ -53,5 +53,7 @@
       "hasta": "",
       "_verificado": "2026-09-17"
     }
-  ]
+  ],
+  "_patrocinios": "Patrocinio por pueblo (2026-11): slug del pueblo -> slug del anunciante. Sale en la ficha del pueblo, junto al tiempo ('con la colaboración de…', marcado como publicidad) y en su cartel con QR. Solo si el anunciante está activo y dentro de su vigencia (desde/hasta). Ej.: {\"villada\": \"carniceria-juan\"}.",
+  "patrocinios": {}
 }
