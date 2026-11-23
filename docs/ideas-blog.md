@@ -5,6 +5,12 @@ Cada investigación necesita un dossier de datos REALES antes de redactar
 (ver `scripts/generar_articulo_blog.py`, función `dossier_despoblacion` como
 modelo) — no se escribe nada sin cifras verificables detrás.
 
+**Desde 2026-09-17 esta lista alimenta la investigación semanal automática**
+(`scripts/investigacion_semanal.py`, cada martes): la IA elige entre las ideas
+🟢 y 🟡 que no estén marcadas ✅, cruzándolas con lo que ha visto el radar. Las
+🔴 no se tocan nunca solas. **Para dirigir qué se investiga, basta con editar
+esta lista**: añadir ideas, cambiar su marca o marcar ✅ las ya hechas.
+
 ## Estado
 
 - 🟢 dato ya disponible o fácil de conseguir (API pública, reutiliza scraper existente)

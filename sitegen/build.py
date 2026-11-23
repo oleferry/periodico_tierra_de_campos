@@ -277,25 +277,28 @@ def articulo_path(d: dict) -> str:
     return f"noticia/{d['hash'][:16]}.html"
 
 
+def enlace_doc(d: dict, depth: int) -> tuple[str, str, str]:
+    """(href, target, texto del enlace) de una pieza.
+
+    Si hay artículo propio (cuerpo redactado de verdad, no solo titular+entradilla),
+    la tarjeta lleva a NUESTRA página, no directa al PDF/HTML oficial — ver
+    render_articulo(). Si no hay cuerpo (sin IA, o la IA falló), se cae al enlace
+    externo de siempre: mejor eso que fingir un artículo que no existe."""
+    if redactar(d).get("cuerpo"):
+        return f"{'../' * depth}{articulo_path(d)}", "_self", "Leer la noticia completa →"
+    if d.get("source_type") == "radar_local":
+        more = f"Leer en {medio_de_prensa(d)} →"
+    elif d.get("source_type") in FUENTES_OFICIALES:
+        more = "Leer en la fuente oficial →"
+    else:
+        more = "Leer la fuente →"
+    return url_segura(d["url_original"]), "_blank", more
+
+
 def doc_row(d: dict, *, show_muni: bool, depth: int) -> str:
     r = redactar(d)
     muni = f"{E(d['municipality_name'])} · " if show_muni else ""
-    # Si hay artículo propio (cuerpo redactado de verdad, no solo titular+entradilla),
-    # la tarjeta lleva a NUESTRA página, no directa al PDF/HTML oficial — ver
-    # render_pleno_articulo(). Si no hay cuerpo (sin IA, o la IA falló), se cae
-    # al enlace externo de siempre: mejor eso que fingir un artículo que no existe.
-    if r.get("cuerpo"):
-        up = "../" * depth
-        href, target = f"{up}{articulo_path(d)}", "_self"
-        more = "Leer la noticia completa →"
-    else:
-        href, target = url_segura(d["url_original"]), "_blank"
-        if d.get("source_type") == "radar_local":
-            more = f"Leer en {medio_de_prensa(d)} →"
-        elif d.get("source_type") in FUENTES_OFICIALES:
-            more = "Leer en la fuente oficial →"
-        else:
-            more = "Leer la fuente →"
+    href, target, more = enlace_doc(d, depth)
     rel = ' rel="noopener"' if target == "_blank" else ""
     return f"""<a class="tc-news" href="{E(href)}" target="{target}"{rel}>
       <span class="tc-news-kicker">{muni}{fuente_label(d)} · {d['published_at']}</span>
@@ -594,9 +597,11 @@ def cargar_noticias_propias() -> dict[str, list[dict]]:
     agrupadas por municipio. Solo las marcadas 'publicado': un borrador nunca
     llega a la web.
 
-    Van SOLO a la ficha de su pueblo, nunca a la portada (ver main(): no se
-    añaden al `feed`) — a un vecino de Villada no le interesa mucho lo que pasa
-    en Sahagún, y la portada no debe volverse un cajón de sastre."""
+    Viven en la ficha de su pueblo y, desde el restyling de 2026-11, también en
+    "Lo último" de la portada (ver pool_noticias): eran lo más fresco del
+    periódico y nadie las veía. El "a un vecino de Villada no le interesa lo de
+    Sahagún" (decisión de 2026-07-17) lo resuelve el bloque "Tu pueblo", que pone
+    primero el pueblo del lector."""
     manifest = ROOT / "data" / "noticias" / "propias.json"
     if not manifest.exists():
         return {}
@@ -1055,7 +1060,7 @@ def footer(depth: int) -> str:
     redes = "".join(f'<a href="{url}" target="_blank" rel="noopener">{nombre}</a>' for nombre, url in REDES)
     return f"""<footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{up}gente.html">Gente de Campos</a><a href="{up}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="{up}aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="{home}">Portada</a><a href="{up}gente.html">Gente de Campos</a><a href="{up}chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="{up}aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOCyL, BOP y sedes municipales</span><span>elterracampino.es</span></div>
   <div class="tc-footer-redes">Síguenos: {redes}</div>
   <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="{up}aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>"""
@@ -1187,26 +1192,357 @@ def bloque_paro(paro: dict | None) -> str:
 </section>"""
 
 
-def render_home(built: list[dict], feed: list[dict], hoy: date,
+def hace(fecha_iso: str | None, hoy: date) -> str:
+    """'hoy', 'ayer', 'hace 3 días' o '12 nov'. El sitio se regenera cada
+    mañana, así que una fecha relativa al día del build es fiable."""
+    try:
+        f = date.fromisoformat((fecha_iso or "")[:10])
+    except ValueError:
+        return ""
+    dias = (hoy - f).days
+    if dias <= 0:
+        return "hoy"
+    if dias == 1:
+        return "ayer"
+    if dias < 7:
+        return f"hace {dias} días"
+    return f"{f.day} {MESES[f.month - 1][:3]}"
+
+
+def _dias_desde(d: dict, hoy: date) -> int:
+    try:
+        return (hoy - date.fromisoformat((d.get("published_at") or "")[:10])).days
+    except ValueError:
+        return 9999
+
+
+def pool_noticias(feed: list[dict], built: list[dict]) -> list[dict]:
+    """Todo lo publicable de la comarca, de lo más nuevo a lo más viejo y sin
+    repetidos: boletines, plenos, ayudas, webs municipales y las piezas propias
+    del radar.
+
+    Antes la portada ordenaba por `relevancia()` ANTES que por fecha, así que
+    los anuncios con palabras "jugosas" (eólica, planta, solar) ganaban siempre
+    y la portada enseñaba en noviembre lo mismo que en agosto. Y las piezas del
+    radar —lo más fresco que publica el periódico, ~2 al día— ni entraban."""
+    todo = list(feed)
+    for m in built:
+        todo.extend(m.get("_propias", []))
+    todo.sort(key=lambda d: d.get("published_at") or "", reverse=True)
+    vistos, out = set(), []
+    for d in todo:
+        # Un anuncio del BOCyL que afecta a varios pueblos llega una vez por
+        # pueblo: se queda la primera aparición.
+        t = redactar(d)["titular"].strip().lower()
+        if t in vistos:
+            continue
+        vistos.add(t)
+        out.append(d)
+    return out
+
+
+def elegir_portada(pool: list[dict], blog: list[dict], hoy: date) -> dict | None:
+    """La pieza que abre el periódico. Una investigación de la última semana
+    manda; si no la hay, la noticia con artículo propio más fuerte de los
+    últimos tres días (los plenos pesan más: es lo que decide el pueblo)."""
+    if blog:
+        try:
+            if (hoy - date.fromisoformat(blog[0]["fecha"])).days <= 6:
+                return {"tipo": "investigacion", "a": blog[0]}
+        except ValueError:
+            pass
+    con_cuerpo = [d for d in pool if redactar(d).get("cuerpo")]
+    candidatas = [d for d in con_cuerpo if _dias_desde(d, hoy) <= 3] or con_cuerpo[:5] or pool[:1]
+    if not candidatas:
+        return None
+
+    def peso(d: dict):
+        extra = 3 if d.get("source_type") == "municipal_plenary" else 0
+        return (relevancia(d) + extra, d.get("published_at") or "")
+    return {"tipo": "noticia", "d": max(candidatas, key=peso)}
+
+
+def datos_pueblos(built: list[dict], pool: list[dict], hoy: date) -> dict:
+    """web/datos/pueblos.json: lo mínimo para el bloque "Tu pueblo" de la
+    portada, que el navegador rellena con el pueblo que recuerda el lector.
+    Las rutas van relativas a la raíz del sitio."""
+    out = {}
+    for m in built:
+        w = m.get("weather") or {}
+        ultimas = []
+        for d in pool:
+            if d.get("municipality_slug") != m["slug"]:
+                continue
+            href, _, _ = enlace_doc(d, 0)
+            ultimas.append({"t": redactar(d)["titular"], "h": href, "f": hace(d.get("published_at"), hoy)})
+            if len(ultimas) == 3:
+                break
+        out[m["slug"]] = {
+            "n": m["name"],
+            "t": (w.get("ahora") or {}).get("temp"),
+            "d": (w.get("ahora") or {}).get("desc"),
+            "u": ultimas,
+        }
+    return out
+
+
+def _kicker(d: dict, hoy: date, *, con_pueblo: bool = True) -> str:
+    partes = []
+    if con_pueblo and d.get("municipality_name"):
+        partes.append(E(d["municipality_name"]))
+    partes.append(fuente_label(d))
+    cuando = hace(d.get("published_at"), hoy)
+    if cuando:
+        partes.append(cuando)
+    return " · ".join(partes)
+
+
+def _bloque_portada(p: dict | None, hoy: date) -> str:
+    if not p:
+        return ""
+    if p["tipo"] == "investigacion":
+        a = p["a"]
+        img = (f'<img class="tc-lead-img" src="assets/blog/{E(a["slug"])}.jpg" alt="" '
+               f'fetchpriority="high">' if a.get("tiene_imagen") else "")
+        return f"""<article class="tc-lead{' tc-lead--img' if img else ''}">
+  <a class="tc-lead-link" href="blog/{E(a['slug'])}.html">
+    {img}
+    <div class="tc-lead-txt">
+      <span class="tc-kicker tc-kicker--acento">Investigación · {E(hace(a.get('fecha'), hoy))}</span>
+      <h2 class="tc-lead-titular">{E(a['titular'])}</h2>
+      <p class="tc-lead-entradilla">{E(a['entradilla'])}</p>
+      <span class="tc-lead-mas">Leer la investigación →</span>
+    </div>
+  </a>
+</article>"""
+    d = p["d"]
+    r = redactar(d)
+    href, target, more = enlace_doc(d, 0)
+    rel = ' rel="noopener"' if target == "_blank" else ""
+    return f"""<article class="tc-lead">
+  <a class="tc-lead-link" href="{E(href)}" target="{target}"{rel}>
+    <div class="tc-lead-txt">
+      <span class="tc-kicker tc-kicker--acento">{_kicker(d, hoy)}</span>
+      <h2 class="tc-lead-titular">{E(r['titular'])}</h2>
+      <p class="tc-lead-entradilla">{E(r['entradilla'])}</p>
+      <span class="tc-lead-mas">{E(more)}</span>
+    </div>
+  </a>
+</article>"""
+
+
+def _lista_ultimo(pool: list[dict], excluir: dict | None, hoy: date, n: int = 10) -> str:
+    items = []
+    for d in pool:
+        if excluir is not None and d is excluir:
+            continue
+        href, target, _ = enlace_doc(d, 0)
+        rel = ' rel="noopener"' if target == "_blank" else ""
+        items.append(f"""<li><a href="{E(href)}" target="{target}"{rel}>
+      <span class="tc-kicker">{_kicker(d, hoy)}</span>
+      <span class="tc-ultimo-titular">{E(redactar(d)['titular'])}</span>
+    </a></li>""")
+        if len(items) == n:
+            break
+    if not items:
+        return '<p class="tc-pieza-cuerpo">Hoy no hay novedades en los boletines ni en la prensa de la comarca.</p>'
+    return f'<ol class="tc-ultimo">{"".join(items)}</ol>'
+
+
+def _tarjetas_investigacion(blog: list[dict], excluir_slug: str | None, hoy: date) -> str:
+    tarjetas = []
+    for a in blog:
+        if a["slug"] == excluir_slug:
+            continue
+        if a.get("tiene_imagen"):
+            cabeza = f'<img src="assets/blog/{E(a["slug"])}.jpg" alt="" loading="lazy">'
+        else:
+            # Piezas sin imagen a propósito (el homenaje a Mariano Haro: no se
+            # generan retratos de IA de personas reales). Una cabecera de tinta
+            # en vez de un hueco, para que la fila no quede coja.
+            cabeza = '<span class="tc-inv-sinimg" aria-hidden="true">Tierra de Campos</span>'
+        tarjetas.append(f"""<a class="tc-inv" href="blog/{E(a['slug'])}.html">
+      {cabeza}
+      <span class="tc-kicker">{E(hace(a.get('fecha'), hoy))}</span>
+      <span class="tc-inv-titular">{E(a['titular'])}</span>
+    </a>""")
+        if len(tarjetas) == 3:
+            break
+    return "".join(tarjetas)
+
+
+def _rejilla_pueblos(built: list[dict], pool: list[dict], hoy: date) -> str:
+    """Todos los pueblos con ficha, con cuántas novedades llevan esta semana."""
+    recientes: dict[str, int] = {}
+    for d in pool:
+        if _dias_desde(d, hoy) <= 7 and d.get("municipality_slug"):
+            recientes[d["municipality_slug"]] = recientes.get(d["municipality_slug"], 0) + 1
+    tarjetas = []
+    for m in sorted(built, key=lambda m: strip_accents(m["name"]).lower()):
+        n = recientes.get(m["slug"], 0)
+        nuevas = (f'<span class="tc-pueblo-nuevas">{n} {"novedad" if n == 1 else "novedades"}</span>'
+                  if n else "")
+        tarjetas.append(f"""<a class="tc-pueblo" href="municipio/{E(m['slug'])}.html">
+      <span class="tc-pueblo-nombre">{E(m['name'])}</span>
+      <span class="tc-pueblo-prov">{E(m.get('province', ''))}</span>{nuevas}
+    </a>""")
+    return f'<div class="tc-pueblos-grid">{"".join(tarjetas)}</div>'
+
+
+def _datos_comarca(built: list[dict], cots: list[dict] | None, paro: dict | None) -> str:
+    """Los datos de la comarca en cifras: tiempo, cereal y paro."""
+    fichas = []
+    r = resumen_tiempo(built)
+    if r:
+        fichas.append(f"""<div class="tc-dato">
+      <span class="tc-kicker">El tiempo hoy</span>
+      <span class="tc-dato-cifra">{r['tmin']}°–{r['tmax']}°</span>
+      <span class="tc-dato-txt">{E(r['desc'][:1].upper() + r['desc'][1:])} en la comarca. Lo más templado, {E(r['hot_name'])}.</span>
+    </div>""")
+    for c in (cots or []):
+        if c["slug"] not in ("trigo", "cebada"):
+            continue
+        d = c["plazas"].get("Valladolid") or next(iter(c["plazas"].values()), None)
+        if not d or not d["vigente"]:
+            continue
+        v = d["vs_anterior"]
+        mov = ""
+        if v and v["euros"]:
+            mov = f'{"+" if v["sube"] else ""}{v["euros"]:.0f} € desde la sesión anterior'
+        fichas.append(f"""<a class="tc-dato" href="campo.html">
+      <span class="tc-kicker">{E(c['nombre'])} · lonja</span>
+      <span class="tc-dato-cifra">{d['precio']:.0f} €/t</span>
+      <span class="tc-dato-txt">{E(mov) or 'Sin cambios en la última sesión'}</span>
+    </a>""")
+    if paro:
+        fichas.append(f"""<div class="tc-dato">
+      <span class="tc-kicker">Paro registrado · {E(paro['mes_nombre'])}</span>
+      <span class="tc-dato-cifra">{miles(paro['total'])}</span>
+      <span class="tc-dato-txt">personas en {paro['con_dato']} pueblos con dato público (SEPE).</span>
+    </div>""")
+    if not fichas:
+        return ""
+    return f"""<section class="tc-wrap tc-seccion" id="datos">
+  <h2 class="tc-block-title">La comarca en cifras</h2>
+  <div class="tc-datos">{''.join(fichas)}</div>
+</section>"""
+
+
+# Script del bloque "Tu pueblo". Construye el DOM con textContent, nunca con
+# innerHTML: los titulares vienen de la IA y de prensa ajena.
+_JS_TU_PUEBLO = """<script>
+(function () {
+  var caja = document.getElementById("tc-tupueblo");
+  if (!caja) return;
+  var slug = null;
+  try { slug = localStorage.getItem("tc-pueblo"); } catch (e) {}
+  if (!slug) return;
+  fetch("datos/pueblos.json").then(function (r) { return r.json(); }).then(function (datos) {
+    var p = datos[slug];
+    if (!p) return;
+    function el(tag, cls, txt) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (txt != null) e.textContent = txt;
+      return e;
+    }
+    var cab = el("div", "tc-tupueblo-cab");
+    cab.appendChild(el("span", "tc-kicker tc-kicker--acento", "Tu pueblo"));
+    var h = el("h2", "tc-tupueblo-nombre");
+    var a = el("a", null, p.n);
+    a.href = "municipio/" + slug + ".html";
+    h.appendChild(a);
+    cab.appendChild(h);
+    if (p.t != null) cab.appendChild(el("span", "tc-tupueblo-tiempo", Math.round(p.t) + "° · " + (p.d || "")));
+    var lista = el("ul", "tc-tupueblo-lista");
+    (p.u || []).forEach(function (it) {
+      var li = el("li");
+      var l = el("a", null, null);
+      l.href = it.h;
+      if (/^https?:/.test(it.h)) { l.target = "_blank"; l.rel = "noopener"; }
+      l.appendChild(el("span", "tc-kicker", it.f));
+      l.appendChild(el("span", "tc-ultimo-titular", it.t));
+      li.appendChild(l);
+      lista.appendChild(li);
+    });
+    if (!p.u || !p.u.length) lista.appendChild(el("li", "tc-tupueblo-vacio", "Esta semana no hay novedades de " + p.n + " en boletines ni prensa."));
+    var pie = el("p", "tc-tupueblo-pie");
+    var todo = el("a", null, "Todo sobre " + p.n + " →");
+    todo.href = "municipio/" + slug + ".html";
+    var cambiar = el("button", "tc-tupueblo-cambiar", "Cambiar de pueblo");
+    cambiar.type = "button";
+    cambiar.addEventListener("click", function () {
+      try { localStorage.removeItem("tc-pueblo"); } catch (e) {}
+      location.reload();
+    });
+    pie.appendChild(todo);
+    pie.appendChild(cambiar);
+    caja.textContent = "";
+    caja.classList.add("tc-tupueblo--lleno");
+    caja.appendChild(cab);
+    caja.appendChild(lista);
+    caja.appendChild(pie);
+  }).catch(function () {});
+})();
+</script>"""
+
+
+def volcar_portada(built, pool, hoy, avisos, cots, paro) -> None:
+    """Si TC_VOLCADO_PORTADA trae una ruta, guarda ahí todo lo que necesita
+    render_home, con los textos de la IA ya resueltos dentro de cada pieza.
+    Así scripts/previsualizar_portada.py rehace la portada en local en un
+    segundo, sin scrapers ni IA ni un build de 30 minutos. Solo lo activan los
+    builds de prueba en ramas (build-diario.yml)."""
+    import copy
+    import os
+    import pickle
+    ruta = (os.getenv("TC_VOLCADO_PORTADA") or "").strip()
+    if not ruta:
+        return
+    def resuelto(d: dict) -> dict:
+        d = copy.copy(d)
+        d["redaccion"] = redactar(d)
+        return d
+    # Las piezas se resuelven una vez y se comparten entre `pool` y `built`
+    # por identidad, que es como las compara la portada.
+    por_id = {id(d): resuelto(d) for d in pool}
+    built_v = []
+    for m in built:
+        m2 = dict(m)
+        for k in ("_propias", "_plenos", "_ayudas", "_bocyl", "_municipal"):
+            if k in m2:
+                m2[k] = [por_id.get(id(d)) or resuelto(d) for d in m2[k]]
+        built_v.append(m2)
+    volcado = {"built": built_v, "pool": [por_id[id(d)] for d in pool], "hoy": hoy,
+               "avisos": avisos, "cots": cots, "paro": paro,
+               "blog": cargar_blog_articulos(), "comentarios": cargar_comentarios_aprobados()}
+    Path(ruta).parent.mkdir(parents=True, exist_ok=True)
+    with open(ruta, "wb") as f:
+        pickle.dump(volcado, f)
+    print(f"  volcado de la portada en {ruta}")
+
+
+def render_home(built: list[dict], pool: list[dict], hoy: date,
                 avisos: list[dict] | None = None, cots: list[dict] | None = None,
                 paro: dict | None = None) -> str:
-    # Noticias relevantes: se prioriza lo jugoso; se descartan titulares repetidos.
-    ordenadas = sorted(feed, key=lambda d: (relevancia(d), d.get("published_at") or ""), reverse=True)
-    noticias, vistos = [], set()
-    for d in ordenadas:
-        tit = redactar(d)["titular"]
-        if tit in vistos:
-            continue
-        vistos.add(tit)
-        noticias.append(d)
-        if len(noticias) >= 6:
-            break
-    if noticias:
-        items = f'<div class="tc-news-grid">{"".join(doc_row(d, show_muni=True, depth=0) for d in noticias)}</div>'
-    else:
-        items = '<p class="tc-pieza-cuerpo">Sin anuncios nuevos de la comarca.</p>'
+    """Portada (restyling 2026-11): una pieza que abre, "lo último" de toda la
+    comarca por fecha, el pueblo del lector primero, investigaciones, todos los
+    pueblos con sus novedades de la semana y la comarca en cifras."""
+    blog_articulos = cargar_blog_articulos()
+    portada = elegir_portada(pool, blog_articulos, hoy)
+    excluir_doc = portada["d"] if portada and portada["tipo"] == "noticia" else None
+    excluir_blog = portada["a"]["slug"] if portada and portada["tipo"] == "investigacion" else None
 
-    # Contenido COMÚN de la comarca (no cambia de un pueblo a otro).
+    r = resumen_tiempo(built)
+    tiempo_corto = (f"{E(r['desc'][:1].upper() + r['desc'][1:])}, de {r['tmin']}° a {r['tmax']}° en la comarca"
+                    if r else "")
+
+    tarjetas_blog = _tarjetas_investigacion(blog_articulos, excluir_blog, hoy)
+    blog_html = f"""<section class="tc-wrap tc-seccion" id="blog">
+  <h2 class="tc-block-title">Investigaciones</h2>
+  <div class="tc-inv-fila">{tarjetas_blog}</div>
+</section>""" if tarjetas_blog else ""
+
     huerta = huerta_del_mes(hoy)
     nombre_por_slug = {m["slug"]: m["name"] for m in built}
     eventos = eventos_comarca(nombre_por_slug, hoy, n=6)
@@ -1214,137 +1550,82 @@ def render_home(built: list[dict], feed: list[dict], hoy: date,
         f'<li><strong>{E(e["cuando"])}</strong> · {E(e["nombre"])} <span class="tc-agenda-pueblo">{E(e["pueblo"])}</span></li>'
         for e in eventos) or "<li>Sin fiestas próximas registradas.</li>"
 
-    # Resumen del tiempo de la comarca (una línea, no 12 tarjetas).
-    r = resumen_tiempo(built)
-    if r:
-        # id="pueblos": el enlace "Elige tu pueblo" del menú apunta aquí. Antes no
-        # existía ningún elemento con ese id, así que desde la portada el enlace
-        # más importante del menú no hacía absolutamente nada.
-        tiempo_html = f"""<div class="tc-weather-summary" id="pueblos">
-      <div class="tc-weather-summary-txt">
-        <span class="tc-section-label" style="color:var(--tc-azul-bop);">El tiempo en la comarca</span>
-        <p>Hoy en Tierra de Campos, <strong>{E(r['desc'])}</strong> y entre <strong>{r['tmin']}°</strong> y <strong>{r['tmax']}°</strong>. El pueblo más caluroso ahora es {E(r['hot_name'])}, con {r['hot_t']}°.</p>
-      </div>
-      <div class="tc-weather-summary-pick">{selector(built, 0)}</div>
-    </div>"""
-    else:
-        # Sin datos de tiempo el selector de pueblo NO puede desaparecer: es la
-        # mejor entrada del sitio y el ancla del menú.
-        tiempo_html = f"""<div class="tc-weather-summary" id="pueblos">
-      <div class="tc-weather-summary-pick">{selector(built, 0)}</div>
-    </div>"""
-
-    # Blog / investigaciones: piezas largas, generadas aparte (scripts/generar_articulo_blog.py),
-    # no en cada build. Se listan aquí si hay alguna publicada.
-    blog_articulos = cargar_blog_articulos()
-    if blog_articulos:
-        tarjetas_blog = "".join(f'''<a class="tc-blog-tarjeta" href="blog/{E(a["slug"])}.html">
-      {f'<img src="assets/blog/{E(a["slug"])}.jpg" alt="" loading="lazy">' if a.get("tiene_imagen") else ""}
-      <span class="tc-news-titular">{E(a["titular"])}</span>
-      <span class="tc-news-entradilla">{E(a["entradilla"])}</span>
-    </a>''' for a in blog_articulos[:3])
-        blog_html = f"""<section class="tc-wrap" id="blog">
-  <h2 class="tc-block-title">Investigaciones</h2>
-  <div class="tc-blog-grid">{tarjetas_blog}</div>
-</section>"""
-    else:
-        blog_html = ""
-
-    # Tablón de comentarios del grupo de discusión de Telegram, moderados de
-    # forma 100% autónoma por IA (sitegen/ia.py:moderar_comentario, ejecutado
-    # por scripts/moderar_comentarios.py) — nadie humano revisa esto después,
-    # así que solo llegan aquí los que la propia IA ya aprobó. Ver
-    # sitegen/almacen_comentarios.py para el porqué del diseño.
-    # Precios del cereal: en portada solo el titular (trigo y cebada, que es lo
-    # que casi todo el mundo siembra aquí); el detalle vive en /campo.html.
-    lonja_html = ""
-    destacados = [c for c in (cots or []) if c["slug"] in ("trigo", "cebada")]
-    if destacados:
-        piezas = []
-        for c in destacados:
-            d = c["plazas"].get("Valladolid") or next(iter(c["plazas"].values()), None)
-            if not d or not d["vigente"]:
-                continue
-            v = d["vs_anterior"]
-            mov = ""
-            if v and v["euros"]:
-                mov = f' ({"+" if v["sube"] else ""}{v["euros"]:.0f} € respecto a la sesión anterior)'
-            piezas.append(f'<li><strong>{E(c["nombre"])}</strong>: {d["precio"]:.0f} €/t{E(mov)}</li>')
-        if piezas:
-            lonja_html = f"""<section class="tc-wrap">
-  <div class="tc-card">
-    <h3 style="margin-top:0;">Precios del cereal</h3>
-    <ul class="tc-links-list">{''.join(piezas)}</ul>
-    <p class="tc-item-meta">Lonja de Valladolid y Palencia ·
-    <a href="campo.html">ver todos los precios →</a></p>
-  </div>
-</section>"""
-
     comentarios = cargar_comentarios_aprobados()
+    comentarios_html = ""
     if comentarios:
         items_comentarios = "".join(f'''<li class="tc-comentario">
       <span class="tc-comentario-autor">{E(c.get("autor") or "Alguien de la comarca")}</span>
       <p class="tc-comentario-texto">{E(c["texto"])}</p>
       <span class="tc-item-meta">{E((c.get("recibido_en") or "")[:10])}</span>
     </li>''' for c in comentarios)
-        comentarios_html = f"""<section class="tc-wrap">
-  <div class="tc-card">
-    <h3>Se comenta en el canal</h3>
-    <ul class="tc-comentarios-lista">{items_comentarios}</ul>
-    <p class="tc-item-meta">Mensajes del grupo de Telegram de El Terracampino, filtrados automáticamente
-    por IA antes de aparecer aquí — <a href="https://t.me/elterracampino" target="_blank" rel="noopener">únete a la conversación</a>.</p>
-  </div>
+        comentarios_html = f"""<section class="tc-wrap tc-seccion">
+  <h2 class="tc-block-title">Se comenta en el canal</h2>
+  <ul class="tc-comentarios-lista">{items_comentarios}</ul>
+  <p class="tc-item-meta">Mensajes del grupo de Telegram de El Terracampino, filtrados automáticamente
+  por IA antes de aparecer aquí — <a href="https://t.me/elterracampino" target="_blank" rel="noopener">únete a la conversación</a>.</p>
 </section>"""
-    else:
-        comentarios_html = ""
 
     alm = almanaque_del_dia(hoy)
-    body = f"""<section class="tc-masthead"><div class="tc-wrap">
-  <p class="tc-hoy-fecha">{fecha_larga(hoy)}</p>
-  <h1>El tiempo y las noticias de tu pueblo, en limpio</h1>
-  <p class="tc-masthead-sub">Lo que pasa en los pueblos de Tierra de Campos, contado claro y con la fuente al lado.</p>
-  <p class="tc-almanaque">«{E(alm['refran'])}» <span class="tc-almanaque-sep">·</span> Hoy es {E(alm['santo'])} <span class="tc-almanaque-sep">·</span> {alm['luna']['emoji']} {E(alm['luna']['fase'])}</p>
+    body = f"""<section class="tc-edicion"><div class="tc-wrap tc-edicion-inner">
+  <h1 class="tc-sr">El Terracampino, el periódico de los pueblos de Tierra de Campos</h1>
+  <p class="tc-edicion-fecha">{fecha_larga(hoy)}</p>
+  <p class="tc-almanaque">«{E(alm['refran'])}» <span class="tc-almanaque-sep">·</span> {E(alm['santo'])} <span class="tc-almanaque-sep">·</span> {alm['luna']['emoji']} {E(alm['luna']['fase'])}</p>
+  {f'<p class="tc-edicion-tiempo">{tiempo_corto}</p>' if tiempo_corto else ''}
 </div></section>
 
 {banda_avisos(avisos or [])}
 
-<section class="tc-wrap" id="tiempo">{tiempo_html}</section>
-
-<section class="tc-wrap" id="comarca">
-  <h2 class="tc-block-title">Noticias relevantes de la comarca</h2>
-  {items}
+<section class="tc-wrap tc-portada">
+  <div class="tc-portada-principal">
+    {_bloque_portada(portada, hoy)}
+    <div class="tc-tupueblo" id="tc-tupueblo">
+      <span class="tc-kicker tc-kicker--acento">Tu pueblo</span>
+      <p class="tc-tupueblo-invita">Elige tu pueblo y te lo pondremos el primero cada vez que vuelvas.</p>
+      {selector(built, 0)}
+    </div>
+  </div>
+  <aside class="tc-portada-ultimo" id="ultimo">
+    <h2 class="tc-block-title">Lo último en los pueblos</h2>
+    {_lista_ultimo(pool, excluir_doc, hoy)}
+  </aside>
 </section>
 
 {blog_html}
 
-{comentarios_html}
+<section class="tc-wrap tc-seccion" id="pueblos">
+  <h2 class="tc-block-title">Los pueblos</h2>
+  {_rejilla_pueblos(built, pool, hoy)}
+</section>
 
-<section class="tc-wrap tc-comun">
+{_datos_comarca(built, cots, paro)}
+
+<section class="tc-wrap tc-seccion tc-comun">
   <div class="tc-comun-huerta">
-    <h2 class="tc-block-title">Campo y huerta — {E(huerta['mes'])} en la meseta</h2>
+    <h2 class="tc-block-title">Campo y huerta · {E(huerta['mes'])}</h2>
     <p class="tc-pieza-cuerpo">{E(huerta['texto'])}</p>
     <p class="tc-item-meta">Común para toda la comarca. Orientación general, no sustituye asesoramiento técnico.</p>
   </div>
   <div class="tc-comun-agenda">
-    <h2 class="tc-block-title">Agenda de la comarca</h2>
+    <h2 class="tc-block-title">Agenda de fiestas</h2>
     <ul class="tc-links-list tc-agenda">{agenda_html}</ul>
   </div>
 </section>
 
-{lonja_html}
+{comentarios_html}
 
-{bloque_paro(paro)}
+<div class="tc-wrap">{bloque_acompanar(0)}</div>
 
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
-  <div><h2>Entérate de lo de tu pueblo por Telegram</h2>
-  <p>El tiempo, las noticias, la agenda de fiestas, alguna historia de aquí y una foto de vez en cuando. Sin ruido de fuera.</p></div>
+  <div><h2>Lo de tu pueblo, en el móvil</h2>
+  <p>El tiempo, las noticias, la agenda de fiestas y alguna historia de aquí, por Telegram o WhatsApp. Solo cuando hay algo que contar.</p></div>
   <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></section>
 
 <section class="tc-newsletter"><div class="tc-wrap tc-newsletter-inner">
   <div><h2>La semana terracampina</h2><p>Un correo, una vez por semana. Lo que pasa cerca, contado claro.</p></div>
   <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
-</div></section>"""
+</div></section>
+{_JS_TU_PUEBLO}"""
     return shell("El Terracampino — el tiempo y las noticias de tu pueblo",
                  body, depth=0, ruta="",
                  desc="El tiempo y las noticias de cada pueblo de Tierra de Campos, en limpio.")
@@ -1626,7 +1907,12 @@ def render_municipio(m: dict, anuncios: list[dict], hoy: date,
     <div class="tc-side-block"><h3>Enlaces oficiales</h3><ul class="tc-links-list">{links_html}</ul></div>
     <div class="tc-side-block"><h3>Agenda — fiestas y ferias</h3><ul class="tc-links-list tc-agenda">{agenda_html}</ul></div>
   </aside>
-</div>"""
+</div>
+<script>
+// La portada pone primero el último pueblo que el lector ha abierto (bloque
+// "Tu pueblo", ver render_home). Sin cookies ni servidor: queda en su navegador.
+try {{ localStorage.setItem("tc-pueblo", {json.dumps(m["slug"])}); }} catch (e) {{}}
+</script>"""
     desc = w["articulo"][:150] if w else f"Noticias y tiempo de {m['name']}, Tierra de Campos."
     ruta = f"municipio/{m['slug']}.html"
     return shell(f"{m['name']} — El Terracampino", body, depth=1, desc=desc,
@@ -3035,8 +3321,14 @@ def main() -> int:
 
     (WEB / "municipio").mkdir(parents=True, exist_ok=True)
     (WEB / "noticia").mkdir(parents=True, exist_ok=True)
+    pool = pool_noticias(feed, built)
+    volcar_portada(built, pool, hoy, avisos_meteo, cots_lonja, paro_datos)
     (WEB / "index.html").write_text(
-        render_home(built, feed, hoy, avisos_meteo, cots_lonja, paro_datos), encoding="utf-8")
+        render_home(built, pool, hoy, avisos_meteo, cots_lonja, paro_datos), encoding="utf-8")
+    (WEB / "datos").mkdir(parents=True, exist_ok=True)
+    (WEB / "datos" / "pueblos.json").write_text(
+        json.dumps(datos_pueblos(built, pool, hoy), ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8")
     blog_articulos = cargar_blog_articulos()
     (WEB / "feed.xml").write_text(render_feed_rss(blog_articulos), encoding="utf-8")
 
