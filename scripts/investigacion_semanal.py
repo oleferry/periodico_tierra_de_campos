@@ -158,6 +158,8 @@ def main() -> int:
     ap.add_argument("--github", action="store_true", help="escribe slug y cuerpo de la PR para el workflow")
     ap.add_argument("--sin-imagen", action="store_true")
     ap.add_argument("--avisar", metavar="TEXTO", help="solo manda TEXTO al admin por Telegram")
+    ap.add_argument("--retomar", metavar="JSON",
+                    help="redacta a partir de una investigación ya hecha (data/blog/investigaciones/pendiente-*.json)")
     args = ap.parse_args()
 
     if args.avisar:
@@ -172,33 +174,46 @@ def main() -> int:
     if args.evitar and Path(args.evitar).exists():
         propuestas = [p.get("title", "") for p in json.loads(Path(args.evitar).read_text(encoding="utf-8"))]
 
-    print("· Fase 1: eligiendo tema…")
-    tema = ia.elegir_tema_investigacion(
-        ideas=ideas_investigables(), publicadas=titulares_publicados(),
-        propuestas=propuestas, pistas=titulares_radar(), hoy=hoy,
-    )
-    print(f"  {tema['titulo_de_trabajo']}")
-    print(f"  pregunta: {tema['pregunta_central']}")
-    print(f"  idea del backlog: {tema['idea_backlog']}")
-    if args.solo_tema:
-        print(json.dumps(tema, ensure_ascii=False, indent=2))
-        return 0
-
-    print("· Fase 2: investigando con búsqueda web (puede tardar 5-15 minutos)…")
-    inv = ia.investigar_tema(tema, hoy)
-    print(f"  {inv['busquedas']} búsquedas · dossier de {len(inv['dossier'])} caracteres")
-    if not inv["suficiente"]:
-        motivo = inv["motivo"] or "sin motivo"
-        print(f"  PARADA: no hay hechos suficientes ({motivo})")
-        avisar_admin(
-            f"Investigación semanal: esta semana no sale ninguna.\n\n"
-            f"Tema intentado: {tema['titulo_de_trabajo']}\n"
-            f"Motivo: {motivo}\n\n"
-            f"Mejor una semana sin pieza que una rellena. La semana que viene se prueba otro tema."
+    if args.retomar:
+        guardado = json.loads(Path(args.retomar).read_text(encoding="utf-8"))
+        tema, inv, pendiente = guardado["tema"], guardado["inv"], Path(args.retomar)
+        print(f"· Retomando: {tema['titulo_de_trabajo']} ({inv['busquedas']} búsquedas ya hechas)")
+    else:
+        print("· Fase 1: eligiendo tema…")
+        tema = ia.elegir_tema_investigacion(
+            ideas=ideas_investigables(), publicadas=titulares_publicados(),
+            propuestas=propuestas, pistas=titulares_radar(), hoy=hoy,
         )
-        if args.github:
-            _salida_github(slug="", titular="")
-        return 0
+        print(f"  {tema['titulo_de_trabajo']}")
+        print(f"  pregunta: {tema['pregunta_central']}")
+        print(f"  idea del backlog: {tema['idea_backlog']}")
+        if args.solo_tema:
+            print(json.dumps(tema, ensure_ascii=False, indent=2))
+            return 0
+
+        print("· Fase 2: investigando con búsqueda web (puede tardar 5-15 minutos)…")
+        inv = ia.investigar_tema(tema, hoy)
+        print(f"  {inv['busquedas']} búsquedas · dossier de {len(inv['dossier'])} caracteres")
+        # La investigación es la fase cara (decenas de búsquedas web): se guarda
+        # YA, antes de redactar. El 2026-11-23 la redacción falló por el límite
+        # de gasto de la API y se perdió un dossier de 33 búsquedas que solo se
+        # escribía al final. Con esto se retoma con --retomar sin volver a pagarla.
+        DOSSIERS_DIR.mkdir(parents=True, exist_ok=True)
+        pendiente = DOSSIERS_DIR / f"pendiente-{hoy}-{tema['tema_clave']}.json"
+        pendiente.write_text(json.dumps({"tema": tema, "inv": inv}, ensure_ascii=False, indent=2),
+                             encoding="utf-8")
+        if not inv["suficiente"]:
+            motivo = inv["motivo"] or "sin motivo"
+            print(f"  PARADA: no hay hechos suficientes ({motivo})")
+            avisar_admin(
+                "Investigación semanal: esta semana no sale ninguna.\n\n"
+                f"Tema intentado: {tema['titulo_de_trabajo']}\n"
+                f"Motivo: {motivo}\n\n"
+                "Mejor una semana sin pieza que una rellena. La semana que viene se prueba otro tema."
+            )
+            if args.github:
+                _salida_github(slug="", titular="")
+            return 0
 
     print("· Fase 3: redactando…")
     art = ia.redactar_investigacion(tema["titulo_de_trabajo"], inv["dossier"])
@@ -216,6 +231,7 @@ def main() -> int:
         f"{inv['dossier']}\n",
         encoding="utf-8",
     )
+    pendiente.unlink(missing_ok=True)
 
     if args.github:
         cuerpo = Path(os.getenv("RUNNER_TEMP", str(DATA))) / "cuerpo-pr.md"
