@@ -184,6 +184,19 @@ jobs:
           ADMIN_TELEGRAM_ID: ${{ secrets.ADMIN_TELEGRAM_ID }}
         run: python -m scripts.empaquetar_newsletter --auto
 
+      - name: La semana terracampina (correo de los viernes)
+        # La portada promete "un correo, una vez por semana" y hasta 2026-11 no
+        # salía. Los viernes arma el correo con lo de los últimos siete días y lo
+        # manda al administrador por Telegram, como zip para MailerLite. El resto
+        # de días no hace nada. Va tras el build: lee web/datos/ultimas.json.
+        if: github.ref == 'refs/heads/main'
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ADMIN_TELEGRAM_ID: ${{ secrets.ADMIN_TELEGRAM_ID }}
+        run: python -m scripts.semana_terracampina --auto
+
       - name: Publicar si hay cambios
         run: |
           git config user.name "El Terracampino (bot)"
