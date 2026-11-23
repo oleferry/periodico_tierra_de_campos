@@ -24,11 +24,11 @@
   <nav class="tc-nav" id="tc-nav">
     <button class="tc-nav-cerrar" id="tc-nav-cerrar" aria-label="Cerrar el menú">×</button>
     <a href="index.html">Portada</a>
-    <a href="index.html#pueblos">Elige tu pueblo</a>
-    <a href="index.html#comarca">La comarca</a>
+    <a href="index.html#ultimo">Lo último</a>
+    <a href="index.html#pueblos">Los pueblos</a>
     <a href="index.html#blog">Investigaciones</a>
-    <a href="huerta.html">Huerta</a>
     <a href="campo.html">El campo</a>
+    <a href="huerta.html">Huerta</a>
     <a href="leyendas.html">Leyendas</a>
     <a href="esquelas.html">Esquelas</a>
     <a href="acompanar.html">Acompañar</a>
@@ -53,108 +53,253 @@
   document.addEventListener("keydown", function(e) { if (e.key === "Escape") abrir(false); });
 })();
 </script></header>
-<section class="tc-masthead"><div class="tc-wrap">
-  <p class="tc-hoy-fecha">lunes, 23 de noviembre de 2026</p>
-  <h1>El tiempo y las noticias de tu pueblo, en limpio</h1>
-  <p class="tc-masthead-sub">Lo que pasa en los pueblos de Tierra de Campos, contado claro y con la fuente al lado.</p>
-  <p class="tc-almanaque">«Cielo aborregado, a las pocas horas mojado.» <span class="tc-almanaque-sep">·</span> Hoy es San Clemente I Papa <span class="tc-almanaque-sep">·</span> 🌕 Luna llena</p>
+<section class="tc-edicion"><div class="tc-wrap tc-edicion-inner">
+  <h1 class="tc-sr">El Terracampino, el periódico de los pueblos de Tierra de Campos</h1>
+  <p class="tc-edicion-fecha">lunes, 23 de noviembre de 2026</p>
+  <p class="tc-almanaque">«Cielo aborregado, a las pocas horas mojado.» <span class="tc-almanaque-sep">·</span> San Clemente I Papa <span class="tc-almanaque-sep">·</span> 🌕 Luna llena</p>
+  <p class="tc-edicion-tiempo">Nublado, de 5° a 9° en la comarca</p>
 </div></section>
 
 
 
-<section class="tc-wrap" id="tiempo"><div class="tc-weather-summary" id="pueblos">
-      <div class="tc-weather-summary-txt">
-        <span class="tc-section-label" style="color:var(--tc-azul-bop);">El tiempo en la comarca</span>
-        <p>Hoy en Tierra de Campos, <strong>nublado</strong> y entre <strong>3°</strong> y <strong>8°</strong>. El pueblo más caluroso ahora es Fuentes de Nava, con 8°.</p>
-      </div>
-      <div class="tc-weather-summary-pick"><select class="tc-muni-select" aria-label="Elige tu pueblo" onchange="if(this.value)location.href=this.value;">
-    <option value="">Elige tu pueblo…</option><option value="municipio/medina-de-rioseco.html">Medina de Rioseco</option><option value="municipio/sahagun.html">Sahagún</option><option value="municipio/carrion-de-los-condes.html">Carrión de los Condes</option><option value="municipio/paredes-de-nava.html">Paredes de Nava</option><option value="municipio/valderas.html">Valderas</option><option value="municipio/villalon-de-campos.html">Villalón de Campos</option><option value="municipio/villalpando.html">Villalpando</option><option value="municipio/mayorga.html">Mayorga</option><option value="municipio/villada.html">Villada</option><option value="municipio/villarramiel.html">Villarramiel</option><option value="municipio/becerril-de-campos.html">Becerril de Campos</option><option value="municipio/fuentes-de-nava.html">Fuentes de Nava</option><option value="municipio/aguilar-de-campos.html">Aguilar de Campos</option><option value="municipio/almanza.html">Almanza</option><option value="municipio/ampudia.html">Ampudia</option><option value="municipio/berrueces.html">Berrueces</option><option value="municipio/bolanos-de-campos.html">Bolaños de Campos</option><option value="municipio/bustillo-de-chaves.html">Bustillo de Chaves</option><option value="municipio/cabezon-de-valderaduey.html">Cabezón de Valderaduey</option><option value="municipio/campazas.html">Campazas</option><option value="municipio/castrobol.html">Castrobol</option><option value="municipio/castromocho.html">Castromocho</option><option value="municipio/castroponce-de-valderaduey.html">Castroponce de Valderaduey</option><option value="municipio/cea.html">Cea</option><option value="municipio/ceinos-de-campos.html">Ceinos de Campos</option><option value="municipio/cisneros.html">Cisneros</option><option value="municipio/el-burgo-ranero.html">El Burgo Ranero</option><option value="municipio/fontihoyuelo.html">Fontihoyuelo</option><option value="municipio/fromista.html">Frómista</option><option value="municipio/gordaliza-del-pino.html">Gordaliza del Pino</option><option value="municipio/gordoncillo.html">Gordoncillo</option><option value="municipio/grajal-de-campos.html">Grajal de Campos</option><option value="municipio/grijota.html">Grijota</option><option value="municipio/herrin-de-campos.html">Herrín de Campos</option><option value="municipio/joarilla-de-las-matas.html">Joarilla de las Matas</option><option value="municipio/melgar-de-abajo.html">Melgar de Abajo</option><option value="municipio/montealegre-de-campos.html">Montealegre de Campos</option><option value="municipio/monzon-de-campos.html">Monzón de Campos</option><option value="municipio/morales-de-campos.html">Morales de Campos</option><option value="municipio/osornillo.html">Osornillo</option><option value="municipio/osorno.html">Osorno</option><option value="municipio/palazuelo-de-vedija.html">Palazuelo de Vedija</option><option value="municipio/pina-de-campos.html">Piña de Campos</option><option value="municipio/pozuelo-de-la-orden.html">Pozuelo de la Orden</option><option value="municipio/riberos-de-la-cueza.html">Riberos de la Cueza</option><option value="municipio/san-pedro-de-latarce.html">San Pedro de Latarce</option><option value="municipio/tordehumos.html">Tordehumos</option><option value="municipio/valdunquillo.html">Valdunquillo</option><option value="municipio/vallecillo.html">Vallecillo</option><option value="municipio/valverde-de-campos.html">Valverde de Campos</option><option value="municipio/villabaruz-de-campos.html">Villabaruz de Campos</option><option value="municipio/villabraz.html">Villabraz</option><option value="municipio/villabragima.html">Villabrágima</option><option value="municipio/villafrechos.html">Villafrechós</option><option value="municipio/villagarcia-de-campos.html">Villagarcía de Campos</option><option value="municipio/villalan-de-campos.html">Villalán de Campos</option><option value="municipio/villamoronta.html">Villamoronta</option><option value="municipio/villanueva-de-la-condesa.html">Villanueva de la Condesa</option><option value="municipio/villanueva-de-los-caballeros.html">Villanueva de los Caballeros</option><option value="municipio/villoldo.html">Villoldo</option></select></div>
-    </div></section>
-
-<section class="tc-wrap" id="comarca">
-  <h2 class="tc-block-title">Noticias relevantes de la comarca</h2>
-  <div class="tc-news-grid"><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/10/19/html/BOCYL-D-19102026-202-42.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Paredes de Nava · BOCyL · 2026-10-19</span>
-      <span class="tc-news-titular">A información pública un parque eólico en Paredes de Nava que se juntará con la planta solar Apamate</span>
-      <span class="tc-news-entradilla">Se quiere instalar el módulo eólico «MG Eólico Apamate» para funcionar junto a la planta solar «Apamate Solar» en el término municipal. Está en información pública, pendiente de autorización y de la evaluación de impacto ambiental.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/11/18/html/BOCYL-D-18112026-223-18.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Medina de Rioseco · BOCyL · 2026-11-18</span>
-      <span class="tc-news-titular">Visto bueno ambiental a las baterías que acompañarán a la planta solar de Medina de Rioseco</span>
-      <span class="tc-news-entradilla">La empresa Inver Generación 12, S.L. quiere añadir a la planta solar existente un sistema de almacenamiento en baterías de 5 MW y 20 MWh, llamado «BESS Posadas». Ya tiene el informe de impacto ambiental; falta que se ejecute.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/09/18/html/BOCYL-D-18092026-182-34.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Becerril de Campos · BOCyL · 2026-09-18</span>
-      <span class="tc-news-titular">Vía libre ambiental para sumar placas solares al parque eólico Becerril II-B en Villaumbrales</span>
-      <span class="tc-news-entradilla">El proyecto de Parque Eólico Tierra de Campos, S.L. combinará energía solar con la eólica que ya hay en el término municipal de Villaumbrales. Ya tiene la declaración de impacto ambiental favorable.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/11/09/html/BOCYL-D-09112026-216-34.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Osornillo · BOCyL · 2026-11-09</span>
-      <span class="tc-news-titular">A información pública el parque eólico Astiverde Wind de 12 MW entre Osornillo y Melgar de Fernamental</span>
-      <span class="tc-news-entradilla">La empresa Astiverde Wind, S.L. quiere instalar un parque eólico de 12 MW para autoconsumo con excedentes, con su línea de evacuación, en los términos de Osornillo (Palencia) y Melgar de Fernamental (Burgos). Está en información pública para alegaciones y pendiente de la autorización y la evaluación ambiental.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/11/04/html/BOCYL-D-04112026-213-28.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Melgar de Abajo · BOCyL · 2026-11-04</span>
-      <span class="tc-news-titular">A información pública un parque eólico entre Melgar de Fernamental y Padilla de Abajo</span>
-      <span class="tc-news-entradilla">La empresa Castoreño Wind, S.L. quiere montar el parque eólico «Castoreño», de autoconsumo con excedentes, en los términos de Melgar de Fernamental y Padilla de Abajo (Burgos). Está en información pública y pendiente de la autorización y la evaluación de impacto ambiental.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a><a class="tc-news" href="https://bocyl.jcyl.es/html/2026/08/07/html/BOCYL-D-07082026-152-20.do" target="_blank" rel="noopener">
-      <span class="tc-news-kicker">Frómista · BOCyL · 2026-08-07</span>
-      <span class="tc-news-titular">La planta fotovoltaica de Frómista entra en fase de ocupación de los terrenos afectados</span>
-      <span class="tc-news-entradilla">La empresa Prokon New Energy Spain, S.L. levanta las actas previas para ocupar los bienes y derechos necesarios para la planta solar «Fotovoltaica Frómista» y su línea de evacuación. Afecta a los propietarios de los terrenos por los que pasará la instalación.</span>
-      <span class="tc-news-more">Leer en la fuente oficial →</span>
-    </a></div>
+<section class="tc-wrap tc-portada">
+  <div class="tc-portada-principal">
+    <article class="tc-lead">
+  <a class="tc-lead-link" href="noticia/215d95727b644317.html" target="_self">
+    <div class="tc-lead-txt">
+      <span class="tc-kicker tc-kicker--acento">Almanza · Sahagún Digital · hace 3 días</span>
+      <h2 class="tc-lead-titular">La Junta destina 315.000 euros a las iniciativas turísticas, con Almanza entre las beneficiadas</h2>
+      <p class="tc-lead-entradilla">El Consejo de Gobierno aprobó una subvención para la federación que agrupa a los centros de iniciativas turísticas de Castilla y León, entre ellos los de Almanza, Sahagún y Grajal de Campos.</p>
+      <span class="tc-lead-mas">Leer la noticia completa →</span>
+    </div>
+  </a>
+</article>
+    <div class="tc-tupueblo" id="tc-tupueblo">
+      <span class="tc-kicker tc-kicker--acento">Tu pueblo</span>
+      <p class="tc-tupueblo-invita">Elige tu pueblo y te lo pondremos el primero cada vez que vuelvas.</p>
+      <select class="tc-muni-select" aria-label="Elige tu pueblo" onchange="if(this.value)location.href=this.value;">
+    <option value="">Elige tu pueblo…</option><option value="municipio/medina-de-rioseco.html">Medina de Rioseco</option><option value="municipio/sahagun.html">Sahagún</option><option value="municipio/carrion-de-los-condes.html">Carrión de los Condes</option><option value="municipio/paredes-de-nava.html">Paredes de Nava</option><option value="municipio/valderas.html">Valderas</option><option value="municipio/villalon-de-campos.html">Villalón de Campos</option><option value="municipio/villalpando.html">Villalpando</option><option value="municipio/mayorga.html">Mayorga</option><option value="municipio/villada.html">Villada</option><option value="municipio/villarramiel.html">Villarramiel</option><option value="municipio/becerril-de-campos.html">Becerril de Campos</option><option value="municipio/fuentes-de-nava.html">Fuentes de Nava</option><option value="municipio/aguilar-de-campos.html">Aguilar de Campos</option><option value="municipio/almanza.html">Almanza</option><option value="municipio/ampudia.html">Ampudia</option><option value="municipio/berrueces.html">Berrueces</option><option value="municipio/bolanos-de-campos.html">Bolaños de Campos</option><option value="municipio/bustillo-de-chaves.html">Bustillo de Chaves</option><option value="municipio/cabezon-de-valderaduey.html">Cabezón de Valderaduey</option><option value="municipio/campazas.html">Campazas</option><option value="municipio/castrobol.html">Castrobol</option><option value="municipio/castromocho.html">Castromocho</option><option value="municipio/castroponce-de-valderaduey.html">Castroponce de Valderaduey</option><option value="municipio/cea.html">Cea</option><option value="municipio/ceinos-de-campos.html">Ceinos de Campos</option><option value="municipio/cisneros.html">Cisneros</option><option value="municipio/el-burgo-ranero.html">El Burgo Ranero</option><option value="municipio/fontihoyuelo.html">Fontihoyuelo</option><option value="municipio/fromista.html">Frómista</option><option value="municipio/gordaliza-del-pino.html">Gordaliza del Pino</option><option value="municipio/gordoncillo.html">Gordoncillo</option><option value="municipio/grajal-de-campos.html">Grajal de Campos</option><option value="municipio/grijota.html">Grijota</option><option value="municipio/herrin-de-campos.html">Herrín de Campos</option><option value="municipio/joarilla-de-las-matas.html">Joarilla de las Matas</option><option value="municipio/melgar-de-abajo.html">Melgar de Abajo</option><option value="municipio/montealegre-de-campos.html">Montealegre de Campos</option><option value="municipio/monzon-de-campos.html">Monzón de Campos</option><option value="municipio/morales-de-campos.html">Morales de Campos</option><option value="municipio/osornillo.html">Osornillo</option><option value="municipio/osorno.html">Osorno</option><option value="municipio/palazuelo-de-vedija.html">Palazuelo de Vedija</option><option value="municipio/pina-de-campos.html">Piña de Campos</option><option value="municipio/pozuelo-de-la-orden.html">Pozuelo de la Orden</option><option value="municipio/riberos-de-la-cueza.html">Riberos de la Cueza</option><option value="municipio/san-pedro-de-latarce.html">San Pedro de Latarce</option><option value="municipio/tordehumos.html">Tordehumos</option><option value="municipio/valdunquillo.html">Valdunquillo</option><option value="municipio/vallecillo.html">Vallecillo</option><option value="municipio/valverde-de-campos.html">Valverde de Campos</option><option value="municipio/villabaruz-de-campos.html">Villabaruz de Campos</option><option value="municipio/villabraz.html">Villabraz</option><option value="municipio/villabragima.html">Villabrágima</option><option value="municipio/villafrechos.html">Villafrechós</option><option value="municipio/villagarcia-de-campos.html">Villagarcía de Campos</option><option value="municipio/villalan-de-campos.html">Villalán de Campos</option><option value="municipio/villamoronta.html">Villamoronta</option><option value="municipio/villanueva-de-la-condesa.html">Villanueva de la Condesa</option><option value="municipio/villanueva-de-los-caballeros.html">Villanueva de los Caballeros</option><option value="municipio/villoldo.html">Villoldo</option></select>
+    </div>
+  </div>
+  <aside class="tc-portada-ultimo" id="ultimo">
+    <h2 class="tc-block-title">Lo último en los pueblos</h2>
+    <ol class="tc-ultimo"><li><a href="https://www.carriondeloscondes.org/nueva-edicion-de-sembrando-futuro/" target="_blank" rel="noopener">
+      <span class="tc-kicker">Carrión de los Condes · Web municipal · hoy</span>
+      <span class="tc-ultimo-titular">Nueva edición de sembrando futuro</span>
+    </a></li><li><a href="https://www.carriondeloscondes.org/comunicado-del-ayuntamiento-de-carrion-de-los-condes-sobre-la-modernizacion-del-servicio-de-agua-y-la-actualizacion-de-sus-tarifas/" target="_blank" rel="noopener">
+      <span class="tc-kicker">Carrión de los Condes · Web municipal · hoy</span>
+      <span class="tc-ultimo-titular">Comunicado del ayuntamiento de Carrión de los Condes sobre la modernización del servicio…</span>
+    </a></li><li><a href="noticia/9ad4537c12326f9d.html" target="_self">
+      <span class="tc-kicker">Sahagún · Sahagún Digital · ayer</span>
+      <span class="tc-ultimo-titular">Más de cien voluntarios de Cruz Roja se reúnen en Sahagún en su encuentro provincial</span>
+    </a></li><li><a href="noticia/1f9f0743544c9181.html" target="_self">
+      <span class="tc-kicker">Sahagún · Sahagún Digital · hace 2 días</span>
+      <span class="tc-ultimo-titular">La Biblioteca de Sahagún hace balance de un año de actividades para unir a vecinos de todas las edades</span>
+    </a></li><li><a href="noticia/fe802fc0217abd6a.html" target="_self">
+      <span class="tc-kicker">Villalán de Campos · El Norte de Castilla · hace 2 días</span>
+      <span class="tc-ultimo-titular">Villalán de Campos celebra Santa Cecilia con el pregón de su secretario durante dos décadas</span>
+    </a></li><li><a href="https://bocyl.jcyl.es/html/2026/11/19/html/BOCYL-D-19112026-224-24.do" target="_blank" rel="noopener">
+      <span class="tc-kicker">Ampudia · BOCyL · hace 4 días</span>
+      <span class="tc-ultimo-titular">Expropiaciones en marcha para el parque eólico Valparaíso en Ampudia</span>
+    </a></li><li><a href="https://bocyl.jcyl.es/html/2026/11/19/html/BOCYL-D-19112026-224-23.do" target="_blank" rel="noopener">
+      <span class="tc-kicker">Villabraz · BOCyL · hace 4 días</span>
+      <span class="tc-ultimo-titular">Aprobado un sondeo para captar agua y abastecer una granja de gallinas camperas en Villabraz</span>
+    </a></li><li><a href="noticia/8d25e0602299c572.html" target="_self">
+      <span class="tc-kicker">El Burgo Ranero · Sahagún Digital · hace 4 días</span>
+      <span class="tc-ultimo-titular">La Junta abre un trámite de audiencia en la macrogranja porcina de El Burgo Ranero</span>
+    </a></li><li><a href="noticia/ec417311688e9804.html" target="_self">
+      <span class="tc-kicker">Grajal de Campos · Sahagún Digital · hace 4 días</span>
+      <span class="tc-ultimo-titular">El Palacio de los Condes de Grajal recrea la vida cotidiana de los Tercios este sábado</span>
+    </a></li><li><a href="https://bocyl.jcyl.es/html/2026/11/18/html/BOCYL-D-18112026-223-18.do" target="_blank" rel="noopener">
+      <span class="tc-kicker">Medina de Rioseco · BOCyL · hace 5 días</span>
+      <span class="tc-ultimo-titular">Visto bueno ambiental a las baterías que acompañarán a la planta solar de Medina de Rioseco</span>
+    </a></li></ol>
+  </aside>
 </section>
 
-<section class="tc-wrap" id="blog">
+<section class="tc-wrap tc-seccion" id="blog">
   <h2 class="tc-block-title">Investigaciones</h2>
-  <div class="tc-blog-grid"><a class="tc-blog-tarjeta" href="blog/dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute.html">
+  <div class="tc-inv-fila"><a class="tc-inv" href="blog/dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute.html">
       <img src="assets/blog/dos-plantas-un-acuifero-el-agua-de-villafafila-que-la-confederacion-autoriza-y-la-comarca-discute.jpg" alt="" loading="lazy">
-      <span class="tc-news-titular">Dos plantas, un acuífero: el agua de Villafáfila que la Confederación autoriza y la comarca discute</span>
-      <span class="tc-news-entradilla">La Confederación Hidrográfica del Duero ha autorizado a dos empresas distintas extraer agua del acuífero de las Lagunas de Villafáfila para producir hidrógeno verde en Granja de Moreruela. La administración dice que el impacto es despreciable; ecologistas, ayuntamiento y diputación no están de acuerdo. Reconstrucción documentada de un choque abierto.</span>
-    </a><a class="tc-blog-tarjeta" href="blog/dos-anos-sin-mariano-haro-el-leon-de-becerril.html">
-      
-      <span class="tc-news-titular">Dos años sin Mariano Haro, el león de Becerril que fue cuatro veces plata del mundo</span>
-      <span class="tc-news-entradilla">Se cumplen dos años de la muerte del mejor fondista español de los setenta: alcalde de Becerril de Campos durante veinticuatro años y vecino de toda la vida. Cuatro veces subcampeón del mundo de cross y cuarto en la final olímpica de Múnich, nunca llegó a tocar el oro que su carrera mereció. Becerril, en el corazón de Tierra de Campos, no le ha olvidado.</span>
-    </a><a class="tc-blog-tarjeta" href="blog/los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos.html">
+      <span class="tc-kicker">24 ago</span>
+      <span class="tc-inv-titular">Dos plantas, un acuífero: el agua de Villafáfila que la Confederación autoriza y la comarca discute</span>
+    </a><a class="tc-inv" href="blog/dos-anos-sin-mariano-haro-el-leon-de-becerril.html">
+      <span class="tc-inv-sinimg" aria-hidden="true">Tierra de Campos</span>
+      <span class="tc-kicker">27 jul</span>
+      <span class="tc-inv-titular">Dos años sin Mariano Haro, el león de Becerril que fue cuatro veces plata del mundo</span>
+    </a><a class="tc-inv" href="blog/los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos.html">
       <img src="assets/blog/los-278-vecinos-que-llegaron-y-los-239-que-faltan-que-sostiene-hoy-a-tierra-de-campos.jpg" alt="" loading="lazy">
-      <span class="tc-news-titular">Los 278 vecinos que llegaron y los 239 que faltan: qué sostiene hoy a Tierra de Campos</span>
-      <span class="tc-news-entradilla">En 2024 doce municipios de Tierra de Campos sumaron 278 personas por migración. El padrón, sin embargo, solo creció en 39. Entre una cifra y otra se pierden 239 vecinos que la llegada de gente de fuera apenas alcanza a compensar. Los números son del INE; la escena inicial de este reportaje es una reconstrucción, y así se advierte.</span>
+      <span class="tc-kicker">24 jul</span>
+      <span class="tc-inv-titular">Los 278 vecinos que llegaron y los 239 que faltan: qué sostiene hoy a Tierra de Campos</span>
     </a></div>
 </section>
 
+<section class="tc-wrap tc-seccion" id="pueblos">
+  <h2 class="tc-block-title">Los pueblos</h2>
+  <div class="tc-pueblos-grid tc-pueblos-grid--compacta"><a class="tc-pueblo" href="municipio/aguilar-de-campos.html">
+      <span class="tc-pueblo-nombre">Aguilar de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/almanza.html">
+      <span class="tc-pueblo-nombre">Almanza</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/ampudia.html">
+      <span class="tc-pueblo-nombre">Ampudia</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/becerril-de-campos.html">
+      <span class="tc-pueblo-nombre">Becerril de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/berrueces.html">
+      <span class="tc-pueblo-nombre">Berrueces</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/bolanos-de-campos.html">
+      <span class="tc-pueblo-nombre">Bolaños de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/bustillo-de-chaves.html">
+      <span class="tc-pueblo-nombre">Bustillo de Chaves</span>
+    </a><a class="tc-pueblo" href="municipio/cabezon-de-valderaduey.html">
+      <span class="tc-pueblo-nombre">Cabezón de Valderaduey</span>
+    </a><a class="tc-pueblo" href="municipio/campazas.html">
+      <span class="tc-pueblo-nombre">Campazas</span>
+    </a><a class="tc-pueblo" href="municipio/carrion-de-los-condes.html">
+      <span class="tc-pueblo-nombre">Carrión de los Condes</span><span class="tc-pueblo-nuevas">9 nuevas</span>
+    </a><a class="tc-pueblo" href="municipio/castrobol.html">
+      <span class="tc-pueblo-nombre">Castrobol</span>
+    </a><a class="tc-pueblo" href="municipio/castromocho.html">
+      <span class="tc-pueblo-nombre">Castromocho</span>
+    </a><a class="tc-pueblo" href="municipio/castroponce-de-valderaduey.html">
+      <span class="tc-pueblo-nombre">Castroponce de Valderaduey</span>
+    </a><a class="tc-pueblo" href="municipio/cea.html">
+      <span class="tc-pueblo-nombre">Cea</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/ceinos-de-campos.html">
+      <span class="tc-pueblo-nombre">Ceinos de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/cisneros.html">
+      <span class="tc-pueblo-nombre">Cisneros</span>
+    </a><a class="tc-pueblo" href="municipio/el-burgo-ranero.html">
+      <span class="tc-pueblo-nombre">El Burgo Ranero</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/fontihoyuelo.html">
+      <span class="tc-pueblo-nombre">Fontihoyuelo</span>
+    </a><a class="tc-pueblo" href="municipio/fromista.html">
+      <span class="tc-pueblo-nombre">Frómista</span>
+    </a><a class="tc-pueblo" href="municipio/fuentes-de-nava.html">
+      <span class="tc-pueblo-nombre">Fuentes de Nava</span>
+    </a><a class="tc-pueblo" href="municipio/gordaliza-del-pino.html">
+      <span class="tc-pueblo-nombre">Gordaliza del Pino</span>
+    </a><a class="tc-pueblo" href="municipio/gordoncillo.html">
+      <span class="tc-pueblo-nombre">Gordoncillo</span>
+    </a><a class="tc-pueblo" href="municipio/grajal-de-campos.html">
+      <span class="tc-pueblo-nombre">Grajal de Campos</span><span class="tc-pueblo-nuevas">2 nuevas</span>
+    </a><a class="tc-pueblo" href="municipio/grijota.html">
+      <span class="tc-pueblo-nombre">Grijota</span>
+    </a><a class="tc-pueblo" href="municipio/herrin-de-campos.html">
+      <span class="tc-pueblo-nombre">Herrín de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/joarilla-de-las-matas.html">
+      <span class="tc-pueblo-nombre">Joarilla de las Matas</span>
+    </a><a class="tc-pueblo" href="municipio/mayorga.html">
+      <span class="tc-pueblo-nombre">Mayorga</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/medina-de-rioseco.html">
+      <span class="tc-pueblo-nombre">Medina de Rioseco</span><span class="tc-pueblo-nuevas">2 nuevas</span>
+    </a><a class="tc-pueblo" href="municipio/melgar-de-abajo.html">
+      <span class="tc-pueblo-nombre">Melgar de Abajo</span>
+    </a><a class="tc-pueblo" href="municipio/montealegre-de-campos.html">
+      <span class="tc-pueblo-nombre">Montealegre de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/monzon-de-campos.html">
+      <span class="tc-pueblo-nombre">Monzón de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/morales-de-campos.html">
+      <span class="tc-pueblo-nombre">Morales de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/osornillo.html">
+      <span class="tc-pueblo-nombre">Osornillo</span>
+    </a><a class="tc-pueblo" href="municipio/osorno.html">
+      <span class="tc-pueblo-nombre">Osorno</span>
+    </a><a class="tc-pueblo" href="municipio/palazuelo-de-vedija.html">
+      <span class="tc-pueblo-nombre">Palazuelo de Vedija</span>
+    </a><a class="tc-pueblo" href="municipio/paredes-de-nava.html">
+      <span class="tc-pueblo-nombre">Paredes de Nava</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/pina-de-campos.html">
+      <span class="tc-pueblo-nombre">Piña de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/pozuelo-de-la-orden.html">
+      <span class="tc-pueblo-nombre">Pozuelo de la Orden</span>
+    </a><a class="tc-pueblo" href="municipio/riberos-de-la-cueza.html">
+      <span class="tc-pueblo-nombre">Riberos de la Cueza</span>
+    </a><a class="tc-pueblo" href="municipio/sahagun.html">
+      <span class="tc-pueblo-nombre">Sahagún</span><span class="tc-pueblo-nuevas">3 nuevas</span>
+    </a><a class="tc-pueblo" href="municipio/san-pedro-de-latarce.html">
+      <span class="tc-pueblo-nombre">San Pedro de Latarce</span>
+    </a><a class="tc-pueblo" href="municipio/tordehumos.html">
+      <span class="tc-pueblo-nombre">Tordehumos</span>
+    </a><a class="tc-pueblo" href="municipio/valderas.html">
+      <span class="tc-pueblo-nombre">Valderas</span>
+    </a><a class="tc-pueblo" href="municipio/valdunquillo.html">
+      <span class="tc-pueblo-nombre">Valdunquillo</span>
+    </a><a class="tc-pueblo" href="municipio/vallecillo.html">
+      <span class="tc-pueblo-nombre">Vallecillo</span>
+    </a><a class="tc-pueblo" href="municipio/valverde-de-campos.html">
+      <span class="tc-pueblo-nombre">Valverde de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/villabaruz-de-campos.html">
+      <span class="tc-pueblo-nombre">Villabaruz de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/villabragima.html">
+      <span class="tc-pueblo-nombre">Villabrágima</span>
+    </a><a class="tc-pueblo" href="municipio/villabraz.html">
+      <span class="tc-pueblo-nombre">Villabraz</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/villada.html">
+      <span class="tc-pueblo-nombre">Villada</span>
+    </a><a class="tc-pueblo" href="municipio/villafrechos.html">
+      <span class="tc-pueblo-nombre">Villafrechós</span>
+    </a><a class="tc-pueblo" href="municipio/villagarcia-de-campos.html">
+      <span class="tc-pueblo-nombre">Villagarcía de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/villalan-de-campos.html">
+      <span class="tc-pueblo-nombre">Villalán de Campos</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a><a class="tc-pueblo" href="municipio/villalon-de-campos.html">
+      <span class="tc-pueblo-nombre">Villalón de Campos</span>
+    </a><a class="tc-pueblo" href="municipio/villalpando.html">
+      <span class="tc-pueblo-nombre">Villalpando</span>
+    </a><a class="tc-pueblo" href="municipio/villamoronta.html">
+      <span class="tc-pueblo-nombre">Villamoronta</span>
+    </a><a class="tc-pueblo" href="municipio/villanueva-de-la-condesa.html">
+      <span class="tc-pueblo-nombre">Villanueva de la Condesa</span>
+    </a><a class="tc-pueblo" href="municipio/villanueva-de-los-caballeros.html">
+      <span class="tc-pueblo-nombre">Villanueva de los Caballeros</span>
+    </a><a class="tc-pueblo" href="municipio/villarramiel.html">
+      <span class="tc-pueblo-nombre">Villarramiel</span>
+    </a><a class="tc-pueblo" href="municipio/villoldo.html">
+      <span class="tc-pueblo-nombre">Villoldo</span><span class="tc-pueblo-nuevas">1 nueva</span>
+    </a></div>
+</section>
 
+<section class="tc-wrap tc-seccion" id="datos">
+  <h2 class="tc-block-title">La comarca en cifras</h2>
+  <div class="tc-datos"><div class="tc-dato">
+      <span class="tc-kicker">El tiempo hoy</span>
+      <span class="tc-dato-cifra">5°–9°</span>
+      <span class="tc-dato-txt">Nublado en la comarca. Lo más templado, Villabrágima.</span>
+    </div><div class="tc-dato">
+      <span class="tc-kicker">Paro registrado · octubre</span>
+      <span class="tc-dato-cifra">1.407</span>
+      <span class="tc-dato-txt">personas en 79 pueblos con dato público (SEPE).</span>
+    </div></div>
+</section>
 
-<section class="tc-wrap tc-comun">
+<section class="tc-wrap tc-seccion tc-comun">
   <div class="tc-comun-huerta">
-    <h2 class="tc-block-title">Campo y huerta — Noviembre en la meseta</h2>
+    <h2 class="tc-block-title">Campo y huerta · Noviembre</h2>
     <p class="tc-pieza-cuerpo">En noviembre la huerta se recoge. Planta ajo si no lo hiciste, y habas. Recolecta puerro, acelga, col y las raíces de invierno. Protege del frío lo delicado. Recoge hojas para el compostero.</p>
     <p class="tc-item-meta">Común para toda la comarca. Orientación general, no sustituye asesoramiento técnico.</p>
   </div>
   <div class="tc-comun-agenda">
-    <h2 class="tc-block-title">Agenda de la comarca</h2>
+    <h2 class="tc-block-title">Agenda de fiestas</h2>
     <ul class="tc-links-list tc-agenda"><li><strong>8 de diciembre</strong> · Inmaculada Concepción <span class="tc-agenda-pueblo">Villalpando</span></li><li><strong>20 de enero</strong> · San Sebastián <span class="tc-agenda-pueblo">Paredes de Nava</span></li><li><strong>12 de junio</strong> · San Juan de Sahagún <span class="tc-agenda-pueblo">Sahagún</span></li><li><strong>23 de junio</strong> · San Juan <span class="tc-agenda-pueblo">Villalón de Campos</span></li><li><strong>29 de junio</strong> · San Pedro <span class="tc-agenda-pueblo">Villalón de Campos</span></li><li><strong>Julio</strong> · Ferias y fiestas de julio <span class="tc-agenda-pueblo">Valderas</span></li></ul>
   </div>
 </section>
 
 
 
-<section class="tc-wrap">
-  <div class="tc-card">
-    <h3 style="margin-top:0;">El paro en la comarca</h3>
-    <p class="tc-pieza-cuerpo"><strong>1.407</strong> personas apuntadas al paro en
-    79 municipios de Tierra de Campos en octubre de 2026.</p>
-    <p class="tc-item-meta">Paro registrado en las oficinas de empleo (no es la tasa de paro de la EPA).
-    Otros 99 pueblos de la comarca no aparecen: tienen menos de 5 personas apuntadas y el
-    SEPE no publica la cifra exacta por secreto estadístico. Fuente:
-    <a href="https://www.sepe.es/HomeSepe/que-es-el-sepe/estadisticas/datos-estadisticos/municipios.html"
-    target="_blank" rel="noopener">SEPE</a>.</p>
-  </div>
-</section>
+<div class="tc-wrap"><section class="tc-acompanar-mini">
+  <span class="tc-section-label" style="color:var(--tc-verde-regadio);">Acompañar</span>
+  <h3>¿Tienes cerca a alguien que pasa mucho tiempo solo?</h3>
+  <p style="margin:0 0 .6rem; font-size:.92rem;">Una llamada corta también acompaña. Y si hace falta más,
+  estos teléfonos son gratuitos y al otro lado hay alguien que escucha:</p>
+  <p class="tc-acompanar-mini-tels"><span class="tc-acompanar-mini-tel"><a href="tel:112">112</a> <span>Emergencias</span></span><span class="tc-acompanar-mini-tel"><a href="tel:900444111">900 444 111</a> <span>Te Acompaña — Cruz Roja</span></span><span class="tc-acompanar-mini-tel"><a href="tel:717003717">717 003 717</a> <span>Teléfono de la Esperanza</span></span></p>
+  <p style="margin:.6rem 0 0; font-size:.85rem; color:var(--tc-texto-secundario);">Para la teleasistencia o la
+  ayuda a domicilio, pregunta en el ayuntamiento por los Servicios Sociales (CEAS) de la zona.
+  <a href="acompanar.html">Más, en Acompañar</a> · <a href="acompanar-hoja.html">hoja para imprimir y colgar en el pueblo</a>.</p>
+</section></div>
 
 <section class="tc-channel"><div class="tc-wrap tc-channel-inner">
-  <div><h2>Entérate de lo de tu pueblo por Telegram</h2>
-  <p>El tiempo, las noticias, la agenda de fiestas, alguna historia de aquí y una foto de vez en cuando. Sin ruido de fuera.</p></div>
+  <div><h2>Lo de tu pueblo, en el móvil</h2>
+  <p>El tiempo, las noticias, la agenda de fiestas y alguna historia de aquí, por Telegram o WhatsApp. Solo cuando hay algo que contar.</p></div>
   <div class="tc-channel-btns"><a class="tc-button" href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a> <a class="tc-button tc-button--ghost" href="https://wa.me/34695645395" target="_blank" rel="noopener">WhatsApp</a></div>
 </div></section>
 
@@ -162,9 +307,64 @@
   <div><h2>La semana terracampina</h2><p>Un correo, una vez por semana. Lo que pasa cerca, contado claro.</p></div>
   <form class="tc-form"><input class="tc-input" type="email" placeholder="tu@correo.es" aria-label="Correo" required><input type="text" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;" aria-hidden="true"><button class="tc-button" type="submit">Suscribirme</button></form>
 </div></section>
+<script>
+(function () {
+  var caja = document.getElementById("tc-tupueblo");
+  if (!caja) return;
+  var slug = null;
+  try { slug = localStorage.getItem("tc-pueblo"); } catch (e) {}
+  if (!slug) return;
+  fetch("datos/pueblos.json").then(function (r) { return r.json(); }).then(function (datos) {
+    var p = datos[slug];
+    if (!p) return;
+    function el(tag, cls, txt) {
+      var e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (txt != null) e.textContent = txt;
+      return e;
+    }
+    var cab = el("div", "tc-tupueblo-cab");
+    cab.appendChild(el("span", "tc-kicker tc-kicker--acento", "Tu pueblo"));
+    var h = el("h2", "tc-tupueblo-nombre");
+    var a = el("a", null, p.n);
+    a.href = "municipio/" + slug + ".html";
+    h.appendChild(a);
+    cab.appendChild(h);
+    if (p.t != null) cab.appendChild(el("span", "tc-tupueblo-tiempo", Math.round(p.t) + "° · " + (p.d || "")));
+    var lista = el("ul", "tc-tupueblo-lista");
+    (p.u || []).forEach(function (it) {
+      var li = el("li");
+      var l = el("a", null, null);
+      l.href = it.h;
+      if (/^https?:/.test(it.h)) { l.target = "_blank"; l.rel = "noopener"; }
+      l.appendChild(el("span", "tc-kicker", it.f));
+      l.appendChild(el("span", "tc-ultimo-titular", it.t));
+      li.appendChild(l);
+      lista.appendChild(li);
+    });
+    if (!p.u || !p.u.length) lista.appendChild(el("li", "tc-tupueblo-vacio", "Esta semana no hay novedades de " + p.n + " en boletines ni prensa."));
+    var pie = el("p", "tc-tupueblo-pie");
+    var todo = el("a", null, "Todo sobre " + p.n + " →");
+    todo.href = "municipio/" + slug + ".html";
+    var cambiar = el("button", "tc-tupueblo-cambiar", "Cambiar de pueblo");
+    cambiar.type = "button";
+    cambiar.addEventListener("click", function () {
+      try { localStorage.removeItem("tc-pueblo"); } catch (e) {}
+      location.reload();
+    });
+    pie.appendChild(todo);
+    pie.appendChild(cambiar);
+    caja.textContent = "";
+    caja.classList.add("tc-tupueblo--lleno");
+    caja.appendChild(cab);
+    caja.appendChild(lista);
+    caja.appendChild(pie);
+  }).catch(function () {});
+})();
+</script>
 <footer class="tc-footer"><div class="tc-wrap">
   <p class="tc-aviso">Este medio resume información pública procedente de fuentes oficiales y abiertas. Los resúmenes no sustituyen al documento original. Ante cualquier trámite, plazo, ayuda o acuerdo municipal, consulta siempre la fuente oficial enlazada.</p>
-  <div class="tc-footer-links"><a href="index.html">Portada</a><a href="gente.html">Gente de Campos</a><a href="chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOP</span><span>elterracampino.es</span></div>
+  <div class="tc-footer-links"><a href="index.html">Portada</a><a href="gente.html">Gente de Campos</a><a href="chivatazo.html">¿Sabes algo? Cuéntanoslo</a><a href="aviso-legal.html">Aviso legal</a><span>El tiempo: Open-Meteo · Boletines: BOCyL, BOP y sedes municipales</span><span>elterracampino.es</span></div>
   <div class="tc-footer-redes">Síguenos: <a href="https://www.facebook.com/profile.php?id=61592649658185" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/elterracampino/" target="_blank" rel="noopener">Instagram</a><a href="https://t.me/elterracampino" target="_blank" rel="noopener">Telegram</a></div>
   <p class="tc-aviso tc-propiedad">El Terracampino es un medio propiedad de María Vega Blanco. Desarrollado por <a href="aviso-legal.html">Naraya Services Cloud Consulting S.L.</a></p>
 </div></footer>
