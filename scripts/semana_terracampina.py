@@ -45,7 +45,7 @@ from scripts.empaquetar_newsletter import (  # noqa: E402
     elegir_banner, guardar_para_email, marcar_enviado, ya_enviado,
 )
 from sitegen import ia  # noqa: E402
-from sitegen.build import url_publica  # noqa: E402
+from sitegen.build import patrocinador_de, url_publica  # noqa: E402
 
 ULTIMAS = ROOT / "web" / "datos" / "ultimas.json"
 MANIFIESTO_BLOG = ROOT / "data" / "blog" / "articulos.json"
@@ -185,6 +185,16 @@ def componer(datos: dict, hoy: date, entradilla: str, banner: dict, con_portada:
     for pueblo, piezas in datos["pueblos"]:
         filas.append(_titulo_seccion(pueblo))
         filas.extend(_pieza_html(p, con_pueblo=False) for p in piezas)
+        # El patrocinio del pueblo incluye esta mención (ver la hoja de oferta
+        # a anunciantes y data/anunciantes.json -> patrocinios).
+        patro = patrocinador_de(piezas[0].get("slug", "")) if piezas else None
+        if patro:
+            filas.append(
+                f'<tr><td style="padding:8px 0 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;'
+                f'color:rgba(19,19,19,.6);"><span style="font-family:\'Courier New\',monospace;font-size:10px;'
+                f'letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(19,19,19,.2);padding:1px 4px;">'
+                f'Publicidad</span> Las noticias de {E(pueblo)}, con la colaboración de '
+                f'<a href="{E(patro.get("url", ""))}" style="color:#131313;">{E(patro["nombre"])}</a>.</td></tr>')
 
     if datos["agenda"]:
         items = "".join(
