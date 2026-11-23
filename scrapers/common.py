@@ -107,6 +107,28 @@ INTENTOS = 3
 ESPERA_ENTRE_INTENTOS = 2.0  # segundos, se duplica en cada reintento
 
 
+# Algunos servidores oficiales mandan su certificado SIN el intermedio. Los
+# navegadores lo completan solos; Python no, y falla con CERTIFICATE_VERIFY_FAILED.
+# Pasó con los embalses de SAIH Duero (2026-11-23): "sin datos de embalses" a
+# diario, y no era pasajero. Se añaden los intermedios públicos que faltan a las
+# raíces de certifi: se sigue verificando todo, solo se completa la cadena.
+_INTERMEDIOS = ROOT / "scrapers" / "certs" / "intermedios.pem"
+_BUNDLE: str | None = None
+
+
+def _ca_bundle() -> str | bool:
+    global _BUNDLE
+    if _BUNDLE is None:
+        import tempfile
+
+        import certifi
+        destino = Path(tempfile.gettempdir()) / "tc-ca-bundle.pem"
+        destino.write_text(Path(certifi.where()).read_text(encoding="utf-8") + "\n"
+                           + _INTERMEDIOS.read_text(encoding="utf-8"), encoding="utf-8")
+        _BUNDLE = str(destino)
+    return _BUNDLE
+
+
 def fetch(url: str, *, check_robots: bool = True) -> str:
     """GET con User-Agent identificable, pausa, comprobación de robots.txt y
     reintentos ante fallos pasajeros de red."""
@@ -115,7 +137,8 @@ def fetch(url: str, *, check_robots: bool = True) -> str:
     ultimo: Exception | None = None
     for intento in range(INTENTOS):
         try:
-            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT)
+            resp = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=REQUEST_TIMEOUT,
+                                verify=_ca_bundle())
         except requests.RequestException as exc:
             ultimo = exc
         else:
