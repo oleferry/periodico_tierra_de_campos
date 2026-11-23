@@ -19,8 +19,8 @@ La API REST de WordPress (/wp-json/wp/v2/posts) es preferible a scrapear el
 HTML: da fecha, título y enlace ya estructurados, sin depender del tema/plugin
 de maquetación (aquí Elementor) que cambia con cada actualización de la web.
 
-Cobertura actual: Medina de Rioseco, Carrión de los Condes y Becerril de
-Campos. Investigado el resto de pilotos (2026-07-13):
+Cobertura actual: Medina de Rioseco y Carrión de los Condes (Becerril de
+Campos salió el 2026-11-23: su web pasó a la sede electrónica). Investigado el resto de pilotos (2026-07-13):
   · Villada, Paredes de Nava, Villarramiel: WordPress pero con la API REST
     desactivada (401 "No REST API") — pendiente de valorar scraping HTML.
   · Fuentes de Nava: no es WordPress, es Joomla — necesitaría un scraper
@@ -53,10 +53,10 @@ SITIOS = {
         "url": "https://carriondeloscondes.org",
         "nombre": "Ayuntamiento de Carrión de los Condes",
     },
-    "becerril-de-campos": {
-        "url": "https://becerrildecampos.es",
-        "nombre": "Ayuntamiento de Becerril de Campos",
-    },
+    # Becerril de Campos, fuera desde 2026-11-23: becerrildecampos.es ya no es
+    # WordPress, redirige a becerrildecampos.sedelectronica.es. Cada build daba
+    # "sin noticias municipales (Respuesta no-JSON)". Si se quiere recuperar, va
+    # por plenos_sedelectronica.py, no por aquí.
 }
 
 _TAG_RE = re.compile(r"<[^>]+>")
