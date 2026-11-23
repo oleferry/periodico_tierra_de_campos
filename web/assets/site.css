@@ -961,3 +961,178 @@ a.tc-dato:hover { background: #f7f6f2; }
   .tc-inv-fila { grid-template-columns: 1fr; }
   .tc-tupueblo .tc-muni-select { max-width: none; }
 }
+
+/* =====================================================================
+   ACABADO SUAVE — 2026-11-23
+   Ideas tomadas del catálogo de 21st.dev (tarjetas que se levantan,
+   subrayado que aparece, cabecera fija con cristal, entradas al hacer
+   scroll) pero escritas en CSS propio: sus componentes son React/Tailwind
+   y la web es HTML estático pensado para móviles con mala cobertura.
+   Sin JavaScript nuevo. Todo el movimiento se apaga con
+   prefers-reduced-motion. Para volver a las esquinas rectas del papel:
+   --tc-radio: 0.
+   ===================================================================== */
+
+:root {
+  --tc-radio: 6px;
+  --tc-radio-peq: 4px;
+  --tc-suave: cubic-bezier(.2, .7, .2, 1);
+  --tc-sombra-1: 0 1px 2px rgba(19,19,19,.06), 0 2px 8px rgba(19,19,19,.05);
+  --tc-sombra-2: 0 2px 4px rgba(19,19,19,.06), 0 10px 24px rgba(19,19,19,.09);
+  --tc-velo: #f6f4ef;            /* fondo de espera de las fotos y del hover */
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+h1, h2, h3, .tc-headline { text-wrap: balance; }
+p { text-wrap: pretty; }
+::selection { background: rgba(216,177,90,.38); color: var(--tc-tinta-tierra); }
+
+/* Las anclas (#ultimo, #pueblos...) no quedan tapadas por la cabecera fija */
+[id] { scroll-margin-top: 96px; }
+
+/* Enlaces: el subrayado aparece en lugar de saltar */
+a { text-underline-offset: 3px; text-decoration-thickness: 1px;
+    transition: color .2s var(--tc-suave), text-decoration-color .2s var(--tc-suave), background-color .2s var(--tc-suave); }
+
+/* Foco visible para quien navega con teclado (y nadie más) */
+:focus { outline: none; }
+:focus-visible { outline: 2px solid var(--tc-azul-bop); outline-offset: 3px; border-radius: var(--tc-radio-peq); }
+
+/* ---------- Cabecera fija ---------- */
+.tc-header {
+  position: sticky; top: 0; z-index: 60;
+  background: rgba(255,255,255,.96);
+}
+/* Sombra que aparece al bajar, sin JS, donde el navegador lo sabe hacer */
+@keyframes tc-cabecera-sombra { from { box-shadow: 0 0 0 transparent; } to { box-shadow: 0 6px 18px -10px rgba(19,19,19,.35); } }
+@supports (animation-timeline: scroll()) {
+  .tc-header { animation: tc-cabecera-sombra linear both; animation-timeline: scroll(); animation-range: 0 120px; }
+}
+/* El cristal solo en escritorio: en móvil, backdrop-filter convertiría la
+   cabecera en el marco del menú a pantalla completa (position: fixed) y el
+   menú quedaría encerrado en ella. */
+@media (min-width: 721px) {
+  @supports (backdrop-filter: blur(8px)) {
+    .tc-header { background: rgba(255,255,255,.84); backdrop-filter: saturate(1.4) blur(10px); -webkit-backdrop-filter: saturate(1.4) blur(10px); }
+  }
+  .tc-nav a {
+    border-bottom: none; padding-bottom: 3px;
+    background: linear-gradient(var(--tc-azul-bop), var(--tc-azul-bop)) no-repeat left bottom / 0 2px;
+    transition: background-size .28s var(--tc-suave), color .2s;
+  }
+  .tc-nav a:hover, .tc-nav a[aria-current="page"] { background-size: 100% 2px; color: var(--tc-azul-bop); }
+}
+@media (max-width: 720px) {
+  /* Fija pero estrecha (unos 64 px) y opaca: en una pantalla pequeña no
+     puede comerse media noticia ni dejar ver el texto que pasa por debajo. */
+  .tc-header { background: var(--tc-papel-crudo); padding: 10px 0; }
+  .tc-logo img { height: 44px; }
+  .tc-nav-toggle { transition: background-color .2s, transform .1s; }
+  .tc-nav-toggle:active { transform: scale(.97); }
+  .tc-nav--abierto { animation: tc-aparece .22s var(--tc-suave); }
+  .tc-nav a { transition: padding-left .2s var(--tc-suave), color .2s; }
+  .tc-nav a:active { padding-left: 8px; color: var(--tc-azul-bop); }
+}
+
+/* ---------- Titulares: subrayado que se funde ---------- */
+.tc-lead-titular, .tc-ultimo-titular, .tc-inv-titular, .tc-news-titular, .tc-pieza-titulo, .tc-tupueblo-nombre a {
+  text-decoration: underline; text-decoration-color: transparent;
+  text-decoration-thickness: 2px; text-underline-offset: 4px;
+  transition: text-decoration-color .25s var(--tc-suave), color .2s;
+}
+.tc-lead-link:hover .tc-lead-titular, .tc-ultimo a:hover .tc-ultimo-titular, .tc-tupueblo-lista a:hover .tc-ultimo-titular,
+.tc-inv:hover .tc-inv-titular, a:hover .tc-news-titular, a:hover .tc-pieza-titulo, .tc-tupueblo-nombre a:hover,
+.tc-blog-tarjeta:hover .tc-news-titular {
+  text-decoration: underline; text-decoration-color: currentColor;
+}
+.tc-lead-titular { text-underline-offset: 6px; }
+
+/* ---------- Imágenes ---------- */
+.tc-lead-img, .tc-inv img, .tc-inv-sinimg, .tc-blog-imagen { border-radius: var(--tc-radio); }
+/* Fondo de espera solo en fotos: .tc-inv-sinimg tiene su propio fondo oscuro */
+.tc-lead-img, .tc-inv img, .tc-blog-imagen { background-color: var(--tc-velo); }
+.tc-blog-tarjeta img { background-color: var(--tc-velo); }
+.tc-lead-img, .tc-inv img, .tc-inv-sinimg { border-color: var(--tc-linea-suave); }
+.tc-lead-img, .tc-inv img, .tc-inv-sinimg {
+  transition: transform .45s var(--tc-suave), box-shadow .45s var(--tc-suave), filter .45s;
+}
+@media (hover: hover) {
+  .tc-lead-link:hover .tc-lead-img, .tc-inv:hover img, .tc-inv:hover .tc-inv-sinimg {
+    transform: translateY(-3px); box-shadow: var(--tc-sombra-2); filter: saturate(1.08);
+  }
+}
+
+/* ---------- "Lo último" y "Tu pueblo": la fila se desplaza un poco ---------- */
+.tc-ultimo a, .tc-tupueblo-lista a {
+  border-radius: var(--tc-radio-peq);
+  transition: padding .25s var(--tc-suave), background-color .25s var(--tc-suave), box-shadow .25s var(--tc-suave);
+}
+@media (hover: hover) {
+  .tc-ultimo a:hover, .tc-tupueblo-lista a:hover {
+    background: var(--tc-velo); padding-left: 12px; padding-right: 8px;
+    box-shadow: inset 3px 0 0 var(--tc-azul-bop);
+  }
+}
+
+/* ---------- Tarjetas ---------- */
+.tc-pueblo, .tc-blog-tarjeta, .tc-dato, .tc-card, .tc-weather-hero, .tc-patrocinio, .tc-days, .tc-popup {
+  border-radius: var(--tc-radio);
+}
+.tc-blog-tarjeta { overflow: hidden; }
+.tc-pueblo, .tc-blog-tarjeta, a.tc-dato {
+  transition: transform .3s var(--tc-suave), box-shadow .3s var(--tc-suave), border-color .2s, background-color .2s;
+}
+@media (hover: hover) {
+  .tc-pueblo:hover, a.tc-dato:hover { transform: translateY(-2px); box-shadow: var(--tc-sombra-1); }
+  .tc-blog-tarjeta:hover { background: var(--tc-papel-crudo); transform: translateY(-3px); box-shadow: var(--tc-sombra-2); }
+}
+
+/* ---------- Botones y campos ---------- */
+.tc-button, .tc-input, .tc-muni-select, .tc-form input, .tc-form select, .tc-form textarea,
+input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+  border-radius: var(--tc-radio);
+}
+.tc-button { transition: background-color .2s, color .2s, box-shadow .2s, transform .1s; }
+.tc-button:hover { box-shadow: var(--tc-sombra-1); }
+.tc-button:active { transform: scale(.98); }
+.tc-input, .tc-muni-select, .tc-form input, .tc-form select, .tc-form textarea,
+input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+  transition: border-color .2s, box-shadow .2s;
+}
+.tc-input:focus-visible, .tc-muni-select:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: none; border-color: var(--tc-azul-bop); box-shadow: 0 0 0 3px rgba(31,63,92,.18);
+}
+/* Desplegable con flecha propia (la del sistema cambiaba en cada móvil) */
+select, .tc-muni-select {
+  -webkit-appearance: none; appearance: none; cursor: pointer;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23131313' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 12px center;
+}
+.tc-tupueblo .tc-muni-select { padding-right: 36px; }
+
+/* ---------- Ventana del boletín ---------- */
+.tc-popup-overlay--visible { animation: tc-aparece .25s ease-out; }
+.tc-popup-overlay--visible .tc-popup { animation: tc-sube .35s var(--tc-suave); box-shadow: 0 20px 50px -12px rgba(19,19,19,.35); }
+
+/* ---------- Entradas al hacer scroll (sin JS) ---------- */
+@keyframes tc-aparece { from { opacity: 0; } to { opacity: 1; } }
+@keyframes tc-sube { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@supports (animation-timeline: view()) {
+  /* translate y no transform: así no pisa el levantamiento del :hover */
+  @keyframes tc-entra { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
+  .tc-inv, .tc-blog-tarjeta, .tc-dato, .tc-pueblo {
+    animation: tc-entra linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 45%;
+  }
+}
+
+/* Quien pide menos movimiento, no tiene ninguno */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
