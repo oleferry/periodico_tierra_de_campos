@@ -155,11 +155,11 @@ FUENTES = [
         "slug": "elespanol-sahagun", "nombre": "El Español",
         "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/sahagun/",
     },
-    {
-        "slug": "diariodevalladolid-villalon", "nombre": "Diario de Valladolid",
-        "tipo": "html_tema", "url": "https://www.diariodevalladolid.es/temas/villalon-de-campos/",
-    },
 ]
+# Diario de Valladolid (/temas/villalon-de-campos/) se retiró el 2026-11-24 por
+# decisión del usuario: su robots.txt bloquea a GPTBot, anthropic-ai y CCBot.
+# No nombra a nuestro bot, pero pasamos su texto a una IA, que es justo lo que
+# quiere evitar. Villalón queda con El Español y El Norte de Castilla.
 # InterBenavente (interbenavente.es) se retiró el 2026-07-17: aunque su
 # robots.txt permite el rastreo, sus páginas de artículo responden "Tu
 # comportamiento parece de bot" (403) hasta a un navegador real. La intención

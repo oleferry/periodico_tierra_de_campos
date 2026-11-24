@@ -61,7 +61,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from scrapers.common import ROOT, ScraperError, fetch, sha256  # noqa: E402
-from scrapers.radar_noticias import PISTAS_PATH  # noqa: E402
+from scrapers.radar_noticias import FUENTES, PISTAS_PATH  # noqa: E402
 from sitegen import ia  # noqa: E402
 
 PROPIAS_PATH = ROOT / "data" / "noticias" / "propias.json"
@@ -249,10 +249,16 @@ def auto(maximo: int, dry_run: bool = False) -> int:
 
     ahora = datetime.now(timezone.utc)
     hechas = {d["hash"] for d in _cargar(PROPIAS_PATH)}
+    # Solo fuentes que siguen activas: si se retira un medio (p. ej. Diario de
+    # Valladolid, 2026-11-24, por bloquear a la IA), sus pistas ya en cola
+    # tampoco se desarrollan.
+    activas = {f["slug"] for f in FUENTES}
     candidatas = []
     for p in _pistas_pendientes():
         fecha = _fecha_pista(p)
         if _hash_pieza(p) in hechas or fecha is None:
+            continue
+        if p.get("fuente_slug") and p["fuente_slug"] not in activas:
             continue
         if ahora - fecha > timedelta(days=DIAS_MAX_ANTIGUEDAD):
             continue
