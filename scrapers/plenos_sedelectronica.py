@@ -18,6 +18,14 @@ pueblos de la plataforma solo porque comparten proveedor.
 
   · Mayorga: autorización verbal explícita del alcalde al usuario del
     proyecto (2026-07-13). El usuario asume la responsabilidad de este acceso.
+  · Paredes de Nava, Sahagún y Villalón de Campos: confirmación telefónica de
+    cada ayuntamiento al usuario del proyecto (2026-11-24): "no hay problema en
+    leerlo, es público". El usuario asume la responsabilidad de este acceso.
+
+Cada sede ordena las actas a su manera y el listado las admite todas:
+carpetas por año en cualquier orden (Mayorga, de nueva a vieja; Sahagún, de
+vieja a nueva), actas sueltas en la propia carpeta (Paredes, Villalón y las de
+2026 de Sahagún) y el botón "Mostrar más", que pagina de 10 en 10.
 
 Por qué hace falta un navegador de verdad (Playwright) y no solo requests:
 el listado de actas por año no es un enlace normal, es una llamada AJAX de
@@ -49,7 +57,7 @@ from datetime import datetime, timezone
 from urllib.parse import urlsplit
 
 import requests
-from playwright.sync_api import Error as PlaywrightError, sync_playwright
+from playwright.sync_api import Error as PlaywrightError, TimeoutError as PlaywrightTimeout, sync_playwright
 from pypdf import PdfReader
 from pypdf.errors import PdfReadError
 
@@ -59,6 +67,19 @@ SITIOS = {
     "mayorga": {
         "listado_url": "https://mayorga.sedelectronica.es/transparency/53907f69-f524-430f-b6cd-25b084600825/",
         "nombre": "Ayuntamiento de Mayorga",
+    },
+    # 1.5.1.2. ACTAS de cada portal de transparencia (localizadas 2026-11-24).
+    "paredes-de-nava": {
+        "listado_url": "https://paredesdenava.sedelectronica.es/transparency/e44e9c40-f899-47e5-94ef-a1a71759ccea/",
+        "nombre": "Ayuntamiento de Paredes de Nava",
+    },
+    "sahagun": {
+        "listado_url": "https://sahagun.sedelectronica.es/transparency/c6e6cb6b-76bb-42c4-8605-08cf2a465689/",
+        "nombre": "Ayuntamiento de Sahagún",
+    },
+    "villalon-de-campos": {
+        "listado_url": "https://villalondecampos.sedelectronica.es/transparency/3dda524c-c8ba-4f7a-8f38-afc9918e456d/",
+        "nombre": "Ayuntamiento de Villalón de Campos",
     },
 }
 
@@ -76,9 +97,11 @@ def _tipo_sesion(titulo: str) -> str:
     t = titulo.lower()
     if "constitutiv" in t:
         return "Sesión constitutiva del Ayuntamiento"
-    if "extraordinaria y urgente" in t or "extraordinario y urgente" in t:
+    # "extra" cubre también las abreviaturas de Paredes: "PLENO EXTRA. 30-03-2026",
+    # "PLENO EXTRA.URGENTE 29-11-2023".
+    if "extra" in t and "urgente" in t:
         return "Pleno extraordinario y urgente"
-    if "extraordinari" in t:
+    if "extra" in t:
         return "Pleno extraordinario"
     if "ordinari" in t:
         return "Pleno ordinario"
@@ -95,6 +118,13 @@ def _fecha_sesion_de_titulo(titulo: str) -> str | None:
         mes = MESES.get(mes_txt.lower())
         if mes:
             return f"{int(dia)} de {mes_txt.lower()} de {anio}"
+    # Paredes de Nava: "[PLENO ORDINARIO 18-06-2026]"
+    m = re.search(r"(?<!\d)(\d{1,2})[-/.](\d{1,2})[-/.](20\d{2})(?!\d)", titulo)
+    if m:
+        dia, mes, anio = (int(x) for x in m.groups())
+        if 1 <= mes <= 12 and 1 <= dia <= 31:
+            nombre_mes = next(k for k, v in MESES.items() if v == mes)
+            return f"{dia} de {nombre_mes} de {anio}"
     return None
 
 
@@ -134,31 +164,76 @@ def _documento(session: requests.Session, preview_url: str) -> dict:
     return {"fecha": fecha, "texto": texto}
 
 
+def _expandir(page) -> None:
+    """Pulsa "Mostrar más" (paginación AJAX de 10 en 10) hasta que no quede."""
+    for _ in range(40):
+        boton = page.locator(".more_results button")
+        if boton.count() == 0 or not boton.first.is_visible():
+            return
+        # Se cuentan actas Y carpetas (las dos llevan .gIconLink): en Mayorga el
+        # botón carga más carpetas de años, no actas.
+        # Con justo 10 elementos el botón sale igual y al pulsarlo no añade nada,
+        # solo desaparece (Mayorga, carpeta de 2026): se espera a lo que pase
+        # antes. Si ni eso, se sigue con lo ya cargado en vez de fallar.
+        antes = page.locator("a.gIconLink").count()
+        boton.first.click()
+        try:
+            page.wait_for_function(
+                "n => document.querySelectorAll('a.gIconLink').length > n"
+                " || !document.querySelector('.more_results button')",
+                arg=antes, timeout=15000)
+        except PlaywrightTimeout:
+            return
+
+
+def _docs(page) -> list[dict]:
+    return page.eval_on_selector_all(
+        'a[href*="preview-document"]',
+        "els => els.map(e => ({href: e.href, texto: e.textContent.trim()}))",
+    )
+
+
+def _anio(texto: str) -> int | None:
+    m = re.findall(r"(?<!\d)(20\d{2})(?!\d)", texto) or re.findall(r"(?<!\d)(20\d{2})\d{4}_", texto)
+    return int(m[-1]) if m else None
+
+
 def _listar_documentos(listado_url: str, anios: int) -> list[dict]:
-    """Usa un navegador real para expandir los N años más recientes y recoger
-    (título, enlace a preview-document) de cada acta. Ver docstring del módulo:
-    esta parte no se puede hacer con requests, el listado es AJAX firmado."""
+    """Usa un navegador real para recoger (título, enlace a preview-document)
+    de las actas recientes. Ver docstring del módulo: esta parte no se puede
+    hacer con requests, el listado es AJAX firmado.
+
+    Recientes = de los `anios` últimos años naturales. Vale para las tres
+    formas de ordenar que hay: actas sueltas (se filtran por el año que traen
+    en el título; si no traen ninguno, se quedan) y carpetas por año (se
+    eligen por el número, no por la posición, que en cada sede va al revés)."""
+    desde = datetime.now(timezone.utc).year - anios + 1
     encontrados: list[dict] = []
     try:
         with sync_playwright() as p:
             # launch() va DENTRO del try a propósito: si el navegador Chromium no
-            # está instalado (p. ej. en CI/GitHub Actions, donde no se descarga
-            # para no engordar el job), launch() lanza aquí y hay que envolverlo
-            # igual que un timeout de red. Si quedara fuera, tumbaría el build
-            # entero en vez de saltarse solo este municipio. Ver .github/workflows.
+            # está instalado, launch() lanza aquí y hay que envolverlo igual que
+            # un timeout de red. Si quedara fuera, tumbaría el build entero en
+            # vez de saltarse solo este municipio. Ver .github/workflows.
             browser = p.chromium.launch()
             try:
                 page = browser.new_page(user_agent=USER_AGENT)
                 page.goto(listado_url, wait_until="networkidle", timeout=30000)
-                enlaces_anio = page.locator("a.gIconLink.exp").all_text_contents()
-                for texto in enlaces_anio[:anios]:
+                _expandir(page)
+                for d in _docs(page):
+                    anio = _anio(d["texto"])
+                    if anio is None or anio >= desde:
+                        encontrados.append(d)
+
+                carpetas = [t.strip() for t in page.locator("a.gIconLink.exp").all_text_contents()]
+                for texto in carpetas:
+                    anio = _anio(texto)
+                    if anio is None or anio < desde:
+                        continue
                     with page.expect_navigation(wait_until="networkidle", timeout=20000):
                         page.click(f"text={texto}", timeout=10000)
-                    docs = page.eval_on_selector_all(
-                        'a[href*="preview-document"]',
-                        "els => els.map(e => ({href: e.href, texto: e.textContent.trim()}))",
-                    )
-                    encontrados.extend(docs)
+                    _expandir(page)
+                    encontrados.extend(_docs(page))
                     page.go_back(wait_until="networkidle", timeout=20000)
             finally:
                 browser.close()
@@ -167,7 +242,8 @@ def _listar_documentos(listado_url: str, anios: int) -> list[dict]:
         # se envuelve en ScraperError, que el resto del proyecto atrapa y sigue
         # sin este municipio, igual que cualquier otro scraper.
         raise ScraperError(ERR_NETWORK, f"navegador: {exc}") from exc
-    return encontrados
+    vistos: set[str] = set()
+    return [d for d in encontrados if not (d["href"] in vistos or vistos.add(d["href"]))]
 
 
 def fetch_plenos(municipio_slug: str) -> list[dict]:
