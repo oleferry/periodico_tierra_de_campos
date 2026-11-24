@@ -138,6 +138,23 @@ FUENTES = [
         "slug": "elespanol-villarramiel", "nombre": "El Español",
         "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/villarramiel_palencia/",
     },
+    # Paredes de Nava y Sahagún (2026-11-24): las webs de sus ayuntamientos no
+    # publican noticias (Paredes, nada desde 2025-08; Sahagún, OpenCms parado
+    # en 2020), así que se tiran de las páginas por localidad de El Español.
+    # DESCARTADOS a propósito, aunque su robots.txt no nombre a nuestro bot:
+    # Diario de León (/temas/sahagun/, el más activo) y Diario Palentino
+    # bloquean expresamente a los robots de IA (GPTBot, anthropic-ai...) y
+    # nosotros pasamos su texto a una IA. Misma regla que con InterBenavente:
+    # se respeta la intención del medio. La Nueva Crónica (/tag/sahagun) no
+    # lleva fecha en la URL y desarrollar_pista descarta las pistas sin fecha.
+    {
+        "slug": "elespanol-paredes", "nombre": "El Español",
+        "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/paredes_de_nava/",
+    },
+    {
+        "slug": "elespanol-sahagun", "nombre": "El Español",
+        "tipo": "html_tema", "url": "https://www.elespanol.com/lugares/sahagun/",
+    },
     {
         "slug": "diariodevalladolid-villalon", "nombre": "Diario de Valladolid",
         "tipo": "html_tema", "url": "https://www.diariodevalladolid.es/temas/villalon-de-campos/",
